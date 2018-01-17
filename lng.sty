@@ -1,0 +1,74 @@
+% =============================================
+% Macros for linguistics
+% François Lareau <first.lastname@umontreal.ca>
+% OLST, Université de Montréal
+% =============================================
+
+\ProvidesPackage{lng}
+
+\RequirePackage{linguex}         % For linguistic examples and glosses
+\RequirePackage{xspace}          % Smart space at the end of a macro
+
+
+% Writing conventions
+% ==========================================
+
+% Grammaticality judgements:
+\newcommand{\ungr}{\textup{*}} % Ungrammatical: \form{\ungr He not do it} or \ungr\form{He not do it}
+
+% Linguistic entities
+\newcommand{\conc}[1]{\textsc{\MakeLowercase{#1}}}	% Concept: \conc{RAIN}
+\newcommand{\form}[1]{\textit{#1}} % Linguistic form: \form{the dog}
+\newcommand{\gramm}[1]{{\textsc{\MakeLowercase{#1}}}} % Grammeme: \gramm{past} or \gramm{PAST}
+\newcommand{\idiom}[1]{\textopencorner #1\textcorner} % Idiom: \idiom{kick the bucket}
+\newcommand{\lex}[1]{\textsc{\MakeLowercase{#1}}} % Lexical unit: \lex{dog} or \lex{DOG}
+\newcommand{\lexfn}[1]{\texttt{#1}} % Name of a lexical function: \lexfn{Oper$_1$}
+\newcommand{\pos}[1]{\subscript{\textup{\textsc{\MakeLowercase{#1}}}}} % Part of speech: \lex{export}\pos{n}
+\newcommand{\presup}[1]{\ensuremath{|}[#1]\ensuremath{|}} % Presupposed part of a definition: \presup{X has authority on Y} X says...
+\newcommand{\sem}[1]{\ensuretext{`#1'}} % Semantic quotes: \sem{dog}
+\newcommand{\sensenum}[1]{{\textbf{#1}}} % Sense number: \lex{dog}\sensenum{I.1}
+\newcommand{\sign}[1]{\textbf{#1}} % Name of a linguistic sign: the suffix \sign{-ga}
+\newcommand{\vocnum}[1]{\superscript{\fontfamily{phv}\selectfont #1}} % Distinctive number for homophonic vocable: \lex{table}\vocnum{1}
+
+% Relations
+\newcommand{\lrel}[1]{\ensuremath{\leftarrow}\rel{#1}\ensuremath{-}} % Named relation to the left: dog\lrel{1}leave
+\newcommand{\rel}[1]{{\textbf{#1}}} % Name of a linguistic relation: Actant \rel{I} of...
+\newcommand{\rrel}[1]{\ensuremath{-}\rel{#1}\ensuremath{\rightarrow}} % Named relation to the right: leave\rrel{2}house
+
+% Etc.
+\newcommand{\altform}[1]{\ensuremath{\langle}#1\ensuremath{\rangle}} % Alternative wording in an example: \form{He did not \alt{didn't} do it}
+\newcommand{\slashup}{\textup{\slash}} % Slash in upright style within slanted examples
+
+% Parameters for covington glosses
+%\let\eachwordone=\it    % Style for the first line (foreign language)
+%\let\eachwordtwo=\rm    % Style for the second line (gloss)
+%\let\eachwordthree=\rm  % Style for the third line (translation)
+
+
+% Lexical functions
+% ==========================================
+\newcommand{\Syn}{\lexfn{Syn}}
+\newcommand{\Gener}{\lexfn{Gener}}
+\newcommand{\Anti}{\lexfn{Anti}}
+\newcommand{\Magn}{\lexfn{Magn}}
+\newcommand{\Bon}{\lexfn{Bon}}
+\newcommand{\Ver}{\lexfn{Ver}}
+\newcommand{\Propt}{\lexfn{Propt}}
+\newcommand{\Loc}[1]{\lexfn{Loc$_{#1}$}}
+\newcommand{\Locin}{\Loc{in}}
+\newcommand{\Locad}{\Loc{ad}}
+\newcommand{\Locab}{\Loc{ab}}
+\newcommand{\Oper}[1]{\lexfn{Oper$_{#1}$}}
+\newcommand{\Func}[1]{\lexfn{Func$_{#1}$}}
+\newcommand{\Labor}[1]{\lexfn{Labor$_{#1}$}}
+\newcommand{\Real}[1]{\lexfn{Real$_{#1}$}}
+\newcommand{\Fact}[1]{\lexfn{Fact$_{#1}$}}
+\newcommand{\Labreal}[1]{\lexfn{Labreal$_{#1}$}}
+\newcommand{\Si}[1]{\lexfn{S$_{#1}$}}
+\newcommand{\Ai}[1]{\lexfn{A$_{#1}$}}
+\newcommand{\Incep}{\lexfn{Incep}}
+\newcommand{\Cont}{\lexfn{Cont}}
+\newcommand{\Fin}{\lexfn{Fin}}
+\newcommand{\Caus}[1][]{\lexfn{Caus$_{#1}$}}
+\newcommand{\Liqu}[1][]{\lexfn{Liqu$_{#1}$}}
+\newcommand{\Perm}[1][]{\lexfn{Perm$_{#1}$}}

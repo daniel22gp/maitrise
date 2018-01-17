@@ -1,0 +1,41 @@
+\begin{thebibliography}{5}
+\ProvideTextCommand{\guillemotleft}{OT1}{%
+  \leavevmode\raise .27ex\hbox{$\scriptscriptstyle\ll$}}
+\ProvideTextCommand{\guillemotright}{OT1}{%
+  \leavevmode\raise .27ex\hbox{$\scriptscriptstyle\gg$}}
+\newcommand{\enquote}[1]{\guillemotleft#1\guillemotright}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\selectlanguage}[1]{\relax}
+\input{francaisbst.tex}
+\newcommand{\Capitalize}[1]{\uppercase{#1}}
+\newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
+
+\bibitem[{\text{Goossens} \bbletal{}(1994)\text{Goossens}, \text{Mittelbach}
+  \bbland{} \text{Samarin}}]{GMS1994}
+\text{Goossens, M.}, \text{F.~Mittelbach} \bbland{} \text{A.~Samarin}. 1994,
+  \enquote{The {\LaTeX} companion}, New-York.
+
+\bibitem[{\text{Hastie}(2005)}]{hastie2005}
+\text{Hastie, D.} 2005, \enquote{Towards automatic reversible jump markov chain
+  monte carlo}, \bblphdthesis{}, University of Bristol.
+
+\bibitem[{\text{Lamport}(1986)}]{Lamport1986}
+\text{Lamport, L.} 1986, \enquote{{\LaTeX} -- a document preparation system},
+  Reading.
+
+\bibitem[{\text{Martin}(1992)}]{Martin1992}
+\text{Martin, P.} 1992, \enquote{On {S}chur-{W}eyl duality, ${A}_n$ {H}ecke
+  algebras and quantum $\mathfrak{sl}({N})$ on $\otimes^{n+1}\mathbb{C}^{N}$},
+  \emph{Int. J. Mod. Phys. A}, \bblvol{}~7, \bblpp{} 645--673.
+
+\bibitem[{\text{Spivak}(1990)}]{Spivak1990}
+\text{Spivak, M.~D.} 1990, \enquote{The joy of {\TeX}}, Providence,
+  \bblsecondo{} \bbledn{}.
+
+\end{thebibliography}

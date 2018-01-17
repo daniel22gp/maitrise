@@ -1,0 +1,54 @@
+% =============================================
+% General macros
+% François Lareau <first.lastname@umontreal.ca>
+% OLST, Université de Montréal
+% =============================================
+
+\ProvidesPackage{gen}
+
+\RequirePackage{amsmath}         % For the \text command
+\RequirePackage{lipsum}
+
+% General macros
+% ==========================================
+
+\providecommand{\ensuretext}[1]{\ifmmode\text{#1}\else#1\fi}
+\providecommand{\superscript}[1]{\ensuremath{^{\text{#1}}}}
+\providecommand{\subscript}[1]{\ensuremath{_{\text{#1}}}}
+\providecommand{\qstring}[1]{\ensuretext{``{\tt #1}''}}		% Quoted string
+\providecommand{\scare}[1]{\ensuretext{``#1''}}						% Scare quotes
+\providecommand{\strong}[1]{\textbf{#1}}									% Strong emphasis
+\providecommand{\term}[1]{\textsf{#1}}										% New term
+
+
+% Figures
+% ==========================================
+
+\providecommand{\fig}[3][pdf]{
+	\begin{figure}[tbh!]
+	\centering
+	\IfFileExists{fig/#2.#1}{\includegraphics{fig/#2}}{\missingfigure{#2.#1}}
+	\caption{#3}\label{fig:#2}
+	\end{figure}
+}
+
+
+
+% Drafts
+% ==========================================
+
+\RequirePackage{ifdraft}
+\RequirePackage{setspace}
+\ifdraft{\doublespacing}{\singlespacing}
+\RequirePackage{xargs}
+\RequirePackage[obeyDraft,textsize=small]{todonotes}
+\providecommandx{\todocolor}[3][1=]{\todo[linecolor=#2,backgroundcolor=#2!10,bordercolor=#2,#1]{#3}}
+\providecommandx{\note}[2][1=]{\todocolor[#1]{BurntOrange}{#2}}
+\providecommand{\draft}[1]{{\color{red}#1}}
+
+
+% Nota Bene
+% ==========================================
+
+\newenvironment{nb}{\small\begin{itemize}\item[\textbf{N.B.:}]}{\end{itemize}}
+

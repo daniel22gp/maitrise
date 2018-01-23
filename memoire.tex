@@ -275,9 +275,23 @@ Les auteurs de VerbNet ont aussi ajouter des classes à ce que Levin avait fait.
 
 De plus, les structures de Moens et  Steedman (temps et aspect), basés sur les travaux de Vendler. démontrent que les classes de Levin se tiennent. La sémantique des évènements qui relie des verbes entre eux, correspond sans problème aux verbes qui se retrouvent dans les classes de Levin (ce qui est confirmé par le postulat de Levin qui pense que le fait que certains verbes agissent de la même manière est due au fait qu'ils partagent une sémantique sous-jacente similaire bien qu'il ne soient pas des synonymes).
 
-\subsection {composantes de VerbNet}  
+\subsection {Composantes de VerbNet}  
 
-VerbNet est composé de classes verbales. Chaque classe contient un ensemble de membres qui lui sont attribués en fonction du caractère commun que les membres possèdent avec la classe, des rôles thématiques pour la structure argument-prédicat et des restrictions sélectionnelles sur ces arguments ainsi que les cadres syntaxiques qui contiennent une courte description du cadre, un exemple le démontrant et une description syntaxique du cadre. Puis finalement, un ensemble des prédicats sémantiques. Une classe peut être divisé en sous-classe si cela est nécessaire. Tel sera le cas lorsque un sous-ensemble des membres de la classe partage des cadres syntaxiques et des prédicats sémantiques spécifiques.
+VerbNet est composé de classes verbales, tel que nous l'avons mentionné précédemment, et pour les raisons évoqueés. Chaque classe contient un ensemble de membres qui lui sont attribués en fonction du caractère commun que les membres possèdent avec la classe, des rôles thématiques pour la structure argument-prédicat et des restrictions sélectionnelles sur ces arguments ainsi que les cadres syntaxiques qui contiennent une courte description du cadre, un exemple le démontrant et une description syntaxique du cadre. Puis finalement, un ensemble des prédicats sémantiques. Une classe peut être divisé en sous-classe si cela est nécessaire. Tel sera le cas lorsque un sous-ensemble des membres de la classe partage des cadres syntaxiques et des prédicats sémantiques spécifiques. Ce qui est l'aspect hiérarchique de la chose.
+
+\subsubsection{Organisation hiérarchique}
+
+(provient de Guidelines) et Dissertation VerbNet est organisé en hiérarchie.
+
+Les raisons qui ont motivé VerbNet a organisé son information en hiérarchie. D'abord, il se sont fortement inspiré de Acquilex Lexical Knowledge Base. Ensuite, pour des raisons pratiques, ils ont trouvé que c'était la meilleure manière d'organiser cette montagne d'information lexicale car ils ont revu l'information fournie par Levin et ont ajouté des sous-classes aux classes ainsi que des sous-sous-classes aux sous-classes, allant jusqu'à un niveau de 3 steps de profondeur. Donc, des sous-ensembles des sous-ensembles. Ce qu'ils considèrent comme une raffinement des classes originales de Levin (intersective, adding subclasses, removing classes, adding classes). En gros, c'est l'ajout de sous-classes aux classes origniales de Levin (et aux sous-sous-classes) qui ont rendu VerbNet hiérarchique. 
+
+Le fonctionnement est assez simple. Une sous-classe fille hérite de toute l'information de sa classe mère. Les sous-classes sont à l'origine de vouloir spécifier le comportement qui rassemble un sous-ensemble des membres d'une classe. Ainsi, une sous-classe est un ajout d'information par rapport à des restrictions d'usages de rôles thématiques, de cadres syntaxiques ou de prédicats sémantiques. 
+
+\ex. Prenons un exemple, la classe verbale \emph{Transfer of a Message} séparer l'exemple en 3 parties (en fonction des niveaux)
+
+Cette classe comporte trois niveaux, en termes de hiérarchie. Au premier niveau, nous avons les rôles thématiques, cadres syntaxiques et prédicats sémantiques partagés par tous les membres de la classe. En ce qui concerne cette classe, il y a au premier niveau, la spécificité qu'il s'agit d'une classe verbale mère avec son ID et VNCLASS. Puis les membres de la classe. Puis les rôles thématiques. Puis la section FRAMES qui contient tous les FRAME. Chaque FRAME est composé de : une description, un exemple, la syntaxe, puis la sémantique. Ainsi, au premier niveau, on retrouve 10 FRAME dans la section FRAMES. Par après, on accède au second niveau, qui est celui des sous-classes. Il n'existe qu'une sous-classe dans cet exemple, mais certaines classes verbales de VN contiennent plus d'une sous-classe au même niveau. Lorsque c'est le cas, il s'agit de classes soeurs. qui sont toutes deux enfant du même parent. Revenons à notre cas, ainsi, nous n'avons qu'une sous-classe au second niveau. Cette sous-classe garde la même structure que la classe mère. Ainsi, d'abord, on a la précision qu'il s'agit d'une sous-classe et son identification. Puis on a ses membres, suivi des rôles thématiques, dans ce cas-ci, il n'y a pas d'ajout à faire pour cette section puisque la sous-classe utilise les mêmes rôles thématiques que la classe mère, ainsi, par héritage, elle hérite de tous les rôles thématiques mentionnées précédemment. Puis on entre dans sa section de FRAMES qui contient tous les FRAMES appartenant à cette sous-classe. Ainsi, les membres de cette classe hérite des FRAMES de la classe mère en plus des FRAMES qui leurs sont plus spécifiques, car ces membres partagent des caractéristiques syntaxiques et sémantiques de plus que par rapport aux membres de la classe mère. Dans cet exemple, il y a un FRAME. Puis on accède au troisième niveau. Une sous-classe de la sous-classe précédente. Ainsi, le système qu'a adopté VerbNet pour distinguer les concepts de child/sister/parent sont des numérotation des classes (et sous-classes). Ainsi, on sait à coup sûr qu'il s'agit d'une sous-classe de la sous-classe car, au second niveau il s'agissait de la sous-classe transfer_mesg-37.1.1-1 et au troisième niveau on a transfer_mesg-37.1.1-1-1 et s'il y avait plus qu'une sous-classe à ce niveau, on aurait vu transfer_mesg-37.1.1-1-2.
+
+Alimenter cette partie avec les infos provenant du Guidelines
 
 \subsubsection{Rôles thématiques}
 
@@ -300,19 +314,13 @@ Est-ce que ça vaut la peine que j'en parle ? Leur manière de voir la sémantiq
 
 Chaque cadre syntaxique est accompagné d'un exemple pour exemplifier ce que le cadre représente. On peut ainsi mieux comprendre comment la classe verbale fonctionne. Il me faudrait faire des screenshots. Et les rajouter à cette section pour montrer comment les frames fonctionnent.
 
-\subsection{Origine des classes verbales}
-
-\subsubsection {Travaux de Levin}
-
-\subsubsection {Raffinement de Korhonen et Briscoe}
+\subsection {Raffinement de Korhonen et Briscoe}
 
 \subsection {Mapping de VerbNet à d'autres ressources NLP} 
 
 FrameNet, WordNet, Xtag
 
 \subsection {Utilisation de VerbNet dans des applications NLP}   
-
-** Lire l'article "Extending Verbnet with Novel verb classes" et http://verbs.colorado.edu/~kipper/Papers/lrec.pdf
 
 
 Encore du texte\dots et un tableau

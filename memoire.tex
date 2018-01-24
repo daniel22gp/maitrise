@@ -266,8 +266,7 @@ Voici la mentalité de Levin en action :
 
 \ex. \label{conative} Conative construction
 	\a. *John broke at the window.
-	\b. John valiantly cut/hacked at the frozen loaf, but his knife was too dull to make a
-dent in it.
+	\b. John valiantly cut/hacked at the frozen loaf, but his knife was too dull to make a dent in it.
 
 Ainsi, tel que démontré en \ref{transitive} et \ref{middle} les verbes appartenant à la classe break et à la classe cut se ressemblent car ils peuvent tous les 2 prendre ces cadres syntaxiques (ce genre de construction syntaxique). Toutefois, en \ref{intransitive} et en \ref{conative}, on voit très bien qu'il ne partagent pas ces constructions syntaxiques. \emph{Break} prend seulement la construction intransitive et exclut l'autre, tandis que \emph{cut} prend la construction conative et exclut l'intransitive. La raison que Levin donne est la suivante. Le verbe \emph{cut} décrit une série d'actions ciblant la complétion d'un but (séparer un objet en morceau). Toutefois, il est possible de faire ces séries d'actions sans que l'objectif final ne soit atteint, mais l'action de couper peut quand même être perçue. En ce qui concerne \emph{break}, la seule chose qui importe dans l'évènement, c'est le changement d'état d'un objet (qui devient séparés en morceaux). Si on n'arrive pas au résultat, une tentavive de briser quelque chose ne peut être perçue. Ce qu'on peut tirer de cet exemple, est que les classes verbales regroupent des verbes qui partagent des comportements syntaxiques similaires, les membres des classes ne sont donc pas nécessairement des synonymes, il ne s'agit que de verbes qui s'utilisent de la même façon. Ainsi, certaines classes vont effectivement regrouper des verbes qui signifient à peu près la même chose, mais aussi des verbes qui en surface, ne partagent pas bcp avec une majorité des verbes de cette classe, mais syntaxiquement, ces membres se comportent comme le reste de la classe. Ainsi, selon Levin, il y a quelque chose derrière les composantes sémantiques de ces membres qui les unirait avec les autres qui se ressemblent. (à réécrire, ce passage est horrible)
 
@@ -281,21 +280,53 @@ VerbNet est composé de classes verbales, tel que nous l'avons mentionné préc�
 
 \subsubsection{Organisation hiérarchique}
 
-(provient de Guidelines) et Dissertation VerbNet est organisé en hiérarchie.
+(provient de Guidelines) et Dissertation
 
 Les raisons qui ont motivé VerbNet a organisé son information en hiérarchie. D'abord, il se sont fortement inspiré de Acquilex Lexical Knowledge Base. Ensuite, pour des raisons pratiques, ils ont trouvé que c'était la meilleure manière d'organiser cette montagne d'information lexicale car ils ont revu l'information fournie par Levin et ont ajouté des sous-classes aux classes ainsi que des sous-sous-classes aux sous-classes, allant jusqu'à un niveau de 3 steps de profondeur. Donc, des sous-ensembles des sous-ensembles. Ce qu'ils considèrent comme une raffinement des classes originales de Levin (intersective, adding subclasses, removing classes, adding classes). En gros, c'est l'ajout de sous-classes aux classes origniales de Levin (et aux sous-sous-classes) qui ont rendu VerbNet hiérarchique. 
 
 Le fonctionnement est assez simple. Une sous-classe fille hérite de toute l'information de sa classe mère. Les sous-classes sont à l'origine de vouloir spécifier le comportement qui rassemble un sous-ensemble des membres d'une classe. Ainsi, une sous-classe est un ajout d'information par rapport à des restrictions d'usages de rôles thématiques, de cadres syntaxiques ou de prédicats sémantiques. 
 
-\ex. Prenons un exemple, la classe verbale \emph{Transfer of a Message} séparer l'exemple en 3 parties (en fonction des niveaux)
+Prenons un exemple, la classe verbale \emph{Transfer of a Message} séparer l'exemple en 3 parties (en fonction des niveaux).
 
-Cette classe comporte trois niveaux, en termes de hiérarchie. Au premier niveau, nous avons les rôles thématiques, cadres syntaxiques et prédicats sémantiques partagés par tous les membres de la classe. En ce qui concerne cette classe, il y a au premier niveau, la spécificité qu'il s'agit d'une classe verbale mère avec son ID et VNCLASS. Puis les membres de la classe. Puis les rôles thématiques. Puis la section FRAMES qui contient tous les FRAME. Chaque FRAME est composé de : une description, un exemple, la syntaxe, puis la sémantique. Ainsi, au premier niveau, on retrouve 10 FRAME dans la section FRAMES. Par après, on accède au second niveau, qui est celui des sous-classes. Il n'existe qu'une sous-classe dans cet exemple, mais certaines classes verbales de VN contiennent plus d'une sous-classe au même niveau. Lorsque c'est le cas, il s'agit de classes soeurs. qui sont toutes deux enfant du même parent. Revenons à notre cas, ainsi, nous n'avons qu'une sous-classe au second niveau. Cette sous-classe garde la même structure que la classe mère. Ainsi, d'abord, on a la précision qu'il s'agit d'une sous-classe et son identification. Puis on a ses membres, suivi des rôles thématiques, dans ce cas-ci, il n'y a pas d'ajout à faire pour cette section puisque la sous-classe utilise les mêmes rôles thématiques que la classe mère, ainsi, par héritage, elle hérite de tous les rôles thématiques mentionnées précédemment. Puis on entre dans sa section de FRAMES qui contient tous les FRAMES appartenant à cette sous-classe. Ainsi, les membres de cette classe hérite des FRAMES de la classe mère en plus des FRAMES qui leurs sont plus spécifiques, car ces membres partagent des caractéristiques syntaxiques et sémantiques de plus que par rapport aux membres de la classe mère. Dans cet exemple, il y a un FRAME. Puis on accède au troisième niveau. Une sous-classe de la sous-classe précédente. Ainsi, le système qu'a adopté VerbNet pour distinguer les concepts de child/sister/parent sont des numérotation des classes (et sous-classes). Ainsi, on sait à coup sûr qu'il s'agit d'une sous-classe de la sous-classe car, au second niveau il s'agissait de la sous-classe transfer_mesg-37.1.1-1 et au troisième niveau on a transfer_mesg-37.1.1-1-1 et s'il y avait plus qu'une sous-classe à ce niveau, on aurait vu transfer_mesg-37.1.1-1-2.
+Cette classe comporte trois niveaux, en termes de hiérarchie. Au premier niveau, nous avons les rôles thématiques, cadres syntaxiques et prédicats sémantiques partagés par tous les membres de la classe. En ce qui concerne cette classe, il y a au premier niveau, la spécificité qu'il s'agit d'une classe verbale mère avec son ID et VNCLASS. Puis les membres de la classe. Puis les rôles thématiques. Puis la section FRAMES qui contient tous les FRAME. Chaque FRAME est composé de : une description, un exemple, la syntaxe, puis la sémantique. Ainsi, au premier niveau, on retrouve 10 FRAME dans la section FRAMES. Par après, on accède au second niveau, qui est celui des sous-classes. Il n'existe qu'une sous-classe dans cet exemple, mais certaines classes verbales de VN contiennent plus d'une sous-classe au même niveau. Lorsque c'est le cas, il s'agit de classes soeurs. qui sont toutes deux enfant du même parent. Revenons à notre cas, ainsi, nous n'avons qu'une sous-classe au second niveau. Cette sous-classe garde la même structure que la classe mère. Ainsi, d'abord, on a la précision qu'il s'agit d'une sous-classe et son identification. Puis on a ses membres, suivi des rôles thématiques, dans ce cas-ci, il n'y a pas d'ajout à faire pour cette section puisque la sous-classe utilise les mêmes rôles thématiques que la classe mère, ainsi, par héritage, elle hérite de tous les rôles thématiques mentionnées précédemment. Puis on entre dans sa section de FRAMES qui contient tous les FRAMES appartenant à cette sous-classe. Ainsi, les membres de cette classe hérite des FRAMES de la classe mère en plus des FRAMES qui leurs sont plus spécifiques, car ces membres partagent des caractéristiques syntaxiques et sémantiques de plus que par rapport aux membres de la classe mère. Dans cet exemple, il y a un FRAME. Puis on accède au troisième niveau. Une sous-classe de la sous-classe précédente. Ainsi, le système qu'a adopté VerbNet pour distinguer les concepts de child/sister/parent sont des numérotation des classes (et sous-classes). Ainsi, on sait à coup sûr qu'il s'agit d'une sous-classe de la sous-classe car, au second niveau il s'agissait de la sous-classe transfer mesg-37.1.1-1 et au troisième niveau on a transfer mesg-37.1.1-1-1 et s'il y avait plus qu'une sous-classe à ce niveau, on aurait vu transfer mesg-37.1.1-1-2.
 
-Alimenter cette partie avec les infos provenant du Guidelines
+Alimenter cette partie avec les infos provenant du Guidelines. Les classes verbales de VerbNet sont numérotées par des chiffres allant de 9-109. Ainsi, le numéro apparaissant devant une classe verbale est associé à des caractéristiques sémantiques et syntaxiques communes. Par Exemple, les classes verbales associées à des verbes de type "mettre quelque chose" commenceront par le chiffre 9. Ce qui nous donne quelque chose comme : 
+
+put 9.1
+put spatial 9.2
+funnel 9.3
+put direction 9.4
+pour 9.5
+coil 9.6
+spray 9.7
+fill 9.8
+butter 9.9
+pocket 9.10
+
+Certains numéros n'impliquent qu'une seule classe, car il n'y a pas d'autres classes qui partagent ce genre de traits sémantiques ou syntaxiques communs.
+
+Par la suite, on se sert encore de la numérotation pour expliciter la hiérarchie à l'intérieur même d'une classe. Chaque classe peut inclure des classes filles, qui sont des classes sœurs entre elles, et qui peuvent avoir des classes filles à leur tour. La classe verbale Spray en démontre bien la chose. 
+
+D'abord, il y a la classe supérieure, qui est la plus haute de la hiérarchie, toutes les caractéristiques de cette classe sont partagées par tous les verbes de la classe. Dans la top classe nous avons les constructions syntaxiques et les prédicats sémantiques partagés par la classe, ainsi que les rôles thématiques. 
+
+Une classe mère domine une sous-classe, toutes ses caractéristiques sont partagées avec les classes subordonnées à celle-ci. 
+
+Une sous-classe : Les sous-classes dans VerbNet héritent des caractéristiques provenant de la classe dominante, mais elles spécifient particulièrement des constructions syntaxiques et une sémantique entre les verbes membres de cette sous-classe. Ce qui est spécifié dans une sous-classe peut être de différents ordres : ajouter des constructions syntaxiques propres à ce sous-groupe, ajouter des restrictions sélectionnelles sur les étiquettes des rôles sémantiques. 
+
+Des classes sœurs, ne partagent pas de caractéristiques hormis celle héritées par leur classe mère. Le reste de l'information encodée dans la classes sœurs n'est valide qu'à l'intérieur de leur classe respectivement.
+
 
 \subsubsection{Rôles thématiques}
 
 VerbNet utilise un ensemble de 23 rôles thématiques pour identifier les arguments dans les classes verbales.On étiquette les arguments dans les classes verbales en leur associant un rôle thématique. La raison pour laquelle VerbNet a opté pour les rôles thématiques est que, contrairement à un étiquetage générique où on énumère les arguments en procédant comme "Argument 1" Verbe "Argument 2" pour illustrer un cadre syntaxique est parce que les rôles thématiques peuvent offrir de l'information sémantique de plus que juste un argument numéroté. La spécification du rôle fournit de l'information sémantique sur le type d'argument en jeu, tandis que numéroté ne fournit rien du tout. Chaque argument se fait donné un rôle thématique unique, et ces rôles thématiques sont partagés par tous les membres d'une classe. Donc, ils doivent être assez large pour que ce soit cohérent avec tous les membres, mais pas trop imprécis non plus.
+
+(Dissertation):
+
+VerbNet utilise les rôles thématiques pour étiquetter les arguments figurant des les cadres syntaxiques (et sémantiques). Elle puise dans une banque de 23 rôles thématiques pour associer le bon rôle à l'argument en question. Ils ont choisi ces rôles car ils étaient assez généraux pour se prêter à toutes les évènements que dégagent les verbes dans le dictionnaire. Ils voulaient capturer l'essence des verbes et démontrer encore une fois le caractère général des verbes en démontrant qu'une poignée d'argument peut bel et bien rendre compte des arguments sélectionnés par les verbes en anglais. À l'intérieur d'une même classe verbale on y retrouve un nombre x de rôles thématiques qui seront mappés aux arguments sélectionnés dans les cadres syntaxiques et sémantiques fournis par VerbNet. Ils ont choisi les rôles thématiques au lieu d'autres moyens d'étiquettage des arguments car ils trouvaient que ça ajoutait de l'information sémantique sur une classe verbale. 
+
+(guidelines):
+
+À la fin de ce paragraphe, peut-être faire un clin d'oeil au fait qu'on ne va pas utiliser cette technique et qu'on a procédé autrement.
 
 \subsubsection{Restrictions sélectionnelles}
 

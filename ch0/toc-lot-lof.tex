@@ -1,0 +1,48 @@
+% TABLE DES MATIÈRES
+\cleardoublepage
+\pdfbookmark[chapter]{\contentsname}{toc}  %Crée un bouton sur la bar de navigation
+\tableofcontents				% Table des mati\`eres.
+% LISTE DES TABLEAUX
+\cleardoublepage
+\phantomsection
+\listoftables
+% LISTE DES FIGURES
+\cleardoublepage
+\phantomsection
+\listoffigures	
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LISTE DES SIGLES ET ABRÉVIATION %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Il est obligatoire, selon les directives de la FESP, 
+%% pour une thèse ou un mémoire d'avoir une liste des sigles et 
+%% des abréviations.  Si vous considérez que de telles listes ne seraient pas
+%% pertinentes (si, par exemple, vous n'utilisez aucun sigle ou abré.), son
+%% inclusion ou omission est laissé à votre discrétion.  En cas de doute,
+%% parlez-en à votre directeur de recherche, le coadministrateur ou, ultimement, à
+%% la FESP directement.
+%%
+%% Dans le cas où vous incluez une table des sigles et des abréviations,
+%% vous pouvez enlever les % de la section suivante pour faire apparaître
+%% un exemple d'une telle liste « fait à la main ».  Il existe des outils
+%% plus sophistiqués si vous devez inclure une multitude de sigles et abréviations.
+%% (Par exemple, le package <glossaries> peut faire des index élaborés.  Comme
+%% son utilisation est technique, il n'y a pas d'exemple directement dans ce gabarit.
+%% On invite les gens qui aurait à l'utiliser à consulter le wiki
+%% du dms, le coadministrateur ou faire leur propre recherche.)
+
+\chapter*{Liste des sigles et des abréviations}
+\begingroup %Pour que le \renewcommand soit local
+%Modifiez ce nombre (p.ex.remplacez 2 par 1.5) pour augmenter ou diminuer l'espace entre les lignes du tableau.
+\renewcommand{\arraystretch}{2} 
+\noindent\begin{tabular}{p{.2\textwidth} p{.7\textwidth}}
+  GAT & Génération automatique de texte \\
+  GP & Patron de régime, de l'anglais \textit{Government Pattern}\\
+  DPOS  &  Partie du discours profonde, de l'anglais \textit{Deep Part of Speech}\\
+  TST & Théorie Sens-Texte\\
+  VN & \emph{ VerbNet}\\
+\end{tabular}
+\endgroup  %Fin du groupe local pour \arraystretch
+
+

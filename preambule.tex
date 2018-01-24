@@ -1,0 +1,86 @@
+\usepackage[utf8]{inputenc}	% Fait dans le classe		
+\usepackage[T1]{fontenc}		
+
+% La commande \sloppy peut avoir des effets étranges sur les
+% lignes de certains paragraphes.  Dans ce cas, essayez \fussy
+% qui suppresse les effets de \sloppy. (\fussy est le comportement par défaut.)
+% On redéfinit \sloppy, pour tenter de réduire les comportements étranges.  
+% Le seul changement apporté à la version originale est la valeur de \tolerance.
+\def\sloppy{%
+  \tolerance 500%  %9999 dans LaTeX ordinaire, mauvaise idée.
+  \emergencystretch 3em%
+  \hfuzz .5\csname p@\endcsname
+  \vfuzz\hfuzz}
+\sloppy  
+
+
+
+\usepackage{graphicx,amsmath,amsfonts,amssymb,setspace,subfigure,color,icomma,dsfont}
+% graphicx		Pour importer des images (PDF, JPG, PNG).
+% amsmath		Écriture selon les normes de l'AMS.
+% amsfonts		Fontes additionnelles de l'AMS.
+% amssymb		Écriture des symbols de l'AMS.
+% setspace		Permet de régler la distance interligne dans le document.
+% subfigure		Simplifie l'inclusion de figures côtes-\`a-côtes.
+% color			Pour l'utilisation de couleurs dans le texte.
+% icomma		Reconnait la virgule comme caractère mathematique de facon intelligent
+% dsfont		symboles mathématiques
+
+
+\usepackage[pdfpagemode=UseNone,pdfstartview={XYZ null null null}]{hyperref}	% Cette extension permet l'insertion d'hyperliens dans votre document pdf.
+ \definecolor{dark-red}{rgb}{0.4,0.15,0.15}					% Ici, trois couleurs sont définies et seront utilisées pour colorer les "hyperliens".
+ \definecolor{dark-blue}{rgb}{0.15,0.15,0.4}
+ \definecolor{medium-blue}{rgb}{0,0,0.5}
+ \hypersetup{colorlinks,linkcolor={dark-red},citecolor={dark-blue},urlcolor={medium-blue}}
+\usepackage{bookmark}  % Remédie à des petits problème de <hyperref> (important qu'il soit chargé après <hyperref>)
+  % Enlever les commentaires et remplir cette section avec l'information pertinente.
+  % Ceci ajoute des « méta-données » au pdf.  C'est optionnel, mais recommandé.
+  % Vous pouvez voir ces méta-données en ouvrant un visionneur de pdf et en cherchant les
+  % propriétés du pdf.  (Vous pouvez aussi tapez ' pdfinfo <nom-du-pdf> '  dans un terminal.)
+  % Ces données sont utiles, par exemple, pour augmenter les chances qu'un algorithme de
+  % recherche trouve votre document sur Internet, une fois diffusé.  Autrement dit, ceci
+  % peut aider à augmenter la visibilité de votre travail.
+%\hypersetup{
+%    pdftitle = {Exemple d'une thèse}, 
+%    pdfauthor = {Coadmin},
+%    pdfsubject = {Exemple pour utiliser le gabarit du DMS},
+%    pdfkeywords = {DMS, gabarit, exemple, thèse, mémoire, coadministrateur}
+%}
+
+% Numérotation des équations par section et numérotation des tableaux et figures par chapitre.
+\numberwithin{equation}{section}
+\numberwithin{table}{chapter}
+\numberwithin{figure}{chapter}
+
+% Définition des environnements utiles pour un mémoire scientifique.
+% 1	%FR
+\newtheorem{cor}{Corollaire}[section]
+\newtheorem{deff}{Définition}[section]
+\newtheorem{exemple}{Exemple}[section]
+\newtheorem{lemme}{Lemme}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{rem}{Remarque}[section]
+\newtheorem{theo}{Théor\`eme}[section]
+
+% Si vous préférez que les corollaires, definitions, théor\`emes, etc. soient numérotés par le même compteur, utilisez plutôt ce bloc de commandes : 
+%2	% FR
+%\newtheorem{corollary}{Corollaire}[section]
+%\newtheorem{definition}[corollary]{Définition}
+%\newtheorem{example}[corollary]{Exemple}
+%\newtheorem{lemma}[corollary]{Lemme}
+%\newtheorem{proposition}[corollary]{Proposition}
+%\newtheorem{remark}[corollary]{Remarque}
+%\newtheorem{theorem}[corollary]{Théor\`eme}
+
+
+\onehalfspacing				% Fixe la distance interligne \`a "1.5". Pour une interligne double, utilisez plutôt "\doublespacing".
+
+\allowdisplaybreaks			% Cette commande autorise LaTeX \`a briser les blocs d'équations, permettant ainsi une couverture plus uniforme des pages.
+
+%Commande pour numéroter les tableaux en chiffres romains (préfixe: le numéro du chapitre)
+\renewcommand{\thetable}{\thechapter. \Roman{table}}
+
+\setlength{\parskip}{1ex plus 3pt minus 1pt}
+\usepackage{lng}
+
+

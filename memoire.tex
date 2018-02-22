@@ -6,7 +6,7 @@
     % avec l'option <natbib>.  Les options de <natbib> sont données ici.
     % Vous pouvez les modifier, p.ex. ajouter <round> si vous préférez des parenthèse (1) 
     % plutôt que des crochets [1].
-\PassOptionsToPackage{longnamesfirst,numbers}{natbib}  
+\PassOptionsToPackage{longnamesfirst}{natbib}  
 \documentclass[12pt,maitrise,frenchb,natbib,twoside,initial]{dms} 
 % La commande précédente charge la classe "dms.cls" avec les options suivantes : 
 %   -police de caractères en 12 pts 
@@ -47,13 +47,12 @@
 \input{ch1/intro}
 \input{ch2/verbnet}
 \input{ch3/gat}
-\input{ch2/verbnet}
 
 % Annexes
 % Enlever le commentaire de \appendix pour faire vos annexes.
 % Les annexes sont ensuites faites comme un chapitre normal : \chapter{nom_de_l'annexe}.
 \appendix
-
+\input{biblio/biblio}
 \input{annexes/annexe-a}
 \input{annexes/annexe-b}
 

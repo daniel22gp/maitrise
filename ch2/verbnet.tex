@@ -268,47 +268,48 @@ Pour mieux exposer leur sémantique, nous avons fait un tableau qui exemplifie l
 
 \subsection{Brèves descriptions de dictionnaires concurrents utilisés en NLP}
 
-\subsubsection{WordNet} : Wordnet est une base de données lexicale en ligne pour les verbes, noms, adjectifs et adverbes de la langue anglaise. Cette base de donnée est organisée en ensemble de synonymes, où chaque \emph{synset} contient des mots réferrant à un concept donné ainsi qu'une glose définition et une phrase exemple. L'aspect hiérarchique est construit via des liens d'hyperonymie et d'hyponomie entre les \emph{synsets}. Dans WordNet, les verbes sont classés parmi les classes suivantes s'il s'agit de verbes dénotant des actions ou des évènements (motion, perception, contact, communication, competition, change, cognition, consumption, creation, emotion, perception, possession, bodily care and functions, social behavior and interactions) et des verbes dénotant des états ( des types "être" :resemble, belong, suffice, des verbes contrôles (want, fail, prevent, succeed), et des verbes aspectuels (begin)) \citep{SchulerVerbnetBroadcoverageComprehensive2005}
+\subsubsection{WordNet} : Wordnet est une base de données lexicale en ligne pour les verbes, noms, adjectifs et adverbes de la langue anglaise. Cette base de donnée est organisée en ensemble de synonymes, où chaque \emph{synset} contient des mots réferrant à un concept donné ainsi qu'une glose définition et une phrase exemple. L'aspect hiérarchique est construit via des liens d'hyperonymie et d'hyponomie entre les \emph{synsets}. Dans WordNet, les verbes sont classés parmi les classes suivantes s'il s'agit de verbes dénotant des actions ou des évènements (motion, perception, contact, communication, competition, change, cognition, consumption, creation, emotion, perception, possession, bodily care and functions, social behavior and interactions) et des verbes dénotant des états ( des types être :resemble, belong, suffice, des verbes contrôles (want, fail, prevent, succeed), et des verbes aspectuels (begin)) \citep{Fellbaum1998}
 
-Les verbes sont groupés par ensemble de synonymes et non par classes verbales contrairement à VerbNet. Le concept de synonyme n'est pas vu dans son sens typique, il s'agit plus de : items lexicaux qu'on pourrait utiliser dans un même contexte sont vus comme des synonymes. À la base WordNet a été conçu pour agir comme réseau sémantique et contient ainsi peu d'information syntaxique. La ressource fournit des définitions, des exemples et des synsets, mais ne nous donne pas d'information sur la structure sémantique ou syntaxique des verbes, elle est sous-entendue, ce que fait que contrairement à VerbNet qui explicite en détail chaque patron de régime et structure syntaxique. les liens entre chaque items lexicaux sont de divers ordres : synonymes, antonymes, troponymes, entailment et causation.
+Les verbes sont groupés par ensemble de synonymes et non par classes verbales contrairement à VerbNet. Le concept de synonyme n'est pas vu dans son sens typique, il s'agit plus de : items lexicaux qu'on pourrait utiliser dans un même contexte sont vus comme des synonymes. À la base WordNet a été conçu pour agir comme réseau sémantique et contient ainsi peu d'information syntaxique. La ressource fournit des définitions, des exemples et des synsets, mais ne nous donne pas d'information sur la structure sémantique ou syntaxique des verbes, elle est sous-entendue, ce que fait que contrairement à VerbNet qui explicite en détail chaque patron de régime et structure syntaxique. les liens entre chaque items lexicaux sont de divers ordres : synonymes, antonymes, troponymes, entailment et causation.\citep{SchulerVerbnetBroadcoverageComprehensive2005}
 
-(pour mieux comprendre , lire "English verbs as a semantic net" p.40)
+"English verbs as a semantic net" \citep{Fellbaum1998} : Dans cet article, on exposer le liens sémantiques entre les verbes, ce que wordnet fait : il tisse un lien entre 2 verbes qui partagent des composantes sémantiques : ces liens sont de divers ordres et justifié par le concept d'entailment. Ainsi, on a les relations de hyponymie, hyperonymie, méronymie, troponoymie, etc.
 
-D'ailleurs, VerbNet a décidé de faire un mapping de ses entrées lexicales aux entrées lexicales de WordNet pour complémenter la ressource. 
-
-Application en NLP
+D'ailleurs, VerbNet a décidé de faire un mapping de ses entrées lexicales aux entrées lexicales de WordNet pour complémenter la ressource. Chaque verbe dans VerbNet est mappé à WordNet si c'est possible et qu'il y existe un équivalent. On peut aussi confirmer le choix d'associer un mot à plusieurs classes verbales dans VerbNet. Ainsi, le verbe leave est associé à Escape, future having, keep, leave et fulfill car leave peut impliquer différentes composantes sémantiques en fonction des prédicats décrits dans ces classes. On retrouve l'équivalent dans les synset qui sont attribués à Leave (toutefois, WordNet attribue 14 différents sens à Leave) et VerbNet en attribue 5. Ainsi, lorsque c'est possible, les membres des classes se font assigné un WordNet ID avec. 
 
 \subsubsection{FrameNet} : Le projet de Berkeley FrameNet contient de l'information sur les noms, adjectifs et verbes le tout basé sur un corpus annoté manuellement. Les sens des mots sont groupés dans des structures conceptuelles appelleés des Frames qui partageent des propriétés sémantiques similaires et qui sont des représentations de concepts cognitifs. La base de données FrameNet contient des descriptions des cadres sémantiques et des items lexicaux en association avec leur représentation sémantique et syntaxique en contexte (la représentation des valences). Le projet inclut aussi des phrases exemples pour les frames décrits. Les semantic frames sont définis comme des représentations schématiques de situations impliquant des participants , propositions et d'autres rôles conceptuels. Prenons le frame de JUDGEMENT qui possède les rôles : judge, evaluee, reason et le STATEMENT Frame avec des rôles comme SPEAKER, ADRESSEE et MESSAGE, tel que démontré en (2) et en (3). FrameNet utilise aussi le concept des rôles thématiques mais qu'ils appellent des Frames Elements qui agissent comme des étiquettes pour les divers arguments des verbes. Toutefois, dans FrameNet ces éléments sont spécifiques aux concepts du frame et non domain-independent, ainsi il en découlent de nombreux frame elements. Ça montre ici qu'on a plein de frame elements différents et ça n'apporte pas grand chose de les différencier, car en termes de fonction ils opèrent la même chose syntaxiquement.
 suivi d'un exemple avec tableau pour montrer la différence entre un synset X et un frame X (prendre l'exemple de l'article de FrameNet)
 
-(lire le court article pour mieux comprendre)
+court article :
+FrameNet \citep{BakerBerkeleyFrameNetProject1998}: Les unités lexicales sont décrites en termes de frame semantics. Puis les unités lexicales ainsi que leurs frame semantics sont confirmées par des phrases exemples manuellement anotées sémantiquement provenant de corpus de la langue anglaise. Le but était encoder les connaissances sémantiques des unités lexicales dans une forme que les machines peuvent lire. Ils ont couvert les domaines sémantiques suivant : santé, chance, perception, communication, transaction, temps, espace, corps , motion, étapes de la vie, contexte sociaux, émotion et cognition. Ça nous donne une base de données lexicales. Qu'on décompose en 3 modules : 1 lexicon qui contient toutes les unités lexicales, une base de données de frames et les exemples annotées correspondant aux frames. La base de données de frames contient les descrptions des frames qui sont encodées en structures conceptuelles. Et les phrases exeples manuellement annotées sont des preuves empiriques que les frames ont lieu d'être. Les frames veulent décrire la structure argumentielle des unités lexicales. Ces arguments sont décrits par des étiquettes similaires aux rôles thématiques, mais beaucoup plus vastes car il y a différentes étiquettes en fonction du frame en question. On les appelle des frames elements et ceux-ci sont en lien avec le frame dont ils font partie. À noter qu'il y existe aussi une organisation hiérarchique où on a des sous-frames qui héritent de traits des frames parents. En frame semantics, un frame correspond à un scénario qui implique une intéraction et des participants (ceux-ci jouent un rôle dans l'intéraction)\citep{Shi:2005:PPT:2132047.2132058}
 
+utilisation en NLP: On a combiné VN et FN pour en faire un semantic parser.\citep{Shi:2005:PPT:2132047.2132058}. Semantic parser : Au lieu de faire un parse tree syntaxique, ça fait un parse tree sémantique et ça nous recrée un arbre en tenant compte des participants et de leur relation avec le verbe et entre eux. 
+
+mapping à VerbNet:\citep{Shi:2005:PPT:2132047.2132058} Le mapping s'est fait en deux étapes. d'abord, il fallait mapper les entrées lexicales de VN avec des frames appropriés de FN. Ensuite, il fallait mapper les rôles sémantiques de VN avec les frames elements de FN.
+
+\subsubsection{XTAG} : Les chercheurs du projet XTAG ont construit une grammaire de la langue anglaise en se basant sur le formalisme de TAG (Tree Adjoining Grammar). Elle offre des descriptions riches des verbes en anglais. Chaque item lexical se fait assigner un ensemble d'arbres décrivant ses propriétés syntaxiques de base. Les arbres reflètent la structure prédicat-argument de ces items. Les arbres peuvent se combiner en deux opérations : subsitution et adjonction. En adjoignant de nouvelles branches ou en substituant des branches, la grammaire TAG permet de rendre compte des divers phénomènes linguistiques de la langue anglaise. La grammaire de XTAG inclut des descriptions syntaxiques pour 33 000 items lexicaux dont 9000 verbes et un éventail de 1300 arbres décrits et organisés en 70 famille d'arbres.
 (parler du mapping)
 
+a lexicalized tree adjoining grammar for English \citep{ResearchGroupLexicalizedTreeAdjoining2001} : Les arbres dans des familles d'arbres sont liés par le fait qu'ils représentent les mêmes type de cadres de sous-catégorisation. Ce qui distingue 2 arbres dans une même famille est des alternances syntaxiques. Les classes verbales sont organisées ainsi : Chaque verbe dans le lexicon syntaxique est associé à plusieurs familles d'arbres, où chaque famille regorge d'arbres individuels issues de différentes transformation syntaxiques mais ayant un cadre de sous-catégorisation les unissant. Ainsi, de cette manière un même verbe peut pointer vers différents arbres individuels, en passant par les familles d'arbres, et en étant associé à diverses familles d'arbres. Ainsi, ils n'ont pas à spécifier tous les arbres individuels qu'un verbe peut prendre, mais des familles d'arbres. Les familles d'arbres sont ainsi créées en prenant une forme canonique d'un cadre de sous-catégorisation et de lui faire toutes les transofmrations que permettent la langue anglaise, puis de générer les arbres en découlant avec les 2 opérations et storer le tout dans la base de données d'arbres de XTAG.
+
+XTAG system \citep{DoranXTAGSystemWide1994} : Ce que fait XTAG, une phrase en input, puis on la fait passer par deux filtres : un analyseur morphologique et un POS tagger. Maintenant qu'on a des unités lexicales étiquettées et morphologiquement annotées. Ce filtrage augmente la rapidité du parsing. Puis le parser poursuit avec les unités qui lui sont fournis pour faire sa job de parser. Le parser consulte la base de données syntaxiques et la base de données d'arbres pour trouver l'arbre approprié pour chaque item lexical. Puis le parser combine les arbres élémentaires avec les 2 opérations adjonctions/substitution ce qui donne en output le parsing de la phrase donnée en input. Le travail similaire qui a été fait est la base de données d'arbres qui sont regroupés en famille d'arbres. La base de données syntaxiques pointe vers les arbres associées à chaque entrée lexicale, ou les familles d'arbres. On distingue arbre individuel (généralement non-verbaux) vs famille d'arbres (généralement des verbes) car les familles d'arbres représentent des cadres de sous-catégorisation. Les arbres dans une famille d'arbre 
+sont liés entre eux par des transformation (changement de diathèse)
+
+Assigning XTAG trees to VerbNet\citep{W04-3326} : Les auteurs de VerbNet ont ainsi voulu mapper leurs cadres syntaxiques aux arbres de XTAG.
+Ça a permis d'étendre leur coverage à d'autres constructions syntaxiques. Comme XTAG a tenté de répertorier toutes les transformations possibles qu'une cadre de sous-catégorisation peut subir, il y avait bcp de matière. VerbNet couvre surtout la voix déclarative, tandis que XTAG explore toutes les transformations possibles. Mais ne fait pas de distinctions pour les différents sens des verbes et ne traite pas de sémantique. (juste dire qu'il y existe un mapping) et qu'ils sont allés étendre leur coverage un peu.
+
+
+\subsubsection{Dorr's LCS database} : La base de données de Dorr provient des théories de Jackendoff qui argumente en faveur d'une approche de décomposition sémantique pour la sémantique des verbes en termes de leur structure conceptuelle lexicale. L'élément principal d'un LCS sont des constituents conceptuels, les primitifs conceptuels et les champs sémantiques. Les constituents conceptuels appartiennent à un ensemble de catégories : chose, évènement, état, lieu, chemin, propriété, but, manière, montant, temps. Les champs sémantiques : +temp, +loc, +poss qui agissent comme des restrictions sélectionnelles. Les primitifs conceptuels :ÊTRE, ALLER, RESTER , CAUSER, INCHOATIF, EXTENSION. Les prépositions sont aussi sont des primitifs conceptuels : AT, FROM, IN, ON,  et on peut ajouter des restrictions sélectionnelles à des primitifs conceptuels. Une décomposition sémantique des verbes en termes de structures lexicales conceptuelles explique leur propriété syntaxiques. Dans des systèmes qui utilisent ces concepts, la sémantique des verbes est explicitée en le décomposant en structure lexicales conceptuelles. Avec ce formalisme, on pense que les verbes avec des LCS similaires partagent aussi des comportement syntaxiques comme des alternances de diathèses. Ils utilisent aussi des rôles thématiques pour montrer la structure argumentale.
+
+Ainsi, Bonnie Dorr a fait un système de machine translation à partir de cela.
+
+La base de donnée de Dorr LCS,inclue une grande quantité de verbes organisés en classes sémantiques dérivés des classifications de Levin. Les auteurs de VerbNet trouvent qu'il y a un manque du côté des structures syntaxiques qui sont beaucoup trop simplifiées, et du fait que le lien entre la sémantique et la syntaxe n'est pas clair. Et une grande partie de ces données avaient été cherchées automatiquement menant à des incohérences, c'est pourquoi, après avoir fait une analyse des données ils n'ont pris que très peu d'information provenant de LCS.
+
+Application en NLP : text generation \citep{TraumGenerationLexicalConceptual2000}
+
+\subsubsection{Comlex} : Base de données en anglais, développée à NYU. C'est une ressource syntaxique riche, mais qui n'est pas accessible au public. Chaque item lexical a des traits syntaxiques et  des compléments. Il existe 92 sous-catégorisation disponibles pour les verbes. Contient des descriptions syntaxiques pour 6000 verbes.  Selon les auteurs de VerbNet, il ne fait pas de distinction entre les différents sens d'un verbe (ce qui est problématique), et ne traite pas de sémantique explicitement. Mais il s'agit d'une base de données sur les constructions syntaxiques des unités lexicales qu'ils traitent. 
 Application en NLP
 
-\subsubsection{XTAG} : Les chercheurs du projet XTAG ont construit une grammaire de la langue anglaise en se basant sur le formalisme de TAG (Tree Adjoining Grammar). Elle offre des descriptions riches des verbes en anglais. Chaque item lexical se fait assigner un ensemble d'arbres décrivant ses propriétés syntaxiques de base. Les arbres reflètent la structure prédicat-argument de ces items. Les arbres peuvent se combiner en deux opérations : subsitution et adjonction. La grammaire de XTAG inclut des descriptions syntaxiques pour 33 000 items lexicaux dont 9000 verbes et un éventail de 1300 arbres décrits et organisés en 70 famille d'arbres.
-(parler du mapping)
-voir le texte  Assigning XTAG trees to VerbNet
-
-Application en NLP:
-
-\subsubsection{Dorr's LCS database} : La base de donnée de Dorr LCS,inclue une grande quantité de verbes organisés en classes sémantiques dérivés des classifications de Levin. Les auteurs de VerbNet trouvent qu'il y a un manque du côté des structures syntaxiques qui sont beaucoup trop simplifiées, et du fait que le lien entre la sémantique et la syntaxe n'est pas clair. Et une grande partie de ces données avaient été cherchées automatiquement menant à des incohérences, c'est pourquoi, après avoir fait une analyse des données ils n'ont pris que très peu d'information provenant de LCS.
-
-Application en NLP
-
-\subsubsection{The generative lexicon} : Ce lexicon inclut une représentation syntaxique et sémantique des verbe ainsi qu'une représentation de la structure des évènements. VerbNet a une situation équivalente dans ses frames sémantiques qui incluent de l'information sur le déroulement de l'évènement (le prédicat) avec des fonctions temporelles.
-
-Application en NLP
-
-\subsubsection{Comlex} : ne fait pas de distinction entre les différents sens d'un verbe, et ne traite pas de sémantique explicitement. Mais il s'agit d'une base de données sur les constructions syntaxiques des unités lexicales qu'ils traitent.
-Application en NLP
-
-\subsubsection{Verbalex} : fortement inspiré de VerbNet
-Application en NLP
-
-\subsubsection{GREG} : utilise le formalisme DATR, 
-Application en NLP
+voir l'article sur Comlex \citep{Grishman:1994:CSB:991886.991931}
 
 \subsubsection{DDO} : dictionnaire danois utilisant LFG pour faire son lexicon
 Application en NLP
@@ -316,13 +317,19 @@ Application en NLP
 \subsubsection{LEFFF} : un dictionnaire morpho-syntaxique pour le français
 Application en NLP
 
-\subsubsection{LEXSCHEM} :
-Application en NLP
+\subsection{textes pertinents ?}
+
+Messiant:
+Korhonen:
+Czech:
 
 
 \subsection {Utilisation de VerbNet dans des applications NLP}
 
-
+automatically building conceptual graphs using VerbNet and WordNet
+expanding verb coverage with VerbNet
+Putting Pieces Together: Combining FrameNet, VerbNet and WordNet for Robust Semantic Parsing
+Question Answering with Lexical Chains Propagating Verb Arguments
 
 
 \subsection{Pourquoi on n'a pas utilisé les rôles thématiques et les prédicats sémantiques}
@@ -332,7 +339,9 @@ p.210 dans le livre Melcuk
 on pourrait garder les rôles pis les mettre dans MATE aussi
 
 \subsection{Évaluation du système}
-chapitre 5, p.75 C'est important de parler de l'évaluation du système car c'est celui que nous utiliserons, et nous voulons voir les problèmes qu'ils ont rencontré.
+chapitre 5, p.75 C'est important de parler de l'évaluation du système car c'est celui que nous utiliserons, et nous voulons voir les problèmes qu'ils ont rencontré. Pour ensuite comparer avec l'utilisation que nous en aurons fait et à quel point les bons points selon eux ne sont peut-être pas les mêmes bons points que nous avons vu. Est-ce que VerbNet contient des coquilles car il a été créé par un processus automatique ? Voir la dissertation. (automatic techniques for extending coverage)
+
+\subsection{Pourquoi on a décidé d'utiliser VerbNet ?}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch2\verbnet.tex
 
 [Frame1_View0,0]
-TopLine=519
-Cursor=51919
+TopLine=646
+Cursor=62122
 
 [Frame2]
 Flags=0
@@ -71,8 +71,8 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame3_View0,0]
-TopLine=577
-Cursor=30750
+TopLine=636
+Cursor=0
 
 [Frame4]
 Flags=0
@@ -89,7 +89,7 @@ Class=LaTeXView
 Document=preambule.tex
 
 [Frame4_View0,0]
-TopLine=78
+TopLine=80
 Cursor=3778
 
 [Frame5]

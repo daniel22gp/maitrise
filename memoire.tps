@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=memoire.tex
 
 [Frame0_View0,0]
-TopLine=0
-Cursor=537
+TopLine=38
+Cursor=2186
 
 [Frame1]
 Flags=0
@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch2\verbnet.tex
 
 [Frame1_View0,0]
-TopLine=632
-Cursor=68740
+TopLine=0
+Cursor=3545
 
 [Frame2]
 Flags=0
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\gat.tex
 
 [Frame2_View0,0]
-TopLine=0
-Cursor=746
+TopLine=18
+Cursor=642
 
 [Frame3]
 Flags=0
@@ -89,8 +89,8 @@ Class=LaTeXView
 Document=preambule.tex
 
 [Frame4_View0,0]
-TopLine=81
-Cursor=3778
+TopLine=24
+Cursor=1222
 
 [SessionInfo]
 FrameCount=5

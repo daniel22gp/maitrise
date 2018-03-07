@@ -22,3 +22,7 @@ memoire.bbl
 memoire.dvi
 
 memoire.out.ps
+
+*.log
+
+*.synctex

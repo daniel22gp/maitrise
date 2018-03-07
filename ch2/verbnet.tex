@@ -423,20 +423,26 @@ def treeframes(t):
     z = []
     for frame in t.findall('FRAMES/FRAME'):
         description = re.sub(r"\s*[\s\.\-\ +\\\/\(\)]\s*", '_', 
-				frame.find('DESCRIPTION').get('primary'))
+        frame.find('DESCRIPTION').get('primary'))
         if description in exclude:
             continue
         description = re.sub('PP', 'PP_{}', description)
-        preps = [p.get('value') or p.find('SELRESTRS/SELRESTR').get('type').upper() for p in frame.findall('SYNTAX/PREP')+frame.findall('SYNTAX/LEX')]
+        preps = [p.get('value') or 
+                p.find('SELRESTRS/SELRESTR').get('type').upper() 
+                for p in frame.findall('SYNTAX/PREP')+frame.findall('SYNTAX/LEX')]
         preps = [sorted(p.split()) for p in preps]     
         examples = [e.text for e in frame.findall('EXAMPLES/EXAMPLE')]
         if len(preps)==1:
             description = description.format('_'.join(preps[0]))
         elif len(preps)==2:
-            description = description.format('_'.join(preps[0]), '_'.join(preps[1]))
+            description = description.format('_'.join(preps[0]),
+                                             '_'.join(preps[1]))
         elif len(preps)==3:
-            description = description.format('_'.join(preps[0]), '_'.join(preps[1]), '_'.join(preps[2]))
-        z.append((description, examples))       
+            description = description.format('_'.join(preps[0]), 
+                                             '_'.join(preps[1]), 
+                                             '_'.join(preps[2]))
+        z.append((description, examples))
+        
     subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
     subframes = [treeframes(subclass) for subclass in subclasses]
     subframes = sum(subframes, []) # flatten list of lists
@@ -455,12 +461,18 @@ with open('lexicon.dict','w') as f:
                 f.write(': ' +sc[c] + ' {')
             else :
                 f.write(': ' +'"'+sc[c]+'"' + ' {')
-            [f.write('\n  gp = { id=' + gp[0] + (max(len(gp[0]), 30)-len(gp[0]))*' ' + ' dia=x } // ' + ' '.join(gp[1])) for gp in d[c]]
+            [f.write('\n  gp = { id=' + gp[0] + (max(len(gp[0]), 30)-len(gp[0]))
+                     *' ' + ' dia=x } // ' + ' '.join(gp[1])) for gp in d[c]]
             f.write('\n}\n')
     f.write('\n}')
 \end{lstlisting}
 
-Ce premier script Python se découpe en trois blocs. D'abord, le BLOC 1 nous permet d'utiliser l'héritage de MATE à notre avantage. Ainsi, 
+(Peut-être rajouter les numéros de lignes, ce sera utile pour faire référence à des lignes de code)
+Ce premier script Python se découpe en trois blocs. Les deux premiers blocs sont des fonctions que nous définissons pour ensuite les utiliser dans le BLOC 3 qui nous permettra d'écrire le dictionnaire initial.  Ainsi, pour une meilleure compréhension du script complet, nous décrirons les blocs 1 et 2 pour expliquer ce que les fonctions font, ensuite nous décrirons le bloc 3 car l'usage des fonctions sera maintenant clair.
+
+Commençons par la première fonction supers. La fonction prend 2 arguments : t et i. Si vous regardez le bloc 3, dans la section sc, on voit que supers prend les arguments (root, 'verb'). Ces deux arguments sont les suivants : root donne accès à l'arbre XML et 'verb' est fait pour que chaque classe verbale pointe vers la catégorie verbe. Pour en hériter les traits dpos=V et spos=verb.  On va chercher le trait ID dans l'un des deux arguments (l'argument arbre donc montré dans listing le trait ID dans le XML). Ensuite on crée un dictionnaire s'appelant sc dont la clé est le ID et la valeur est i. Puis on instancie une variable subclasses qui contient les racines de chaque sous-classes dans les documents XML (montrer avec listings à quoi ça ressemble dans le document XML). Puis ensuite, pour chaque élément dans sous-classe (si élément il y a) on lui passe la fonction supers et on va chercher son identifiant car en lui repassant la fonction, on retourne a sub.get('ID') donc on va chercher le ID qui se retrouve dans la partie sous-classe de l'arbre de la classe verbale et on met à jour le dictionnaire sc en y ajoutant les identifiants des sous-classes (les clés) qui pointeront vers l'identifiant de la classe qui le gouverne, car le deuxième argument de supers est une chaîne de caractère, dans ce cas, la chaîne ID qu'on avait pu chercher plus tôt dans la fonction. Cela est fait dans le but de construire: sous-classe : classe (donc la sous-classe hérite des traits de sa classe) grâce au mécanisme d'héritage de MATE, et tel que VerbNet le mentionne, chaque sous-classe hérite des traits donnés par la classe qui la domine. 
+
+Maintenant, passons à la seconde fonction treeframe. Cette fonction prend un argument. On va aller chercher ID. Puis on initialise une liste z. Pour tous les frames qu'on retrouve dans l'arbre en question, on va chercher la description primaire du frame. On va ensuite se servir des expressions régulières pour uniformiser les descriptions à notre bon vouloir. Parallèlement, nous avons aussi créé une liste s'appelant exclude qui contient toutes les descriptions que nous voulons exclure de notre système et si une description dans un frame se retrouve aussi dans exclude, alors on n'y touche pas et elle ne sera pas modifiée ni ajoutée à la liste description. Ensuite, on modifie encore le nom des descriptions car nous ferons une opération par la suite. Donc, on modifie toutes les descriptions qui contiennent PP pour qu'elles ressemblent à 
 
 
 %Nous avons donc utilisé VerbNet de mieux que nous le pouvions. Ainsi, les descriptions des FRAMES SYNTACTIC étaient "accurates" et allait nous donner les brèves descriptions des patrons de régime que nous ajouterons à notre lexiconCar, nous pensions au départ que nous pourrions tout prendre de verbnet pour créer notre lexicon.  Nous voulions chercher les descriptions des patrons de régime ainsi que l'information sous SYNTAX sous FRAME pour ainsi créer les patrons de régime en soi en les traduisant dans notre langage (TST). Toutefois, leur manière d'encore les patrons de régime ne correpond pas à la notre sur beaucoup trop d'aspect. Nous le verrons plus tard, il y a de la redondance à certains moments et notre théorie rend mieux compte des patrons de régime. Mais pour l'instant, ce qui est important de noter c'est que nous notons les patrons de régime en attribuant des actants I et des noms de relation pour signifier que est le rôle de cet actant lors du passage de la sémantique à la syntaxe. VerbNet ne fait pas cela de la même manière que nous. Ils ont aussi un volet sémantique, mais qui ne se branche pas à notre modèle théorique. Nous voulions donc nous inspirer quand même de leur méthode pour nos patrons de régime, mais le fait qu'ils utilisent les rôles thématiques nous posait problème. Il était difficile d'associer un rôle thématique à un actant syntaxique (bien que nous ayons tenté [montrer le graphique de F.L]). Donc, nous en sommes venus à la conclusion qu'il nous faudrait créer les patrons de régime en Python pour ensuite les exporter dans un format adéquat pour MATE. Pour ce faire, nous devions utilisé les descriptions des patrons de régime qui se retrouve dans \emph{ VerbNet} et à partir de la description, créer une fonction qui nous permettrait de générer rapidement des patrons de régime adéquat pour MATE en ayant simplement à remplir les trous. 

@@ -264,9 +264,9 @@
 \def\prepresentedto{\vskip1.75pc}
 
 \def\degree#1{\def\@degree{{\normalfont\rm\small#1}}}
-\ifmaitrise@\def\@degree{Maître \`es sciences (M.Sc.)} \fi
-\ifrapport@\def\@degree{Maître \`es sciences (M.Sc.)} \fi
-\iftravail@\def\@degree{Maître \`es sciences (M.Sc.)} \fi
+\ifmaitrise@\def\@degree{Maître \`es arts (M.A.)} \fi
+\ifrapport@\def\@degree{Maître \`es arts (M.A.)} \fi
+\iftravail@\def\@degree{Maître \`es arts (M.A.)} \fi
 \ifphd@\def\@degree{Philosophi\ae\ Doctor (Ph.D.)} \fi
 
 \def\orientation#1{\def\@orientation{{\normalfont\rm\small#1}}}

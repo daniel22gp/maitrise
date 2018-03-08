@@ -22,3 +22,23 @@ memoire.bbl
 memoire.dvi
 
 memoire.out.ps
+
+*.log
+
+*.synctex
+
+*.tcp
+
+*.tps
+
+*.aux
+
+*.fdb_latexmk
+
+*.fls
+
+*.log
+
+*.tps
+
+*.log

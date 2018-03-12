@@ -5,6 +5,9 @@
 (ce début de chapitre sera probablement supprimé après la réorganisation du mémoire)
 Dans ce chapitre, nous verrons l'apport que la ressource lexicale VerbNet peut offrir à des applications en traitement automatique du langage (TAL). Nous avons comme objectif d'extraire l'architecture de dictionnaire VerbNet pour l'implémenter dans un dictionnaire de type Théorie Sens-Texte (TST) qui servira à générer du texte. Cet objectif provient d'une problématique que nous avions rencontré auparavant. Nous voulions savoir comment organiser notre dictionnaire en ce qui concernait les verbes. Car ceux-ci sont si riches et complexes qu'il nous fallait trouver un moyen systématique d'encoder cette partie du discours. En ce qui concerne les dictionnaires, parmi la communauté TAL,  il ne semble pas y avoir de consensus quant à la manière de procéder pour modéliser la classe verbale. La raison est simple,  les verbes démontrent des comportements variables, très riches au niveau de l'éventail de patrons de régime possibles pour un même verbe, et assez complexes ce qui nécessite beaucoup plus d'attention que d'autres parties du discours comme les noms qui démontrent beaucoup moins de variétés d'usage quant au nombre de patrons de régime. Ce qui fait en sorte que comme tous les verbes sont des prédicats, et que les prédicats sont les noyaux des énoncés, il faut les traiter avec soin, faute de quoi leur application en NLP sera médiocre. Cette problématique nous a donc amené à constater que VerbNet s'était penché sur ce problème et nous voulions vérifier si les entrées de leur dictionnaire pouvaient s'appliquer en génération automatique de texte (GAT). De nos jours, avec les modèles stochastiques où il n'y a pas d'analyse linguistique, on ne construit plus de dictionnaires ou de règles grammaticales, mais on le laisse le soin au système d'apprendre les règles par lui-même et de développer le lexique par lui-même en en percevant les langues naturelles uniquement comme des suites de caractères. C'est une mode qui fonctionne présentement grâce à la quantité immense d'information en langue naturelle qui existe sur le web. En combinant ces nouveaux corpus incroyables avec la puissance des ordinateurs et le développement en apprentissage machine, certains chercheurs font complètement fi de l'analyse linguistique dans leurs applications TAL et arrive à des résultats relativement bon (manque une citation ici). Toutefois, en ce qui concerne la GAT, le traitement de la langue se doit d'être impeccable \citep{lareau18}. D'où la nécessité de développer des outils puissant et rigoureux. Toutefois, les systèmes de GAT à base de règles sont plus coûteux car il faudra développer les règles de grammaire et se doter d'un dictionnaire assez large pour couvrir une ou des langues. Cependant, tout en étant bien conscient du changement de cap dans le domaine vers le \emph{machine learning}, nous pensons qu'il est encore primordial de développer de bons outils linguistiques computationnels à base de règles et de dictionnaires car c'est de cette manière qu'on pourra le mieux représenter les langues naturelles.
 
+Mentionner le blog de E.Reiter concernant les approches ML et la NLG (rule-based est meilleur, mais on pourrait se servir de ML, sans toutefois rely dessus à 100\% comme certains chercheurs le font.
+source (%https://ehudreiter.com/2016/12/12/nlg-and-ml/)
+
 \section{VerbNet}
 
 Ainsi, tel que mentionné précédemment, VerbNet a été créé dans un contexte où il y avait un réel besoin de réfléchir à la meilleure manière de procéder pour construire un dictionnaire qui saurait tenir compte de la richesse et la complexité que renferment les verbes \citep{KipperClassBasedConstructionVerb2000}. Les auteurs du projet trouvaient qu'il y avait un manque de lignes directrices sur l'organisation des verbes dans les dictionnaires destinés à des applications TAL. Malgré la quantité impressionnante de dictionnaires computationnels existant déjà, ils ont tout de même voulu créer un dictionnaire de verbe qui pourrait paliier à ce manque. (Faire un court retour sur les lacunes des autres dictionnaires)
@@ -112,24 +115,19 @@ Ainsi, dans cet exemple, on voit que \emph{deal, lend, loan, pass, peddle} et \e
 
 \subsubsection{Rôles thématiques}
 
-VerbNet se sert de 23 rôles thématiques pour identifier les arguments des verbes. Ils ont opté pour les rôles thématiques car contrairement à une approche où on énumère les arguments \emph{Argument-1 Verbe Argument-2}, une approche utilisant les rôles thématiques ajoute de l'information sémantique supplémentaire. À la base, les rôles thématiques ont été pensés dans les années 60 pour identifier les arguments sélectionnés par des prédicats en leur assignant un rôle sémantique. La spécification du rôle fournit de l'information sémantique sur le type d'argument en jeu, tandis que l'acte de numéroter ne fournit rien du tout. Chaque argument se fait donné un rôle thématique unique, et ces rôles thématiques sont partagés par tous les membres d'une classe. Donc, ils doivent être assez large pour que ce soit cohérent avec tous les membres, mais pas trop imprécis non plus. Les rôles thématiques correspondent à la relation sémantique qui existe entre un prédicat et ses arguments.
+VerbNet emploi 23 rôles thématiques pour identifier les arguments sélectionnés par les verbes. Ils ont opté pour cette approche d'identification car elle permet d'ajouter de l'information sémantique sur les participants. Contrairement à une approche où on énumère les arguments\emph{Arg-1 Verbe Arg-2} comme dans PropBank \citep{PalmerPropositionBankAnnotated2005}. À la base, les rôles thématiques ont été mis de l'avant par Fillmore \citep{fillmore:case} et Jackendoff \citep{Jackendoff1972-JACSII-2} pour identifier les arguments en leur assignant un rôle sémantique. Chaque argument se fait donné un rôle unique.
 
-VerbNet utilise les rôles thématiques pour étiquetter les arguments figurant des les cadres syntaxiques (et sémantiques) (Schuler, 2005). Elle puise dans une banque de 23 rôles thématiques pour associer le bon rôle à l'argument en question. Ils ont choisi ces rôles car ils étaient assez généraux pour se prêter à toutes les évènements que dégagent les verbes dans le dictionnaire. Ils voulaient capturer l'essence des verbes et démontrer encore une fois le caractère général des verbes en démontrant qu'une poignée d'argument peut bel et bien rendre compte des arguments sélectionnés par les verbes en anglais. À l'intérieur d'une même classe verbale on y retrouve un nombre x de rôles thématiques qui seront mappés aux arguments sélectionnés dans les cadres syntaxiques et sémantiques fournis par VerbNet. Ils ont choisi les rôles thématiques au lieu d'autres moyens d'étiquettage des arguments car ils trouvaient que ça ajoutait de l'information sémantique sur une classe verbale. 
+VerbNet critiquait les autres dictionnaires verbaux qui n'offraient pas de contenu sémantique. C'est pourquoi ils font la promotion de leur aspect sémantique via la section \emph{Semantic frames} et les \emph{Thematic Roles}\citep{SchulerVerbnetBroadcoverageComprehensive2005}. Concrètement, parmi les 23 rôles thématiques choisis par VerbNet, certains proviennent de Fillmore et Jackendoff, d'autres s'en inspirent. C'est pourquoi ils se justifient en disant que le chiffre 23, et la nature des rôles est effectivement arbitraire, mais utile à la construction de leur dictionnaire. Voici la liste des rôles thématiques qu'ils ont choisi : \emph{actor, agent, asset, attribute, beneficiary, cause, location, destination, source, experiencer, extent, goal, instrument, material, product, patient, predicate, recipient, stimulus, theme, time, topic}. Ces rôles ne sont pas spécifiques à des classes en particulier, les auteurs voulaient des rôles pouvant identifiés tous les arguments possibles dans leur corpus. Donc, des rôles assez génériques pouvant se prêter à divers cadres.
 
-Les rôles thématiques choisis par VerbNet sont de divers ordres, certains proviennent des premiers pensés par (Fillmore,1968) d'autres de Jackendoff (Jackendoff, 1972), et des ajouts pour compenser pour les classes qui nécessiteraient des rôles plus spécifiques à leur classes, tout en étant assez généraux pour pouvoir se prêter à d'autres classes. Encore une fois, tel que mentionné dans le background de Dissertation, certains critiques les rôles thématiques car ils ont un caractère assez arbitraires et il n'est pas facile de tout justifier. De cette manière, les rôles thématiques utilisés par VerbNet n'ont pas été créé systématiquement, mais plus en fonction de ce qui cadrait le plus avec les classes verbales et les arguments nécessaires qui apporteraient le plus d'information sémantique pertinente. Ils ne pensent pas qu'un ensemble plus petits de rôles thématiques aurait pu être suffisant, mais ils ne pensent pas non plus que ceux qu'ils ont choisi sont exactement ce dont on aurait besoin, il n'ont pas nécessairment été au bout de tous les rôles thématiques possibles. Mais, ils considèrent que ce qu'ils avaient était suffisant pour rendre compte des comporetements des arguments envers leur prédicats respectifs, et ce pour toutes les classes verbales.
+%Par exemple, dans leur documentation, VerbNet offre un court exemple qui démontre l'utilité des rôles thématiques. Prenons les phrases suivantes :
 
-À l'intérieur d'une classe verbale (ou sous-classe, etc.), chaque argument se fait assigner un rôle thématique
+%\ex. \label{semantic roles}
+%	\a. Sandy shattered the glass.
+%	\b. The glass shattered
+	
+%Dans l'exemple \ref{semantic roles}, pour la première phrase, on voit que \emph{Sandy} est le sujet du verbe et \emph{the glass} en est l'objet direct. Tandis que dans la seconde phrase, \emph{the glass} devient le sujet du verbe et il n'y a pas d'objet direct. Si on assigne un rôle d'Agent à \emph{Sandy} et un rôle de Patient à \emph{the glass}, on conserve le sens que c'est la vitre qui se casse. C'est possible grâce à l'étiquette de Patient à \emph{the glass} qui garde son rôle malgré qu'il a été promu au rang de sujet du verbe et qu'il n'y ait plus d'objet direct. C'est une manière de tenir compte de la sémantique des actants malgré les changements syntaxiques. VerbNet voulait se servir de cette théorie pour enrichir son dictionnaire.
 
-Les rôles thématiques nous donne de l'information sur la sémantique des participants d'une phrase dans le but que les différents cadres syntaxiques (alternances) n'influencent pas les rôles assignés. On nous fourni un exemple que nous réutiliserons pour illustrer le propos (guidelines) :
-
-\ex. \label{semantic roles}
-	\a. Sandy shattered the glass.
-	\b. The glass shattered
-
-D'un point de vue de la syntaxe, dans la première phrase, Sandy est le sujet du verbe et the glass en est l'objet direct. Tandis que dans la seconde phrase, the glass est le sujet du même verbe, et il n'y a pas d'objets directs. En leur assignant un rôle thématique, on notera que d'un point de vue de la sémantique rien n'a changé, même si la structure a changé en apparence. Ainsi, si on assigne un rôle d'Agent à Sandy et un rôle de Patient à the glass, on remarque que les rôles sémantiques sont cohérents avec la phrase, malgré le changement de sujet et d'objet direct.
-
-Les rôles thématiques sont explicités au début d'une classe verbale. (exemples venant de break-45.1.xml) 
-%de la documentation de VerbNet: http://verbs.colorado.edu/verbnet_downloads/downloads.html
+À l'intérieur de chaque classe verbale (et sous-classe si c'est nécessaire), les rôles thématiques en jeu y sont listés dans la section <THEMROLES>. Ils sont ensuite mappés aux arguments sélectionnés dans les cadres syntaxiques et sémantiques (qu'on voit à la figure "cadres syntaxique").
 
 \begin{lstlisting}[language=XML, caption = les rôles thématiques]
     <THEMROLES>
@@ -150,16 +148,15 @@ Les rôles thématiques sont explicités au début d'une classe verbale. (exempl
         </THEMROLE>
     </THEMROLES>
 \end{lstlisting}
-Finalement, les rôles thématiques sont domain-general, voulant dire qu'on veut les réutiliser dans le plus de classes là où c'est pertinent. Ils ne sont pas spécifiques à une classe ou un verbe, on les retrouve partout dans le lexicon. C'est pourquoi on veut qu'ils soient assez général pour rendre compte de divers type d'arguments.
 
 Pour les besoins de notre travail, nous n'utilisons pas les rôles thématiques dans notre travail, mais nous voulions souligner qu'ils étaient importants pour les créateurs de VerbNet. 
 Voir les raisons de Melcuk p.230
 
 \subsubsection{Restrictions sélectionnelles}
 
-Les restriction sélectionnelles vont sur les rôles thématiques. Est-ce que c'est pertinent d'en parler ? Probablement, pas, on ne s'en sert pas du tout.
-En gros, il s'agit de restrictions imposées aux rôles thématiques pour que ça sélectionne un certain type d'argument. Ainsi, parmi ces restrictions, parfois, certains verbes requièrent que l'Agent soit nécessairement de type x, tandis que le patient peut être n'importe quoi. OU l'inverse, etc.
-Ça donne encore plus d'informations sur le participant de la phrase, de plus, VerbNet considère que ces restrictions sélectionnelles offrent encore plus d'information sémantique, car on précise le type d'argument requis.
+Les restriction sélectionnelles s'ajoutent aux rôles thématiques. Il s'agit de restrictions imposées aux rôles thématiques afin que certains types d'arguments soient sélectionnés.
+Ces traits fournissent encore plus d'informations sémantiques sur l'argument. Dans l'exemple fournit ici, on remarquera que l'Agent est de type animé ou une organisation.
+
 \begin{lstlisting}[language=Xml, caption = les restrictions sélectionnelles]
     <THEMROLES>
         <THEMROLE type="Agent">
@@ -168,21 +165,11 @@ En gros, il s'agit de restrictions imposées aux rôles thématiques pour que ç
                 <SELRESTR Value="+" type="organization"/>
             </SELRESTRS>
         </THEMROLE>
-        <THEMROLE type="Theme">
-            <SELRESTRS/>
-        </THEMROLE>
-        <THEMROLE type="Recipient">
-            <SELRESTRS logic="or">
-                <SELRESTR Value="+" type="animate"/>
-                <SELRESTR Value="+" type="organization"/>
-            </SELRESTRS>
-        </THEMROLE>
-    </THEMROLES>
 \end{lstlisting}
 
 \subsubsection{Cadres syntaxiques}
 
-Pour une classe donnée, on y retrouve soit un ou des cadres syntaxiques qui servent à représenter le type de réalisation de surface possible pour cette classe verbale. D'ailleurs, ces cadres syntaxiques sont partagés par l'ensemble des membres d'une classe ou d'une sous-classe. Chaque cadre syntaxique décrit une construction verbale de type transitives directes/indirectes, des intransitives, des phrases prépositionnelles, etc. Un cadre syntaxique est composé de rôles thématiques dans leur position argumentale ainsi que le verbe qui les régie (ainsi que d'autres unités lexicales nécessaires au bon fonctionnement d'une construction).
+Pour une classe donnée, on y retrouve des cadres syntaxiques qui représentent le type de réalisation de surface possible. D'ailleurs, ceux-ci sont partagés par l'ensemble des membres d'une classe ou d'une sous-classe. Chaque cadre syntaxique décrit une construction verbale de type transitives directes/indirectes, des intransitives, des phrases prépositionnelles, etc. Un cadre syntaxique est composé de rôles thématiques dans leur position argumentale ainsi que le verbe qui les régie (ainsi que d'autres unités lexicales nécessaires au bon fonctionnement d'une construction).
 
 À l'intérieur de chaque classe verbale, on retrouve la liste des membres, suivie de la liste des rôles thématiques qu'on retrouve dans les cadres syntaxiques de cette classe, puis les cadres syntaxiques. Ainsi, on liste tous les cadres syntaxiques possibles pour une classe. Ce qui nous donne de l'information de nature syntaxique et explicite les liens qui unissent les rôles thématiques au verbe en question. Ça nous donne aussi beaucoup d'information concernant le verbe, car on voit comment il peut être utilisé, quel genre d'actant il sélectionne, de quel type de patron de régime il s'agit. C'est ce qui nous intéresse le plus à la base. C'est de savoir comment ce verbe se combine, peut-il prendre un verbe comme complément d'objet direct, est-ce qu'il sélectionne telle ou telle préposition. Bref, l'information contenue dans les cadres syntaxiques est très pertinente pour notre travail, car il existe très peu de dictionnaires qui ont voulu énumérer toutes les alternances syntaxiques d'un verbe. Puis, les cadres syntaxiques respectent aussi la caractéristiques hiérarchique omniprésente dans VerbNet. Ainsi, tous les membres d'une classe partagent ces patrons de régime, et une sous-classe hérite aussi des patrons de régime de la classe qui la gouverne. 
 

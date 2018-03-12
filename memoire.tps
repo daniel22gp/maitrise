@@ -17,7 +17,7 @@ Class=LaTeXView
 Document=memoire.tex
 
 [Frame0_View0,0]
-TopLine=0
+TopLine=29
 Cursor=0
 
 [Frame1]
@@ -35,7 +35,7 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=0
+TopLine=12
 Cursor=0
 
 [Frame2]
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\verbnet.tex
 
 [Frame2_View0,0]
-TopLine=192
-Cursor=15817
+TopLine=241
+Cursor=10502
 
 [Frame3]
 Flags=0
@@ -107,8 +107,8 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame5_View0,0]
-TopLine=579
-Cursor=35620
+TopLine=697
+Cursor=48661
 
 [Frame6]
 Flags=0
@@ -125,7 +125,7 @@ Class=LaTeXView
 Document=preambule.tex
 
 [Frame6_View0,0]
-TopLine=0
+TopLine=92
 Cursor=0
 
 [SessionInfo]

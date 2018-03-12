@@ -1,79 +1,51 @@
 %!TEX root = ../memoire.tex
 
-\chapter{Extraction de l'architecture de\emph{Verbnet}}
+\chapter{Un dictionnaire de patrons de régime : VerbNet}
 
-Dans ce chapitre, nous verrons l'apport que la ressource lexicale \emph{VerbNet} peut offrir à des applications en traitement automatique du langage (TAL). Nous avons comme objectif d'extraire l'architecture de dictionnaire \emph{VerbNet} pour l'implémenter dans un dictionnaire de type sens-texte qui servira à générer du texte. Cet objectif provient d'une problématique que nous avions rencontré auparavant. Nous voulions savoir comment organiser notre dictionnaire en ce qui concernait les verbes. Car ceux-ci sont si riches et complexes qu'il nous fallait trouver un moyen systématique d'encoder cette partie du discours. De plus, il nous fallait l'encoder pour que notre nouveau dictionnaire puisse intéragir correctement avec les règles grammaticales du logiciel. En ce qui concerne les dictionnaires, parmi la communauté TAL,  il ne semble pas y avoir de consensus quant à la manière de procéder pour modéliser la classe verbale. La raison est simple,  les verbes démontrent des comportements variables, très riches au niveau de l'éventail de patrons de régime possibles pour un même verbe, et assez complexes ce qui nécessite beaucoup plus d'attention que d'autres parties du discours comme les noms qui démontrent beaucoup moins de variétés d'usage quant au nombre de patrons de régime. Ce qui fait en sorte que comme tous les verbes sont des prédicats, et que les prédicats sont les noyaux des énoncés, il faut les traiter avec soin, faute de quoi leur application en NLP sera médiocre. Cette problématique nous a donc amené à constater que VerbNet s'était penché sur ce problème et nous voulions vérifier si rouages de leur dictionnaire peuvent s'appliquer en génération automatique de texte. De nos jours, avec les modèles stochastiques où il n'y a pas d'analyse linguistique, on ne construit pas de dictionnaires ou de règles grammaticales, mais on le laisse le soin au système d'apprendre les règles par lui-même et de développer le lexique par lui-même en n'assignant pas de POS et en voyant les langues naturelles comme des suites de caractères. C'est une mode qui fonctionne présentement grâce à la quantité immense d'information qu'on retrouve et ces nouveaux corpus incroyables combinés avec la puissance des ordinateurs et l'apprentissage machine, certains font complètement fi de l'analyse linguistique dans leurs applications TAL. Toutefois, les utilités principales de ces systèmes sont de divers ordres de NLP, mais en en ce qui concerne la génération automatique de texte, le traitement de la langue se doit d'être impeccable \citep{lareau18}. D'où la nécessité de développer des outils puissant et rigoureux qui nécessiteront plus de temps à développer car il faudra créer les règles et enrichir le dictionnaire qui compose la langue. Pour ce faire, on doit recourir à des méthodes linguistiques qui étaient plus populaires dans la fin des années 90 et début 2000 (citer des systèmes). Toutefois, en étant bien conscient du changement de cap, nous pensons qu'il est encore primordial de développer de bons outils linguistiques computationnels car c'est de cette manière qu'on pourra le mieux représenter le fonctionnement de la langue. De plus, nombres de chercheurs combinent l'apprentissage machine à des règles et des dictionnaires pour ainsi développer le lexique partiellement en annotant automatiquement des lexèmes.(trouver une citation dans les INLG de 2014 à 2017)
+(ce début de chapitre sera probablement supprimé après la réorganisation du mémoire)
+Dans ce chapitre, nous verrons l'apport que la ressource lexicale VerbNet peut offrir à des applications en traitement automatique du langage (TAL). Nous avons comme objectif d'extraire l'architecture de dictionnaire VerbNet pour l'implémenter dans un dictionnaire de type Théorie Sens-Texte (TST) qui servira à générer du texte. Cet objectif provient d'une problématique que nous avions rencontré auparavant. Nous voulions savoir comment organiser notre dictionnaire en ce qui concernait les verbes. Car ceux-ci sont si riches et complexes qu'il nous fallait trouver un moyen systématique d'encoder cette partie du discours. En ce qui concerne les dictionnaires, parmi la communauté TAL,  il ne semble pas y avoir de consensus quant à la manière de procéder pour modéliser la classe verbale. La raison est simple,  les verbes démontrent des comportements variables, très riches au niveau de l'éventail de patrons de régime possibles pour un même verbe, et assez complexes ce qui nécessite beaucoup plus d'attention que d'autres parties du discours comme les noms qui démontrent beaucoup moins de variétés d'usage quant au nombre de patrons de régime. Ce qui fait en sorte que comme tous les verbes sont des prédicats, et que les prédicats sont les noyaux des énoncés, il faut les traiter avec soin, faute de quoi leur application en NLP sera médiocre. Cette problématique nous a donc amené à constater que VerbNet s'était penché sur ce problème et nous voulions vérifier si les entrées de leur dictionnaire pouvaient s'appliquer en génération automatique de texte (GAT). De nos jours, avec les modèles stochastiques où il n'y a pas d'analyse linguistique, on ne construit plus de dictionnaires ou de règles grammaticales, mais on le laisse le soin au système d'apprendre les règles par lui-même et de développer le lexique par lui-même en en percevant les langues naturelles uniquement comme des suites de caractères. C'est une mode qui fonctionne présentement grâce à la quantité immense d'information en langue naturelle qui existe sur le web. En combinant ces nouveaux corpus incroyables avec la puissance des ordinateurs et le développement en apprentissage machine, certains chercheurs font complètement fi de l'analyse linguistique dans leurs applications TAL et arrive à des résultats relativement bon (manque une citation ici). Toutefois, en ce qui concerne la GAT, le traitement de la langue se doit d'être impeccable \citep{lareau18}. D'où la nécessité de développer des outils puissant et rigoureux. Toutefois, les systèmes de GAT à base de règles sont plus coûteux car il faudra développer les règles de grammaire et se doter d'un dictionnaire assez large pour couvrir une ou des langues. Cependant, tout en étant bien conscient du changement de cap dans le domaine vers le \emph{machine learning}, nous pensons qu'il est encore primordial de développer de bons outils linguistiques computationnels à base de règles et de dictionnaires car c'est de cette manière qu'on pourra le mieux représenter les langues naturelles.
 
 \section{VerbNet}
 
-Ainsi, tel que mentionné précédemment, VerbNet a été créé dans un contexte où il y avait un réel besoin de réfléchir à la meilleure manière de procéder pour construire un dictionnaire qui saura tenir compte de la richesse et la complexité que renferment les verbes \citep{KipperClassBasedConstructionVerb2000}. C'était en réponse au manque de lignes directrices sur l'organisation des verbes dans les dictionnaires destinés à des applications TAL et ce malgré la quantité impressionnante de dictionnaire computationnels existants déjà. Parmi ceux qui ont tenté la chose, nous nommerons : le generative lexicon de Pustojevsky \citep{PustejovskyGenerativeLexicon1991} WordNet de Fillmore \citep{MillerWordNetLexicalDatabase1995}, ComLex\citep{Grishman:1994:CSB:991886.991931}, LCS\citep{13776} et FrameNet\citep{BakerBerkeleyFrameNetProject1998}. Ceux-ci comportaient des lacunes que du point de vue du traitement des entrées lexicales verbales, selon les auteurs de VerbNet. Les lacunes étaient diverses mais importantes, par exemple, ils trouvaient que le Generative Lexicon ne focusait que sur les noms, que WordNet ne donnait pas de détails concernant les cadres syntaxiques possibles  et aucune mention de la structure prédicat-argument. Quant à ComLex, ils décrivaient effectivement les cadres syntaxiques possibles, mais ne faisait pas de désambiguisation sémantique. Finalement, ils jugeaient que le lexicon LCS a essayé de palier à ces lacunes aussi, mais l'étentue lexicale qu'il offrait n'était pas assez large à leur goût\citep{SchulerVerbnetBroadcoverageComprehensive2005}. C'est donc dans ce contexte qu'est né le projet VerbNet.
+Ainsi, tel que mentionné précédemment, VerbNet a été créé dans un contexte où il y avait un réel besoin de réfléchir à la meilleure manière de procéder pour construire un dictionnaire qui saurait tenir compte de la richesse et la complexité que renferment les verbes \citep{KipperClassBasedConstructionVerb2000}. Les auteurs du projet trouvaient qu'il y avait un manque de lignes directrices sur l'organisation des verbes dans les dictionnaires destinés à des applications TAL. Malgré la quantité impressionnante de dictionnaires computationnels existant déjà, ils ont tout de même voulu créer un dictionnaire de verbe qui pourrait paliier à ce manque. (Faire un court retour sur les lacunes des autres dictionnaires)
 
-\subsection{Levin et l'organisation en classes verbales}
+\subsection{Classes verbales de Levin}
 
-Levin a bâti un lexicon verbal de l'anglais. Ses recherches portaient sur les propriétés sémantiques et syntaxiques des verbes. Selon elle, les composantes sémantiques des verbes déterminent  la manière dont ils se combinent avec leurs arguments. Elle a tenté de répertorié et systématiser les divers cadres syntaxiques des verbes. Puisque les verbes forment les noyaux des énoncés et qu'ils sont prédicats, Levin y a vu un intérêt académique. De plus, les verbes démontrent des propriétés extrêmement complexes contrairement aux autres prédicats se trouvant dans les autres PDD. Il existe un éventail de combinaisons possibles pour un verbe avec ses arguments et tout locuteur natif d'une langue sait quels sont les diathèses possibles et les arguments possibles pour un verbe. Et ce, sans avoir de connaissances linguistiques au prébalable, il s'agit d'une intuition de locuteur natif. Pour cette raison, Levin voulait regrouper les verbes en classes verbales en se basant sur son intuition de locutrice native. Ainsi, en testant divers patrons de régime des groupes de verbes, elle a délimiter un nombre impressionnant de classes verbales où chaque verbe compris dans cette classe partage des cadres syntaxiques avec les autres membres de sa classe.
+Le travail de Levin\citep{verb-classes.levin.1993} a été de créer un dictionnaire où les verbes de la langue anglaise sont répartis dans une nombre fini de classes verbales. L'appartenance à une classe verbale est motivée par des comportements syntaxiques communs entre les verbes de cette classe. Son travail est le fruit d'observations sur les alternances de diathèses que démontrent les verbes. Levin remarquait que tout locuteur natif d'une langue est conscient des alternances de diathèses possibles d'un verbe, et ce sans avoir de connaissances linguistiques au préalable. Pour cette raison, elle a suivi son intuition et a tenté de délimiter tous les patrons de régime qu'un verbe possède, puis a évalué si d'autres verbes partageaient ces mêmes patrons. Lorsque c'était le cas, elle établissait une classe verbale qui allait regrouper les verbes se comportant de la même manière. Bien que son travail s'insère dans le cadre de la syntaxe, elle postulait que les verbes qui se comportent de la même manière syntaxiquement possèdent aussi des propriétés sémantiques communes. Ainsi, comme ces verbes partagent les mêmes composantes sémantiques, il est normal que cela se reflète en surface via des comportements syntaxiques communs. Les composantes sémantiques sous-jacentes seraient à l'origine des comportements syntaxiques permis pour un verbe. Donc, des verbes qui partagent des comportements syntaxiques, partagent aussi des composantes sémantiques, mais ça ne veut pas dire que les verbes appartenant à la même phrase signifient la même chose. Cela veut dire qu'ils possèdent des caractérisitques sémantiques similaires. Levin met en garde que deux verbes synonymiques peuvent très bien appartenir à deux classes différentes tout comme deux verbes qui en apparence ne se ressemble pas du tout, peuvent très bien partager des composantes sémantiques similaires.
 
-Tel que Levin le dit \citep{verb-classes.levin.1993}, son travail a été guidé par l'idée que les comportements syntaxiques des verbes sont motivés par les composantes sémantiques qui les représente. À ces fins, Levin a observé les comportements des verbes en anglais pour y tester cette hypothèse linguistique car il pensait que c'était une bonne manière de démontrer la chose. Si des verbes qui partagent le même type de comportement syntaxique, ils doivent aussi probablement partager des caractéristiques sémantiques. Son travail a été de classer les verbes systématiquement. Déjà , Levin soulignait l'importance d'encadrer les verbes dans les lexicons car les verbes qui sélectionne des arguments démontrent un ensemble complexes de propriétés. Ainsi, au lieu de construire un dictionnaire où chaque entrée verbale est prise individuellement, on regroupe les entrées lexicales en classe en fonction de leur comportement syntaxique et sémantique. 
+Un avantage de regrouper les verbes en classes verbales, à part la valeur théorique qui était de démontrer les propriétés sémantiques communes à ces verbes  dégage aussi un côté pratique qui était de construire un dictionnaire où les entrées lexicales ne sont pas prises individuellement, mais regroupée pour faciliter l'ajout d'entrées lexicales. Lorsqu'on termine le traitement d'une entrée, on n'a pas besoin de décrire tous les patrons de régime associés, on n'a qu'à ajouter l'entrée dans la classe qui la représente. Les auteurs de VerbNet notent toutefois que le classement de certains verbes est un peu tiré par les cheveux, mais ils ont revisité le classement initial de Levin et y ont apporté quelques modifications\citep{SchulerVerbnetBroadcoverageComprehensive2005}. 
 
-À la base le traitement est fait en fonction du comportement syntaxique, puis selon Levin, les verbes qui partagent le même type d'alternations syntaxiques (patrons de régime) partagent aussi la sémantique sous-jacente à ces constructions, donc cela fait en sorte qu'ils partagent généralement les mêmes caractéristiques sémantiques aussi. Le fait d'organiser le dictionnaire en classe verbale accélère le processus de création du dictionnaire, car une fois qu'on détermine le nombre de verbes qui fonctionnent de la même manière, il ne reste plus qu'à faire une entrée qui retient l'information syntaxique et sémantique partagée par l'ensemble de la classe, et passer à la classe suivante. Après, lorsqu'on a fait le tour des verbes, on a juste à les ajouter à l'une des classes pré-existantes. Les créateurs de VerbNet sont conscients du fait qu'on va parfois tenter de faire rentrer un verbe dans une classe et que c'est un brin tirer par les cheveux, mais il s'agit d'une infime partie du dictionnaire. \citep{SchulerVerbnetBroadcoverageComprehensive2005}. 
+Voici un exemple tiré de la thèse de Schuler \citep{SchulerVerbnetBroadcoverageComprehensive2005} qui nous démontre l'idée derrière la construction du dictionnaire de Levin. On prend les verbes \emph{break} et \emph{cut}, puis on teste diverses configurations possibles pour confirmer s'ils appartiennent à la même classe ou bien à deux classes distinctes. On pourrait penser qu'ils appartiennent à la même classe compte tenu de leur signifié qui se ressemblent. Briser et découper partagent évidemment des composantes sémantiques car il y a le sens d'altérer quelque chose, mais le court exemple nous démontre qu'ils appartiendrait à deux classes distinctes.
 
-Ici, on voit que les verbes spray/load peuvent exprimer leurs arguments d'au moins deux manières différentes. La seconde manière que Levin a appelé "locative alternation".
-
-\ex. \label{spray} Cadre syntaxique : Spray
-	\a. Sharon sprayed water on the plants.
-	\b. Sharon sprayed the plants with water.
+\ex. \label{transitive} \emph{Transitive construction}
+	\a. John broke the window.
+	\b. John cut the bread.
 	
-\ex. \label{load} Cadre syntaxique : Load
-	\a. The farmer loaded apples into the cart.
-	\b. The farmer loaded the cart with apples.
+\ex. \label{middle} \emph{Middle construction}
+	\a. Glass breaks easily.
+	\b. This loaf cuts easily.
 	
-Ces mêmes locuteurs natifs savent que des verbes qui s'apparentent à Spray/Load (car ils semblent correspondre au même type d'évènement) ne permettent pas les 2 alternances démontrées en \ref{spray} et en \ref{load}. Les verbes fill/cover permettent l'option b) et les verbes dump/pour permettent l'option a). Ainsi, à partir de tests de ce type, pour voir quels verbes permettaient le même type de construction, elle a bâti un lexicon qui regroupe les verbes en fonctions des alternances  de diathèses qu'ils permettent.
-	
-\ex. \label{cover} Alternances de diathèses : cover
-	\a. * Monica covered a blanked over the baby.
-	\b. Monica covered the baby with a blanket.
+\ex. \label{intransitive} \emph{Intransitive construction}
+	\a. The window broke.
+	\b. * The bread cut.
 
-\ex. \label{fill} Alternances de diathèses : fill
-	\a.* Gina filled lemonade into the pitcher. 
-	\b. Gina filled the pitcher with lemonade. 
+\ex. \label{conative} \emph{Conative construction}
+	\a.* John broke at the window.
+	\b. John valiantly cut at the frozen loaf, but his knife was too dull to make a dent in it.
 
-\ex. \label{pour} alternances de diathèses : pour
-	\a. Carla poured lemonade into the pitcher. 
-	\b. * Carla poured the pitcher with lemonade
+On voit d'abord que les constructions en \ref{transitive} et en \ref{middle} sont possibles pour ces deux verbes. Toutefois, en \ref{intransitive} et en \ref{conative}, on remarque qu'ils ne partagent pas ces cadres syntaxiques. \emph{Break} prend seulement la construction intransitive et exclut la conative, tandis que \emph{cut} prend la construction conative et exclut l'intransitive. Selon la logique de Levin, cela est due à des différences de composantes sémantiques. Le verbe \emph{cut} décrit une série d'actions entreprises dans le but de séparer un objet en morceaux. Toutefois, il est possible de commencer à découper un objet sans que l'objet ne soit séparer. Dans ce scénario, on peut tout de même percevoir que l'objet a été découpé. En ce qui concerne \emph{break}, le changement d'état, le fait d'être séparer en morceau est le coeur même de l'évènement. Si on n'arrive pas au résultat final, une tentavive de briser quelque chose ne peut être perçue. 
 
-\ex. \label{dump} alternances de diathèses : dump
-	\a. The farmer dumped apples into the cart. 
-	\b. *The farmer dumped the cart with apples. 
-	
-On en vient ainsi à la conclusion, que ces verbes ont beau ressembler à Spray/Load, mais il ne permettent pas les mêmes cadres syntaxiques, donc il y a une composante sémantique qui fait défaut et on ne peut pas avoir les mêmes frames. Ainsi, en opposant diverses diathèses possibles, Levin a fait un travail collossal où elle a repertorié des verbes se combinant de la même manière. C'est pourquoi des verbes qui ont beau être des synonymes, ne se combinent pas de la même manière. Elle avait ainsi un éventail de diathèses à tester et elle regroupait en classe les verbes qui partagaient les mêmes alternances. Se justifiant ainsi en disant que les raisons qui sous-tendent un partage des diathèses proviennent d'une sémantique similaire. 
-
-
-Remettre l'exemple de VerbNet (plus clair) :
-
-(cette partie manque l'exemple venant de verbnet)Ainsi, tel que démontré en \ref{transitive} et \ref{middle} les verbes appartenant à la classe break et à la classe cut se ressemblent car ils peuvent tous les 2 prendre ces cadres syntaxiques (ce genre de construction syntaxique). Toutefois, en \ref{intransitive} et en \ref{conative}, on voit très bien qu'il ne partagent pas ces constructions syntaxiques. \emph{Break} prend seulement la construction intransitive et exclut l'autre, tandis que \emph{cut} prend la construction conative et exclut l'intransitive. La raison que Levin donne est la suivante. Le verbe \emph{cut} décrit une série d'actions ciblant la complétion d'un but (séparer un objet en morceau). Toutefois, il est possible de faire ces séries d'actions sans que l'objectif final ne soit atteint, mais l'action de couper peut quand même être perçue. En ce qui concerne \emph{break}, la seule chose qui importe dans l'évènement, c'est le changement d'état d'un objet (qui devient séparés en morceaux). Si on n'arrive pas au résultat, une tentavive de briser quelque chose ne peut être perçue. Ce qu'on peut tirer de cet exemple, est que les classes verbales regroupent des verbes qui partagent des comportements syntaxiques similaires, les membres des classes ne sont donc pas nécessairement des synonymes, il ne s'agit que de verbes qui s'utilisent de la même façon. Ainsi, certaines classes vont effectivement regrouper des verbes qui signifient à peu près la même chose, mais aussi des verbes qui en surface, ne partagent pas bcp avec une majorité des verbes de cette classe, mais syntaxiquement, ces membres se comportent comme le reste de la classe. Ainsi, selon Levin, il y a quelque chose derrière les composantes sémantiques de ces membres qui les unirait avec les autres qui se ressemblent.
-
-Ainsi, les créateurs de VerbNet ont repris les concepts de Levin, mais les ont retravaillé. Toutefois, l'idée de constuire le lexicon verbal en classes est directement hérité de Levin.  L'orgaisation hiérarchique est aussi directement inspiré de la hiérarchie que Levin avait pensé. Toutefois,VerbNet a aussi ajouté des classes à ce que Levin avait fait. Ce qu'ils appellent intersective Levin classes, ce sont des sous-ensembles de classes qui s'entrecoupent et forment des classes à part. \citep{SchulerVerbnetBroadcoverageComprehensive2005}et \citep{verbnet.2006}.
+Le projet de Levin a inspiré beaucoup de chercheurs, notamment l'équipe de VerbNet. C'est pourquoi ils ont repris une grande partie du travail de Levin. On nommera l'organisation hiérarchique de VerbNet en classe et en sous-classes et le regroupement des verbes en classes verbales. Toutefois, les auteurs de VerbNet ont retravaillé les entrées de Levin et y ont apporté des corrections et améliorations pour que le traitement des verbes soit meilleur\citep{verbnet.2006}.
 
 \subsection {Composantes de VerbNet}  
 
-VerbNet est composé de classes verbales. Chaque classe contient un ensemble de membres, une liste de rôles thématiques (accompagnés de restrictions) utilisés pour les cadres syntaxiques et sémantiques, puis un ensemble de cadres possibles pour une classe. Chaque cadre est composé d'une brève description, d'un exemple, d'une description syntaxique et d'un ensemble de prédicats décrivant le cadre\citep{SchulerVerbnetBroadcoverageComprehensive2005}.
+Comme le système de Levin, VerbNet est aussi organisé en classes verbales. Chaque classe contient un ensemble de membres, une liste de rôles thématiques (accompagnés de restrictions sélectionnelles) utilisés pour décrire les arguments, puis un ensemble de cadres syntaxico-sémantiques possibles pour une classe. Chaque cadre est composé d'une brève description, suivi d'un exemple, puis d'une description syntaxique et des prédicats décrivant le cadre en question\citep{SchulerVerbnetBroadcoverageComprehensive2005}.
 
 \subsubsection{Classes verbales : organisation hiérarchique}
 
-Les raisons qui ont motivé VerbNet a organisé son information en hiérarchie. D'abord, il se sont fortement inspiré de Acquilex Lexical Knowledge Base \citep{CopestakeACQUILEXLKBrepresentation1992}. Ensuite, pour des raisons pratiques, ils ont trouvé que c'était la meilleure manière d'organiser cette montagne d'information lexicale car ils ont revu l'information fournie par Levin et ont ajouté des sous-classes aux classes ainsi que des sous-sous-classes aux sous-classes, allant jusqu'à un niveau de 3 steps de profondeur. Donc, des sous-ensembles des sous-ensembles. Ce qu'ils considèrent comme une raffinement des classes originales de Levin \citep{SchulerVerbnetBroadcoverageComprehensive2005}. En gros, c'est l'ajout de sous-classes aux classes origniales de Levin (et aux sous-sous-classes) qui ont rendu VerbNet hiérarchique. 
+Les auteurs de VerbNet se sont fortement inspirés de Acquilex Lexical Knowledge Base \citep{CopestakeACQUILEXLKBrepresentation1992} qui avait organisé leur information lexicale en hiérarchie. Effectivement, les auteurs de VerbNet ont implémenté l'aspect hiérarchique en créant jusqu'à trois niveaux de profondeur dans les classes verbales de Levin\citep{SchulerVerbnetBroadcoverageComprehensive2005}. Ainsi, une sous-classe verbale hérite de tout le contenu lexical de la classe (ou de la sous-classe) qui la domine. Les sous-classes ont été créées pour spécifier qu'un sous-ensemble de verbes issus de la classe qui les domine démontrent des comportements différents du reste de la classe tout en étant des verbes qui partagent les restrictions de la classe dominée.(guidelines, \citep{SchulerVerbnetBroadcoverageComprehensive2005}). Les comportements différents comprennent : les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques.
 
-Le fonctionnement est assez simple. Une sous-classe fille hérite de toute l'information de sa classe mère. Les sous-classes sont à l'origine de vouloir spécifier le comportement qui rassemble un sous-ensemble des membres d'une classe. Ainsi, une sous-classe est un ajout d'information par rapport à des restrictions d'usages de rôles thématiques, de cadres syntaxiques ou de prédicats sémantiques.(guidelines, \citep{SchulerVerbnetBroadcoverageComprehensive2005})
-
-Par la suite, on se sert encore de la numérotation pour expliciter la hiérarchie à l'intérieur même d'une classe (guidelines). Chaque classe peut inclure des classes filles, qui sont des classes sœurs entre elles, et qui peuvent avoir des classes filles à leur tour. La classe verbale Spray en démontre bien la chose. 
-
-D'abord, il y a la classe supérieure, qui est la plus haute de la hiérarchie, toutes les caractéristiques de cette classe sont partagées par tous les verbes de la classe. Dans la top classe nous avons les constructions syntaxiques et les prédicats sémantiques partagés par la classe, ainsi que les rôles thématiques. 
-
-Une classe mère domine une sous-classe, toutes ses caractéristiques sont partagées avec les classes subordonnées à celle-ci. 
-
-Une sous-classe : Les sous-classes dans VerbNet héritent des caractéristiques provenant de la classe dominante, mais elles spécifient particulièrement des constructions syntaxiques et une sémantique entre les verbes membres de cette sous-classe. Ce qui est spécifié dans une sous-classe peut être de différents ordres : ajouter des constructions syntaxiques propres à ce sous-groupe, ajouter des restrictions sélectionnelles sur les étiquettes des rôles sémantiques. 
-
-Des classes sœurs, ne partagent pas de caractéristiques hormis celle héritées par leur classe mère. Le reste de l'information encodée dans la classes sœurs n'est valide qu'à l'intérieur de leur classe respectivement.
-
-Démontrer la chose comme dans Guidelines :
+Prenons un exemple tiré de VerbNet pour en expliciter la hiérarchie.
 
 \begin{easylist}[itemize]
 & Spray-9.7
@@ -82,7 +54,9 @@ Démontrer la chose comme dans Guidelines :
 && Spray-9.7-2
 \end{easylist}
 
-Les classes verbales de VerbNet sont numérotées par des chiffres allant de 9-109 (guidelines). Le système de numérotation est directement hérité de Levin \citep{verb-classes.levin.1993} Ainsi, le numéro apparaissant devant une classe verbale est associé à des caractéristiques sémantiques et syntaxiques communes. Par Exemple, les classes verbales associées à des verbes de type "mettre quelque chose" commenceront par le chiffre 9. Ce qui nous donne quelque chose comme : 
+\emph{Spray-9.7} est le nom de la classe et celle qui dominera toutes les autres sous-classes. À l'intérieur de celle-ci, on spécifie tous les membres appartenant à cette classe, les rôles thématiques, les cadres syntaxiques et les prédicats sémantiques. Puis \emph{Spray-9.7-1} est une sous-classe fille qui hérite de l'information de sa mère, mais précise d'autres informations. Comme un sous-ensemble de verbes propres à ces comportements différents. Puis \emph{Spray-9.7-1-1} est une sous-classe d'une sous-classe et la hiérarchie continue. Elle héritera des traits de sa classe mère ainsi que de la classe qui domine sa classe mère. Finalement {Spray-9.7-2} est la classe sœur de \emph{Spray-9.7-1} donc, elle hérite aussi des traits de \emph{Spray-9.7} mais ne partage pas les particularités de \emph{Spray-9.7-1}
+
+Tel que démontré dans l'exemple, les classes et sous-classes sont numérotées. D'abord, pour expliciter le lien hiérarchique qui transcende à l'intérieur d'une classe. Mais la numérotation est aussi directement héritée du système de Levin \citep{verb-classes.levin.1993}. De cette manière, les classes sont numérotées par des chiffres allant de 9-109 (guidelines). Le numéro associé à des classes sert à représenter le partage de caractéristiques sémantiques et syntaxiques entre les classes verbales. Par exemple, les classes signifiant 'mettre quelque chose' commenceront par le chiffre 9.
 
 \begin{easylist}[itemize]
   & put 9.1
@@ -98,32 +72,47 @@ Les classes verbales de VerbNet sont numérotées par des chiffres allant de 9-1
 	
 \end{easylist}
 
-Certains numéros n'impliquent qu'une seule classe, car il n'y a pas d'autres classes qui partagent ce genre de traits sémantiques ou syntaxiques communs.
-
 \subsubsection{Membres}
+Ainsi, tel que mentionné précédemment, les entrées lexicales dans VerbNet sont des classes verbales. Contrairement à des dictionnaires où chaque entrée individuelle représente un verbe, ici on a une entrée lexicale qui représente une panoplie de verbes. Ce qui permet à VerbNet de couvrir très largement la langue anglaise dans un format adapté aux applications TAL. Ainsi, pour garnir leur section \emph{Members}, qui regroupe les verbes appartenant à une classe verbale en question, les chercheurs ont puisé dans d'autres ressources lexicales dont la base de données LCS \citep{AyanGeneratingParsingLexicon2002a} pour enrichir leur lexique.
 
-L'ensemble des membres d'une classe :
+La figure suivante montre à quoi ressemble la section \emph{Members} dans VerbNet. Chaque classe verbale représente un document XML qui contient toutes les sections sous formes de balises.
+
 \begin{lstlisting}[language=XML, caption = les membres]
-<VNCLASS ID="give-13.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
+<VNCLASS ID="give-13.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
     <MEMBERS>
-        <MEMBER name="deal" wn="deal%2:40:01 deal%2:40:02 deal%2:40:07 deal%2:40:06" grouping="deal.04"/>
-        <MEMBER name="lend" wn="lend%2:40:00" grouping="lend.02"/>
-        <MEMBER name="loan" wn="loan%2:40:00" grouping=""/>
-        <MEMBER name="pass" wn="pass%2:40:00 pass%2:40:01 pass%2:40:13 pass%2:38:04" grouping="pass.04"/>
-        <MEMBER name="peddle" wn="peddle%2:40:00" grouping="peddle.01"/>
-        <MEMBER name="refund" wn="refund%2:40:00" grouping="refund.01"/>
-        <MEMBER name="render" wn="render%2:40:02 render%2:40:01 render%2:40:00 render%2:40:03" grouping="render.02"/>
+        <MEMBER name="deal" 
+				wn="deal%2:40:01 deal%2:40:02 deal%2:40:07 deal%2:40:06" 
+				grouping="deal.04"/>
+        <MEMBER name="lend" 
+				wn="lend%2:40:00" 
+				grouping="lend.02"/>
+        <MEMBER name="loan" 
+				wn="loan%2:40:00" 
+				grouping=""/>
+        <MEMBER name="pass" 
+				wn="pass%2:40:00 pass%2:40:01 pass%2:40:13 pass%2:38:04" 
+				grouping="pass.04"/>
+        <MEMBER name="peddle" 
+				wn="peddle%2:40:00" 
+				grouping="peddle.01"/>
+        <MEMBER name="refund" 
+				wn="refund%2:40:00" 
+				grouping="refund.01"/>
+        <MEMBER name="render" 
+				wn="render%2:40:02 render%2:40:01 render%2:40:00 render%2:40:03" 
+				grouping="render.02"/>
         <!--removed "trade" from class because doesn't take "to-PP"-->
         <!--removed "volunteer "from class because doesn't fit dative or-->
         <!--PP recipient PP frames-->
     </MEMBERS>
 \end{lstlisting}
 
+Ainsi, dans cet exemple, on voit que \emph{deal, lend, loan, pass, peddle} et \emph{refund} sont les membres de la classe \emph{give-13.1}.
+
 \subsubsection{Rôles thématiques}
 
-(ce que je veux, ce sont des beamer arrows qui permettent de pointer vers qqch à l'intérieur de listings, tikz style)
-
-VerbNet utilise un ensemble de 23 rôles thématiques pour identifier les arguments dans les classes verbales (vérifier de quels rôles thématiques ils s'inspirent).On étiquette les arguments dans les classes verbales en leur associant un rôle thématique. La raison pour laquelle VerbNet a opté pour les rôles thématiques est que, contrairement à un étiquetage générique où on énumère les arguments en procédant comme "Argument 1" Verbe "Argument 2" pour illustrer un cadre syntaxique est parce que les rôles thématiques peuvent offrir de l'information sémantique de plus que juste un argument numéroté. Effectivement, à la base, les rôles thématiques ont été pensés dans les années 60 pour assigner une fonction aux arguments sélectionnés par des prédicats. On les avait créé pour typer les participants des prédicats. La spécification du rôle fournit de l'information sémantique sur le type d'argument en jeu, tandis que numéroté ne fournit rien du tout. Chaque argument se fait donné un rôle thématique unique, et ces rôles thématiques sont partagés par tous les membres d'une classe. Donc, ils doivent être assez large pour que ce soit cohérent avec tous les membres, mais pas trop imprécis non plus. Les rôles thématiques correspondent à la relation sémantique qui existe entre un prédicat et ses arguments.
+VerbNet se sert de 23 rôles thématiques pour identifier les arguments des verbes. Ils ont opté pour les rôles thématiques car contrairement à une approche où on énumère les arguments \emph{Argument-1 Verbe Argument-2}, une approche utilisant les rôles thématiques ajoute de l'information sémantique supplémentaire. À la base, les rôles thématiques ont été pensés dans les années 60 pour identifier les arguments sélectionnés par des prédicats en leur assignant un rôle sémantique. La spécification du rôle fournit de l'information sémantique sur le type d'argument en jeu, tandis que l'acte de numéroter ne fournit rien du tout. Chaque argument se fait donné un rôle thématique unique, et ces rôles thématiques sont partagés par tous les membres d'une classe. Donc, ils doivent être assez large pour que ce soit cohérent avec tous les membres, mais pas trop imprécis non plus. Les rôles thématiques correspondent à la relation sémantique qui existe entre un prédicat et ses arguments.
 
 VerbNet utilise les rôles thématiques pour étiquetter les arguments figurant des les cadres syntaxiques (et sémantiques) (Schuler, 2005). Elle puise dans une banque de 23 rôles thématiques pour associer le bon rôle à l'argument en question. Ils ont choisi ces rôles car ils étaient assez généraux pour se prêter à toutes les évènements que dégagent les verbes dans le dictionnaire. Ils voulaient capturer l'essence des verbes et démontrer encore une fois le caractère général des verbes en démontrant qu'une poignée d'argument peut bel et bien rendre compte des arguments sélectionnés par les verbes en anglais. À l'intérieur d'une même classe verbale on y retrouve un nombre x de rôles thématiques qui seront mappés aux arguments sélectionnés dans les cadres syntaxiques et sémantiques fournis par VerbNet. Ils ont choisi les rôles thématiques au lieu d'autres moyens d'étiquettage des arguments car ils trouvaient que ça ajoutait de l'information sémantique sur une classe verbale. 
 
@@ -365,6 +354,11 @@ chapitre 5, p.75 C'est important de parler de l'évaluation du système car c'es
 \subsection{Pourquoi avoir choisi VerbNet ?}
 
 Expliquer pourquoi on a choisi VerbNet parmi tous les dictionnaires qui s'offraient à nous (en excluant ceux dans d'autres langues).
+D'autres ont aussi utilisé VerbNet pour ce genre de tâche, notamment : jonathan pfeil et Offer Biller
+
+le tutoriel : ESCW tuto RelExtra v1	
+
+On est dans la même optique que Wanner et Mille qui pensent que des ressources comme VerbNet pourraient aussi être bénéfique pour la NLG, malgré le fait qu'elles sont plus conçues pour d'autres tâches.
 
 
 

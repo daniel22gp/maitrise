@@ -1,0 +1,17 @@
+\chapter{Évaluation du système}
+
+\mate{lexstd}{gauche}{droite}{conditions}
+
+\section{Méthodes d'évaluation en NLG}
+
+notre système ne passera pas par la phase de morpho et linéarisation. Mais,avec la structure de surface, nous pouvons déjà savoir si l'arbre en output est grammaticalement correcte selon les arbres de dépendance. Les outils de linéarisation ne font que prendre les arbres et linéariser en fonction des dépendances. 
+
+voir : The first Surface Realisation Shared task
+
+l'évaluation de notre système sera principalement humaine, mais notre manière de voir si c'était bon sera de comparer les structures de surface avec les phrases données en input provenant de VerbNet et voir si ça a de l'allure
+
+évaluation manuelle : avec les jpg, la version textuelle des graphes, et les phrases exemples
+
+notre évaluation concernera : les limites de GenDR et les limites de VerbNet, une critique théorique de ce qui font, en testant une application pratique de leur lexicon. Et fournir une ligne directrice aux futurs lexicons, ou bien aux genres de lexicon qu'il nous faut. Dans le fond, une critique de Levin aussi, qui ne traite pas des fonctions lexicales, car c'est une analyse syntaxique qui sous-tend des principes sémantiques. Et la partie sémantique de VerbNet est plus axé sur les rôles sémantique et sur les prédicats sémantiques, mais qui clash avec notre théorie qui rend mieux compte de l'interface sémantique/syntaxe.
+
+dire que c'est normal que en NLG, les méthodes d'évaluation sont complexes. Surtout que notre truc est pas linéarisé, pourquoi on peut pas utiliser de F-mesure, etc.

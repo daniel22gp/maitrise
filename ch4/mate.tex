@@ -2,69 +2,47 @@
 
 \chapter{Intégration des régimes de VerbNet dans GenDR}
 
-\section{Génération automatique de texte}
+\section{Comment générer du texte avec GenDR}
 
-\subsection{processus de génération automatique de texte}
+\subsection{Dictionnaires}
 
-\subsection{Divers systèmes de GAT}
-
-\subsubsection{KPML}
-
-\subsubsection{SimpleNLG}
-
-\subsubsection{etc.}
-
-\section{Cadre théorique: Théorie Sens-Texte}
-
-\subsection{utilisation de la TST en NLP}
-
-\subsection{patrons de régime}
-
-\subsection{lexicalisation}
-
-\subsection{arborisation}
-
-\section{Origines de MATE}
-
-\subsection{Qu'est-ce que MATE}
-
-\subsection{MARQUIS : ancêtre de GenDR}
-
-\section{GenDR}
+\subsection{Grammaires}
 
 \subsection{Graphes}
 
-\subsection{Dictionnaire}
+\section{Implémentation des patrons de régime}
 
-\subsection{Grammaire}
+\subsubsection{GP dans les dictionnaires}
 
-\subsubsection{Mécanisme dsynt=created->constrained->OK pour générer un énoncé simple (sujet, verbe, objet)}
+\subsubsection{GP dans les règles grammaticales}
 
-\subsubsection{Application de la règle root{\_}standard}
+\section{Mécanisme dsynt=created->constrained->OK pour générer un énoncé simple (sujet, verbe, objet)}
+
+\subsection{Application de la règle root{\_}standard}
 Cette règle crée un noeud qui sera la racine de l'arbre syntaxique. Ce noeud se fait imposer des contraintes. Notamment, on demande à ce que ce soit un lexème appartenant à la partie du discours : verbe et que sa finitude soit de type: fini. On impose à ce noeud le trait dsynt=constrained pour que ça s'harmonise avec le règle lex{\_}standard, mais c'est à revoir.
 
-\subsubsection{application de la règle lex{\_}standard pour lexicaliser le verbe principal}
+\subsection{application de la règle lex{\_}standard pour lexicaliser le verbe principal}
 On assigne un lexème à un noeud  créé en syntaxe profonde. Dans le contexte actuel, on l'utilise pour sélectionner l'unité lexicale qui matche les contraintes énoncées sur le noeud vide créé par la règle root{\_}standard. Ce lexème provient du lexicon. Lorsque la règle s'applique et qu'elle consomme le noeud en y mettant la bonne lexicalisation (qui respecte les contraintes sur le noeud), on ajoute un trait dsynt=OK pour signifier que le sémantème a été réalisé en syntaxe profonde et qu'on ne fasse plus d'opérations sur ce noeud.
 
-\subsubsection{Application de la règle actant{\_}gp{\_}selection}
+\subsection{Application de la règle actant{\_}gp{\_}selection}
 Cette règle s'applique lorsque nous avons un prédicat.
 On crée une variable[ ?GP] qui nous fournit un chemin vers l'information encodée sous l'attribut \emph{ gp} d'un lexème [?X]. Puis , on extirpe les traits \emph{ id} et \emph{dia} pour chaque attribut\emph{ gp} de notre [?X]. Une fois qu'on a récupéré ces informations, on les appose au lexème en question car on se servira de ces informations pour l'application de règles subséquentes. Le trait \emph{ id} représente la description du patron de régime (chaque description se retrouve dans notre gpcon qui est un dictionnaire de\emph{ gp}) et le trait dia nous renseigne sur la diathèse de ce patron de régime, c'est-à-dire combien d'actants sont en jeu, et dans quel ordre sont-ils placés ? Il est essentiel qu'un lexème verbal aille chercher ces traits car il en a besoin pour appliquer les règles actancielles qui en découlent. Il faut que le système sache quel patron de régime utilisé pour un prédicat donné, et dans quel ordre les actants seront réalisés en syntaxe.
 
-\subsubsection{application des règles actancielles}
+\subsection{application des règles actancielles}
 Une fois qu'un gp est sélectionné, on appliquera la règle actancielle qui lui correspond. Nos règles actancielles ressemblent à : actant{\_}gp{\_}ijk. Les règles prennent en input les arcs sémantiques liant les actants à leur prédicat. Ces règles génèrent des noeuds vides auxquels on appose un trait dsynt=created pour signifier qu'on vient de créer des noeuds vides (on dit qu'ils sont vides car ils n'ont pas encore été consommés par une unité lexicale) en syntaxe profonde. On obtient ainsi des arcs syntaxiques au bout desquels se trouve un noeud vide. Ces règles se font imposer des conditions bien strictes. Il faut d'abord que le prédicat qui les gouverne soit lexicalisé. Ce qui se traduisait par l'ajout d'un trait dsynt=OK au lexème lexicalisé (avec la règle lex{\_}tandard). La règle actant{\_}gp{\_}selection nous permettait de soutirer les traits  \emph{ id} et \emph{dia} et c'est ici que le trait dia entre en jeu. On s'en sert pour illustrer la diathèse du verbe. [à revoir]
 
-\subsubsection{application de la règle constraints{\_}gp}
+\subsection{application de la règle constraints{\_}gp}
 Cette règle applique des contraintes à des noeuds nouvellement créés (autrement dit, des noeuds qui ont le trait dsynt=created). C'est à partir de cette règle que le mécanisme de \emph{dsynt=created-> constrained->OK} prend vie. Il s'agit d'une étape intermédiaire entre la création du noeud avec les règles actancielles et la lexicalisation qui consommera le noeud en octroyant un lexème suivant un trait dsynt=OK (signifiant que la réalisation en syntaxe profonde est terminée). Ainsi, la règle procède de cette manière. On prend un X (un prédicat) qui lie un Y (un actant) puis ce dernier se fait imposer des contraintes. On cherche à lui imposer ces contraintes car on souhaite qu'il respecte le patron de régime de X. Ainsi, s'il ne convient pas comme actant syntaxique, il ne pourra pas passer à la lexicalisation. Car on souhaite une correspondance entre les traits naturels contenus dans le dictionnaire pour le sémantème en question. Si ses traits ne convienne pas aux contraintes imposées au noeud, provenant du patron de régime de X, alors l'arbre sera incomplet. Lorsqu'on met les contraintes sur le noeud, on lui met aussi le trait dsynt=constrained pour montrer qu'il a été contraint et donc qu'il remplit les critères pour passer à la lexicalisation.
 
-\subsubsection{application des règles de lexicalisation}
+\subsection{application des règles de lexicalisation}
 
 Il y a différentes règles de lexicalisation afin de donner un peu de latitude au système. Ainsi, si quelques informations sont manquantes dans le lexicon ou le semanticon, nous voulons que le système arrive quand même à effectuer une génération de texte. C'est pourquoi il existe la règle standard qui fonctionne lorsque nous avons accès à tous les éléments nécessaires. Les régles de types \emph{guess} opèrent lorsqu'il nous manque certaines infos. 
 
-\subsubsection{lex{\_}standard}
+\subsection{lex{\_}standard}
 
 Nous avons vu cette règle un peu plus haut, car il fallait l'appliquer dès le début pour lexicaliser le noyau principal afin de chercher le bon lexème qui pouvait remplir cette fonction. Une fois que nous l'avons lexicalisé, nous avons pu aller chercher les informations sur la nature de son gp etc. Nous sommes maintenant rendus au moment où il existe des arcs syntaxiques au bout desquels nous avons des noeuds contraints par des traits comme : la dpos, la finitude, la définitude, etc. Nous allons donc lexicaliser ces noeuds afin de poursuivre la construction de l'arbre, du haut vers le bas. En gros, comment ça fonctionne. On cherche la lexicalisation d'un sémantème donné dans le semanticon, en allant chercher le trait \emph{lex} du sémantème. Puis, on colle cette lexicalisation a un noeud déjà existant. Ce noeud existe déjà car il a soit été créé par root{\_}standard ou par une des règles actancielles. On va octroyer au noeud 3 traits : un trait dlex, un trait dpos, et finalement un trait dsynt. Le trait dlex est la lexicalisation profonde, celle qu'on retrouve dans le lexicon, le trait dpos est la partie du discours profonde qui doit correspondre à la dpos demandée par constraints{\_}gp. Et finalement, un trait dsynt=OK qui s'ajoute à la lexicalisation du sémantème pour signifier au système que le noeud a été consommé et qu'il a été réalisé en syntaxe profonde. Donc, qu'on ne fasse plus d'opération sur ce noeud. Finalement, on peut uniquement faire des opérations sur des noeuds qui ont let trait dsynt=constrained afin de lexicaliser seulement les noeuds qui se sont fait attribués des contraintes. Ainsi, s'ils respectent les contraintes, ils pourront être lexicalisé, sinon, l'arbre sera incomplet et la génération échouera.
 
-\subsubsection{Avantages d'utiliser ces mécanismes}
+\subsection{Avantages d'utiliser ces mécanismes}
 
 "Dsynt=OK" indique que le noeud a été consommé. Autrement dit, il existe maintenant une unité lexicale réalisé en syntaxe profonde, là où il y avait un noeud vide.
 "Dsynt=constrained" indique qu'un noeud vide s'est fait imposé des contraintes. Ces contraintes peuvent être de plusieurs ordres. Notamment, on impose une dpos, une finitude, un mood, etc. Il s'agit du passsage intermédiaire entre la création d'un noeud et sa lexicalisation. On veut s'assurer qu'il respecte certaines contraintes pour ne pas lexicaliser n'importe quoi lors de la génération de notre arbre syntaxique.

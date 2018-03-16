@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\verbnet.tex
 
 [Frame2_View0,0]
-TopLine=241
-Cursor=10502
+TopLine=532
+Cursor=50607
 
 [Frame3]
 Flags=0
@@ -89,8 +89,8 @@ Class=LaTeXView
 Document=ch5\evaluation.tex
 
 [Frame4_View0,0]
-TopLine=0
-Cursor=0
+TopLine=6
+Cursor=1848
 
 [Frame5]
 Flags=0
@@ -107,8 +107,8 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame5_View0,0]
-TopLine=697
-Cursor=48661
+TopLine=872
+Cursor=52894
 
 [Frame6]
 Flags=0
@@ -125,10 +125,28 @@ Class=LaTeXView
 Document=preambule.tex
 
 [Frame6_View0,0]
-TopLine=92
+TopLine=116
+Cursor=0
+
+[Frame7]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=26
+NormalPos.right=1362
+NormalPos.bottom=451
+Class=LaTeXView
+Document=memoire.bbl
+
+[Frame7_View0,0]
+TopLine=0
 Cursor=0
 
 [SessionInfo]
-FrameCount=7
+FrameCount=8
 ActiveFrame=2
 

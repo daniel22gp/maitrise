@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\verbnet.tex
 
 [Frame2_View0,0]
-TopLine=532
-Cursor=50607
+TopLine=547
+Cursor=55088
 
 [Frame3]
 Flags=0
@@ -107,8 +107,8 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame5_View0,0]
-TopLine=872
-Cursor=52894
+TopLine=0
+Cursor=0
 
 [Frame6]
 Flags=0

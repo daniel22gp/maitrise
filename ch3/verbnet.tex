@@ -310,54 +310,38 @@ Nous n'utiliserons pas ce système puisque nous traitons l'anglais, mais le surv
 %https://repository.ortolang.fr/api/content/dicovalence/1/documentation/DicovalenceManuel_v20_100625.pdf
 %Karel van den Eynde and Piet Mertens. 2006. Le dictionnaire de valence DICOVALENCE : manuel d’utilisation. http://bach.arts.kuleuven.be/dicovalence/manuel 061117.pdf.
 
-\subsection {Utilisation de VerbNet dans des applications NLP}
+\subsection {Utilisation de VerbNet dans des applications TAL}
 
 VerbNet a été utilisé dans un nombre impressionnant de travaux de recherche. Ce qui en témoigne de son efficacité et de sa réputation. Voici notamment quelques projets de recherche où les chercheurs se sont servis de cette base de données lexicales pour effectuer leurs travaux.
 
-\subsubsection{Automatically building conceptual graphs using VerbNet and WordNet}
+\subsubsection{Construction de graphes conceptuels}
 \citep{HensmanAutomaticallyBuildingConceptual2004}
+Les graphes conceptuels servent à représenter le sens d'un énoncé. Dans une recherche, ils se sont servis des informations lexicales de VerbNet pour créer des graphes automatiquement. Ainsi, ils prennent des documents provenant de corpus, ils en extraient les phrases, ils les parsent syntaxiquement, puis les matche à un patron correspondant dans VerbNet. Après avoir un patron correspondant, la phrase est maintenant dotée de toutes les informations lexicales contenues dans les entrées de VerbNet et la création du graphe conceptuelle se fait automatiquement. Ces graphes sont ensuite ajoutés dans une base de données et ils facilient l'information retrieval.
 
-\subsubsection{Putting Pieces Together: Combining FrameNet, VerbNet and WordNet for Robust Semantic Parsing}
+\subsubsection{Parsing sémantique}
 \citep{Shi:2005:PPT:2132047.2132058}
+Dans ce projet, VerbNet est combiné à FrameNet et WordNet pour faire du semantic parsing. La force de VerbNet dans ce projet est son exhaustivité des différents patrons de régime de l'anglais, et les rôles sémantiques qui sont liés aux verbes. Ils suggèrent que l'utilité de VerbNet provient aussi de sa couverture de l'anglais et des patrons de régime possible est extrêment riche et donc cruciale pour ce genre d'opération. Le but d'un semantic parser est d'analyser le sens de la structure d'une phrase. Donc, via les ressources dont VerbNet, lorsqu'il parse un texte non annoté, le parseur cherche des patrons similaires à ceux se trouvant dans les bases de données lexicales pour ensuite étiquetté les phrases et en faire sortir la structure syntaxique et les caractérisitques sémantiques via les rôles thématiques.
 
-\subsubsection{Question Answering with Lexical Chains Propagating Verb Arguments}
-\citep{Novischi:2006:QAL:1220175.1220288}
-
-\subsubsection{A question answering system based on VerbNet frames}
-\citep{questionansweringsystem}
+\subsubsection{Un système de question-réponse}
+\citep{DBLP:conf/nlpke/WenJH08}
+Pour un bon système de question-réponse, la précision de la réponse est cruciale. De parvenir à un haut niveau de précision pour une réponse, ils proposent un système de question-réponse reposant sur VerbNet. Leur système extait les informations syntaxiques et sémantiques des questions puis à partir du web formule des réponses candidates en fonction des informations extraites de la questions , puis VerbNet est appliqué dans leur système pour détecter les cadres syntaxiques des verbes dans les questions et dans les réponses candidates afin d'obtenir les informations syntaxiques et sémantiques. Puis, leur système choisi la phrase candidate répondant le mieux à la question et tenant compte de la structure sémantique et syntaxique de la question.
 
 \subsubsection{A supervised algorithm for verb desambiguasation into VerbNet classes}
 \citep{AbendSupervisedAlgorithmVerb2008}
-
-\subsubsection{Semantic classifications for detection of verbs metaphor}
-\citep{DBLP:conf/acl/KlebanovLGSF16}
+Ils ont développé un modèle d'apprentissage supervisé pour mapper des lexèmes à des classes de VN. Comme la polysémie est un enjeu majeur en TAL, leur travail consistait à analyser un texte et lorsqu'il trouve un verbe, il doit l'associer à la bonne classe, en fonction des informations lexicales qu'on retrouve dans la classe. Développer ce genre d'outil en TAL est très important car, les machines ne voient les verbes que comme des chaînes de caractères dépourvues de sens. Le contexte d'utilisation d'un verbe nous permet de savoir à quelle classe VN il est présentement utilisé (comme bcp de verbes s'emploient avec des classes différentes selon le contexte). EN moyenne un verbe appartient à 2.5 classes différentes.
 
 \subsubsection{VerbNet class assignment as a wsd task}
 \citep{BrownVerbNetClassAssignment2011}
-
-\subsubsection{Multilingual NLG within abstractive generation}
-\citep{GalanisGeneratingMultilingualDescriptions2007}
-
-\subsection{Pourquoi on n'a pas utilisé les rôles thématiques et les prédicats sémantiques}
-
-\citep{mel2012semantics}
-Parler de ça dans la section python où on crée les patrons de régime, ça s'y prêtre plus.
-p.210 dans le livre Melcuk
-on pourrait garder les rôles pis les mettre dans MATE aussi
+Des représentations verbales riches sont cruciales en NLP pour un parsing sémantique profond. Utiliser un lexicon déjà annoté à plusieurs niveaux peut être très utile pour ce genre de tâches. par exemeple la désambiguisation en serait très profitable. Leur classifieur sémantique s'apparente beaucoup à celui de Abbend \citep{AbendSupervisedAlgorithmVerb2008}.
 
 \subsection{Pourquoi avoir choisi VerbNet ?}
 
-Nous avons choisi VerbNet car :
+Nous avons choisi VerbNet car cette une ressource qui s'est distinguée de ses concurrentes. D'abord, par son imposante couverture de la langue anglaise (statistiques). Ensuite, par son architecture interne héritée de Levin et améliorée. Le regroupement en classes verbales facilite énormément le travail, et le découpage hiérarchique suivi des mécanismes d'héritage en font un outil très performant et précis, sans être encombrant et facilement repérable. Les verbes sont aussi classés dans plusieurs classes verbales, donc ils sont partiellement désambigguisés, ce qui est extrêmement utile, car on veut être le plus précis possible en NLG. De plus, les descriptions syntaxiques encodées en XML sont facilement exportable et maléable dans un format qui nous convenait, par le fait même, le traitement en Python devenait très accessible puisque NLTK avait déjà fait un pré-traitement de VerbNet, ainsi il existait des modules dont nous pouvions nous inspirer pour extraire l'information dans les balises de VerbNet. Un autre point important est qu'il existe beaucoup de ressources linguistiques à la VerbNet dans d'autres langues que l'anglais, dont le (mettre les citations de tous les verbnet étrangers) français, le portugais, l'italien, l'estonien, l'espagnol, le catalan, le tchèque. Finalement, puisque notre système GenDR se veut un générateur multilingue dans sa première version, c'est un premier pas pour facilement implémenter d'autres langues à notre système puisque nous avons déjà des scripts une architecture prête pour acceuillir des ressources lexicales similaires. 
 
-coverage, architecture, désambiguisation, descriptions syntaxiques facilement exportable, traitement en Python très accessible, existe bcp de VerbNet dans d'autres langues, et comme notre système se veut multilingue, c'est un premier pas pour facilement exporter les autres langues par la suite. Déjà utilisé pour bcp de tâches NLP, dont NLG.
+De plus, dans la section précédente, on montre qu'il est utilisé pour des applications de TAL diverses, mais on a aussi trouvé des systèmes récents qui utilisaient VerbNet pour faire de la NLG. Des chercheurs ont extrait le mapping qui avait été fait entre XTAG-VerbNet afin de donner une couverture imposante de l'anglais pour l'interface sémantique-syntaxe de son générateur. Ils se sont surtout servis de VerbNet pour créer leur grammaire. Leur projet s'appelle S-STRUCT \citep{PfeilAlgorithmsResourcesScalable2016}, un générateur de texte automatique dont on a ajouté un module d'apprentissage machine pour la partie \emph{discourse planning}. Ainsi, en améliorant la partie discourse planning avec du machine learning, le système apprend à générer les phrases dans un ordre statistiquement plus logique.
 
-D'autres ont aussi utilisé VerbNet pour ce genre de tâche, notamment : jonathan pfeil et Offer Biller
-
-le tutoriel : ESCW tuto RelExtra v1	
-
-Wanner et Mille avait aussi démontré un intérêt vers VerbNet en 2016 pour ce genre de tâche.
-
-
+D'un autre côté, Wanner et Mille ont publié un court article expliquant qu'ils prévoyaient utiliser VerbNet comme base de données lexicales car ils avaient besoin d'une ressource lexicale riche dans le cadre de génération automatique de texte \citep{MilleLargeCoverageDetailed2015}. De telles ressources sont importantes pour la couverture et qualité des en GAT. Ils mentionnent que des réaliseurs classiques comme KPML, surge, et REALpro nécessitaient un enrichissement lexical pour être encore plus performant. Car, pour arriver à une structure syntaxique de surface, où tous les unités lexicales sont réalisées, il faut qu'un système de GAT possède des ressources lexicales capables de générer tous les actants d'un verbe en fonction des restrictions possibles et des bonnes prépositions, il faut que la génération soit impeccable aussi. Ces informations se retrouvent dans des dictionnaires de cadres de sous-catégorisation tel que ceux mentionnés plus haut. En anglais, VerbNet rempli très bien les caractéristiques recherchées pour des dictionnaires lexicaux car c'est un lexicon à grande surface qui couvre une grande partie de la grammaire anglaise et détaille avec précisions les patrons de régime possibles, ainsi que beaucoup d'autres informations. Toutefois, ils précisent quelque chose qui est très vrai, VerbNet est principalement utilisé pour des tâches comme semantic role labelling, information retrieval. En résumé, les ressources lexicales éxistantes sur le marché sont incomplètes et difficile à implémenter pour la NLG. Ce qui a découlé de ce travail est Forge \citep{DBLP:conf/semeval/MilleCBW17}, un générateur de texte automatique. Toutefois, ils n'ont pas utilisé VerbNet dans leur système, tel que nous l'avons vu dans la section précédente. Ce qui démontre l'importance de ce travail car nous avons décidé d'utiliser VerbNet en tant que ressource lexicale pour faire la tâche qu'ils avaient entamés, mais sur laquelle ils n'ont pas publié de résultats.
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ---------  P Y T H O N  ---------
@@ -568,6 +552,7 @@ for_obl_N = 'rel=oblique dpos=N prep=for'
 as_N =  'rel=oblique dpos=N prep=as'
 against_N = 'rel=oblique dpos=N prep=against'
 at_N = 'rel=oblique dpos=N prep=at'
+...
 
 # LOC
 
@@ -590,6 +575,7 @@ descriptions = {
 'NP_location_V_PP_with_theme' : [subj, with_N],
 'NP_material_V_NP' : [subj,dir_N],
 'NP_material_V_PP_into_product' : [subj, into_N],
+...
 
 # CREATION DU GPCON
 with open('gpcon.dict','w') as f:
@@ -600,7 +586,9 @@ with open('gpcon.dict','w') as f:
 
 \end{lstlisting}
 
-Rajouter aussi en lstlistings les résultats qui sont des documents .dict (à la fin de l'explication)
+Il serait important d'expliquer pourquoi nous n'avons pas repris les rôles sémantiques fournis par VerbNet, car la fonction gp et l'entièreté de ce script repose sur ces fondements de TST. Melcuk explique d'abord pourquoi nous étiquettons nos actants sémantiques de cette manière, puis pourquoi les rôles sémantiques n'ont pas leur place en sémantique.
+
+
 
 Soit le mentionner ici, ou ailleurs, mais il a fallu faire un dictionnaire de patron de régime. D'abord, parce qu'on s'est rendu compte que du à toute l'information qu'on allait chercher et la différence dans le type d'information, on a jugé bon de créer un second dictionnaire qui ne contiendrait que les gps, autrement dit un gpcon. Celui l'information sur les patrons de régime (les actants syntaxiques). Il existe x nombre de gps répertoriés. Nous les avons trouvé en faisant un ensemble à partir de tous les descriptions que nous avons obtenus avec le script précédent. Une fois que nous avons l'ensemble des gps différents. Il nous fallait les créer, car tel que mentionné, nous ne pouvions pas extraire les gps de VerbNet dû à une différence trop grande (cadre théorique et application). Notre système de GAT fonctionne avec la théorie Sens-Texte et nous pensons que c'est la théorie qui s'y prête le plus pour faire ce type d'opérations et qui tient le mieux compte de la manière dont le langage fonctionne. Ainsi, nous avons créer le gpcon à partir de Python car un bon nombre d'opérations peuvent être automatisés (éviter les fautes, et c'est plus transparent). Pour la création du gpcon, notre dictionnaire en Python ressemblait à ça. Nos keys() étaient la description du gp et les valeurs étaient les actants syntaxiques impliqués dans ce gp (avec de l'information sur les actants syntaxiques nécessitant une préposition à réaliser). Selon l'ordre dans lequel figure nos objets dans la liste qui est ce qu'on retrouve dans values(), notre fonction va assigner le bon actant syntaxique(I, II, III, etc.) ainsi, cette partie est automatisée grâce à cette fonction. Après, pour l'objet "subj" on va lui assigner une string 'rel=subjective dpos=N' ce qui est encodé dans une autre cellule. Ainsi à chaque fois qu'un gp a  un subj, on n'a pas à écrire ce que subj contient. Alors pour l'objet subj, on aura I et 'rel=subjective dpos=N'. C'est l'union de la fonction gp et de la fonction roman qui nous permettent d'assigner les bons actants syntaxiques aux objets dans la liste qui représente les values dans mon dictionnaire de gpcon.
 

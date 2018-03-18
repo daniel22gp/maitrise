@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=12
-Cursor=0
+TopLine=0
+Cursor=1518
 
 [Frame2]
 Flags=0
@@ -53,7 +53,7 @@ Class=LaTeXView
 Document=ch3\verbnet.tex
 
 [Frame2_View0,0]
-TopLine=547
+TopLine=508
 Cursor=55088
 
 [Frame3]
@@ -72,7 +72,7 @@ Document=ch4\mate.tex
 
 [Frame3_View0,0]
 TopLine=0
-Cursor=274
+Cursor=233
 
 [Frame4]
 Flags=0
@@ -89,7 +89,7 @@ Class=LaTeXView
 Document=ch5\evaluation.tex
 
 [Frame4_View0,0]
-TopLine=6
+TopLine=0
 Cursor=1848
 
 [Frame5]
@@ -148,5 +148,5 @@ Cursor=0
 
 [SessionInfo]
 FrameCount=8
-ActiveFrame=2
+ActiveFrame=1
 

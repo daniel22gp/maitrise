@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=0
-Cursor=1518
+TopLine=72
+Cursor=14129
 
 [Frame2]
 Flags=0
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\verbnet.tex
 
 [Frame2_View0,0]
-TopLine=508
-Cursor=55088
+TopLine=0
+Cursor=24773
 
 [Frame3]
 Flags=0
@@ -72,7 +72,7 @@ Document=ch4\mate.tex
 
 [Frame3_View0,0]
 TopLine=0
-Cursor=233
+Cursor=724
 
 [Frame4]
 Flags=0
@@ -107,8 +107,8 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame5_View0,0]
-TopLine=0
-Cursor=0
+TopLine=1006
+Cursor=61284
 
 [Frame6]
 Flags=0

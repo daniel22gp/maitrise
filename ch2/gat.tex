@@ -48,7 +48,7 @@ Après avoir sélectionné le contenu, un système NLG doit décider l'ordre dan
 Ce ne sont pas tous les messages sélectionnés dans le plan qui doivent être exprimés dans des phrases individuelles. En combinant des phrases individuelles en une seule et même phrase, on génère un texte beaucoup plus fluide et agréable à lire (Cheng et Mellish, 2000). Ainsi, la majeure partie du temps, elle sert à enlever la redondance dans le texte. Encore une fois, des chercheurs tentent d'automatiser cette étape en implémentant des méthodes d'apprentissage machine pour que le système NLG apprenne les règles d'agrégation et les applique lorsqu'il se doit (Barzilay et Lapata, 2006).
 
 \subsection{Lexicalisation}
-À cette étape, nous avons des données sélectionnées, puis structurées et que les futures phrases ont été combinées, on peut commencer à traduire les données en langue naturelle. Cette partie est très importante car c'est là qu'on choisi les mots qui seront utilisés pour transmettre le message. Toutefois, cette section se complique parfois car il existe naturellement plusieurs manières différentes de dire la même chose. La complexité de ce processus de lexicalisation dépend des mécanismes intégrés au système pour gérer cela. Certains traitent de lexicalisation en surface, d'autres la traite profondément. Toutefois, ceux qui traitent la lexicalisation en surface sont beaucoup plus restreints dans leur choix et sont très rigides. Tandis qu'un modèle profond permet de mieux tenir compte de la richesse lexicale d'une langue, mais il faudra une approche qui unit les représentations conceptuelles avec des règles de grammaire qui encoderont les choix lexicaux et syntaxiques. D'ailleurs, Elhadad et al. 1997 avait grandement contribué pour cela.
+À cette étape, nous avons des données sélectionnées, puis structurées et que les futures phrases ont été combinées, on peut commencer à traduire les données en langue naturelle. Cette partie est très importante car c'est là qu'on choisi les mots qui seront utilisés pour transmettre le message. Toutefois, cette section se complique parfois car il existe naturellement plusieurs manières différentes de dire la même chose. La complexité de ce processus de lexicalisation dépend des mécanismes intégrés au système pour gérer cela. Certains traitent de lexicalisation en surface, d'autres la traite profondément. Toutefois, ceux qui traitent la lexicalisation en surface sont beaucoup plus restreints dans leur choix et sont très rigides. Tandis qu'un modèle profond permet de mieux tenir compte de la richesse lexicale d'une langue, mais il faudra une approche qui unit les représentations conceptuelles avec des règles de grammaire qui encoderont les choix lexicaux et syntaxiques. D'ailleurs, (Elhadad et al. 1997) avait grandement contribué pour cela.
 
 Convertir un graphe sémantique d'entités et de relations, en un graphe syntaxique de mots et de relations syntaxiques. 
 
@@ -61,6 +61,8 @@ La dernière étape de ce pipeline NLG classique est la réalisation linguistiqu
 
 Cette tâche implique la morphologie et la linéarisation. De même qu'insérer les mots fonctionnels (auxiliaires, etc.) et la ponctuation.
 
+(Lambrey,2016) Objectif : appliquer règles et procédés d'ordre grammaticaux aux représentations abstraites pour que l'output satisfasse les contraintes syntaxiques et morphologiques de la langue en question.
+
 \subsubsection{À base de patrons}
 Est utilisé lorsque le domaine est petit et que les variations sont minimes. (McRoy et al., 2003). Montrer un exemple avec le soccer. (p.19).  L'avantage d'utiliser les templates est qu'on peut très bien prévoir ce qui sera généré en output, donc les risques d'erreurs grammaticales sont extrêmement faibles, du au contrôle qu'on a. Ils peuvent aussi être complémenter par des modules de règles pour pallier à certains problèmes, ce qui les rend très performant. Toutefois, l'inconvénient de tels systèmes est qu'ils sont très coûteux en termes de temps, puisque tout doit être fait à la main. Bien qu'avec la mode de l'apprentissage machine, certains systèmes apprennent à écrire des patrons (Angeli et al., 2012). Finalement, ils ne fonctionnent pas bien avec des tâches qui requièrent beaucoup de variation linguistique.
 
@@ -70,8 +72,8 @@ Est utilisé lorsque le domaine est petit et que les variations sont minimes. (M
 \subsubsection{Statistique}
 
 \subsubsection{Règles vs statistiques : avantages/inconvénients}
-(Belz et Kow, 2009)
-
+(Belz et Kow, 2009) et (Vicente et Al., 2015)
+Depuis le début de cette section, nous disons qu'il y existe les méthodes staitsitques, et bcp vantent leur mérite, mais certains se sont penchés pour 
 
 \subsection{NLG architecture et approches}
 
@@ -83,7 +85,8 @@ Manières différentes d'opérer ces tâche
 
 \section{Réalisateurs}
 
-Nous parlerons plus précismént de différents réalisateurs, car notre travail repose sur le perfectionnement d'un réalisateur. 
+Nous parlerons plus précismént de différents réalisateurs, car notre travail repose sur le perfectionnement d'un réalisateur.
+mettre un réalisateur qui fonctionne à base de méthode statistique pour avoir une vue d'ensemble, et un réalisateur à base de template.
 
 \subsection{Surge}
 
@@ -103,6 +106,9 @@ utilise aussi la TST
 utilise aussi MATE
 Un réaliseur linguistique
 \subsubsection{Lexicalisation}
+la lexicalisation est dissociée de la réalisation linguistique dans les étapes de Dale/Reiter, mais dans le mémoire de Florie, elle est imbriquée sous elle, pourquoi ?
+Ou se trouve l'arborisation ? Parce que c'est directement lié à la lexicalisation et la réalisation, de ce que j'en comprends.
+
 \subsubsection{Arborisation}
 
 \section{Dictionnaire et les verbes dans les réalisateurs : pour les rule-based system}

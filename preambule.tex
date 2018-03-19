@@ -88,8 +88,16 @@
 
 \setlength{\parskip}{1ex plus 3pt minus 1pt}
 
+% Commandes pour linguistique
+\usepackage{lng,lng-acro-fr}
+
+% Commandes générales
+\usepackage{gen}
+
+% Feedback
+\newcommand{\FL}[1]{\draft{\textbf{(FL)}}\footnote{\draft{#1}}}
+
 %lstlistings for writing code in Python and XML
-\usepackage{lng}
 \usepackage{listings}
 \usepackage{color}
 \usepackage{setspace}

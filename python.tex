@@ -1,0 +1,287 @@
+\chapter{Python}
+
+À l'aide du module \emph{xml.etree.cElementTree} nous avons pu faire des opérations sur l'ensemble des données de VerbNet qui sont encodées dans des fichiers XML. Le module Etree nous permet de naviguer dans les fichiers XML de VerbNet puis de manipuler et d'extraire les données qui nous intéresse. Après avoir manipulé et extrait les données intéressantes, nous les avons compilées dans des dictionnaires. Ceux-ci seront utilisés par notre système MATE pour générer du texte automatiquement. Par la suite, nous avons aussi utilisé Python et le module Etree pour extraire les phrases exemples qui accompagent chaque patron de régime couvert par la ressource lexicale. Dans le but de créer des structures sémantiques qui nous serviront d'input pour générer en syntaxe de surface la phrase exemple et ainsi vérifier si MATE est capable de générer les phrases exemples.
+
+Nous voulions donc créer des documents DICT qui seraient l'information lexicale de notre système de GAT. Il est d'abord important de dire dans les grandes lignes comment notre système MATE fonctionne. Ainsi, notre système prend en input une représentation sémantique d'un énoncé, puis fait appel à des dictionnaires et des règles de grammaire pour générer en output une représentation syntaxique de surface de l'énoncé. Les unités lexicales s'encodent d'une certaine manière dans MATE et nous voulions créer nos dictionnaires à l'image des contraintes données par le système MATE. Nous avons donc codé la manipualtion et l'extraction des données en fonction de la manière dont le lexique est encodé dans MATE.
+
+\subsection{Création du dictionnaire de verbes: lexicon.dict}
+
+La première étape de notre projet consistait à créer le dictionnaire verbal. Bien que le dictionnaire final comporte 6393 entrées lexicales verbales, cette partie de code nous permettait de créer la base de notre système. Il serait important de décrire dans les grandes lignes à quoi ressemble le dictionnaire pour mieux expliquer pourquoi nous l'avons extrait de cette manière. Ainsi MATE possède la caractéristique d'héritage des traits. Donc, en ce qui concerne les verbes, nous avons architecturé la chose de cette manière. Il existe une classe des verbes qui ont les traits suivants: une dpos=V et une spos=verb.
+
+\begin{lstlisting}[language=XML]
+verb {
+  dpos = V
+  spos = verb
+}
+\end{lstlisting}
+
+Ensuite, les 278 classes verbales de VerbNet pointent vers la classe verb, donc les classes héritent de ces deux traits. Ce qui fait en sorte qu'on n'a pas a répété dans chaque entrée de classe verbale les traits dpos et spos. 
+
+\begin{lstlisting}[language=XML]
+"absorb-39.8": verb {
+  gp = { id=NP_V_NP                        dia=12 } // Cotton absorbs water.
+  gp = { id=NP_V_NP_PP_from_source         dia=123 } // Cattle take in nutrients from their feed.
+}
+\end{lstlisting}
+
+Ensuite, chaque membre de chaque classe verbale pointe vers la classe ou la sous-classe qui le représente ce qui fait en sorte qu'il hérite de tous les traits de la classe(sous-classe) vers laquelle il pointe. Par exemple: absorb, ingest, take in vont tous trois hériter des traits de l'entrée "absorb-39.8" qui est la classe verbale. C'est de cette manière que notre dictionnaire passe de 278 entrées lexicales à 6393. Car, les verbes de la langue anglaise ont été classés dans des classes verbales et nous les intégront à notre dictionnaire en gardant la même architecture que VerbNet avait pensé (basé sur les travaux de Levin).
+
+\begin{lstlisting}[language=XML]
+absorb: "absorb-39.8"
+take_in: "absorb-39.8"
+ingest_1: "absorb-39.8"
+\end{lstlisting}
+
+\subsubsection{Création du dictionnaire initial contenant les 278 classes verbales comme entrées lexicales}
+
+\begin{lstlisting}[language=Python, caption = Script pour générer `lexicon.dict']
+# BLOC 1
+def supers(t, i):
+    ID = t.get('ID')
+    sc = {ID:i}
+    subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
+    if len(subclasses) > 0:
+        for sub in subclasses:
+            sc = {**sc, **supers(sub, ID)}
+    return sc
+		
+# BLOC 2
+def treeframes(t):
+    ID = t.get('ID')
+    z = []
+    for frame in t.findall('FRAMES/FRAME'):
+        description = re.sub(r"\s*[\s\.\-\ +\\\/\(\)]\s*", '_', 
+        frame.find('DESCRIPTION').get('primary'))
+        if description in exclude:
+            continue
+        description = re.sub('PP', 'PP_{}', description)
+        preps = [p.get('value') or 
+                p.find('SELRESTRS/SELRESTR').get('type').upper() 
+                for p in frame.findall('SYNTAX/PREP')+frame.findall('SYNTAX/LEX')]
+        preps = [sorted(p.split()) for p in preps]     
+        examples = [e.text for e in frame.findall('EXAMPLES/EXAMPLE')]
+        if len(preps)==1:
+            description = description.format('_'.join(preps[0]))
+        elif len(preps)==2:
+            description = description.format('_'.join(preps[0]),
+                                             '_'.join(preps[1]))
+        elif len(preps)==3:
+            description = description.format('_'.join(preps[0]), 
+                                             '_'.join(preps[1]), 
+                                             '_'.join(preps[2]))
+        z.append((description, examples))
+        
+    subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
+    subframes = [treeframes(subclass) for subclass in subclasses]
+    subframes = sum(subframes, []) # flatten list of lists
+    return [(ID, z)] + subframes
+		
+# BLOC 3
+with open('lexicon.dict','w') as f:
+    f.write('lexicon {\n')
+    for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']:
+        root = ET.parse('verbnet/'+file).getroot()       
+        d = dict(treeframes(root))
+        sc = supers(root, 'verb')
+        for c in d.keys():
+            f.write('"'+c+'"')
+            if sc[c] == 'verb':
+                f.write(': ' +sc[c] + ' {')
+            else:
+                f.write(': ' +'"'+sc[c]+'"' + ' {')
+            [f.write('\n  gp = { id=' + gp[0] + (max(len(gp[0]), 30)-len(gp[0]))
+                     *' ' + ' dia=x } // ' + ' '.join(gp[1])) for gp in d[c]]
+            f.write('\n}\n')
+    f.write('\n}')
+\end{lstlisting}
+
+Ce script sert à:
+
+On l'a découpé en trois blocs pour faciliter l'explication.
+
+Expliquons d'abord le premier Bloc 
+Expliquos ensuite le deuxième Bloc
+Expliquons finalement le troisième Bloc
+
+Faire du plus général au plus précis, puis ensuite bloc par bloc
+-Décrire ce que je veux que la fonction fasse dans les grandes lignes
+-Expliquer un peu plus concrètement ce que je veux que ça fasse
+-Expliciter mon code encore plus précisément
+-Mettre en commentaire la nature des variables
+
+(Peut-être rajouter les numéros de lignes, ce sera utile pour faire référence à des lignes de code)
+Ce premier script Python se découpe en trois blocs. Les deux premiers blocs sont des fonctions que nous définissons pour ensuite les utiliser dans le BLOC 3 qui nous permettra d'écrire le dictionnaire initial.  Ainsi, pour une meilleure compréhension du script complet, nous décrirons les blocs 1 et 2 pour expliquer ce que les fonctions font, ensuite nous décrirons le bloc 3 car l'usage des fonctions sera maintenant clair.
+
+Commençons par la première fonction supers. La fonction prend 2 arguments: t et i. Si vous regardez le bloc 3, dans la section sc, on voit que supers prend les arguments (root, 'verb'). Ces deux arguments sont les suivants: root donne accès à l'arbre XML et 'verb' est fait pour que chaque classe verbale pointe vers la catégorie verbe. Pour en hériter les traits dpos=V et spos=verb.  On va chercher le trait ID dans l'un des deux arguments (l'argument arbre donc montré dans listing le trait ID dans le XML). Ensuite on crée un dictionnaire s'appelant sc dont la clé est le ID et la valeur est i. Puis on instancie une variable subclasses qui contient les racines de chaque sous-classes dans les documents XML (montrer avec listings à quoi ça ressemble dans le document XML). Puis ensuite, pour chaque élément dans sous-classe (si élément il y a) on lui passe la fonction supers et on va chercher son identifiant car en lui repassant la fonction, on retourne a sub.get('ID') donc on va chercher le ID qui se retrouve dans la partie sous-classe de l'arbre de la classe verbale et on met à jour le dictionnaire sc en y ajoutant les identifiants des sous-classes (les clés) qui pointeront vers l'identifiant de la classe qui le gouverne, car le deuxième argument de supers est une chaîne de caractère, dans ce cas, la chaîne ID qu'on avait pu chercher plus tôt dans la fonction. Cela est fait dans le but de construire: sous-classe: classe (donc la sous-classe hérite des traits de sa classe) grâce au mécanisme d'héritage de MATE, et tel que VerbNet le mentionne, chaque sous-classe hérite des traits donnés par la classe qui la domine. 
+
+Maintenant, passons à la seconde fonction treeframe. Cette fonction prend un argument. On va aller chercher ID. Puis on initialise une liste z. Pour tous les frames qu'on retrouve dans l'arbre en question, on va chercher la description primaire du frame. On va ensuite se servir des expressions régulières pour uniformiser les descriptions à notre bon vouloir. Parallèlement, nous avons aussi créé une liste s'appelant exclude qui contient toutes les descriptions que nous voulons exclure de notre système et si une description dans un frame se retrouve aussi dans exclude, alors on n'y touche pas et elle ne sera pas modifiée ni ajoutée à la liste description. Ensuite, on modifie encore le nom des descriptions car nous ferons une opération par la suite. Donc, on modifie toutes les descriptions qui contiennent PP pour qu'elles ressemblent à 
+
+
+%Nous avons donc utilisé VerbNet de mieux que nous le pouvions. Ainsi, les descriptions des FRAMES SYNTACTIC étaient "accurates" et allait nous donner les brèves descriptions des patrons de régime que nous ajouterons à notre lexiconCar, nous pensions au départ que nous pourrions tout prendre de verbnet pour créer notre lexicon.  Nous voulions chercher les descriptions des patrons de régime ainsi que l'information sous SYNTAX sous FRAME pour ainsi créer les patrons de régime en soi en les traduisant dans notre langage (TST). Toutefois, leur manière d'encore les patrons de régime ne correpond pas à la notre sur beaucoup trop d'aspect. Nous le verrons plus tard, il y a de la redondance à certains moments et notre théorie rend mieux compte des patrons de régime. Mais pour l'instant, ce qui est important de noter c'est que nous notons les patrons de régime en attribuant des actants I et des noms de relation pour signifier que est le rôle de cet actant lors du passage de la sémantique à la syntaxe. VerbNet ne fait pas cela de la même manière que nous. Ils ont aussi un volet sémantique, mais qui ne se branche pas à notre modèle théorique. Nous voulions donc nous inspirer quand même de leur méthode pour nos patrons de régime, mais le fait qu'ils utilisent les rôles thématiques nous posait problème. Il était difficile d'associer un rôle thématique à un actant syntaxique (bien que nous ayons tenté [montrer le graphique de F.L]). Donc, nous en sommes venus à la conclusion qu'il nous faudrait créer les patrons de régime en Python pour ensuite les exporter dans un format adéquat pour MATE. Pour ce faire, nous devions utilisé les descriptions des patrons de régime qui se retrouve dans \emph{ VerbNet} et à partir de la description, créer une fonction qui nous permettrait de générer rapidement des patrons de régime adéquat pour MATE en ayant simplement à remplir les trous. 
+
+%Pour extraire les descriptions des patrons de régime nous avons utilisé deux fonctions. D'abord la fonction \emph{treeframe} qui s'occupe de récupérer la description de chaque frame syntaxique à travers tout VN. Nous passons à travers tous les frames existant dans les XML de VN. Autant dans les classes que les sous-classes. Toutefois, cette fonction ne fait pas que récupérer la description du syntactic frame de VN et nous la recrache tel quel. Nous faisons quelques opérations sur les descriptions que nous extrayons. Notamment, nous remplaçons tout espace,tiret, point,barre oblique, paranthèses qui pourraient se trouver dans les descriptions par des {\_} à l'aide d'expressions régulières. Puis, nous retirons certaines descriptions de gp à cause de leur caractèrere problématique à encoder(pour des raisons théoriques, logiques -- à expliquer ailleurs).Puis une fois qu'un clean up a été fait des descriptions et que nous avons uniquement celles que nous voulions, nous procédons à une seconde étape de raffinement des descriptions. Nous utiliserons une seconde fois une expression régulière pour trouver tous les occurrences de PP car nous ajouterons les prépositions impliquées dans les PP comme tel. Pour ce faire, nous faisons un search de tous les prépositions existant dans les patrons de régime de verbnet(et non dans la description, c'est là que les patrons de régime de VN nous ont été utiles) et nous mettons les prépositions que nous soutirons des gp directement dans le nom de la description des gp à la suite du mot PP à chaque fois qu'on retrouve le mot PP dans une description. On obtient ainsi les descriptions nettoyées de celle qu'on ne veut pas, avec uniquement des underscore pour séparer les syntagmes puis les prépositions (lorsqu'il y a lieu) dans les noms des descriptions de gp.
+
+%Puis, une fois que nous faisions ces opérations sur les classes de VerbNet, nous avons scripté une méthode pour que la fonction s'applique aussi aux sous-classes.
+
+%Par la suite, nous avons créé une fonction \emph{super} afin que la création du lexicon s'agence bien avec la manière que MATE fonctionne. Cette fonction nous permet d'utiliser le mécanisme d'héritage qui existe dans MATE. Ainsi, on peut renvoyer une sous-classe à la classe(ou sous-classe) qui la domine. De plus, cette fonction limite le nombre de descriptions de gp. VerbNet a aussi ce mécanisme d'intégrer autrement. Ainsi, si une classe X a 10 descriptions et qu'une sous-classe Y en a 5, mais que les 10 descriptions de la classe s'appliquent aussi à la sous-classe, on n'aura pas 15 descriptions mais juste 5 dans le sous-classe, car le mécanisme d'héritage s'occupe de faire ça. On a aussi programmé la création den notre lexicon pour que si il n'y a pas de sous-classes, que la classe hérite de la classe verb afin d'avoir les attributs de base de cette classe (la dpos, la spos, voir MATE). De cette manière, tous les classes héritent de la classe verb si on remonte aux classes mères, ainsi, on n'a pas besoin de préciser à chaque fois la dpos/spos.
+
+%Puis finalement, nous  utilisons la fonction write qui écrit le tout dans un fichier .dict. Nous loopons à travers tous les fichiers compris dans le dossier VN. Puis nous allons chercher les keys et values du dictionnaire créé à l'aide de la fonction treeframe et du dictionnaire super.(À revoir)
+
+%Nous avons aussi pris la peine d'extraire les exemples pour chaque description car il s'agit d'une information utile pour voir dans quel contexte s'utilise ce patron de régime. Et c'est une information pertinente à avoir dans un dictionnaire, donc nous l'ajouterons à notre lexicon pour notre système de GAT. Pour ce faire, nos opérons de la même manière que pour les descriptions de gp dans le sens où nous faisons l'extractiond exemples en passant par les feuilles XML et le module d'extraction xml.etree. Pour chaque frame, nous passons la fonction à l'entièreté de VN et nous nous arrêtons à la balise EXAMPLES puis à tout texte se trouvant dans cette balise. Nous avons voulu extirper les exemples alongside des descriptions car c'est de l'information pertinente à avoir dans un dictionnaire.
+
+\subsubsection{Extraction des 6393 membres des classes verbales pour enrichir le dictionnaire lexicon.dict}
+
+\begin{lstlisting}[language=Python, caption = code pour ajouter des lexèmes à lexicon.dict]
+def treemember(t):
+    ID = t.get('ID')
+    members = [m.get('name') for m in t.findall('MEMBERS/MEMBER')]
+    subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
+    submembers = []
+    if len(subclasses) > 0:
+        for sub in subclasses:
+            submembers = submembers + treemember(sub)
+    return [(ID, members )] + submembers
+
+files = [f for f in os.listdir('verbnet') if f[-4:] == '.xml']
+
+members = dict(sum([treemember(ET.parse('verbnet/'+file).getroot()) for file in files], [])) # ici on a classe: [membre,...]
+values = sum(list(members.values()), []) # ici c'est uniquement les membres, sans infos sur leur classe
+dups = {m:[ID for ID in members.keys() if m in members[ID]] for m in values if values.count(m)>1}
+unique_member = {m:ID for ID in members.keys() for m in values if m in members[ID] and values.count(m)==1}
+lexemes = {d[0]+'_'+str(n+1):d[1][n] for d in dups.items() for n in range(len(d[1]))}
+
+# Ici, je fusionne les dictionnaires ensemble
+unified_dict = {**unique_member, **lexemes}
+
+with open('members.dict','w') as f:
+    f.write('members {\n')
+    for key in sorted(unified_dict.keys()):
+        f.write(key)
+        f.write(': '),
+        f.write('"'+str(unified_dict[key])+'"')
+        f.write('\n')
+    f.write('\n}\n')
+
+\end{lstlisting}
+
+\subsection{Création du gpcon}
+
+\begin{lstlisting}[language=Python, caption = code pour gpcon.dict]
+def roman(n):
+    return ['I', 'II', 'III', 'IV', 'V', 'VI'][n-1]
+		
+def gp(name, real_actant):
+    s = name + ' {\n'
+    i=0
+    for actant in real_actant:
+        i = i+1
+        if type(actant) == list:
+            for y in actant:
+                s = s + "   " + roman(i) + "={" + y + "}\n"
+        else:
+            s = s + "   " + roman(i) + "={" + actant + "}\n"
+    s = s + '}\n'
+    return s
+
+
+#SUBJECTIVE
+subj = 'rel=subjective dpos=N'
+
+#DIRECT OBJECTIVE
+dir_N = 'rel=dir_objective dpos=N'
+dir_V_ING = 'rel=dir_objective dpos=V finiteness=GER'
+dir_V_INF = 'rel=dir_objective dpos=V finiteness=INF'
+
+#INDIRECT OBJECTIVE
+to_N = 'rel=indir_objective dpos=N prep=to'
+indir_N = 'rel = indir_objective dpos = N'
+
+#OBLIQUE
+on_V = 'rel=oblique dpos=V prep=on'
+to_obl_N = 'rel=oblique dpos=N prep=to' 
+for_obl_N = 'rel=oblique dpos=N prep=for'
+as_N =  'rel=oblique dpos=N prep=as'
+against_N = 'rel=oblique dpos=N prep=against'
+at_N = 'rel=oblique dpos=N prep=at'
+...
+
+# LOC
+
+locab = 'rel=oblique dpos=N prep=locab'
+locad = 'rel=oblique dpos=N prep=locad'
+locin = 'rel=oblique dpos=N prep=locin'
+
+descriptions = {
+'NP_agent_V': [subj],
+'NP_agent_V_NP': [subj, dir_N],
+'NP_asset_V_NP_PP_from_out_of': [subj, dir_N, [from_N, out_of_N]],
+'NP_attribute_V': [subj],
+'NP_attribute_V_NP_extent': [subj, dir_N],
+'NP_attribute_V_PP_by_extent': [subj,by_N],
+'NP_cause_V_NP': [subj, dir_N ],
+'NP_instrument_V_NP': [subj, dir_N],
+'NP_location_V': [subj],
+'NP_location_V_NP_theme': [subj,dir_N],
+'NP_location_V_PP_with_agent': [subj, with_N],
+'NP_location_V_PP_with_theme': [subj, with_N],
+'NP_material_V_NP': [subj,dir_N],
+'NP_material_V_PP_into_product': [subj, into_N],
+...
+
+# CREATION DU GPCON
+with open('gpcon.dict','w') as f:
+    f.write('gpcon {\n')
+    for d in descriptions.keys():
+        f.write(gp(d, descriptions[d]))
+    f.write('}')
+
+\end{lstlisting}
+
+Il serait important d'expliquer pourquoi nous n'avons pas repris les rôles sémantiques fournis par VerbNet, car la fonction gp et l'entièreté de ce script repose sur ces fondements de TST. Melcuk explique d'abord pourquoi nous étiquettons nos actants sémantiques de cette manière, puis pourquoi les rôles sémantiques n'ont pas leur place en sémantique.
+
+
+
+Soit le mentionner ici, ou ailleurs, mais il a fallu faire un dictionnaire de patron de régime. D'abord, parce qu'on s'est rendu compte que du à toute l'information qu'on allait chercher et la différence dans le type d'information, on a jugé bon de créer un second dictionnaire qui ne contiendrait que les gps, autrement dit un gpcon. Celui l'information sur les patrons de régime (les actants syntaxiques). Il existe x nombre de gps répertoriés. Nous les avons trouvé en faisant un ensemble à partir de tous les descriptions que nous avons obtenus avec le script précédent. Une fois que nous avons l'ensemble des gps différents. Il nous fallait les créer, car tel que mentionné, nous ne pouvions pas extraire les gps de VerbNet dû à une différence trop grande (cadre théorique et application). Notre système de GAT fonctionne avec la théorie Sens-Texte et nous pensons que c'est la théorie qui s'y prête le plus pour faire ce type d'opérations et qui tient le mieux compte de la manière dont le langage fonctionne. Ainsi, nous avons créer le gpcon à partir de Python car un bon nombre d'opérations peuvent être automatisés (éviter les fautes, et c'est plus transparent). Pour la création du gpcon, notre dictionnaire en Python ressemblait à ça. Nos keys() étaient la description du gp et les valeurs étaient les actants syntaxiques impliqués dans ce gp (avec de l'information sur les actants syntaxiques nécessitant une préposition à réaliser). Selon l'ordre dans lequel figure nos objets dans la liste qui est ce qu'on retrouve dans values(), notre fonction va assigner le bon actant syntaxique(I, II, III, etc.) ainsi, cette partie est automatisée grâce à cette fonction. Après, pour l'objet "subj" on va lui assigner une string 'rel=subjective dpos=N' ce qui est encodé dans une autre cellule. Ainsi à chaque fois qu'un gp a  un subj, on n'a pas à écrire ce que subj contient. Alors pour l'objet subj, on aura I et 'rel=subjective dpos=N'. C'est l'union de la fonction gp et de la fonction roman qui nous permettent d'assigner les bons actants syntaxiques aux objets dans la liste qui représente les values dans mon dictionnaire de gpcon.
+
+\subsection{Scripts pour faire les tests}
+
+\subsubsection{Extraction des exemples}
+
+\begin{lstlisting}[language=Python, caption = code pour créer phrases.txt]
+def treeframes(t):
+    z = []
+    for frame in t.findall('FRAMES/FRAME'):
+        description = re.sub(r"\s*[\s\.\-\ +\\\/\(\)]\s*", '_', frame.find('DESCRIPTION').get('primary'))
+        if description in exclude:
+            continue    
+        examples = [e.text for e in frame.findall('EXAMPLES/EXAMPLE')]
+        z =  z + examples 
+    subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
+    subframes = [treeframes(subclass) for subclass in subclasses]
+    subframes = sum(subframes, []) # flatten list of lists
+    return z + subframes
+
+liste=[]
+with open('phrases.txt','w') as f:
+    for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']:
+        root = ET.parse('verbnet/'+file).getroot()       
+        d = (treeframes(root))
+        final_liste = liste + d
+        [f.write(x+'\n') for x in final_liste]
+
+\end{lstlisting}
+
+\subsubsection{Création des structures qui serviront de tests}
+
+Dans la figure ci-bas, on explique comment on a créer les documents .str qui serviront d'input à notre système MATE qui prend ce genre de document en entrée.
+
+\begin{lstlisting}[language=Python, caption = code pour créer des structures .str]
+phrases = open('phrases.txt','r')
+
+with open('structures.str','w') as f:
+    for(i,p) in enumerate(phrases):
+        with open('s'+str(i)+'.str','w') as g:
+            structure = 'structure Sem S'+str(i)+'{\n S {text="'+p.strip()+'"\n\n main-> \n }\n}'
+            f.write(structure)
+            g.write(structure)
+\end{lstlisting}

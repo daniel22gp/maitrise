@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=memoire.tex
 
 [Frame0_View0,0]
-TopLine=39
-Cursor=2225
+TopLine=33
+Cursor=2265
 
 [Frame1]
 Flags=0
@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=164
-Cursor=20580
+TopLine=464
+Cursor=40449
 
 [Frame2]
 Flags=0
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame2_View0,0]
-TopLine=6
-Cursor=0
+TopLine=71
+Cursor=7350
 
 [Frame3]
 Flags=0
@@ -71,8 +71,8 @@ Class=LaTeXView
 Document=ch4\verbnet.tex
 
 [Frame3_View0,0]
-TopLine=481
-Cursor=53325
+TopLine=182
+Cursor=10763
 
 [Frame4]
 Flags=0
@@ -86,11 +86,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=451
 Class=LaTeXView
-Document=python.tex
+Document=ch5\python.tex
 
 [Frame4_View0,0]
 TopLine=0
-Cursor=16
+Cursor=0
 
 [Frame5]
 Flags=0
@@ -107,8 +107,8 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame5_View0,0]
-TopLine=1223
-Cursor=50853
+TopLine=974
+Cursor=59641
 
 [Frame6]
 Flags=0

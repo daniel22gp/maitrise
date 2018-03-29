@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=memoire.tex
 
 [Frame0_View0,0]
-TopLine=33
-Cursor=2265
+TopLine=12
+Cursor=1911
 
 [Frame1]
 Flags=0
@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=464
-Cursor=40449
+TopLine=348
+Cursor=36142
 
 [Frame2]
 Flags=0
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame2_View0,0]
-TopLine=71
-Cursor=7350
+TopLine=234
+Cursor=17594
 
 [Frame3]
 Flags=0
@@ -71,7 +71,7 @@ Class=LaTeXView
 Document=ch4\verbnet.tex
 
 [Frame3_View0,0]
-TopLine=182
+TopLine=576
 Cursor=10763
 
 [Frame4]
@@ -90,9 +90,27 @@ Document=ch5\python.tex
 
 [Frame4_View0,0]
 TopLine=0
-Cursor=0
+Cursor=23303
 
 [Frame5]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=26
+NormalPos.right=1362
+NormalPos.bottom=451
+Class=LaTeXView
+Document=ch6\evaluation.tex
+
+[Frame5_View0,0]
+TopLine=0
+Cursor=363
+
+[Frame6]
 Flags=0
 ShowCmd=1
 MinPos.x=-1
@@ -106,11 +124,11 @@ NormalPos.bottom=451
 Class=BibTeXView
 Document=biblio\references.bib
 
-[Frame5_View0,0]
-TopLine=974
-Cursor=59641
+[Frame6_View0,0]
+TopLine=996
+Cursor=61107
 
-[Frame6]
+[Frame7]
 Flags=0
 ShowCmd=1
 MinPos.x=-1
@@ -124,11 +142,11 @@ NormalPos.bottom=451
 Class=LaTeXView
 Document=preambule.tex
 
-[Frame6_View0,0]
-TopLine=1
+[Frame7_View0,0]
+TopLine=167
 Cursor=663
 
 [SessionInfo]
-FrameCount=7
+FrameCount=8
 ActiveFrame=1
 

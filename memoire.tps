@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=348
-Cursor=36142
+TopLine=138
+Cursor=16754
 
 [Frame2]
 Flags=0
@@ -125,7 +125,7 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame6_View0,0]
-TopLine=996
+TopLine=1219
 Cursor=61107
 
 [Frame7]

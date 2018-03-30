@@ -230,13 +230,11 @@ Finalement, la dernière étape de ce réalisateur consiste à appliquer les rè
 
 \subsubsection{MARQUIS}\label{sectionmarquis}
 
-Contrairement aux autres systèmes présentés ici, MARQUIS n'est pas qu'un réalisateur profond. Il s'agit d'un système de \ac{GAT} complet qui effectue toutes les étapes du processus de génération automatique de texte (section \ref{ppc}). Cependant, nous ne nous intéresserons qu'à son aspect de réalisation profonde. Pour plus d'informations, nous vous réferons à l'article \citep{WannerMARQUISGENERATIONUSERTAILORED2010}. 
+Contrairement aux autres systèmes présentés ici, MARQUIS n'est pas qu'un réalisateur profond. Il s'agit d'un système de \ac{GAT} complet qui effectue toutes les étapes du processus de génération automatique de texte (section \ref{ppc}). Cependant, nous ne nous intéresserons ici qu'à son aspect de réalisation profonde. Pour plus d'informations, nous vous réferons à cet article \citep{WannerMARQUISGENERATIONUSERTAILORED2010}. 
 
-Le but du projet MARQUIS est de générer, à partir de données brutes, des bulletins météorologiques multilingues sur la qualité de l'air. Ces bulletins sont générés en fonction de l'utilisateur. Ainsi, une personne doit entrer ses informations personnelles dans le module de l'utilisateur, puis le bulletin sera générée, par exemple, en fonction de son expertise ou de sa condition physique (problèmes respiratoires, etc.).
+\draft{refaire ce paragraphe}Le but du projet MARQUIS est de générer, à partir de données brutes, des bulletins météorologiques multilingues sur la qualité de l'air. Ces bulletins sont générés en fonction de l'utilisateur. Autrement dit, les utilisateurs se créent des profils avec leurs informations personelles et cela permettait à MARQUIS de réaliser du texte en fonction de leur niveau de compréhension des données et de leurs besoins de santé. Le tout est fait à partir d'un input conceptuel. Celui-ci est partagée par toutes les langues traitées par MARQUIS(l'anglais, l'allemand, l'espagnol, le catalan, le portugais, le français, le finnois et le polonais). D'ailleurs, ce niveau conceptuel est encore plus profond que le niveau sémantique de FORGe. Ainsi, comme FORGe \citep{MilledemoFORGePompeu2017} et RealPro \citep{LavoieFastPortableRealizer1997}, le fonctionnement de MARQUIS est basé sur la théorie Sens-Texte \citep{melcuk1988}. Toutefois, contrairement à FORGe, MARQUIS ne fait pas appel à un dictionnaire de valence. En effef il couvre donc moins large, mais a un lexique capable de générer les bulletins avec beaucoup de flexibilité. 
 
-MARQUIS est aussi un système basé sur la Théorie Sens-Texte, comme FORGe \citep{MilledemoFORGePompeu2017} et RealPro \citep{LavoieFastPortableRealizer1997}. La réalisation profonde se fait sensiblement avec les mêmes mécanismes que FORGe, mais elle compte un niveau de profondeur de plus: représentation conceptuelle. Effectivement, MARQUIS étant un générateur multilingue (l'anglais, l'allemand, l'espagnol, le catalan, le portugais, le français, le finnois et le polonais.), le niveau de profondeur commun à toutes les langues du système et le niveau conceptuel. Celui-ci est encodé en graphes conceptuels et il forme un interface conceptuelle-sémantique avec le niveau sémantique. L'étape de réalisation profonde est ainsi la même que nous avons décrit avec FORGe, avec la particularité que MARQUIS ne fait pas appel à un dictionnaire de valence (il a donc moins de couverture). Afin de mieux expliciter la chose, la figure \ref{marquis} démontre bien comment ce système fonctionne.
-
-MARQUIS part de la représentation conceptuelle qui passe par les niveaux de représentations jusqu'au texte.
+Afin de mieux expliciter le processus de réalisation avec MARQUIS, la figure \ref{marquis} suivante représente les diverses étapes de réalisation en commençant avec l'input jusqu'à l'ouptu.
 
 \begin{figure}[htb]
 	\centering
@@ -245,12 +243,16 @@ MARQUIS part de la représentation conceptuelle qui passe par les niveaux de rep
 	\label{fig:marquis}
 \end{figure}
 
-Pour résumé cette figure
-Prend en input : graphes conceptuels 
-rend en output : du texte
-entre les 2 : séries de dérivations (changements successifs de représentations en fonction des divers niveaux de représentations. ce qui assure la grammaticalité des changements est : l'information lexicale encodée dans les dictionnaires et les modules de règles qui modélise chaque interface).
+À la lecture de ce tableau, on voit que MARQUIS prend effectivement en input des graphes conceptuels et rend en sortie du texte. Entre ces deux représentations, il y a une série de  changements successifs de représentations en fonction des divers niveaux de représentations. Ce qui assure la grammaticalité des changements sont : l'information lexicale encodée dans les dictionnaires et les modules de règles qui modélisent chaque interface. 
 
-Par exemple, voici comment les dictionnaires et règles fonctionnent \draft{reprendre la figure 11 de Florie}
-Le dictionnaire conceptuel comprend tous les concepts utiles à la génération des rapports sur la qualité de l'air et les autres termes généraux du langage. Puis il mappe les concepts aux unités sémantiques (dans chaque langue) qui leurs correspondent. Le dictionnaire sémantique contient les unités sémantiques. Une même unité sémantique peut être réalisée par deux lexèmes différents. Ainsi, il nous faut un dictionnaire lexémique qui contient toutes les unités lexicales et leurs traits. Par la suite, une fois que les unités sont lexicalisées, nous n'avons plus besoin d'autres dictionnaires. 
+\draft{élaborer ici}Voici comment les dictionnaires et règles fonctionnent.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch2/figs/module.pdf}
+	\caption{Combinaison des règles et dictionnaires}
+	\label{fig:reglesdict}
+\end{figure}
 
-Tel que démontré, MARQUIS et FORGe partent de niveaux d'abstraction plus profond que les autres systèmes présentés. Cela leur permet d'être beaucoup plus flexible dans leur réalisation linguistique. C'est pourquoi nous utilisons aussi un réalisateur profond doté de paramètres très similaires à ces deux réalisateurs. Comme FORGe, nous utiliserons aussi un système basé sur MARQUIS. Il s'agit de GenDR \citep{lareau18}: un projet en cours de développement dirigé par François Lareau à l’Observatoire de linguistique Sens-Texte. Le chapitre suivant décrira en détails ce réalisateur.
+\draft{refaire ce paragraphe}Le dictionnaire conceptuel comprend tous les concepts utiles à la génération des rapports sur la qualité de l'air et les autres termes généraux du langage. Puis il mappe les concepts aux unités sémantiques (dans chaque langue) qui leurs correspondent. Le dictionnaire sémantique contient les unités sémantiques. Une même unité sémantique peut être réalisée par deux lexèmes différents. Ainsi, il nous faut un dictionnaire lexémique qui contient toutes les unités lexicales et leurs traits. Par la suite, une fois que les unités sont lexicalisées, nous n'avons plus besoin d'autres dictionnaires. 
+
+En conclusion, MARQUIS et FORGe partent de niveaux d'abstraction plus profond que les autres systèmes présentés. Cela leur permet d'être beaucoup plus flexible dans leur réalisation linguistique. C'est pourquoi nous utilisons aussi un réalisateur profond doté de paramètres très similaires à ces deux réalisateurs. Comme FORGe, nous utiliserons aussi un système basé sur MARQUIS. Il s'agit de GenDR \citep{lareau18}: un projet en cours de développement dirigé par François Lareau à l’Observatoire de linguistique Sens-Texte. Le chapitre suivant décrira en détails ce réalisateur.

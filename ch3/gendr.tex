@@ -2,14 +2,14 @@
 
 \chapter{GenDR}\label{chapgendr}
 
-GenDR (Generic Deep Realizer \citep{lareau18}) est un réalisateur profond multilingue. C'est une plateforme pour la modélisation de l'interface sémantique-syntaxe. C'est un héritier de MARQUIS dans le sens où il utilise une architecture similaire pour la réalisation. Toutefois, MARQUIS se démarquait en tant que réalisateur générique profond \citep{LambreyImplementationcollocationspour2017},\citep{lareau18}  car il intégrait quelques collocations et locutions. Ainsi, GenDR se démarque de MARQUIS par la couverture beaucoup plus importante qu'il offre en termes de locutions et collocations.
+GenDR (Generic Deep Realizer \citep{lareau18}) est un réalisateur profond multilingue.C'est un héritier de MARQUIS dans le sens où il utilise une architecture similaire pour la réalisation. C'est une plateforme pour la modélisation de l'interface sémantique-syntaxe. Ainsi, GenDR se démarque de MARQUIS par la couverture beaucoup plus importante qu'il offre en termes de locutions et collocations. Cette couverture lexicale a été fait par Lareau et Lambrey \cite{LambreyImplementationcollocationspour2017}, \cite{lambrey15}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- A R C H I T E C T U R E  GENDR  ---
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architecture de GenDR}
 
-GenDR : MATE, TST, entrées rep. sém, sortie rep. synt de surf, multilingue
+Dans la section suivante, nous allons brièvement présenter MATE, la plateforme qui permet à GenDR de fonctionner. Puis nous allons brièvement décrire la composante multilingue de GenDR.
 
 \subsection{MATE}
 
@@ -35,11 +35,17 @@ tense=PRES
 main-> owe}}
 \end{lstlisting}
 
-\draft{Mais pour simplifier la chose, nous montrerons une version graphique: insérer une structure sémantique}
+Mais pour simplifier la chose, nous montrerons une version graphique: insérer une structure sémantique
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/owe_sem.pdf}
+	\caption{Graphe sémantique en visuel}
+	\label{fig:graphesem}
+\end{figure}
 
 L'output de ce système consiste en un ensemble de structures de dépendances syntaxiques de surface. Ainsi, avec l'input sémantique en \ref{input} le réalisateur génère les six structures suivantes. 
 
-\draft{faire les 6 structures en version graphique et montrer les informations qu'ils portent sur leur code}
+\draft{faire les 2 structures en version graphique et montrer les informations qu'ils portent sur leur code}
 
 Toutefois, afin de générer le texte final désiré à partir de l'input, il faudra passer par un réalisateur de surface. GenDR ne traite pas l'interface morpho-syntaxique et ne linéarise pas le texte. C'est dans ces contextes, que les réalisateurs de surface mentionnées précédement entrent en jeu. GenDR met plutôt l'accent sur les tâches plus profondes de la réalisation, notamment l'arborisation et la lexicalisation.
 

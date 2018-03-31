@@ -35,7 +35,7 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=371
+TopLine=351
 Cursor=35298
 
 [Frame2]
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame2_View0,0]
-TopLine=45
-Cursor=4235
+TopLine=173
+Cursor=8208
 
 [Frame3]
 Flags=0
@@ -71,8 +71,8 @@ Class=LaTeXView
 Document=ch4\verbnet.tex
 
 [Frame3_View0,0]
-TopLine=538
-Cursor=10763
+TopLine=204
+Cursor=16845
 
 [Frame4]
 Flags=0
@@ -108,7 +108,7 @@ Document=ch6\evaluation.tex
 
 [Frame5_View0,0]
 TopLine=0
-Cursor=363
+Cursor=54
 
 [Frame6]
 Flags=0
@@ -144,7 +144,7 @@ Document=preambule.tex
 
 [Frame7_View0,0]
 TopLine=167
-Cursor=663
+Cursor=6713
 
 [Frame8]
 Flags=0

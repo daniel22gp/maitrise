@@ -2,26 +2,71 @@
 
 \chapter{GenDR}\label{chapgendr}
 
-GenDR (Generic Deep Realizer \citep{lareau18}) est un réalisateur profond multilingue.C'est un héritier de MARQUIS dans le sens où il utilise une architecture similaire pour la réalisation. C'est une plateforme pour la modélisation de l'interface sémantique-syntaxe. Ainsi, GenDR se démarque de MARQUIS par la couverture beaucoup plus importante qu'il offre en termes de locutions et collocations. Cette couverture lexicale a été fait par Lareau et Lambrey \cite{LambreyImplementationcollocationspour2017}, \cite{lambrey15}.
+GenDR (Generic Deep Realizer) est un réalisateur profond multilingue \citep{lareau18}. Il a hérité de l'architecture de MARQUIS. C'est-à-dire que GenDR modélise le langage dans des paramètres similaires, utilise le même transducteur de graphe et se sert de la même théorie linguistique. GenDR se démarque par sa capacité à traiter des phénomènes langagiers complexes en traitant l'interface sémantique-syntaxe en profondeur. Il offre une couverture beaucoup plus importante que MARQUIS en ce qui concerne les locutions, les collocations via un traitement large des fonctions lexicales. Cette couverture lexicale a été opérée par Lareau et Lambrey \cite{LambreyImplementationcollocationspour2017}, \cite{lambrey15}.
+
+Tel que mentionné, GenDR est une grammaire multilingue. Les règles grammaticales de base sont directement héritée de MARQUIS(citation) qui pouvait réaliser du texte en : catalan, anglais, français, polonais, portugais et espagnol. Ils n'ont gardé que les règles de base qui décrivent des phénomènes langagiers de base: lexicalisation simple, complementation, modification,etc. Ces règles forment le noyau du système et sont partagées (la majorité) par l'ensemble des langues du systèmes. Les règles spécifiques aux langues modélisent des phénomènes comme la sélection des auxiliaires, les déterminants, etc.
+
+Le mapping entre les graphes sémantiques et les structures syntaxiques de surface se fait en deux étapes. Ces deux étapes sont effectuées par l'entremise de deux modules de règles différents opérant les interfaces respectives. Le module sémantique mappe les graphes sémantiques aux structures syntaxiques profondes correspondantes (Melcuk,2013), tandis que le module syntaxique mappe les structures syntaxiques profondes aux strucutres syntaxiques de surface. Cette architecture stratifiée est directement inspirée de la théorie Sens-Texte (melcuk et compagnie).
+
+Ainsi le module sémantique contient 21 règles dont la plupart sont héritées de MARQUIS et 132 règles de lexicalisation \citep{LambreyImplementationcollocationspour2017}. Pour sa part, le module syntaxique contient nettement moins de règles. 20 règles dont 12 partagées entre les langues. Chaque règle modélise un phénomène langagier sur quoi la grammaire compte sur la richesse des dictionnaires.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- A R C H I T E C T U R E  GENDR  ---
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architecture de GenDR}
 
-Dans la section suivante, nous allons brièvement présenter MATE, la plateforme qui permet à GenDR de fonctionner. Puis nous allons brièvement décrire la composante multilingue de GenDR.
+Dans la section suivante, nous allons brièvement présenter MATE, la plateforme sur laquelle GenDR fonctionne. Nous allons ensuite brièvement décrire la composante multilingue de GenDR.
 
 \subsection{MATE}
+\citep{Lareau2007TowardsAG}
 
-GenDR roule sur MATE \citep{BohnetDevelopmentEnvironmentMTTbased2000}, \citep{BohnetOpensourcegraph2010},\citep{Lareau2007TowardsAG}
+\draft{MATE a été créé par Bernd Bohnet. Sa raison d'être provient du désir d'implémenter les couches de représentations à la Théorie Sens-Texte dans un transducteur de graphe. Ainsi, la transduction d'un graphe à un autre correspond au passage d'une couche de représentation à une autre. Ce logiciel permet aussi de tester, développer et maintenir la tâche qu'est la réalisation linguistique dans le cadre de la \ac{GAT} citep{BohnetDevelopmentEnvironmentMTTbased2000}. Afin de développer et tester le matériel, MATE comprend les composantes suivantes : un éditeur de dictionnaire, de graphes et de grammaires. Les dictionnaires encodent les unités sémantiques, lexicales et fonctionnelles. Les grammaires sont composées de règles modélisant le passage d'une représentation à une autre. C'est via les règles que la transduction de graphes se fait. L'éditeur de graphes permet de construire l'input et de le visualiser soit en format textuel ou graphique. Il y aussi un module d'inspecteur permettant de voir le déroulement de l'application des règles. Autrement dit, chaque étape de la transduction est explicitée et cela nous permet de voir quelles règles ont été utilisées ou quelles règles auraient dû être utilisées. Pour plus de détails concernant ce système, nous vous référons à ces articles \citep{BohnetDevelopmentEnvironmentMTTbased2000}, \citep{BohnetOpensourcegraph2010},\citep{LambreyImplementationcollocationspour2017} .}
 
-\draft{Les transducteurs de graphes sont utilisés dans plusieurs applications en TAL, notamment en GAT (Bohnet et Wanner, 2010). MATE est un transducteur de graphes libre conçu par Bernd Bohnet (Bohnet, 2006; Bohnet, Langjahr, et Wanner, 2000; Bohnet, Lareau, Wanner, et al., 2007; Bohnet et Wanner, 2010) conçu à la base pour modéliser l’approche multistratale de la TST. Il manipule divers types de graphes et construit, à partir d’un graphe source, un graphe correspondant d’un niveau supérieur, sans modifier la structure de départ.
-MATE fournit également une plateforme de développement et de maintien de générateurs de texte employant la TST (Bohnet et al., 2000). Pour passer d’un graphe à l’autre, MATE applique des règles et forme le graphe de sortie par un procédé d’unification. Nous ne rentrerons pas dans les détails techniques du fonctionnement de MATE et nous encourageons le lecteur intéressé à se référer à (Bohnet et Wanner, 2010).
+Nous allons maintenant montrer brièvement à quoi ressemble les éditeurs dictionnairiques, grammaticaux et graphiques.
 
-En plus d’être un transducteur de graphe, MATE est aussi une plateforme de développement et de maintien de ressources à large couverture. (Bohnet et al., 2000) indiquent que MATE permet d’écrire, modifier et tester à la fois des dictionnaires et des grammaires. Il permet une structuration hiérarchique de ces ressources grâce à un système de classes. Chaque type de ressource possède son propre éditeur. MATE permet aussi de créer des structures à différents niveaux d’abstraction grâce à un éditeur dédié. MATE offre la possibilité de visualiser les différents graphes et fournit un inspecteur pour examiner le processus de correspondance lors de l’application des règles. L’inspecteur montre les correspondances établies entre les noeuds, l’instanciation des variables des règles appliquées et une trace de toutes les opérations effectuées pendant la compilation, ce qui favorise le développement et le maintien de larges grammaires. Nous allons maintenant nous attarder sur l’encodage des dictionnaires et des grammaires dans MATE.}
+\subsubsection{Dictionnaires}
+GenDR se sert de trois dictionnaires: un dictionnaire sémantique, un dictionnaire lexical et un dictionnaire de fonctions lexicales. Puisque les fonctions lexicales en génération automatique de texte ont déjà traitées par \cite{LambreyImplementationcollocationspour2017}, nous ne n'élaborerons pas sur ce dictionnaire. D'abord, le dictionnaire sémantique sert à encoder les unités sémantiques qui composent les noeuds des graphes d'entrées. Voici un entrée typique dans un dictionnaire sémantique (\emph{semanticon})
 
-\subsection{Structures d'entrées et de sorties}\label{entree-sortie}
-L'input de GenDR est des structures sémantiques de type TST. Il s'agit de graphes sémantiques où les prédicats sont liés à leurs arguments par des relations étiquettées avec des chiffres indiquant la position de l'argument. L'une des unités sémantiques doit être identifiée comme étant la plus saillante de l'énoncé. Il s'agit du noeud dominant de la phrase. Il sera mappé en tant que la racine syntaxique.
+\begin{lstlisting}[language=Xml, caption = semanticon]
+owe { lex = owe
+      lex = debt }
+\end{lstlisting}
+Ce qu'on en retient : 1 sens pour 2 lexèmes. Permet de paraphraser et plus grande flexibilité du réalisateur.
+
+Le dictionnaire lexical contient ce genre d'information:
+\begin{lstlisting}[language=Xml, caption = lexicon]
+verb_dit : verb_dt {                   // direct transitive
+  gp = {
+     III = {
+        dpos = N
+        rel = indir_objective
+        prep = to  
+
+     }
+  }
+}
+[...]
+owe : verb_dit {
+  gp = { II = { dpos=Num } }
+  gp = { II = { dpos=N } }
+}
+\end{lstlisting}
+
+Ce qu'on en retient: lexèmes + classes. Les classes et mécanisme d'héritage : verb\_dit = verb\_dt = verb = predicate (tout remonte à un prédicat)
+
+\subsubsection{Grammaires}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/grammaire.png}
+	\caption{Règle créant la racine syntaxique}
+	\label{fig:root}
+\end{figure}
+
+Donc, en haut, on a le nom de la règle, le côté leftside est le point de départ de la transduction. Le côté droit est l'arrivée de la transduction. La partie en bas est les conditions.
+
+\subsubsection{Graphes}\label{entree-sortie}
+L'input de GenDR est un graphe sémantique de type TST. Dans celui-ci les prédicats sont liés à leurs arguments par des relations étiquettées avec des chiffres indiquant la position de l'argument. L'une des unités sémantiques doit être identifiée comme étant la plus saillante de l'énoncé. Il s'agit du noeud dominant de la phrase. Lors du transfert à la syntaxe profonde, il sera mappé comme racine syntaxique (le sommet de l'arbre).
 
 Voici à quoi ressemble l'input :
 \begin{lstlisting}[language=XML, caption = Input sémantique, label=input]
@@ -35,7 +80,7 @@ tense=PRES
 main-> owe}}
 \end{lstlisting}
 
-Mais pour simplifier la chose, nous montrerons une version graphique: insérer une structure sémantique
+Mais pour simplifier la chose, nous montrerons une version graphique
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/owe_sem.pdf}
@@ -43,18 +88,25 @@ Mais pour simplifier la chose, nous montrerons une version graphique: insérer u
 	\label{fig:graphesem}
 \end{figure}
 
-L'output de ce système consiste en un ensemble de structures de dépendances syntaxiques de surface. Ainsi, avec l'input sémantique en \ref{input} le réalisateur génère les six structures suivantes. 
+L'output de ce système consiste en un ensemble de structures de dépendances syntaxiques de surface. Ainsi, avec l'input sémantique en \ref{input} le réalisateur génère les six structures suivantes. Effectivement, c'est la preuve de la flexibilité du réalisateur GenDR. 
 
-\draft{faire les 2 structures en version graphique et montrer les informations qu'ils portent sur leur code}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.5\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/exemples_real.png}
+	\caption{6 réalisations syntaxe de surface}
+	\label{fig:realsurf}
+\end{figure}
 
-Toutefois, afin de générer le texte final désiré à partir de l'input, il faudra passer par un réalisateur de surface. GenDR ne traite pas l'interface morpho-syntaxique et ne linéarise pas le texte. C'est dans ces contextes, que les réalisateurs de surface mentionnées précédement entrent en jeu. GenDR met plutôt l'accent sur les tâches plus profondes de la réalisation, notamment l'arborisation et la lexicalisation.
+Toutefois, dans cette figure, les arbres de dépendances ont été linéarisés pour faciliter la compréhension du lecteur. Dans les faits, les arbres générés en output ne sont pas linéarisés. Il s'agit toujours d'arbres de dépendances en syntaxe de surface. 
 
-\subsection{Aspect multilingue}
-Tel que mentionné, GenDR est une grammaire multilingue. Les règles grammaticales de base sont directement héritée de MARQUIS(citation) qui pouvait réaliser du texte en : catalan, anglais, français, polonais, portugais et espagnol. Ils n'ont gardé que les règles de base qui décrivent des phénomènes langagiers de base: lexicalisation simple, complementation, modification,etc. Ces règles forment le noyau du système et sont partagées (la majorité) par l'ensemble des langues du systèmes. Les règles spécifiques aux langues modélisent des phénomènes comme la sélection des auxiliaires, les déterminants, etc.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/realsurfex.pdf}
+	\caption{Réalisation de surface}
+	\label{fig:realsurfex}
+\end{figure}
 
-Le mapping entre les graphes sémantiques et les structures syntaxiques de surface se fait en deux étapes. Ces deux étapes sont effectuées par l'entremise de deux modules de règles différents opérant les interfaces respectives. Le module sémantique mappe les graphes sémantiques aux structures syntaxiques profondes correspondantes (Melcuk,2013), tandis que le module syntaxique mappe les structures syntaxiques profondes aux strucutres syntaxiques de surface. Cette architecture stratifiée est directement inspirée de la théorie Sens-Texte (melcuk et compagnie).
-
-Ainsi le module sémantique contient 21 règles dont la plupart sont héritées de MARQUIS et 132 règles de lexicalisation \citep{LambreyImplementationcollocationspour2017}. Pour sa part, le module syntaxique contient nettement moins de règles. 20 règles dont 12 partagées entre les langues. Chaque règle modélise un phénomène langagier sur quoi la grammaire compte sur la richesse des dictionnaires.
+Si on souhaite une réalisation linéarisée,  il faudra passer par un réalisateur de surface. GenDR ne traite pas l'interface morpho-syntaxique et ne linéarise pas le texte. C'est dans ces contextes, que les réalisateurs de surface mentionnées précédement entrent en jeu. Les forces de GenDR concernent les tâches plus profondes de la réalisation, notamment l'arborisation et la lexicalisation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- I N T E R F A C E   S É M A N T I Q U E- S Y N T A X E ---------

@@ -1,8 +1,6 @@
 \chapter{Python}
 
-À l'aide du module \emph{xml.etree.cElementTree} nous avons pu faire des opérations sur l'ensemble des données de VerbNet qui sont encodées dans des fichiers XML. Le module Etree nous permet de naviguer dans les fichiers XML de VerbNet puis de manipuler et d'extraire les données qui nous intéresse. Après avoir manipulé et extrait les données intéressantes, nous les avons compilées dans des dictionnaires. Ceux-ci seront utilisés par notre système MATE pour générer du texte automatiquement. Par la suite, nous avons aussi utilisé Python et le module Etree pour extraire les phrases exemples qui accompagent chaque patron de régime couvert par la ressource lexicale. Dans le but de créer des structures sémantiques qui nous serviront d'input pour générer en syntaxe de surface la phrase exemple et ainsi vérifier si MATE est capable de générer les phrases exemples.
-
-Nous voulions donc créer des documents DICT qui seraient l'information lexicale de notre système de GAT. Il est d'abord important de dire dans les grandes lignes comment notre système MATE fonctionne. Ainsi, notre système prend en input une représentation sémantique d'un énoncé, puis fait appel à des dictionnaires et des règles de grammaire pour générer en output une représentation syntaxique de surface de l'énoncé. Les unités lexicales s'encodent d'une certaine manière dans MATE et nous voulions créer nos dictionnaires à l'image des contraintes données par le système MATE. Nous avons donc codé la manipualtion et l'extraction des données en fonction de la manière dont le lexique est encodé dans MATE.
+À l'aide du module \emph{xml.etree.cElementTree} créé pour le langage de programmation Python, nous avons pu faire des opérations sur l'ensemble des données de VerbNet qui sont encodées en XML. Le module \emph{xml.etree.cElementTree} prend les fichiers XML et les réorganise en \emph{element tree}. Cela nous permet de naviguer dans les fichiers XML avec des fonctions prévues pour ce module. C'est ainsi qu'on a pu manipuler et extraire les données de VerbNet qui nous intéressaient. Par après, nous les avons compilées dans des fichiers\emph{dict} qui seront utilisés par notre réalisateur de texte GenDR. Nous nous sommes aussi servis des fichiers XML et de Python pour extraire les phrases exemples accompagnant les cadres syntaxiques pour évaluer notre réalisateur de texte.
 
 \subsection{Création du dictionnaire de verbes: lexicon.dict}
 
@@ -19,8 +17,10 @@ Ensuite, les 278 classes verbales de VerbNet pointent vers la classe verb, donc 
 
 \begin{lstlisting}[language=XML]
 "absorb-39.8": verb {
-  gp = { id=NP_V_NP                        dia=12 } // Cotton absorbs water.
-  gp = { id=NP_V_NP_PP_from_source         dia=123 } // Cattle take in nutrients from their feed.
+  gp = { id=NP_V_NP  
+	       dia=12 } // Cotton absorbs water.
+  gp = { id=NP_V_NP_PP_from_source  
+	       dia=123 } // Cattle take in nutrients from their feed.
 }
 \end{lstlisting}
 

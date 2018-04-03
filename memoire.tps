@@ -11,13 +11,13 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=LaTeXView
 Document=memoire.tex
 
 [Frame0_View0,0]
-TopLine=12
+TopLine=18
 Cursor=1911
 
 [Frame1]
@@ -29,13 +29,13 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=336
+TopLine=650
 Cursor=35298
 
 [Frame2]
@@ -47,13 +47,13 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame2_View0,0]
-TopLine=73
+TopLine=157
 Cursor=35121
 
 [Frame3]
@@ -65,13 +65,13 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=LaTeXView
 Document=ch4\verbnet.tex
 
 [Frame3_View0,0]
-TopLine=529
+TopLine=963
 Cursor=53591
 
 [Frame4]
@@ -83,14 +83,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=LaTeXView
 Document=ch5\python.tex
 
 [Frame4_View0,0]
-TopLine=6
-Cursor=885
+TopLine=183
+Cursor=11688
 
 [Frame5]
 Flags=0
@@ -101,8 +101,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=LaTeXView
 Document=ch6\evaluation.tex
 
@@ -119,8 +119,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=BibTeXView
 Document=biblio\references.bib
 
@@ -137,13 +137,13 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=LaTeXView
 Document=lng-acro-fr.sty
 
 [Frame7_View0,0]
-TopLine=28
+TopLine=31
 Cursor=2231
 
 [Frame8]
@@ -155,8 +155,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.right=713
+NormalPos.bottom=464
 Class=LaTeXView
 Document=memoire.bbl
 

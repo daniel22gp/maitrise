@@ -2,25 +2,25 @@
 
 \chapter{GenDR}\label{chapgendr}
 
-GenDR (Generic Deep Realizer) est un réalisateur profond multilingue \citep{lareau18}. Il a hérité de l'architecture de MARQUIS. C'est-à-dire que GenDR modélise le langage dans des paramètres similaires, utilise le même transducteur de graphe et se sert de la même théorie linguistique. GenDR se démarque par sa capacité à traiter des phénomènes langagiers complexes en traitant l'interface sémantique-syntaxe en profondeur. Il offre une couverture beaucoup plus importante que MARQUIS en ce qui concerne les locutions, les collocations via un traitement large des fonctions lexicales. Cette couverture lexicale a été opérée par Lareau et Lambrey \cite{LambreyImplementationcollocationspour2017}, \cite{lambrey15}. Mais couvre la réalisation jusqu'à la syntaxe de surface, ne se rend pas jusqu'au bout.
+GenDR (Generic Deep Realizer) est un réalisateur profond multilingue \citep{lareau18}. Il a hérité de l'architecture de MARQUIS \cite{WannerMARQUISGENERATIONUSERTAILORED2010} que nous avons présenté à la section \ref{sectionmarquis}. GenDR modélise le langage dans des paramètres similaires à ceux de son prédecesseur. La réalisation linguistique se fait via la transduction de graphes, la théorie Sens-Texte est aussi le cadre utilisé, et les mécanismes permettant la transduction de graphes (dictionnaires et règles de grammaire) fonctionnent essentiellement de la même manière.
 
-Tel que mentionné, GenDR est une grammaire multilingue. Les règles grammaticales de base sont directement héritée de MARQUIS(citation) qui pouvait réaliser du texte en : catalan, anglais, français, polonais, portugais et espagnol. Ils n'ont gardé que les règles de base qui décrivent des phénomènes langagiers de base: lexicalisation simple, complementation, modification,etc. Ces règles forment le noyau du système et sont partagées (la majorité) par l'ensemble des langues du systèmes. Les règles spécifiques aux langues modélisent des phénomènes comme la sélection des auxiliaires, les déterminants, etc.
+GenDR se démarque par sa capacité à traiter des phénomènes langagiers complexes: les collocations. Il offre une couverture beaucoup plus importante que MARQUIS en ce qui concerne les collocations via un traitement exhaustif des fonctions lexicales. Cette couverture lexicale a été opérée par Lareau et Lambrey \cite{LambreyImplementationcollocationspour2017}, \cite{lambrey15} en travaillant sur un générateur de collocations. Toutefois, il est important de préciser que GenDR réalise en sortie des structures syntaxiques de surface. Le réalisateur se concentre principalement sur l'interface sémantique-syntaxe car c'est là qu'on peut modéliser des phénomènes langagiers profonds. Pour compléter la réalisation jusqu'à du texte, il faudrait utiliser un réalisateur de surface qui prendrait les outputs de GenDR.
 
-Le mapping entre les graphes sémantiques et les structures syntaxiques de surface se fait en deux étapes. Ces deux étapes sont effectuées par l'entremise de deux modules de règles différents opérant les interfaces respectives. Le module sémantique mappe les graphes sémantiques aux structures syntaxiques profondes correspondantes (Melcuk,2013), tandis que le module syntaxique mappe les structures syntaxiques profondes aux strucutres syntaxiques de surface. Cette architecture stratifiée est directement inspirée de la théorie Sens-Texte (melcuk et compagnie).
+En tant qu'héritier de MARQUIS, GenDR a repris les modules grammaticaux de base de son prédecesseur. Les auteurs de GenDR ont gardé les règles de base décrivant des phénomènes langagiers élémentaires comme la  lexicalisation simple, la complémentation, la modification (adjectivale et adverbiale),etc. Ces règles forment le noyau du système et sont généralement partagées par l'ensemble des langues. Puis, des phénomènes comme la sélection des auxilaires ou des déterminants sont régis par des règles spécifiques à chaque langue
 
-Ainsi le module sémantique contient 21 règles dont la plupart sont héritées de MARQUIS et 132 règles de lexicalisation \citep{LambreyImplementationcollocationspour2017}. Pour sa part, le module syntaxique contient nettement moins de règles. 20 règles dont 12 partagées entre les langues. Chaque règle modélise un phénomène langagier sur quoi la grammaire compte sur la richesse des dictionnaires.
+\draft{ où est-ce que j'incorpore ça dans mon texte: Le module sémantique contient 21 règles dont la plupart sont héritées de MARQUIS et 132 règles de lexicalisation \citep{LambreyImplementationcollocationspour2017}. Le module syntaxique contient nettement moins de règles. 20 règles dont 12 partagées entre les langues. }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- A R C H I T E C T U R E  GENDR  ---
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architecture de GenDR}
 
-Dans la section suivante, nous allons brièvement présenter MATE, la plateforme sur laquelle GenDR fonctionne. Nous allons ensuite brièvement décrire la composante multilingue de GenDR.
+Les modules lexicaux et grammaticaux de GenDR sont pris en charge par un transducteur de graphes du nom de MATE \citep{BohnetDevelopmentEnvironmentMTTbased2000}. Donc pour mieux comprendre comme la réalisation se déroule dans GenDR, il faut d'abord présenté comment fonctionne MATE et quels sont les modules utilisés dans MATE pour générer du texte.
 
 \subsection{MATE}
-\citep{Lareau2007TowardsAG}
+MATE a été créé par \cite{BohnetDevelopmentEnvironmentMTTbased2000} pour implémenter un système se basant sur la Théorie Sens-Texte. Dans ce contexte, chaque niveau de représentation est traduit par un graphe. Le transfert de ceux-ci est assuré par un module de dictionnaire et de grammaire. La réalisation de texte se fait donc grâce aux transductions de graphes. Effectivement, MARQUIS utilisait ce système de transduction de graphes pour réaliser le texte final \citep{Lareau2007TowardsAG}. MATE a aussi été conçu pour tester, développer et maintenir une grammaire computationnelle. C'est un logiciel qui permet à la fois de réaliser du texte et de tester des fondements théoriques dans une application concrète. 
 
-MATE a été créé par Bernd Bohnet. Sa raison d'être provient du désir d'implémenter les couches de représentations à la Théorie Sens-Texte dans un transducteur de graphe. Ainsi, la transduction d'un graphe à un autre correspond au passage d'une couche de représentation à une autre. Ce logiciel permet aussi de tester, développer et maintenir la tâche qu'est la réalisation linguistique dans le cadre de la \ac{GAT} citep{BohnetDevelopmentEnvironmentMTTbased2000}. Afin de développer et tester le matériel, MATE comprend les composantes suivantes : un éditeur de dictionnaire, de graphes et de grammaires. Les dictionnaires encodent les unités sémantiques, lexicales et fonctionnelles. Les grammaires sont composées de règles modélisant le passage d'une représentation à une autre. C'est via les règles que la transduction de graphes se fait. L'éditeur de graphes permet de construire l'input et de le visualiser soit en format textuel ou graphique. Il y aussi un module d'inspecteur permettant de voir le déroulement de l'application des règles. Autrement dit, chaque étape de la transduction est explicitée et cela nous permet de voir quelles règles ont été utilisées ou quelles règles auraient dû être utilisées. Pour plus de détails concernant ce système, nous vous référons à ces articles \citep{BohnetDevelopmentEnvironmentMTTbased2000}, \citep{BohnetOpensourcegraph2010},\citep{LambreyImplementationcollocationspour2017}.
+Pour réaliser du texte, MATE comprend les composantes suivantes : un éditeur de dictionnaires, de graphes et de grammaires. Les dictionnaires encodent les unités sémantiques et lexicales. Les grammaires sont composées de règles modélisant le passage d'une représentation à une autre. L'éditeur de graphes permet de construire l'input et de le visualiser soit en format textuel ou graphique. Il y aussi un module d'inspecteur permettant de voir le déroulement de l'application des règles. Cet outil s'avère très utile au développement d'une grammaire. On peut cerner à quel endroit la réalisation s'est interrompue et à cause de quel module. Pour plus de détails concernant ce système, nous vous référons à ces articles: \citep{BohnetOpensourcegraph2010} et \citep{LambreyImplementationcollocationspour2017}.
 
 Nous allons maintenant montrer brièvement à quoi ressemble les éditeurs dictionnairiques, grammaticaux et graphiques.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,17 +28,52 @@ Nous allons maintenant montrer brièvement à quoi ressemble les éditeurs dicti
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Dictionnaires}\label{dictio}
-GenDR se sert de trois dictionnaires: un dictionnaire sémantique, un dictionnaire lexical et un dictionnaire de fonctions lexicales. Puisque les fonctions lexicales en génération automatique de texte ont déjà traitées par \cite{LambreyImplementationcollocationspour2017}, nous ne n'élaborerons pas sur ce dictionnaire. D'abord, le dictionnaire sémantique sert à encoder les unités sémantiques qui composent les noeuds des graphes d'entrées. Voici un entrée typique dans un dictionnaire sémantique (\emph{semanticon})
 
-\begin{lstlisting}[language=Xml, caption = semanticon, label = semanticon]
+Tel que nous l'avons mentionné, GenDR se sert de dictionnaire pour encoder le lexique qui sera utilisé dans les réalisations finales. Le système se sert de trois dictionnaires: un dictionnaire sémantique, un dictionnaire lexical et un dictionnaire de fonctions lexicales. Puisque les fonctions lexicales en génération automatique de texte ont déjà traitées par \cite{LambreyImplementationcollocationspour2017}, nous ne traiterons pas de ce dictionnaire ici. 
+
+Nous commencerons par décrire le dictionnaire sémantique car c'est le premier dictionnaire qui est requisitionné par le système lors du passage de la représentation sémantique à la représentation syntaxique profonde. Il sert à encoder les unités sémantiques se trouvant dans les graphes d'entrées. La figure \ref{semanticon} présente une entrée typique dans un dictionnaire sémantique (\emph{semanticon}).
+
+\begin{lstlisting}[language=Xml, caption=Semanticon, label=semanticon]
 owe { lex = owe
       lex = debt }
 \end{lstlisting}
-Ce dictionnaire mappe les sémantèmes à des lexèmes ou des locutions. Un même sémantème peut ainsi pointer vers deux lexèmes synonymes, mais aussi vers deux lexèmes signifiant la même chose, mais appartenant à des parties du discours différentes. Par exemple owe(sens) correspond à owe(lexème) un verbe, et debt(lexème) un nom.
 
-Le dictionnaire lexical contient ce genre d'information:
-\begin{lstlisting}[language=Xml, caption = lexicon]
-verb_dit : verb_dt {                   // direct transitive
+Le \emph{semanticon} mappe les sémantèmes à des lexèmes ou des locutions. Ce dictionnaire est à la base de nombreuses réalisation de paraphrases. La raison est simple, une unité sémantique peut se réaliser de plus d'une manière en fonction de la synonymie ou du changement de partie du discours. C'est pour cela que, dans la figure \ref{semanticon}, le sens de \sem{owe} englobe deux réalisations lexicales: \lex{owe} et \lex{debt}. La première est un lexème verbal et la seconde est un lexème nominal.
+
+\draft{comment mettre les {} dans lstline ?}Passons ensuite au dictionnaire lexical \emph{lexicon}. Il contient de l'information détaillée à propos de chaque unité lexicale d'une langue donnée. Une entrée lexicale typique contient: la partie du discours, la diathèse, les patrons de régime, et les collocations contrôlées. D'ailleurs, comme vous le verrez dans la figure \ref{lexicon}, ces informations lexicales ne sont pas toujours explicitée, mais elles sont quand même encodées dans l'entrée. Cela est possible via un mécanisme d'héritage propre à MATE. Autrement dit, le verbe \lex{owe} ne semble que contenir les patrons de régime dans son entrée lexicale. Toutefois, grâce au mécanisme d'héritage récursif, il hérite d'une panoplie de traits. Vous verrez que cette entrée lexicale pointe vers \emph{verb\_dit} (verbe ditransitif). C'est là que le mécanisme d'héritage des traits entre en jeu. \lex{Owe} hérite de toutes les informations encodées dans \emph{verb\_dit}. Notamment son patron de régime. Puis sucessivement, la classe \emph{verb\_dit} hérite des traits de \emph{verb\_dt} puis de \emph{verb} et finalement de \emph{predicate}. Ce système a donc permi à \lex{owe} d'hériter de tous les traits encodés dans ces classes: la diathèse via \lstinline!gp = { 1 = I ,...} !, la partie du discours \lstinline{dpos = V} et les patrons de régime \lstinline!gp = { III = { dpos = N rel = indir\_objective prep = to }! retrouvés dans chaque classe. Cela permet à MATE de ne pas être saturé d'information et facilite l'encodage des unités lexicales. Les concepts de classes ne se limitent pas qu'aux différents type de verbes (transitif, intransitif,etc.) mais aussi aux partie du discours: les adjectifs, les adverbes, les noms, les prépositions, etc. C'est de cette manière que le lexicon fonctionne. On spécifie les traits lexicaux dans des classes, puis on associe les entrées lexicales à ces classes pour qu'elles héritent des traits. Si c'est nécessaire qu'un des traits soit modifié, on peut le faire directement dans l'entrée lexicale. La lexie \lex{owe} en montre un exemple en modifiant la partie du discours (Num) demandée par son deuxième actant syntaxique \lstinline!gp = { II = { dpos=Num } }!. Nous avions mentionné le pouvoir de paraphrasage dans le chapitre précédent. Le lexème \lex{debt} contient les collocations qu'il contrôle. La réalisation de ces collocations se fait par l'entremise d'un dictionnaire de fonction lexicale puisque \lex{debt} nécessitera un verbe support pour pouvoir paraphraser le sens de \sem{owe}. Pour plus de détails nous vous renvoyons à \citep{lareau18} et \citep{LambreyImplementationcollocationspour2017}.
+
+\begin{lstlisting}[language=Xml, caption = Lexicon, label=lexicon]
+predicate {
+  gp = { 1 = I
+         2 = II
+         3 = III
+         4 = IV
+         5 = V
+         6 = VI }
+}
+
+verb : predicate {
+  dpos = V
+  spos = verb
+  gp = {
+     I = {
+        dpos = N
+        rel = subjective
+     }
+  }
+}
+
+verb_dt : verb {                   // direct transitive
+  gp = {
+     II = {
+        dpos = N
+        rel = dir_objective
+
+     }
+  }
+}
+
+verb_dit : verb_dt {                   // direct ditransitive
   gp = {
      III = {
         dpos = N
@@ -53,10 +88,25 @@ owe : verb_dit {
   gp = { II = { dpos=Num } }
   gp = { II = { dpos=N } }
 }
-\end{lstlisting}
-information détaillée à propos de chaque unité lexicale d'une langue. Les lexèmes et locutions ont leurs entrée dans ce dictionnaire. Une entrée a : PDD, diathèse, sous-catégorisation et collocations contrôlées. MATE incorpore aussi des mécanismes d'héritage facilitant l'encodage des ressources lexicales. Il est possible de créer des classes, et lorsqu'on pointe une unité vers une classe, elle hérite de tous les traits de cette classe. C'est de cette manière qu'on peut créer des classes de verbes. Par exemples, owe est un verbe ditransitif et il pointe vers la classe de verbe ditransitif. Cette classe a des traits X, mais elle hérite des traits de la classe verb transitif qui contient les traits communs à tous les verbes direct, puis cette classe hérite de verb qui contient les traits communs à tous les verbes. 
 
-1500 mots les plus courants de fr et ang, puis quelques persan et lithuanien.
+debt : noun {
+  gp = {
+    1 = II
+    2 = I
+    3 = III
+    I = { dpos=Num rel=noun_completive prep=of }
+    II = { dpos=N rel=determinative case=GEN prep=""}
+    III = { dpos=N rel=noun_completive prep=to }
+  }
+  lf = { name=Oper1 value=have }
+  lf = { name=Oper13 value=owe }
+  lf = { name=Func2 value=amount_v_1 }
+  lf = { name=Func2 value=stand_v_2 }
+  lf = { name=Func2 value=total_v }
+}
+\end{lstlisting}
+
+Finalement, pour conclure la section sur les dictionnaires, nous mentionnerons quelques statistiques. Le dictionnaire anglais de GenDR contient les 1500 lexèmes les plus courants. Le dictionnaire francophone en contient autant. Puis les dictionnaires lithuanien et persan contiennent quelques lexèmes afin de pouvoir tester le système et réaliser quelques phrases.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ---------G R A M M A I R E  ------------------
@@ -64,14 +114,15 @@ information détaillée à propos de chaque unité lexicale d'une langue. Les le
 
 \subsubsection{Grammaires}
 
+La grammaire de GenDR est organisée autour de deux modules englobant des règles. Le premier module est celui qui permet le passage de la sémantique (input) à la syntaxe profonde (intermédiaire). Puis le second module permet le passage de la syntaxe profonde à la syntaxe de surface (output). Le premier module est divisé en 3 sections: les règles partagées par tous (\emph{core}), les règles de fonctions lexicales (\emph{lf}), et les règles spécifiques à chaque langue (\emph{lng}).	Le second module est divisé en 2: les règles partagées par tous et les règles propres à chaque langues. Nous présenterons en détails les règles principales de ces deux modules dans les sections \ref{secarbolex} et \ref{secexemple}. \draft{élaborer sur les différentes sections du core: syntax, lexical, root ?}
+
+La figure \ref{fig:root} présente une règle du module sémantique-syntaxe profonde. Toutes les règles sont décrites dans ce format. D'abord, en haut, on a l'interface dans laquelle la règle opère et le nom de la règle. Dans la partie gauche \emph{Leftside} on retrouve les noeuds et arcs du graphes de départ, puis dans la partie droite \emph{Rightside} on retrouve le graphe de sortie avec les noeuds et arcs qui ont subi des transformations. Finalement, la partie d'en bas concerne les conditions d'applications. Il s'agit d'un ensemble de conditions restreignant le champ d'application de la règle donnée. Nous verrons en détails l'application concrète de la règle \ref{fig:root} dans la section \ref{secarbolex}.
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/grammaire.png}
 	\caption{Règle créant la racine syntaxique}
 	\label{fig:root}
 \end{figure}
-
-Donc, en haut, on a : interface, nom de la règle et regroupement de règles. Le côté leftside est le point de départ de la transduction. Le côté droit est l'arrivée de la transduction. La partie en bas est les conditions. C'est là qu'on encode toutes les règles et dans ce format. Nous reviendrons aux règles dans la section exemple
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ---------G R A P H E S ------------------
@@ -125,7 +176,9 @@ Si on souhaite une réalisation linéarisée,  il faudra passer par un réalisat
 % --------- I N T E R F A C E   S É M A N T I Q U E- S Y N T A X E ---------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Interface sémantique-syntaxe en TST}
+\section{Interface sémantique-syntaxe en TST}\label{secsemsynt}
+
+\draft{court survol de l'interface sémantique syntaxe en TST et ce qui sera présenté dans la section suivante. On parle de cette interface car notre système se focus sur elle. Prend en input des rep sem et donne en output des rsynts: au coeur de l'interface sem-synt.}
 
 Ainsi, tel que mentionné, nous utilisons des graphes sémantiques en entrée dans ce système. Pour mieux comprendre de quoi il s'agit, nous ferons un retour sur les fondements de la théorie Sens-Texte
 
@@ -178,7 +231,7 @@ La lexicalisation se passe entre le niveau RSem et la RSyntP \citep{PolguereStru
 % --------- C O M P U T A T I O N N E L L E  ------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Arborisation et lexicalisation computationnelle}
+\section{Arborisation et lexicalisation computationnelle}\label{secarbolex}
 
 Maintenant que nous avons présenté le côté théorique de l'interface sémantique-syntaxe, nous exposerons comment ces mécanismes se transposent dans GenDR.
 
@@ -220,7 +273,7 @@ Grammatical lexicalization: Les règles de lexicalisation précédentes prenaien
 % --------- E X E M P L E ---------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Exemple}
+\section{Exemple}\label{secexemple}
 
 Nous utiliserons l'exemple d'input de la figure \ref{input} pour démontré comment avec une telle structure d'entrée notre système génère des arbres de surface.
 
@@ -299,7 +352,7 @@ La figure \ref{syntsurf} démontre l'application simultanée de toutes ces règl
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.7\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/rsynts_syntactisation.png}
-	\caption{application de subj,dir et prep}
+	\caption{application de subj,dir,prep et det}
 	\label{fig:syntsurf}
 \end{figure}
 

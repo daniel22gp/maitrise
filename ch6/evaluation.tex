@@ -1,12 +1,23 @@
 \chapter{Implémentation et évaluation du système}\label{eval}
 
-\section{Implémentation des patrons de régime}
-Où on les a implémenté dans GenDR
-Comment on a ajusté les règles à celles qu'on avait montré dans le chapitre GenDR
+\section{Implémentation des verbes et de leurs patrons de régime: lexicon.dict et gpcon.dict}
+
+\subsection{lexicon.dict 2.0}
+montrer en détails à quoi ressemble le lexique avec les changements. Comparer avec les détails de la section GenDR. Montrer qu'on a pu le système des classes predicate, verb dt, verb dit, etc. Que maintenant on a juste verb pour la dpos et la spos. Le reste est encodé directement dans chaque classe verbale de VerbNet : diathèse, id des patrons (pas de fonctions lex.). Montrer comment les mécanismes d'héritage fonctionnent maintenant : members vers classe verbale et classe verbale vers 'verb' ou vers leurs classes mères pour hériter de leurs gps, etc. Montrer un exemple d'une lexie (parler de la désambiguisation) qui pointe vers une sous-classe donc qui hérite des trais de la classe et de leurs gps, etc.
+
+\subsection{gpcon.dict}
+expliquer comment le lexicon fait appel au gpcon et pourquoi on l'a encodé ainsi. le id dans gp d'une entrée pointe vers une entrée de gp dans le gpcon. Celui-ci contient toutes les informations du patron de régime
+
+\section{Ajustement du module grammatical}
+- montrer rapidement de quoi ont l'air les nouvelles règles
+stucture x permet: 8 réalisations
+- adjectif, adverbe, compu du nom: aussi dans le gpcon.
 
 \draft{Utiliser le verbe talk comme exemple pour montrer comment les règles qu'on avait exposées plutôt fonctionne dorénavant.}
 
 \section{Adaptation des anciennes règles pour tenir compte des nouveaux dictionnaires}
+
+
 \section{Mécanisme dsynt=created->constrained->OK pour générer un énoncé simple (sujet, verbe, objet)}
 
 \subsection{Application de la règle root{\_}standard}

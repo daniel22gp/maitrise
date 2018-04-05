@@ -12,7 +12,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=LaTeXView
 Document=memoire.tex
 
@@ -30,12 +30,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=429
+TopLine=434
 Cursor=32686
 
 [Frame2]
@@ -48,13 +48,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame2_View0,0]
-TopLine=353
-Cursor=35246
+TopLine=49
+Cursor=6697
 
 [Frame3]
 Flags=0
@@ -66,13 +66,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=LaTeXView
 Document=ch4\verbnet.tex
 
 [Frame3_View0,0]
-TopLine=188
-Cursor=53591
+TopLine=0
+Cursor=53
 
 [Frame4]
 Flags=0
@@ -84,12 +84,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=LaTeXView
 Document=ch5\python.tex
 
 [Frame4_View0,0]
-TopLine=77
+TopLine=107
 Cursor=22324
 
 [Frame5]
@@ -102,13 +102,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=LaTeXView
 Document=ch6\evaluation.tex
 
 [Frame5_View0,0]
 TopLine=0
-Cursor=63
+Cursor=1171
 
 [Frame6]
 Flags=0
@@ -120,13 +120,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame6_View0,0]
-TopLine=1714
-Cursor=105035
+TopLine=0
+Cursor=0
 
 [Frame7]
 Flags=0
@@ -138,7 +138,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=LaTeXView
 Document=lng-acro-fr.sty
 
@@ -156,7 +156,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=577
+NormalPos.bottom=473
 Class=LaTeXView
 Document=lng.sty
 
@@ -166,5 +166,5 @@ Cursor=0
 
 [SessionInfo]
 FrameCount=9
-ActiveFrame=3
+ActiveFrame=5
 

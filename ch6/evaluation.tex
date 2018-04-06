@@ -1,6 +1,15 @@
 \chapter{Implémentation et évaluation du système}\label{eval}
 
+Au chapitre précédent, nous avions extraits des informations précieuses de VerbNet. Dans ce chapitre, nous expliquerons comment nous nous sommes servis des informations extraites en Python. Nous avons d'abord implémenter les dictionnaires dans GenDR. Puis nous nous sommes servis des structures générées pour plus rapidement construire les graphes sémantiques. Ceux-ci nous serviront à tester notre système
+
 \section{Implémentation des verbes et de leurs patrons de régime: lexicon.dict et gpcon.dict}
+
+Dans cette première section, nous verrons comment nous avons implémenter les nouveaux dictionnaires et comment ils se combinent.
+•	Dictionnaire : gpcon + lexicon changé (plus aucune informaiton liée au gp dans le lexicon pour aucune partie du discours)
+o	Classes verbales
+o	Diathèses + id
+o	Comment les dictionnaires intéragissent
+o	Mécanismes d’héritage utilisé à notre avantage
 
 \subsection{lexicon.dict 2.0}
 montrer en détails à quoi ressemble le lexique avec les changements. Comparer avec les détails de la section GenDR. Montrer qu'on a pu le système des classes predicate, verb dt, verb dit, etc. Que maintenant on a juste verb pour la dpos et la spos. Le reste est encodé directement dans chaque classe verbale de VerbNet : diathèse, id des patrons (pas de fonctions lex.). Montrer comment les mécanismes d'héritage fonctionnent maintenant : members vers classe verbale et classe verbale vers 'verb' ou vers leurs classes mères pour hériter de leurs gps, etc. Montrer un exemple d'une lexie (parler de la désambiguisation) qui pointe vers une sous-classe donc qui hérite des trais de la classe et de leurs gps, etc.
@@ -9,14 +18,12 @@ montrer en détails à quoi ressemble le lexique avec les changements. Comparer 
 expliquer comment le lexicon fait appel au gpcon et pourquoi on l'a encodé ainsi. le id dans gp d'une entrée pointe vers une entrée de gp dans le gpcon. Celui-ci contient toutes les informations du patron de régime
 
 \section{Ajustement du module grammatical}
-- montrer rapidement de quoi ont l'air les nouvelles règles
+Pour démontrer comment les nouvelles règles de GenDR fonctionnne et les décrire en quelques mots.
+- montrer rapidement de quoi ont l'air les nouvelles règles: montrer avec la phrase que je m'était fait. talk about the thoery but the genious of the class yawned contemptibly.
 stucture x permet: 8 réalisations
 - adjectif, adverbe, compu du nom: aussi dans le gpcon.
-
-\draft{Utiliser le verbe talk comme exemple pour montrer comment les règles qu'on avait exposées plutôt fonctionne dorénavant.}
-
-\section{Adaptation des anciennes règles pour tenir compte des nouveaux dictionnaires}
-
+- quand je montre des règles qu'on a utilisé avant, expliquer comment elles ont changé
+- expliquer les nouvelles règles et nouveaux mécanismes quand on en voit l'application dans l'exemple.
 
 \section{Mécanisme dsynt=created->constrained->OK pour générer un énoncé simple (sujet, verbe, objet)}
 
@@ -50,25 +57,111 @@ Nous avons vu cette règle un peu plus haut, car il fallait l'appliquer dès le 
 "Dsynt=constrained" indique qu'un noeud vide s'est fait imposé des contraintes. Ces contraintes peuvent être de plusieurs ordres. Notamment, on impose une dpos, une finitude, un mood, etc. Il s'agit du passsage intermédiaire entre la création d'un noeud et sa lexicalisation. On veut s'assurer qu'il respecte certaines contraintes pour ne pas lexicaliser n'importe quoi lors de la génération de notre arbre syntaxique.
 Finalement, le trait dsynt=created 
 
-
-\section{Méthodes d'évaluation en TAL}
-
-\section{Analyse des données}
-
-%\mate{lexstd}{gauche}{droite}{conditions}
-
 \section{Méthodes d'évaluation en NLG}
+ 
+Dale et Reiter soulignent déjà dans leur livre qu'une évaluation humaine de tels systèmes est la meilleure manière de procéder. 
 
-notre système ne passera pas par la phase de morpho et linéarisation. Mais,avec la structure de surface, nous pouvons déjà savoir si l'arbre en output est grammaticalement correcte selon les arbres de dépendance. Les outils de linéarisation ne font que prendre les arbres et linéariser en fonction des dépendances. 
+Toutefois, environ une décennie plus tard, Belz remarquait que les méthodes d'évaluation métriques se faisaient de plus en plus populaires. Notamment la méthode BLEU qui avait été développée pour les systèmes de traductions automatiques. 'BLEU and related metrics work by comparing the output of an MT system to a set of reference translations (human translations of the source text), and in principle this kind of evaluation could be done with NLG systems as well.'
 
-voir : The first Surface Realisation Shared task
+'As in other areas of NLP, the advantages of automatic corpus-based evaluation are that it is potentially much cheaper and quicker than human-based evaluation, and that it is repeatable. Indeed, NLG researchers have used BLEU in their evaluations for some time (Langkilde 2002; Habash 2004).'
 
-l'évaluation de notre système sera principalement humaine, mais notre manière de voir si c'était bon sera de comparer les structures de surface avec les phrases données en input provenant de VerbNet et voir si ça a de l'allure
+D'ailleurs, FORGe a aussi été évalué avec BLEU et des évaluations humaines. Toutefois, ils mettent en garde que BLEU est bon pour évaluer la couverture mais pas nécessairement la qualité de chaque output (p.922-923).
 
-évaluation manuelle : avec les jpg, la version textuelle des graphes, et les phrases exemples
+Our system obtained results slightly above average
+for the human-based evaluation, while the
+BLEU score is quite low, compared to that of the
+other systems. We believe that this is due to the
+fact that we prioritized the quality of the output
+over coverage: the submitted generator produces
+an output for 98.8% of the sentences, but the latter
+only contain 74.3% of the total of nodes contained
+in the predicate-argument graphs (see Section
+2.1). Indeed, at two points of the pipeline, we
+choose not to generate or to remove content from
+the trees. First, during Step 3, when the generator
+is not sure what to do with one predicate-argument
+relation, it does not generate it. For instance, when
+the root of a sentence is on the ARG2 side of a
+node which originates from a non-core relation,
+the whole subgraph of this node is omitted (see
+Section 2.3). Second, during Step 4, if a subtree
+that is likely to be faulty is identified (as, e.g., a
+conjunction without a complement), it is removed.
 
-notre évaluation concernera : les limites de GenDR et les limites de VerbNet, une critique théorique de ce qui font, en testant une application pratique de leur lexicon. Et fournir une ligne directrice aux futurs lexicons, ou bien aux genres de lexicon qu'il nous faut. Dans le fond, une critique de Levin aussi, qui ne traite pas des fonctions lexicales, car c'est une analyse syntaxique qui sous-tend des principes sémantiques. Et la partie sémantique de VerbNet est plus axé sur les rôles sémantique et sur les prédicats sémantiques, mais qui clash avec notre théorie qui rend mieux compte de l'interface sémantique/syntaxe.
+Eventually, choosing the
+production of readable sentences over their completeness
+allowed us to get better human ratings.
+But this, combined to the fact that we always generate
+simple present tense and singular words, naturally
+has a negative impact with an n-gram-based
+metric (that includes a brevity penalty) such as
+BLEU.7
+ 
+'The quality of texts generated by NLG systems has been evaluated in many different ways in the past, most of which can be classified as evaluations based on task performance, human judgments and ratings, or comparison to corpus texts using automatic metrics'
 
-dire que c'est normal que en NLG, les méthodes d'évaluation sont complexes. Surtout que notre truc est pas linéarisé, pourquoi on peut pas utiliser de F-mesure, etc.
+Taks-based evaluation:  ne nous aide pas bcp car notre système ne réalise pas des phrases avec un but précis
+Evaluations Based on Human Ratings and Judgments: fonctionne
+Evaluations Based on Automatic Metrics which Compare Computer-Generated Texts
+to Human-Authored Corpus Texts.: ne fonctionnera pas du tout avec nous.
 
-dans le chapitre 5 de verbnet, ils font la propre évaluation de leur système. Dans notre mémoire, nous ferons aussi une évaluation de leur système, sur des bases théoriques et appliquées.
+Après avoir parlé de toutes ces méthodes d'évaluation et leurs avantages et désavantages. Nous avons décidé d'y aller pour une évaluation humaine. Expliquer pourquoi. Cependant, notre évaluation humaine se base sur les critères suivants: est-ce que notre système est capabale de générer les phrases de VerbNet, est-ce que notre système surgénère des phrases mauvaises. Expliquer les cas où on n'a pas été capable de générer la phrase de VerbNet (problèmes théoriques) et pourquoi on a surgénérer (problème de MATE). C'est 
+
+\section{Analyse de la réalisation avec GenDR après l'implémentation de VerbNet}
+
+On fait ici d'une pierre deux coups. On analyse à la fois si l'implémentation fut un succès, puis la fiabilité de VerbNet.
+
+\subsection{Tri initial}
+Nous avions fait un tri initial des patrons de régime qui existent dans VerbNet. Dans ce tri on excluait les patrons de régime qui ne peuvent être gérés par MATE et les patrons de régime inutile d'encoder car l'information syntaxique fournie ne devrait pas s'inscrire dans un gp.
+
+Nous avons exclu les constructions stylistiques
+\lstinline!NP_location_V_NP!: 3 occurences de ça dont: ' All through the mountains raged a fire'
+
+Nous avons exclu les constructions avec des wh (whether, what, when, how, if, why, that) car GenDR ne peut pas traiter ces constructions syntaxiques
+
+Nous avons exclu les ADVP: NP\_V\_ADVP\_Middle\_PP\_into\_to\_with: The computer connected well to the network.
+
+Nous avons exclu les there: There\_V\_NP\_PP\_LOC:There ticked a grandather clock in the hallway
+
+Nous avons exclu les ADJP: NP\_V\_NP\_ADJP\_Result: Nora yanked the button loose ou Carla shoveled the walk clean ou Carol cut the envelop open
+
+Finalement: passive et citations.
+
+\subsection{redondance des gps}
+Ce n'est pas un phénomène isolé dès qu'il y a un changement de rôle thématique, il crée un nouveau GP. ce n'est pas nécessaire.
+
+%NP_V_PP_with_theme
+%NP_V_PP_with_instrument
+%NP_V_PP_with_co_agent 
+%NP_V_PP_with_co_patient
+
+\subsection{Problèmes rencontrés}
+
+Lors de la réalisation de nos structures d'input, nous nous sommes rendus compte que beacoup d'entre elles fournissaient des arbres incomplets (échec de la réalisation en syntaxe de surface). Nous présenterons les phénomènes les plus fragrants dans cette section. Pour illustrer chaque phénomène nous utiliserons quelques exemples tirés de notre évaluation. Ce qu'on en retient, c'est que les patrons de régime de VerbNet ne font pas toujours le pont correctement entre la sémantique et la syntaxe.
+
+Pour cette section, montrer les graphes sémantiques en screenshot
+
+•	Limites de VerbNet : manière de voir les phénomènes linguistiques selon VerbNet (représentation sémantique n'est pas la même , par conséquence, les patrons de régime en syntaxe prennent parfois des arugments qui n'existetn pas en sémantique ou qui devrait exister en sémantique (slept the sleep of the dead ou Paul and Mary married)). Cela a nécessairement un impact sur la réalisation. Car notre système prend en input des graphes sémantiques à la TST. Mais les patrons de régime ne cadrent pas toujours avec cela.
+
+broke the window et the window broke. Le problème ici, c'est encore que ce sont deux sens de la même forme. briser et se briser. Cela fait en sorte que les gps partagés dans la classe ne devraient pas l'être. Voir les phrases avec slide aussi. Le même problème avec associated. on l'a au sens de x associe y à z et x s'associe à y.
+
+Sharon shivered from fear: Ici VerbNet considère que fear est un argument de shiver. Mais si on y pense bien, le sens de shiver n'implique qu'un argument. X a des frissons. 'avoir des frissons' ne sélectionne pas de deuxième actant sémantique. From fear est une réalisation de surface qui se traduit sémantiquement par. 'la peur de x lui a causé d'avoir des frissons'. Cela mène donc à des régimes qui ne devraient pas en être. Problème avec 'Maggie hurried her sister' ou bien Sharon flinched at the sight of the accident'
+
+La causation est aussi présente sous d'autres formes. Ex de Bill rolled the ball down the hill. Et the Ball rolled down the hill. Ceux-ci se retrouvent dans la même classe verbale, mais concrètement, l'un est 'rouler' et l'autre est 'causer que x roule'. Même chose avec 'the lion tamer jumped the lions' 'Tom jumped the horse over the fence'. Stand au sens de tenir et 'stand' au sens de faire tenir.
+
+Aussi beaucoup de cas de collocation. VerbNet voit les mots de surface comme étant des arguments du verbe. Mais si on regarde la chose d'un point de vue sémantique, 	dans 'the drawer rolled to an open position' to an open position n'est pas vraiment sélectionné par le verbe. Il le modife, c'est lui qui gouverne le verbe. Un autre exemple c'est 'Jennifer wagged her finger in disapproval'. Autre collocation 'ended with a bang'
+
+Beaucoup de cas de verbe support. Donc, sémantiquement , si on se représente la phrase 'X took a flight' et qu'on considère que c'est took le verbe, sémantiquemet c'est faux. Take a flight est une collocation, dont le verbe support took n'est là que pour supporté le lexème flight. On pourrait paraphraser par flew. et on ne perdrait pas le sens. (montrer dans le semanticon comment c'est encoder et dans le lexicon) faire un bref retour sur les Oper.
+
+problème avec les 'and'. Bill and X married et Bill married X. problème de 'se marier' et 'marier. Mais sémantiquement, il y a deux actants, donc dans le patron de régime ça devrait se retrouver là aussi. Problème c'est que VerbNet considère que c'est le même verbe et que dans un cas il peut fonctionner en transitif et dans l'autre en intransitif. Ça n'a pas de sens. Même chose avec Susan and rachel Talked.	Ou bien 'the yolks and white intermingled'
+
+Fonction lexicale: he suffocated to death, et X slept the sleep of the dead. tony broke the glass to pieces, Claire painted the wall into a splotchy mess. Jennifer baked the potatoe to a crisp.
+
+\subsection{Problème majeur des gps partagés}
+Problème majeur de réalisation: montrer qu'avec owe ça génère une des phrases qu'on voudrait pas en réalité.
+regarder les output pour cette section.
+
+\subsection{Ce qui a bien fonctionné}
+Finalement, ce qui a bien fonctionné. La phrase présentée plus tôt montre que certaines des phrases fonctionnent très bien. L'implémentation en tant que telle a bien fonctionné. Mais il y a un écart entre les gps à la TST et les gps à la VerbNet. Toutefois, dès qu'on fait fi des
+
+\subsection{Conclusion}
+C'est sûr qu'avec une base de données comme ça, elle ne sera pas parfaite. Il y a probablement plusieurs verbes qui demanderaient un gp de plus et d'autres un gp de moins. Mais, nous suggérons que d'autres systèmes continuent d'utiliser les dictionnaires de valences en GAT pour qu'ils s'améliorent.

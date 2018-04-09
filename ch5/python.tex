@@ -120,7 +120,7 @@ explication courte: On ouvre un fichier lexicon.dict dans lequel on va écrire l
 
 description: on ouvre un fichier appelé lexicon.dict. Puis pour chaque fichier dans le repository qui contient tous les fichiers XML peuplant VerbNet, on va les parser avec le module xml etree  et on va aller chercher la racine de chaque fichier XML. À partir de la racine on peut faire les opérations qu'on veut: treeframes et supers. En appliquant treeframes à root, puis encode le oupout dans un dictionnaire appelé 'd'. Puis on applique supers à root. Puis pour chaque clé de d (les ID) on écrit la clé puis on la fait pointer vers la classe qui la domine, si il n'y a pas de classe qui la domine, alors on la fait pointer vers la chaîne 'verb'. Puis à ce point on a ID(class):ID(classe dominante ou 'verb'). Il nous manque les descriptions des patrons de régime et les exemples. On va écrire ceux-ci dans un format lisible par MATE, puis le résultat final ressemble à \draft {mettre un court exemple du résultat.}
 
-\subsection{Extraction des 6393 membres des classes verbales pour enrichir le dictionnaire lexicon.dict}
+\subsection{Extraction des 6393 membres des classes verbales pour enrichir le dictionnaire lexicon.dict} \label{extracmembre}
 
 Maintenant que nous avons extrait les classes verbales et l'architecture hiérarhique de VerbNet. Il ne nous reste qu'à peupler le dictionnaire des membres qui appartienent à chaque classe verbale. De cette manière notre lexicon.dict sera agrémenté de 6393 entrées lexicales désambiguisées. Effectivement à cette étape on procède aussi à la désambiguisation des verbes puisque plusieurs d'entre eux pointent vers des classes verbales différentes en fonction du sens dans lequel on les emploie. Cela a nécessairement un impact sur les patrons de régime qu'ils ont et nous voulons que notre dictionnaire tienne compte de cette diversité.
 
@@ -183,6 +183,20 @@ explication:
 \section{Création du gpcon}
 Faire un dictionnaire de patron de régime. On a jugé bon de créer un second dictionnaire qui ne contiendrait que les gps, autrement dit un gpcon. l'information sur les patrons de régime (les actants syntaxiques). Il existe x nombre de gps répertoriés. Il nous fallait les créer, car tel que mentionné, nous ne pouvions pas extraire les gps de VerbNet dû à une différence trop grande (cadre théorique et application). Notre système de GAT fonctionne avec la théorie Sens-Texte et nous pensons que c'est la théorie qui s'y prête le plus pour faire ce type d'opérations et qui tient le mieux compte de la manière dont le langage fonctionne.
 
+Tri initial: Nous avions fait un tri initial des patrons de régime qui existent dans VerbNet. Dans ce tri on excluait les patrons de régime qui ne peuvent être gérés par MATE et les patrons de régime inutile d'encoder car l'information syntaxique fournie ne devrait pas s'inscrire dans un gp.
+
+Nous avons exclu les constructions stylistiques
+\lstinline!NP_location_V_NP!: 3 occurences de ça dont: ' All through the mountains raged a fire'
+
+Nous avons exclu les constructions avec des wh (whether, what, when, how, if, why, that) car GenDR ne peut pas traiter ces constructions syntaxiques
+
+Nous avons exclu les ADVP: NP\_V\_ADVP\_Middle\_PP\_into\_to\_with: The computer connected well to the network.
+
+Nous avons exclu les there: There\_V\_NP\_PP\_LOC:There ticked a grandather clock in the hallway
+
+Nous avons exclu les ADJP: NP\_V\_NP\_ADJP\_Result: Nora yanked the button loose ou Carla shoveled the walk clean ou Carol cut the envelop open
+
+Finalement: passive et citations.
 
 \begin{lstlisting}[language=Python, caption = code pour gpcon.dict]
 #Bloc 1
@@ -256,6 +270,13 @@ with open('gpcon.dict','w') as f:
     f.write('}')
 
 \end{lstlisting}
+
+Redondance des gps: Ce n'est pas un phénomène isolé dès qu'il y a un changement de rôle thématique, il crée un nouveau GP. ce n'est pas nécessaire.
+
+%NP_V_PP_with_theme
+%NP_V_PP_with_instrument
+%NP_V_PP_with_co_agent 
+%NP_V_PP_with_co_patient
 
 \section{Scripts pour faire les tests}
 

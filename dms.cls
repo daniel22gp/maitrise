@@ -264,9 +264,9 @@
 \def\prepresentedto{\vskip1.75pc}
 
 \def\degree#1{\def\@degree{{\normalfont\rm\small#1}}}
-\ifmaitrise@\def\@degree{Maître \`es sciences (M.Sc.)} \fi
-\ifrapport@\def\@degree{Maître \`es sciences (M.Sc.)} \fi
-\iftravail@\def\@degree{Maître \`es sciences (M.Sc.)} \fi
+\ifmaitrise@\def\@degree{Maître \`es arts (M.A.)} \fi
+\ifrapport@\def\@degree{Maître \`es arts (M.A.)} \fi
+\iftravail@\def\@degree{Maître \`es arts (M.A.)} \fi
 \ifphd@\def\@degree{Philosophi\ae\ Doctor (Ph.D.)} \fi
 
 \def\orientation#1{\def\@orientation{{\normalfont\rm\small#1}}}
@@ -385,12 +385,12 @@
 \prepresentedto
     \baselineskip9\p@
     \vtop{\centering{\rm\small%
- \ifmaitrise@ M\'emoire pr\'esent\'e \`a la \@facultyto\\ \fi
- \ifrapport@ Rapport de stage pr\'esent\'e \`a la \@facultyto\\ \fi
- \iftravail@ Travail dirig\'e pr\'esent\'e \`a la \@facultyto\\ \fi
- \ifphd@ Th\`ese pr\'esent\'ee \`a la \@facultyto\\ \fi
+ \ifmaitrise@ M\'emoire pr\'esent\'e \fi
+ \ifrapport@ Rapport de stage pr\'esent\'e \fi
+ \iftravail@ Travail dirig\'e pr\'esent\'e \fi
+ \ifphd@ Th\`ese pr\'esent\'ee \fi
                   en vue de l'obtention du grade de\\
-                  \@degree\\
+                  \@degree\ 
                   en \ifx\@empty\@sujet {.........\\}
                      \else\@sujet\\\fi
                   \ifx\@empty\@orientation {}

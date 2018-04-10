@@ -124,7 +124,7 @@ description: on ouvre un fichier appelé lexicon.dict. Puis pour chaque fichier 
 
 Maintenant que nous avons extrait les classes verbales et l'architecture hiérarhique de VerbNet. Il ne nous reste qu'à peupler le dictionnaire des membres qui appartienent à chaque classe verbale. De cette manière notre lexicon.dict sera agrémenté de 6393 entrées lexicales désambiguisées. Effectivement à cette étape on procède aussi à la désambiguisation des verbes puisque plusieurs d'entre eux pointent vers des classes verbales différentes en fonction du sens dans lequel on les emploie. Cela a nécessairement un impact sur les patrons de régime qu'ils ont et nous voulons que notre dictionnaire tienne compte de cette diversité.
 
-\begin{lstlisting}[language=Python, caption = Code pour ajouter des lexèmes à lexicon.dict]
+\begin{lstlisting}[language=Python, caption = Code pour ajouter des lexèmes à lexicon.dict, label=scriptmember]
 #Bloc 1
 def treemember(t):
     ID = t.get('ID')

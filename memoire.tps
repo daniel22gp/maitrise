@@ -35,7 +35,7 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=144
+TopLine=164
 Cursor=8609
 
 [Frame2]
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame2_View0,0]
-TopLine=279
-Cursor=21585
+TopLine=544
+Cursor=45125
 
 [Frame3]
 Flags=0
@@ -89,8 +89,8 @@ Class=LaTeXView
 Document=ch5\python.tex
 
 [Frame4_View0,0]
-TopLine=382
-Cursor=14611
+TopLine=405
+Cursor=22885
 
 [Frame5]
 Flags=0
@@ -107,8 +107,8 @@ Class=LaTeXView
 Document=ch6\evaluation.tex
 
 [Frame5_View0,0]
-TopLine=442
-Cursor=39674
+TopLine=367
+Cursor=29144
 
 [Frame6]
 Flags=0
@@ -125,7 +125,7 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame6_View0,0]
-TopLine=0
+TopLine=6
 Cursor=0
 
 [Frame7]
@@ -184,5 +184,5 @@ Cursor=686
 
 [SessionInfo]
 FrameCount=10
-ActiveFrame=3
+ActiveFrame=5
 

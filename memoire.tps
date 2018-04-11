@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame1_View0,0]
-TopLine=164
-Cursor=8609
+TopLine=282
+Cursor=24206
 
 [Frame2]
 Flags=0
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame2_View0,0]
-TopLine=544
-Cursor=45125
+TopLine=174
+Cursor=12015
 
 [Frame3]
 Flags=0
@@ -89,7 +89,7 @@ Class=LaTeXView
 Document=ch5\python.tex
 
 [Frame4_View0,0]
-TopLine=405
+TopLine=413
 Cursor=22885
 
 [Frame5]
@@ -107,8 +107,8 @@ Class=LaTeXView
 Document=ch6\evaluation.tex
 
 [Frame5_View0,0]
-TopLine=367
-Cursor=29144
+TopLine=479
+Cursor=44891
 
 [Frame6]
 Flags=0
@@ -180,9 +180,27 @@ Document=preambule.tex
 
 [Frame9_View0,0]
 TopLine=0
-Cursor=686
+Cursor=671
+
+[Frame10]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=26
+NormalPos.right=1362
+NormalPos.bottom=473
+Class=LaTeXView
+Document=ch1\intro.tex
+
+[Frame10_View0,0]
+TopLine=0
+Cursor=1077
 
 [SessionInfo]
-FrameCount=10
-ActiveFrame=5
+FrameCount=11
+ActiveFrame=1
 

@@ -71,8 +71,8 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame3_View0,0]
-TopLine=513
-Cursor=43419
+TopLine=268
+Cursor=19029
 
 [Frame4]
 Flags=0
@@ -143,8 +143,8 @@ Class=LaTeXView
 Document=lng-acro-fr.sty
 
 [Frame7_View0,0]
-TopLine=74
-Cursor=4626
+TopLine=60
+Cursor=3283
 
 [Frame8]
 Flags=0
@@ -179,8 +179,8 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame9_View0,0]
-TopLine=0
-Cursor=0
+TopLine=1645
+Cursor=103739
 
 [SessionInfo]
 FrameCount=10

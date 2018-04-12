@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame2_View0,0]
-TopLine=405
-Cursor=20126
+TopLine=441
+Cursor=31940
 
 [Frame3]
 Flags=0
@@ -71,8 +71,8 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame3_View0,0]
-TopLine=268
-Cursor=19029
+TopLine=432
+Cursor=33189
 
 [Frame4]
 Flags=0
@@ -90,7 +90,7 @@ Document=ch4\verbnet.tex
 
 [Frame4_View0,0]
 TopLine=0
-Cursor=846
+Cursor=0
 
 [Frame5]
 Flags=0
@@ -125,8 +125,8 @@ Class=LaTeXView
 Document=ch6\evaluation.tex
 
 [Frame6_View0,0]
-TopLine=544
-Cursor=44891
+TopLine=0
+Cursor=0
 
 [Frame7]
 Flags=0
@@ -179,7 +179,7 @@ Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame9_View0,0]
-TopLine=1645
+TopLine=1916
 Cursor=103739
 
 [SessionInfo]

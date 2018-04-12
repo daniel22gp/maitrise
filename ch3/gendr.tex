@@ -30,7 +30,7 @@ Nous allons maintenant montrer brièvement à quoi ressemblent les éditeurs dic
 % ---------D I C T I O N N A I R E  ------------------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection{Dictionnaires}\label{dictio}
+\subsubsection{Dictionnaires}\label{sec:dictio}
 
 Tel que nous l'avons mentionné, GenDR se sert de dictionnaire pour décrire le vocabulaire qui sera utilisé dans les textes. Il en utilise 3, un qui fait le pont entre les unités sémantiques et les unités lexicales, un qui décrit le comportement syntaxique des unités lexicale, et un qui décrit les fonctions lexicales. Nous excluerons le troisième dictionnaire de la discussion pour les raisons mentionnées précédemment.
 
@@ -43,11 +43,11 @@ owe { lex = owe
 \end{lstlisting}
 \end{minipage}
 
-\textbf{Le dictionnaire lexical}, appelé \emph{lexicon}, contient de l'information détaillée à propos des lexies d'une langue donnée. Les entrées contiennent: \ac{dpos}, \ac{spos}, la diathèse et les \acp{gp}(ces concepts sont clarifiés à la fin du chapitre, section~\ref{sec:gp}). D'ailleurs, comme nous le verrons dans la figure~\ref{fig:lexicon}, ces informations lexicales ne sont pas toujours explicitées dans l'entrée lexicale, dans ces cas, elles sont héritées de la classe par défaut qui leur est attribuée.
+\textbf{Le dictionnaire lexical}, appelé \emph{lexicon}, contient de l'information détaillée à propos des lexies d'une langue donnée. Les entrées contiennent: \ac{DPOS}, \ac{SPOS}, la diathèse et les \acp{GP}(ces concepts sont clarifiés à la fin du chapitre, section~\ref{sec:gp}). D'ailleurs, comme nous le verrons dans la figure~\ref{fig:lexicon}, ces informations lexicales ne sont pas toujours explicitées dans l'entrée lexicale, dans ces cas, elles sont héritées de la classe par défaut qui leur est attribuée.
 
-Si on se fie à la figure~\ref{fig:lexicon}, le verbe \lex{owe} ne semble contenir que des \acp{gp}, mais il hérite de plusieurs traits découlant de son appartenance à la classe par défaut: \texttt{verb\_dit}. Cela permet à \lex{owe} d'hériter de son \ac{gp}. Ce mécanisme fonctionne en amont, dans le sens où la classe \emph{verb\_dit} hérite des traits de la classe qui lui est associée: \emph{verb\_dt}, puis successivement, de \emph{verb}.
+Si on se fie à la figure~\ref{fig:lexicon}, le verbe \lex{owe} ne semble contenir que des \acp{GP}, mais il hérite de plusieurs traits découlant de son appartenance à la classe par défaut: \texttt{verb\_dit}. Cela permet à \lex{owe} d'hériter de son \ac{GP}. Ce mécanisme fonctionne en amont, dans le sens où la classe \emph{verb\_dit} hérite des traits de la classe qui lui est associée: \emph{verb\_dt}, puis successivement, de \emph{verb}.
 
-Ce mécanisme facilite grandement l'encodage des unités lexicales car on n'a qu'à associer chaque nouvelle entrée lexicale à la classe par défaut qui lui appartient. D'ailleurs ce concept ne se limite pas qu'aux verbes, chaque partie du discours possède une classe par défaut. Dans le cas où l'information n'est pas celle qui est encodée par défaut, on peut spécifier la modification dans l'entrée lexicale directement. On voit un exemple à la figure \ref{fig:lexicon}. On remarque que la lexie \lex{owe} permet deux \ac{dpos} différentes en tant que contraintes du deuxième actant syntaxique qu'elle contrôle: \lstinline!gp={II={dpos=Num}}! et \lstinline!gp={II={dpos=N}}!. Elle permet ainsi la sélection d'un actant de type nominal ou numéral.
+Ce mécanisme facilite grandement l'encodage des unités lexicales car on n'a qu'à associer chaque nouvelle entrée lexicale à la classe par défaut qui lui appartient. D'ailleurs ce concept ne se limite pas qu'aux verbes, chaque partie du discours possède une classe par défaut. Dans le cas où l'information n'est pas celle qui est encodée par défaut, on peut spécifier la modification dans l'entrée lexicale directement. On voit un exemple à la figure \ref{fig:lexicon}. On remarque que la lexie \lex{owe} permet deux \ac{DPOS} différentes en tant que contraintes du deuxième actant syntaxique qu'elle contrôle: \lstinline!gp={II={dpos=Num}}! et \lstinline!gp={II={dpos=N}}!. Elle permet ainsi la sélection d'un actant de type nominal ou numéral.
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Xml, caption = Échantillon du \emph{lexicon}, label=fig:lexicon]
@@ -125,10 +125,10 @@ La figure~\ref{fig:root} présente une règle du module sémantique-syntaxe prof
 
 Maitenant que nous avons fait un survol des dictionnaires et des modules de grammaires, il ne nous reste qu'à présenter les graphes. Dans un premier temps nous présenterons brièvement à quoi ressemble la construction d'un graphe en input. Puis nous montrerons à quoi ressemble les graphes en output.
 
-L'input du réalisateur GenDR est un graphe sémantique \citep{mel2012semantics}\FL{\bf **** check ta biblio **** le caractère spécial du c fonctionne pas avec Zotero, j'vais tenter de trouver une solution} où les prédicats sont liés à leurs arguments par des relations numérotées qui indiquent la position logique de l'argument. La figure~\ref{input} montre comment on construit un graphe sémantique dans MATE.
+L'input du réalisateur GenDR est un graphe sémantique \citep{mel2012semantics}\FL{\bf **** check ta biblio **** Daniel: le caractère spécial du c fonctionne pas avec Zotero, j'vais tenter de trouver une solution} où les prédicats sont liés à leurs arguments par des relations numérotées qui indiquent la position logique de l'argument. La figure~\ref{fig:debt} montre comment on construit un graphe sémantique dans MATE.
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[language=XML, caption = Input sémantique, label=input]
+\begin{lstlisting}[language=XML, caption = Input sémantique, label=fig:debt]
 structure Sem debt {
   S {
     owe {
@@ -169,7 +169,7 @@ Toutefois, les modules de règles et de dictionnaires permettent en réalité de
 \end{figure}
 \FL{évite les captures d'écran si tu peux. Daniel: Oui, c'est temporaire, je vais tout' les refaire en pdf quand le texte sera prêt}
 
-Si on souhaite une réalisation linéarisée et fléchie,  il faut utiliser un réalisateur de surface. C'est exactement dans ces contextes, que les réalisateurs de surface entrent en jeu \citep{DaoustJSREALTextRealizer2015, MolinsJSrealBBilingualText2015, GattSimpleNLGRealisationEngine2009, MilleSharedTaskProposal2017a,BelzFirstSurfaceRealisation2011} . Au lieu de mettre des efforts à réaliser le texte jusqu'à la fin, GenDR concentre ses efforts à effectuer des tâches en amont. L'arborisation et la lexicalisation sont principalement les deux tâches où GenDR se démarque des autres réalisateurs. Nous les expliquerons en détail dans la section \ref{sec:semsynt}.
+Si on souhaite une réalisation linéarisée et fléchie,  il faut utiliser un réalisateur de surface. C'est exactement dans ces contextes, que les réalisateurs de surface entrent en jeu \citep{DaoustJSREALTextRealizer2015, MolinsJSrealBBilingualText2015, GattSimpleNLGRealisationEngine2009, MilleSharedTaskProposal2017a,BelzFirstSurfaceRealisation2011}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- I N T E R F A C E   S É M A N T I Q U E- S Y N T A X E ---------
@@ -177,9 +177,9 @@ Si on souhaite une réalisation linéarisée et fléchie,  il faut utiliser un r
 
 \section{Interface sémantique-syntaxe en TST}\label{sec:semsynt}
 
-Dans la présente section, nous décrirons l'interface sémantique-syntaxe dans le cadre de la \ac{TST}. Plus précisément, nous décrirons deux processus nécessaires au passage de la sémantique à la syntaxe: l'arborisation et la lexicalisation. Pour mieux comprendre ce que sont ces procédés, nous ferons un très bref retour sur la \ac{TST}. 
+Dans la présente section, nous décrirons l'interface sémantique-syntaxe dans le cadre de la \ac{TST}. Plus précisément, nous expliquerons deux processus nécessaires au passage de la sémantique à la syntaxe: l'arborisation et la lexicalisation. Pour mieux comprendre où se situent ces procédés dans la modélisation du langage, nous ferons un très bref retour sur les fondements du cadre théorique que nous utilisons. 
 
-Cette théorie linguistique vise la modélisation formelle de la correspondance entre les \emph{Sens} et les \emph{Textes} \citep{PolgueretheorieSensTexte1998, MelcukVerslinguistiqueSensTexte1997, DBLP:conf/coling/JolkovskyM67}. La figure \ref{fig:modeletst}, qui vient de \cite{PolgueretheorieSensTexte1998}, présente comment fonctionnent ces modèles. Elle illustre le fait qu'un modèle Sens-Texte est une machine virtuelle qui prend en entrée des représentations sémantiques d'énoncés et génère un ensemble de paraphrases permettant d'exprimer le Sens donné en entrée. 
+La \ac{TST} vise la modélisation formelle de la correspondance entre les \emph{Sens} et les \emph{Textes} \citep{PolgueretheorieSensTexte1998, MelcukVerslinguistiqueSensTexte1997, DBLP:conf/coling/JolkovskyM67}. La figure \ref{fig:modeletst} (qui est issue de\cite{PolgueretheorieSensTexte1998}) présente comment fonctionnent ces modèles qui sont des machines virtuelles prenant en entrée des représentations sémantiques d'énoncés pour générer du texte. Celui-ci s'exprime par un ensemble de paraphrase exprimant le \emph{Sens} donné en input.
 
 \begin{figure}[htb]
 	\centering
@@ -188,7 +188,7 @@ Cette théorie linguistique vise la modélisation formelle de la correspondance 
 	\label{fig:modeletst}
 \end{figure}
 
-Concrètement, la figure \ref{fig:modeletst} démontre comment on passe de la figure \draft{2.4} (qui représente le Sens) à la figure \draft{2.6} (qui représente le Texte). Pour se rendre au texte final, le Sens traverse de nombreux niveaux de représentations. La figure \ref{fig:processustst} démontre les niveaux de représentations que l'input doit traverser succesivement, puis en parallèle comment on \draft{représente ces représentations} au cours de la réalisation.
+Pour se rendre au \emph{Texte} final, le \emph{Sens} traverse de nombreux niveaux de représentations. La figure \ref{fig:processustst} illustre les transformations que l'input doit subit succesivement. La figure illsutre aussi parallèlement le formalisme utilisé pour modéliser les représentations diverses.
 
 \begin{figure}[htb]
 	\centering
@@ -203,58 +203,53 @@ Concrètement, la figure \ref{fig:modeletst} démontre comment on passe de la fi
 
 \subsection{Arborisation}\label{sec:arbo}
 
-Comme GenDR n'utilise que trois niveaux de représentations, nous n'expliquerons que les processus pertinents pour ce système. Nous commencerons par l'arborisation, qui est le passage de la représentation sémantique à la représentation syntaxique profonde.
+Tel que nous l'avons mentionné, le réalisateur GenDR modélise spécifiquement trois niveaux de représentations (\ac{RSem}-\ac{RSyntP}-\ac{RSyntS}). L'arborisation, qui est le processus de création de la syntaxe profonde à partir d'une structure sémantique, se situe dans ces trois niveaux. Nous la décrirons à la fois d'un point de vue théorique et comment cela se traduit dans le cadre de notre projet.
 
-Selon la \ac{TST}, la structure syntaxique d'un énoncé représente l'ensemble des liens de dependances fonctionnelles qui existent entre les unités lexicales de cet énoncé \citep{melcuk1988}. On représente formellement ces structures syntaxiques par des arbres de dépendances. Cette approche syntaxique provient de \cite{TesniereElementssyntaxestructurale1965}\FL{check ta biblio, Fourquet est pas auteur} qui est le premier à l'avoir théorisée.
+Selon la \ac{TST}, la structure syntaxique d'un énoncé représente l'ensemble des liens de dependances fonctionnelles qui existent entre les unités lexicales de cet énoncé \citep{melcuk1988}. On représente formellement ces structures syntaxiques par des arbres de dépendances. Cette approche syntaxique provient de \cite{TesniereElementssyntaxestructurale1965} qui est le premier à l'avoir théorisée. Formellement, le passage de la \ac{RSem} à la \ac{RSyntP} se nomme l'arborisation parce qu'on cherche à arboriser la structure sémantique pour qu'il en résulte un arbre de dépendance profond grâce à l'application de règles de correspondance sémantiques. Nous reprendrons donc la description que \cite{lareau18} fait de l'arborisation dans GenDR. D'ailleurs, l'arbre syntaxique profond est construit avec un algorithme \emph{top-down} qui ressemble énormément à celui qu'utilise FORGe puisque ces deux réalisateurs profonds l'ont hérité de MARQUIS, qui est inspiré de \cite{PolguereStructurationmisejeu1990}.
 
-Formellement, le passage de la RSém \FL{acronyme: \lstinline!ac\{RSem\}!, check dans lng-acro-fr.sty} à la RSyntP se nomme l'arborisation. Elle est ainsi nommée  parce qu'on cherche à arboriser la RSém pour qu'il en résulte un arbre de dépendance profond. Ce passage est effectué via des règles de correspondance sémantiques.
-
-Pour que l'arborisation se fasse correctement, il faut que la racine de l'arbre en construction corresponde à un n\oe{}ud sémantique identifié comme étant le plus saillant. La détermination de la racine correspond au processus de hiérarchisation de \cite{PolguereStructurationmisejeu1990}. On l'appelle ainsi car la racine est le n\oe{}ud qui domine tous les autres de l'arbre syntaxique profond. Une fois que c'est fait, on va trouver le lexème qui peut satisfaire les contraintes de la racine. Il faut que le lexème sélectionné corresponde à l'unité sémantique identifiée comme la plus saillante.\FL{déjà dit, reformule} Le lexème doit aussi satisfaire des contraintes comme la partie du discours ou la finitude. Généralement, dans les langues européennes, on a ces contraintes sur la racine puisque ce sont le plus souvent les verbes qui contrôlent les énoncés. En lexicalisant le n\oe{}ud, on va \draft{simultanément}\FL{simultanément? je pense pas, plutôt après, non?} ajouter les arcs qui en dépendent. Ceux-ci correspondent aux arguments liés à ce prédicat dans la RSém. Comme Polguère le dit: ``chaque arc est considéré successivement dans l'ordre du parcours, puis est traduit en une micro-structure syntaxique profonde grâce aux règles de correspondance sémantique de la grammaire.'' \citep[p.~273]{PolguereStructurationmisejeu1990}.\FL{check dans le code comment générer cette référence avec num de page}
-
-Une fois que l'arborisation est complétée, l'arbre de dépendance profond \draft{transitera} vers le niveau syntaxique de surface, ce qui implique les opérations suivantes. D'abord, faire le calcul des relations syntaxiques de surface. Ainsi, la relation I deviendra sujet, la relation II deviendra complément d'objet direct, etc. De plus, on incorpore les lexies vides (prépositions, déterminants, etc.) à ce stade et on opère la pronominalisation.
-
-\FL{t'as besoin de faire plus d'\scare{aggrégation} quand tu écris. tu fais souvent qqch comme: X fait Y. Y est Z., alors que tu pourrais faire: X fait Y, qui est Z. ou qqch du genre. faut développer ça, c'est ce qui rend un texte plus fluide et plus dense. regarde les modifs que j'ai faites au texte, tu verras que c'est souvent des passages du genre}
-
-\subsubsection{Application computationnelle}
-
-Nous reprendrons donc la description que \cite{lareau18} fait de l'arborisation dans GenDR. La première étape du processus d'arborisation dans GenDR est la même que celle que nous avons expliquée d'un point de vue théorique.\FL{donc aussi bien en faire une seule section, fusionne-les} Il faut créer la racine de l'arbre qui correspond au n\oe{}ud le plus saillant de la RSém. Pour faire cela, nous devons indiquer le n\oe{}ud le plus saillant dans la structure d'input (voir \draft{figure x}). L'arbre syntaxique profond est construit avec un algorithme \emph{top-down} qui ressemble énormément à celui qu'utilisent FORGe puisqu'ils l'ont hérité de MARQUIS, qui est inspiré de \cite{PolguereStructurationmisejeu1990}.
-
-L'arborisation dans GenDR se fait en trois étapes.
+Bref, dans GenDR, l'arborisation se divise en trois étapes \citep{lareau18}.
 
 \begin{enumerate}
   \item Création de la racine.
-  La première règle appliquée est \emph{root\_standard}. Elle construit la racine de l'arbre syntaxique à partir du n\oe{}ud principal de la structure sémantique. À cette étape, la racine n'est pas étiquetée par un lexème encore (le n\oe{}ud est vide), mais on peut lui imposer des contraintes, par exemple pour exiger un verbe à l'indicatif. Cette règle ne s'applique qu'une seule fois par réalisation.
+  La première règle appliquée est \emph{root\_standard}, elle construit la racine de l'arbre syntaxique à partir du \ac{ND} de la structure sémantique. À cette étape, la racine n'est pas étiquetée par un lexème encore (le n\oe{}ud est vide), mais des contraintes lui sont imposées. La détermination de la racine correspond au processus de hiérarchisation de \cite{PolguereStructurationmisejeu1990} car la racine est le n\oe{}ud dominant (au sommet de la hiérarchie) tous les autres.
 
   \item Lexicalisation de la racine.
-  Une fois que la racine a été créée et contrainte, on applique une règle de lexicalisation. Cela permet au système de fouiller dans les dictionnaires pour trouver un lexème qui correspondra au sens demandé tout en respectant les contraintes imposées.
+  Une fois que la racine a été créée et contrainte, on applique une règle de lexicalisation (appellée \emph{lex\_standard}) qui permet au système de fouiller dans les dictionnaires pour trouver un lexème qui correspondra au sens demandé tout en respectant les contraintes imposées. Ainsi, il faut que le lexème sélectionné corresponde au \ac{ND} en sémantique et qu'il possède une \ac{dpos} de type verbale généralement. Effectivement, les langues européennes imposent souvent cette contrainte sur la racine puisque ce sont essentiellement les verbes qui contrôlent les énoncés.
 
   \item Application des règles actancielles.
-  Une fois que le n\oe{}ud racine est lexicalisé, GenDR regarde dans le patron de régime de la racine pour savoir comment faire le passage des arcs sémantiques aux arcs syntaxiques. Ceux qui partent du n\oe{}ud sémantique vers ses arguments seront réalisés comme des actants syntaxiques. Tandis que les arcs qui pointent vers le n\oe{}ud seront réalisés comme des modificateurs. Bref, les règles qui sont utilisées à cette étape créent de nouveaux n\oe{}uds et de nouveaux arcs en partance de la racine. Ces n\oe{}uds se font imposer des contraintes par le patron de régime du gouverneur (la racine) et les lexies qui satisferont ces contraintes pourront être lexicalisés. C'est ainsi qu'on retourne à la seconde étape pour lexicaliser ces n\oe{}uds. Puis cycliquement, nous retournons à la troisième étape puisque de nouveaux n\oe{}uds lexicalisés amènent leur patron de régime avec eux. Et ce jusqu'à ce que le graphe sémantique soit complètement réalisé en surface profonde.
-\end{enumerate}
+  Une fois que le n\oe{}ud racine est lexicalisé, GenDR regarde dans le \ac{GP} de la racine pour savoir comment effectuer le passage des arcs sémantiques aux arcs syntaxiques. Autrement dit, on ajoute les arcs dépendant de la racine qui correspondent aux arguments liés au \ac{ND} dans la \ac{RSem}. Comme Polguère le dit:
+\begin{quote}
+chaque arc est considéré successivement dans l'ordre du parcours, puis est traduit en une micro-structure syntaxique profonde grâce aux règles de correspondance sémantique de la grammaire.
+\end{quote}
+\vspace{-\baselineskip}
+\hfill
+\cite[p.~273]{PolguereStructurationmisejeu1990}
+
+Les micro-structures syntaxiques correspondent aux branches de l'arbre et à leurs noeuds qui se font, à leur tour, imposer des contraintes par le \ac{GP} du noeud qui les gouverne (la racine). C'est ainsi qu'on retourne à la seconde étape pour lexicaliser ces n\oe{}uds. Puis cycliquement, nous retournons à la troisième étape puisque de nouveaux n\oe{}uds lexicalisés amènent leur patron de régime avec eux. Et ce jusqu'à ce que le graphe sémantique soit complètement réalisé en surface profonde.
+\end{enumerate} 
+
+Une fois que l'arborisation est complétée, le système doit effectuer l'arborisation de surface ce qui implique les opérations suivantes. D'abord, faire le calcul des relations syntaxiques de surface (la relation I deviendra sujet, la relation II deviendra complément d'objet direct, etc.) et incorporer les lexies vides (prépositions, déterminants, etc.). Cela est effectué grâce aux règles de correspondances profondes et aux informations contenues dans les \ac{GP} des entrées lexicales.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ---------  L E X I C A L I S A T I O N  ------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Lexicalisation théorique}
+\subsection{Lexicalisation}
 
-Tel que nous l'avons montré dans la figure \draft{figure dans MARQUIS}, la lexicalisation se produit entre la RSém et la RSyntP \citep{PolguereStructurationmisejeu1990}.\FL{récupère les citations sur lexicalisation de Florie, notamment les travaux de Wanner} Concrètement, il s'agit de la \draft{correspondance} entre une unité sémantique et les lexies qu'elle contrôle. La \draft{correspondance}\FL{ici, par exemple, tu peux fusionner ces deux phrases} est inscrite dans le dictionnaire sémantique et lexical. La lexicalisation est ainsi étroitement liée à l'arborisation car ces deux étapes se produisent lors du passage de la RSém à la RSyntP. La construction de la représentation syntaxique profonde est une conséquence de l'arborisation des arcs de la RSém et de la lexicalisation des unités sémantiques de cette RSém. Le tout résulte en un arbre de dépendance lexicalisé. Comme nous l'avons vu dans la figure \draft{au début}, le passage de \sem{owe} à \lex{owe} et \lex{debt} \draft{représente la lexicalisation.}\FL{reformule}
+Le processus de lexicalisation est dispersée sur plusieurs niveaux de représentation (\ac{RSem}, \ac{RSyntP}, \ac{RSyntS}) formant deux interface (\ac{RSem}-\ac{RSyntP}, \ac{RSyntP}-\ac{RSyntS}) \citep{PolguerePourmodelestratifie}. La première interface modélise la lexicalisation profonde qui consiste à assure la correspondance entre une unité sémantique dont les traits (de type definiteness ou tense, voir figure x) sont remplacés par des traits grammaticaux et dont le sens est remplacé par une (ou des) unité(s) lexicale(s) profonde(s). Cette correspondance est explicité dans le dictionnaire d'un système \ac{TST}. S'ensuit la lexicalisation de surface qui consiste à introduire les mots fonctionnels (déterminants, auxiliaires, prépositions,etc.) et les lexies de surface (comme dans l'exemle que nous avons montré plus haut avec peur bleu où bleu serait réalisée en surface). \draft{Daniel: Je n'ai pas trouvé la citation sur la lexicalisation de Wanner dont tu parlais (dans le mémoire de Flo)}
 
-\subsubsection{Application computationnelle}
-
-Nous repredrons ici la description que \cite{lareau18} fait de la lexicalisation dans GenDR. Elle implique trois niveaux de représentations (RSém, RSyntP et RSyntS) et se fait en deux étapes. La lexicalisation profonde est la première des deux étapes. Il s'agit de faire correspondre une unité sémantique à une unité lexicale profonde. Cette phase introduit des lexies pleines de sens. S'ensuit la lexicalisation de surface qui consiste à introduire les mots fonctionnels et les lexies de surface. La phase de lexicalisation s'opère grâce à des ressources lexicales: des dictionnaires et des règles de lexicalisation. Ainsi, la sélection de l'unité lexicale profonde pour réaliser l'unité sémantique fournie en input se fait en consultant les dictionnaires lexicaux. Dans GenDR, nous deux dictionnaires servant contribuant à l'étape de lexicalisation. Nous avons d'abord, le dictionnaire sémantique, puis le dictionnaire lexémique et un dictionnaire de fonction lexicale. Il s'agit de ceux qui ont été présentés en \ref{dictio}. \draft{En ce qui concerne les règles.} Nous décrirons, dans cette section, quelques règles de lexicalisation de base. Nous omettrons les règles de lexicalisation complexes (collocations, locutions, etc.) car ce n'est pas le propos de ce mémoire. Pour plus d'informations concernant celles-ci, voir \cite{lambrey15,LambreyImplementationcollocationspour2017,dubinskaite17,lareau18}.\FL{relire ce paragraphe}
+Afin d'illustrer le fonctionnement de la lexicalisation dans GenDR, nous repredrons la description de \cite{lareau18}.
 
 \textbf{Les lexicalisations simples}
-sont traitées par la règle \emph{lexicalization\_standard}. Cette règle prend une unité sémantique donnée dans un graphe sémantique et vérifie dans le dictionnaire sémantique quelles sont les correspondances lexicales de ce sémantème (tel que démontré en \ref{semanticon}). Puis le système récupère toutes les lexicalisations possibles de l'unité sémantique. S'ensuit la sélection de l'unité lexicale. Pour ce faire, GenDR s'assure que la partie du discours profonde de la (ou les) lexie(s) correspond à celle qui est demandée sur le n\oe{}ud contraint dans l'arbre syntaxique profond en construction. Effectivement, si la lexie satisfait les contraintes du n\oe{}ud, alors GenDR permet la lexicalisation. L'arbre syntaxique profond sera désormais doté d'un n\oe{}ud consommé par cette lexie choisie. D'ailleurs, c'est ce mécanisme qui permet le paraphrasage. Puisque le système créera autant d'arbres syntaxiques profonds qu'il y a de lexies possibles pour un n\oe{}ud donné. 
+sont traitées par la règle \emph{lexicalization\_standard} qui prend une unité sémantique donnée dans un graphe d'input et récupères dans le \emph{semanticon} les correspondances lexicales de ce sémantème (tel que démontré en \ref{fig:semanticon}). S'ensuit la sélection de l'unité lexicale: GenDR s'assure que \ac{DPOS} de la (ou les) lexie(s) correspond à celle qui est demandée par le n\oe{}ud contraint dans l'arbre syntaxique profond en construction. Le no\oe{}ud en question de l'arbre syntaxique profond sera désormais lexicalisé. D'ailleurs, c'est ce mécanisme qui permet le paraphrasage dans notre système, puisqu'il crée autant d'arbres syntaxiques profonds qu'il y a de lexies possibles pour un n\oe{}ud donné.
 
-\textbf{Lexicalisation de classes}
-Les classes comme les nombres, les montants, les noms propres ou les acronymes ont une règle de lexicalisation particulière qui se charge des unités sémantiques que nous ne voulons pas dans nos dictionnaires sémantiques et lexicaux parce qu'elles sont trop nombreuses et que leur comportement est prévisible. Pour déclencher l'application de cette règle, on précise dans la structure d'input à quelle classe le sémantème appartient. Les traits lexicaux (DPOS\FL{est-ce que c'est clair pour le lecteur, dpos?}, etc.) de ces classes sont encodés dans le lexicon.
+\textbf{Les lexicalisations de classes}
+comme les nombres, les montants, les noms propres ou les acronymes sont prises en charge par la règle \emph{lex\_class}. Sont but est de lexicaliser les unités sémantiques que nous ne voulons pas dans nos dictionnaires sémantiques et lexicaux parce qu'elles sont trop nombreuses et leur comportement est prévisible. Pour déclencher l'application de cette règle, on précise dans la structure d'input à quelle classe le sémantème appartient. Celle-ci contient les informations nécessaires à la lexicalisation d'un n\oe{}ud donné (la \ac{dpos}, la \ac{spos}, le nombre, l'invariabilité, la comptabilité,etc.)
 
-\textbf{Lexicalisation de secours}
-Les règles de lexicalisation de secours permettent à GenDR de lexicaliser une unité sémantique ou lexicale dont il n'a pas les informations. Puisque le système possède les 1\,500 lexies les plus fréquentes de l'anglais, il est évident que certaines lexies ou sémantèmes manqueront à l'appel. Pour remédier à la situation, il y a deux mécanismes. D'abord, si le sémantème dans l'input existe sous la même forme dans le \emph{lexicon}, alors le système va lexicaliser le sémantème avec ce lexème. Cela a comme conséquence qu'on n'a pas besoin d'inscrire le sémantème dans le \emph{semanticon} s'il n'y a qu'une lexicalisation possible de celui-ci (cela permet de sauver du temps). Cependant, si le sémantème ne figure pas dans le \emph{lexicon}, alors le système suppose que l'étiquette de l'unité sémantique est la même que l'unité lexicale, et s'il y a des contraintes sur le n\oe{}ud d'arrivée, alors le système suppose que l'unité lexicale ainsi créée satisfait les contraintes. Les lexèmes devinés seront mis en évidence dans la structure d'output afin qu'on ait une trace qu'une règle de lexicalisation de secours a été employée.
+\textbf{La lexicalisation de secours} 
+permet à GenDR de lexicaliser une unité sémantique ou lexicale dont il n'a pas les informations. Effectivement, comme le système possède les 1\,500 lexies les plus fréquentes de l'anglais, il est évident que certaines lexies ou sémantèmes manqueront à l'appel. Pour remédier à la situation, il y a d'abord un mécanisme qui vérifie si l'input existe sous la même forme dans le \emph{lexicon}. Si c'est le cas, alors le système réalisera le sémantème à l'aide de ce lexème. Cette particularité du système a pour conséquence qu'on n'a pas besoin d'inscrire le sémantème dans le \emph{semanticon} s'il n'y a qu'une seule lexicalisation possible de celui-ci (cela permet de sauver du temps). Cependant, si le sémantème ne figure pas dans le \emph{lexicon}, alors le système suppose que l'étiquette de l'unité sémantique est la même que l'unité lexicale, et s'il y a des contraintes sur le n\oe{}ud d'arrivée, alors le système supposera que l'unité lexicale ainsi créée satisfait les contraintes. Les lexèmes devinés seront mis en évidence dans la structure d'output afin qu'on ait une trace que le système a fait une tentative.
 
-	
-\textbf{Lexicalisation grammaticale}
-Alors que les règles de lexicalisation précédentes prenaient place entre la RSém et la RSyntP, les règles de lexicalisation grammaticale prennent place au niveau syntaxique de surface (RSyntS) et introduisent des lexèmes fonctionnels. Il y a des règles qui introduisent les lexèmes exprimant des sens grammaticaux comme les auxiliaires et les déterminants. Ces règles sont déclenchées par la présence de sens grammaticaux dans les structures d'input (voir la figure \draft{exemple}). Ces lexèmes existent en syntaxe profonde, mais on ne les voit pas sous forme de n\oe{}uds, mais plutôt sous forme de traits sur les n\oe{}uds lexicaux. Comme ces mots appartiennent à une classe fermée et qu'ils sont peu nombreux et souvent spécifiques à une langue, ce sont des règles particulières qui traitent ces lexicalisations dans chaque module de langue. Puis, il y a des règles de lexicalisation grammaticales qui s'occupent des lexèmes régis (comme les prépositions). Ces lexèmes régis sont introduits en syntaxe comme des n\oe{}uds supplémentaires entre un gouverneur et son actant. Ils sont donc encodés dans le patron de régime du gouverneur.
+\textbf{La lexicalisation grammaticale}
+introduit des lexèmes fonctionnels (dét., aux., etc.) et prend place au entre la \ac{RSyntP}-\ac{RSyntS}. Ce type de règle est déclenché par la présence de sens grammaticaux dans les structures d'input comme la définitude ou le temps (voir la figure \ref{fig:debt}). Ces lexèmes existent en syntaxe profonde, mais sous forme de traits sur les n\oe{}uds lexicaux. Comme ces lexies appartiennent à une classe fermée et qu'ils sont peu nombreux (en plus d'être spécifiques à une langue), ils sont lexicalisés par une règle spéciale qui sait comment réaliser les traits grammaticaux. Puis, il y a aussi des règles de lexicalisation grammaticales qui s'occupent des lexèmes imposés en surface par les régimes de certaines lexies (comme les prépositions). Ce type de lexème est introduit en syntaxe comme un n\oe{}ud supplémentaire entre un gouverneur et son actant. Ils sont donc encodés dans le \ac{GP} du gouverneur. \draft{pas clair}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- E X E M P L E ---------
@@ -262,10 +257,11 @@ Alors que les règles de lexicalisation précédentes prenaient place entre la R
 
 \section{Exemple}\label{sec:exemple}
 
-Pour illustrer le fonctionnement des règles et des dictionnaires que nous avons présentés, nous décortiquerons la réalisation profonde de l'exemple vu à la figure~\ref{input}.
+Pour illustrer le fonctionnement des règles et des dictionnaires que nous venons de présenter, nous décortiquerons la réalisation profonde de l'exemple vu à la figure~\ref{fig:debt}.
 
-\subsection{1ère phase: RSém à RSyntP}
-Cette section illustre les étapes successives qui ont permis à GenDR de passer de la \ac{RSém} à la \ac{RSyntP}. Il s'agit de l'arborisation profonde et de la lexicalisation profonde.
+\subsection{Arborisation profonde}
+
+Cette section illustre les étapes successives qui ont permis à GenDR de passer de la \ac{RSem} à la \ac{RSyntP}.
 
 \subsubsection{Application de la règle \emph{root\_standard}}
 La règle crée un n\oe{}ud vide qui sera la racine de l'arbre à construire. Ce n\oe{}ud est contraint par deux traits et il demande un verbe fini. La figure \ref{fig:rootstand} illustre la création du n\oe{}ud non-étiqueté.
@@ -289,7 +285,7 @@ Ensuite, on procède à la lexicalisation de la racine. Le sémantème \sem{owe}
 \end{figure}
 
 \subsubsection{Application de la règle \emph{actant\_gp}}
-Une fois que la racine est pourvue d'un lexème, l'application de la règle \emph{actant\_gp} est déclenchée. Pour chaque relation actancielle, le système puise dans le patron de régime de \lex{owe} et met en correspondance les actants sémantiques avec des actants syntaxiques. Dans l'input (figure~\ref{input})\FL{évite les labels comme ``input'' pour tes figures, t'es presque sûr d'avoir un doublon quelque part}, \sem{owe} possède trois actants sémantiques. Ils seront réalisés en actants syntaxiques en fonction de la diathèse imposée par \lex{owe} dans le \emph{lexicon}. Brièvement, la diathèse est la correspondance entre les actants sémantiques et syntaxiques.\FL{ça devrait venir beaucoup plus tôt, ça fait déjà un bout que tu parles de ça} Puis les n\oe{}uds au bout des arcs syntaxiques seront contraints en fonction des restrictions prévues par le patron de régime de \lex{owe} pour chacun de ses actants syntaxiques. Le patron de régime du verbe demande que deux de ses actants syntaxiques aient le trait dpos=N et qu'un ait dpos=Num. Nous élaborerons plus en détails sur les notions de patron de régime et diathèse à la section \ref{sectiongp}. \draft{\lstinline!(gp = {1=I 2=II 3=III} et (I={dpos=N} and III={dpos=N})!, et l'actant II est soit un montant ou un nombre (II={dpos=Num}).}
+Une fois que la racine est pourvue d'un lexème, l'application de la règle \emph{actant\_gp} est déclenchée. Pour chaque relation actancielle, le système puise dans le patron de régime de \lex{owe} et met en correspondance les actants sémantiques avec des actants syntaxiques. Dans l'input (figure~\ref{fig:debt})\FL{évite les labels comme ``input'' pour tes figures, t'es presque sûr d'avoir un doublon quelque part}, \sem{owe} possède trois actants sémantiques. Ils seront réalisés en actants syntaxiques en fonction de la diathèse imposée par \lex{owe} dans le \emph{lexicon}. Brièvement, la diathèse est la correspondance entre les actants sémantiques et syntaxiques.\FL{ça devrait venir beaucoup plus tôt, ça fait déjà un bout que tu parles de ça} Puis les n\oe{}uds au bout des arcs syntaxiques seront contraints en fonction des restrictions prévues par le patron de régime de \lex{owe} pour chacun de ses actants syntaxiques. Le patron de régime du verbe demande que deux de ses actants syntaxiques aient le trait dpos=N et qu'un ait dpos=Num. Nous élaborerons plus en détails sur les notions de patron de régime et diathèse à la section \ref{sectiongp}. \draft{\lstinline!(gp = {1=I 2=II 3=III} et (I={dpos=N} and III={dpos=N})!, et l'actant II est soit un montant ou un nombre (II={dpos=Num}).}
 
 \begin{figure}[htb]
 	\centering
@@ -311,7 +307,7 @@ Puisque nous avons maintenant de nouveaux n\oe{}uds non-étiquetés, il faut ré
 
 \FL{trim les figures}
 
-\subsection{2ème phase: RSyntP à RSyntS}
+\subsection{Arborisation de surface}
 
 \subsubsection{Application des règles de lexicalisation de surface}
 On va chercher les lexicalisations de surface de chacune des unités lexicales avec les règles \emph{lex\_class} et \emph{lex\_lu}. La première se charge de lexicaliser en surface les unités de type classe et la seconde les unités normales. \FL{\ldots}
@@ -356,11 +352,11 @@ In particular, since verbs often convey the main idea of a sentence, such a reso
 \hfill
 \cite{SchulerVerbnetBroadcoverageComprehensive2005}
 
-Nous sommes en accord avec cette déclaration, tout comme \cite{Korhonenlargesubcategorizationlexicon2006} et \cite{MESSIANT08.142} qui suggèrent aussi que la modélisation informatique des langues naturelles passe par des ressources lexicales décrivant les comportements syntaxiques des lexèmes.  C'est la raison d'être de ce mémoire, car notre objectif est d'intégrer au réalisateur profond GenDR  un dictionnaire verbal doté des \acp{gp} de ceux-ci.
+Nous sommes en accord avec cette déclaration, tout comme \cite{Korhonenlargesubcategorizationlexicon2006} et \cite{MESSIANT08.142} qui suggèrent aussi que la modélisation informatique des langues naturelles passe par des ressources lexicales décrivant les comportements syntaxiques des lexèmes.  C'est la raison d'être de ce mémoire, car notre objectif est d'intégrer au réalisateur profond GenDR  un dictionnaire verbal doté des \acp{GP} de ceux-ci.
 
 \section{Patrons de régime}\label{sec:gp}
 
-Ce qu'on appelle \ac{gp} a aussi plusieurs noms dans d'autres cadres théoriques (cadre valenciel, valence, cadre de sous-catégorisation, cadre syntaxique, schéma de régime, etc.), mais c'est le nom qu'on emploiera dans ce mémoire. Les \acp{gp} décrivent les cooccurrences syntaxiques des unités lexicales \citep{MilicevicSchemaregimepont2009} avec leurs actants (les sujets et objets des verbes, les compléments du nom,etc.). Les patrons de régime d'une lexie correspondent à l'ensemble des constructions syntaxiques dont la lexie est la gouverneure. Les actants syntaxiques en sont ses dépendants. On les encode dans un dictionnaire car les patrons de régime des lexies ne sont généralement pas prévisibles. Effectivement, on ne peut pas prédire les \acp{gp} des unités lexicales d'une langue. D'ailleurs, même des verbes sémantiquement proches ne possèderont pas nécessairement les mêmes constructions syntaxiques ex de Milicevic p. 95( se souvenir de X , mais se rappeler X ). Le nombre d'actant n'est pas prévisible non plus en regardant l'unité lexicale à partir de son sens. 
+Ce qu'on appelle \ac{GP} a aussi plusieurs noms dans d'autres cadres théoriques (cadre valenciel, valence, cadre de sous-catégorisation, cadre syntaxique, schéma de régime, etc.), mais c'est le nom qu'on emploiera dans ce mémoire. Les \acp{GP} décrivent les cooccurrences syntaxiques des unités lexicales \citep{MilicevicSchemaregimepont2009} avec leurs actants (les sujets et objets des verbes, les compléments du nom,etc.). Les patrons de régime d'une lexie correspondent à l'ensemble des constructions syntaxiques dont la lexie est la gouverneure. Les actants syntaxiques en sont ses dépendants. On les encode dans un dictionnaire car les patrons de régime des lexies ne sont généralement pas prévisibles. Effectivement, on ne peut pas prédire les \acp{GP} des unités lexicales d'une langue. D'ailleurs, même des verbes sémantiquement proches ne possèderont pas nécessairement les mêmes constructions syntaxiques ex de Milicevic p. 95( se souvenir de X , mais se rappeler X ). Le nombre d'actant n'est pas prévisible non plus en regardant l'unité lexicale à partir de son sens. 
 
 Puisque les arguments sélectionnés par une lexie sont généralement idiosyncratiques, on encode ces comportements syntaxiques dans des dictionnaires.
 

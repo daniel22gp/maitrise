@@ -143,7 +143,7 @@ JSrealLoader({
 \end{lstlisting}
 		
 \subsubsection{RealPro}
-RealPro \citep{LavoieFastPortableRealizer1997} est implémenté en C++. Il est le plus profond des réalisateurs de surface préséntés ici. Il prend en input des arbres de dépendances, ce qui le distingue des deux autres systèmes qui utilisent des arbres de constituants \citep{DBLP:conf/enlg/MolinsL15,GattSimpleNLGRealisationEngine2009}. Rapidement, un arbre de dépendance est non-linéarisé dont les arcs et les noeuds sont identifiés. Les noeuds sont des lexèmes, donc la lexicalisation a déjà eu lieu. On appelle ça un arbre syntaxique car les branches liant les noeuds entre eux correspondent à des relations syntaxiques. Seul les mots pleins de sens figurent dans l'input (cela exclue les déterminants, prépositions, etc.). Cette architecture est basée sur la \ac{TST} \citep{melcuk1988}. 
+RealPro \citep{LavoieFastPortableRealizer1997} est implémenté en C++. Il est le plus profond des réalisateurs de surface préséntés ici. Il prend en input des arbres de dépendances, ce qui le distingue des deux autres systèmes qui utilisent des arbres de constituants \citep{DBLP:conf/enlg/MolinsL15,GattSimpleNLGRealisationEngine2009}. Rapidement, un arbre de dépendance est non-linéarisé dont les arcs et les noeuds sont identifiés. Les noeuds sont des lexèmes, donc la lexicalisation a déjà eu lieu. On appelle ça un arbre syntaxique car les branches liant les noeuds entre eux correspondent à des relations syntaxiques. Seul les mots pleins de sens figurent dans l'input (cela exclue les déterminants, prépositions, etc.). Cette architecture est basée sur la \ac{TST} \citep{melcuk1988}. Nous ferons une petite paranthèse ici, car nous parlerons souvent de la \ac{TST} dans ce mémoire. C'est une théorie linguistique qui a fait ses preuves en matière de \ac{GAT} si on se fie à RealPro \citep{LavoieFastPortableRealizer1997} que nous présontons ici et FORGe \citep{MilledemoFORGePompeu2017} ou MARQUIS \citep{WannerMARQUISGENERATIONUSERTAILORED2010} qui l'utilise aussi. De plus, \cite{Vicentegeneracionlenguajenatural2015} mentionne ce cadre théorique comme étant une bonne interface pour modéliser le langage dans une système de \ac{GAT}.
 
 Brièvement, il s'agit d'une théorie qui divise le langage en quatre niveaux de représentations majeurs: sémantique, syntaxique (profonde et de surface), morphologique (profonde et de surface), phonologique (profonde et de surface) -- ce dernier étant court-circuité pour la génération de texte écrit. Pour plus de détails concernant les arbres de dépendances et la \ac{TST}, voir le chapitre~\ref{chapgendr}.
 
@@ -156,10 +156,10 @@ RealPro a deux grammaires qui permettent successivement de passer d'une représe
 	\label{fig:RealPro}
 \end{figure}
 
-La figure \ref{realpro} illustre un arbre de dépendance (l'input) représentant la phrase \form{March had some rain days}. Ce qu'on peut retirer de cet exemple que \lex{have1} est la racine de l'arbre et que \lex{march} puis \lex{day} en sont les actants. Ceux-ci appartiennent à des classes nominales et on peut voir qu'il y a des contraintes sur certains noeuds. La lexie \lex{day} demande que le module morphologique fléchisse la lexie au pluriel. Cet exemple provient de \cite{ReiterBuildingNaturalLanguage2000}.
+La figure \ref{lst:realpro} illustre un arbre de dépendance (l'input) représentant la phrase \form{March had some rain days}. Ce qu'on peut retirer de cet exemple que \lex{have1} est la racine de l'arbre et que \lex{march} puis \lex{day} en sont les actants. Ceux-ci appartiennent à des classes nominales et on peut voir qu'il y a des contraintes sur certains noeuds. La lexie \lex{day} demande que le module morphologique fléchisse la lexie au pluriel. Cet exemple provient de \cite{ReiterBuildingNaturalLanguage2000}.
 
 \begin{minipage}{\linewidth}
-\begin{lstlisting}[language=Xml, caption=Input, label=realpro]
+\begin{lstlisting}[language=Xml, caption=Input, label=lst:realpro]
 HAVE1 [tense:past]
 (I March [class:proper-noun]
 II day [class:common-noun numberpl]

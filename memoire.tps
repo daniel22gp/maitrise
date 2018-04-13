@@ -12,12 +12,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=memoire.tex
 
 [Frame0_View0,0]
-TopLine=37
+TopLine=36
 Cursor=2576
 
 [Frame1]
@@ -30,7 +30,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=ch1\intro.tex
 
@@ -48,12 +48,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame2_View0,0]
-TopLine=408
+TopLine=437
 Cursor=34060
 
 [Frame3]
@@ -66,13 +66,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame3_View0,0]
-TopLine=65
-Cursor=7007
+TopLine=0
+Cursor=89
 
 [Frame4]
 Flags=0
@@ -84,7 +84,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=ch5\python.tex
 
@@ -102,12 +102,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=ch4\verbnet.tex
 
 [Frame5_View0,0]
-TopLine=339
+TopLine=488
 Cursor=30207
 
 [Frame6]
@@ -120,13 +120,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=ch6\implementation.tex
 
 [Frame6_View0,0]
-TopLine=345
-Cursor=24802
+TopLine=0
+Cursor=63
 
 [Frame7]
 Flags=0
@@ -138,13 +138,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=ch7\evaluation.tex
 
 [Frame7_View0,0]
-TopLine=0
-Cursor=2226
+TopLine=120
+Cursor=17693
 
 [Frame8]
 Flags=0
@@ -156,12 +156,12 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=LaTeXView
 Document=lng-acro-fr.sty
 
 [Frame8_View0,0]
-TopLine=59
+TopLine=7
 Cursor=3362
 
 [Frame9]
@@ -174,13 +174,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=473
+NormalPos.bottom=555
 Class=BibTeXView
 Document=biblio\references.bib
 
 [Frame9_View0,0]
 TopLine=0
-Cursor=224
+Cursor=0
 
 [SessionInfo]
 FrameCount=10

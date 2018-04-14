@@ -1,12 +1,10 @@
 \chapter{Importation de VerbNet dans GenDR}\label{ch:python}
 
-\draft{relire cette section pour que ce soit plus fluide et agréable à lire. Faire attention aux débuts de paragraphe et s'assurer qu'il y a une transition entre les sous-sections}
+À l'aide du module \emph{xml.etree.cElementTree}\footnote{\url{https://docs.python.org/3/library/xml.etree.elementtree.html}, 01-06-17} créé pour le langage de programmation Python, nous avons pu manipuler et extraire l'ensemble des données de VerbNet qui sont encodées en \emph{XML}. Par après, nous les avons compilées dans des fichiers\emph{.dict} qui seront utilisés par notre réalisateur de texte GenDR.
 
-À l'aide du module \emph{xml.etree.cElementTree} créé pour le langage de programmation Python, nous avons pu faire des opérations sur l'ensemble des données de VerbNet qui sont encodées en XML. Le module \emph{xml.etree.cElementTree} prend les fichiers XML et les réorganise en \emph{element tree}. Cela nous permet de naviguer dans les fichiers XML avec des fonctions prévues pour ce module. C'est ainsi qu'on a pu manipuler et extraire les données de VerbNet qui nous intéressaient. Par après, nous les avons compilées dans des fichiers\emph{dict} qui seront utilisés par notre réalisateur de texte GenDR. Nous nous sommes aussi servis des fichiers XML et de Python pour extraire les phrases exemples accompagnant les cadres syntaxiques pour évaluer notre réalisateur de texte.
+\section{Création du dictionnaire lexical: \emph{lexicon}}
 
-\section{Création du dictionnaire lexical}
-
-La première étape de notre projet consistait à créer le dictionnaire verbal. Bien que le dictionnaire final comporte 6393 entrées lexicales verbales, cette partie de code nous permettait de créer la base de notre système. Il serait important de décrire dans les grandes lignes à quoi ressemble le dictionnaire pour mieux expliquer pourquoi nous l'avons extrait de cette manière. Ainsi MATE possède la caractéristique d'héritage des traits. Donc, en ce qui concerne les verbes, nous avons architecturé la chose de cette manière. Il existe une classe des verbes qui ont les traits suivants: une dpos=V et une spos=verb.
+Nous avons d'abord commencé l'importation de VerbNet en créant le dictionnaire \emph{lexicon} qui deviendra la base de GenDR.
 
 \begin{lstlisting}[language=XML]
 verb {

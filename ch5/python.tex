@@ -1,30 +1,21 @@
 \chapter{Importation de VerbNet dans GenDR}\label{ch:python}
 
-À l'aide du module \emph{xml.etree.cElementTree}\footnote{\url{https://docs.python.org/3/library/xml.etree.elementtree.html}, 01-06-17} créé pour le langage de programmation Python, nous avons pu manipuler et extraire l'ensemble des données de VerbNet qui sont encodées en \emph{XML}. Par après, nous les avons compilées dans des fichiers\emph{.dict} qui seront utilisés par notre réalisateur de texte GenDR.
+À l'aide du module \emph{xml.etree.cElementTree}\footnote{\url{https://docs.python.org/3/library/xml.etree.elementtree.html}, 01-06-17} créé pour le langage de programmation Python, nous avons pu manipuler et extraire l'ensemble des données de VerbNet qui y sont encodées en \emph{XML}. Ensuite, nous les avons compilées dans des fichiers\emph{.dict}, à l'aide de Python, qui seront utilisés par GenDR. Nous créerons un dictionnaire contenant le lexique, les classes verbales et l'identifiant de leur patron de régime, puis un dictionnaire uniquement dédié à la description des propriétés syntaxiques des patrons de régime qui sont identifiés dans l'autre dictionnaire. Ce dernier sera utilisé tel qu'il est créé dans cette section, tandis que l'autre dictionnaire sera enrichi de quelques sections provenant de la première version de GenDR. Notamment, les classes par défaut qui décrivent les propriétés lexicales de chaque partie du discours. Comme le focus de ce travail porte sur la variation des constructions syntaxiques des verbes, la classe par défaut de celle-ci comportera un minimum d'information, tandis que les autres classes en comporteront plus, puisque leurs comportements sont plus prévisibles.
+ 
+\section{Création du dictionnaire verbal}
 
-\section{Création du dictionnaire lexical: \emph{lexicon}}
+Le dictionnaire verbal se divise en deux sections: les classes verbales (\texttt{VERBNET CLASSES}) et les membres de celles-ci (\texttt{VERBNET MEMBERS}). Pour mieux comprendre la manière dont nous avons créé la section \texttt{VERBNET CLASSES}, il faut rappeler quelques notions de base du fonctionnement de GenDR. Plus tôt au chapitre \ref{chapgendr} nous avons décrit le mécaisme d'héritage qui façonne l'architecture de notre lexique (section \ref{sec:dictio}). Celui-ci permet à une entrée d'hériter de tous les traits d'une autre entrée en pointant vers celle-ci (ex: \texttt{owe} : \texttt{verb\_dit}). Ce mécanisme nous permettait d'éviter d'expliciter à chaque entrée verbale toutes les informations nécessaires. Nous avons donc importer l'architecture de VerbNet dans notre dictionnaire en utilisant ce mécanisme à notre avantage. Anciennement, les classes verbales par défaut (intransitif, transitif, ditransitif) rassemblaient toute l'information syntaxique nécessaire: patrons de régime, diathèses, partie du discours, etc. Maintenant, il n'y a qu'une seule classe verbale par défaut et elle ne contient que deux informations: la \ac{SPOS} et la \ac{DPOS}, puisque les régimes sont désormais décrits dans un dictionnaire à part.
 
-Nous avons d'abord commencé l'importation de VerbNet en créant le dictionnaire \emph{lexicon} qui deviendra la base de GenDR.
-
-\begin{lstlisting}[language=XML]
+\begin{lstlisting}[language=XML, caption=Classe par défaut des verbes]
 verb {
   dpos = V
   spos = verb
 }
 \end{lstlisting}
 
-Ensuite, les 278 classes verbales de VerbNet pointent vers la classe verb, donc les classes héritent de ces deux traits. Ce qui fait en sorte qu'on n'a pas a répété dans chaque entrée de classe verbale les traits dpos et spos. 
+Ensuite, nous avons construit notre script Python pour que les 278 classes verbales de VerbNet pointent vers la classe \texttt{verb} pour en hériter les traits et nous éviter de les répéter pour chaque classe verbale. D'ailleurs ce mécanisme d'héritage peut permuter de classes en sous-classe, ce qui fait en sorte qu'une sous-classe n'a pas besoin de directement pointer vers la classe \texttt{verb} pour en hériter les traits. En effet, la classe qui la domine pointe vers la classe par défaut \texttt{verb} et de cette manière, le trait se transmet hiérarchiquement. Par exemple, la figure~\ref{hierarch} nous démontrait la hiérarchie de la classe \texttt{spray-9.7} qui domine la classe \texttt{spray-9.7-1}. Dans notre nouveau système, nous faisons en sorte que la classe mère hérite des traits de la classe par défaut \texttt{verb} et que la classe fille \texttt{spray-9.7-1} en hérite indirectement grâce au mécanisme de GenDR.
 
-\begin{lstlisting}[language=XML]
-"absorb-39.8": verb {
-  gp = { id=NP_V_NP  
-	       dia=12 } // Cotton absorbs water.
-  gp = { id=NP_V_NP_PP_from_source  
-	       dia=123 } // Cattle take in nutrients from their feed.
-}
-\end{lstlisting}
-
-Ensuite, chaque membre de chaque classe verbale pointe vers la classe ou la sous-classe qui le représente ce qui fait en sorte qu'il hérite de tous les traits de la classe(sous-classe) vers laquelle il pointe. Par exemple: absorb, ingest, take in vont tous trois hériter des traits de l'entrée "absorb-39.8" qui est la classe verbale. C'est de cette manière que notre dictionnaire passe de 278 entrées lexicales à 6393. Car, les verbes de la langue anglaise ont été classés dans des classes verbales et nous les intégront à notre dictionnaire en gardant la même architecture que VerbNet avait pensé (basé sur les travaux de Levin).
+Ensuite, nous avons extrait les verbes compris dans toutes les classes verbales de VerbNet et nous les avons soumis au mécanisme d'héritage. En effet, chaque membre pointe vers la classe ou la sous-classe qui le représente, ce qui fait en sorte qu'il hérite de tous les traits de la classe qui lui correspond. Par exemple, les lexèmes \lex{absorb}, \lex{ingest}, \lex{take in} hériteront tous les trois des traits compris dans l'entrée \texttt{absorb-39.8}. Cela nous permet de traiter 6\,393 acceptions sans avoir à décrire leur comportement syntaxique systématiquement.
 
 \begin{lstlisting}[language=XML]
 absorb: "absorb-39.8"
@@ -34,32 +25,50 @@ ingest_1: "absorb-39.8"
 
 \subsection{Extractions de l'architecture hiérarchique et des 278 classes verbales de VerbNet}
 
-\begin{lstlisting}[language=Python, caption = Script pour générer 'lexicon.dict']
+Nous avons divisé la description du premier script en trois blocs pour faciliter la compréhension du fonctionnement de chacun de ceux-ci.
+
+\subsubsection{Bloc 1}
+\textbf{L'objectif} de la fonction \emph{supers} est de d'implémenter le mécanisme d'héritage de GenDR à l'architecture hiérarchique de VerbNet.
+
+\textbf{Description}:Brièvement, cette fonction va chercher les identifiants de la classe mère, puis de toutes les sous-classes et sous-sous-classes. Puis elle crée un dictionnaire où la clé est la fille et la valeur est la mère: dictionnaire = {fille: mère}. Ce dictionnaire peut ensuite être utilisé par GenDR car comme nous l'avons vu à la section X, une lexie peut hériter des traits d'une entrée si on la fait pointer vers cette entrée. C'est exactement ce mécanisme d'héritage des traits que nous reprenons ici. Grâce à cela, nous n'avons pas à répéter toutes les informations comprises dans la classe mère à la classe fille, puisqu'effectivement elle hérite de tous les gps qui la compose. Mais grâce à cela, elle en hérite sans qu'on ait à les avoir dans l'entrée et ça fait en sorte que notre dictionnaire n'est pas saturé d'information. Puis nous utilisons l'aspect hiérarchique de VerbNet à notre avantage. Ce morceau de dictionnaire sera réutilisé par le bloc 3.
+
+\subsubsection{Bloc 2}
+\textbf{L'objectif} de la fonction \emph{treeframes} est de nous donner pour chaque fichier XML (donc classe verbale) le ID et les descritions(cadre de sous-cat) et phrase exemple attachés à ce ID pour chaque classe, sous-classe et sous-sous-classe. spray-23-1 NP-V-NP Paul sprayed the wall. Cette information est celle qui peuplera notre lexique. (Il ne nous restera qu'à coder la diathèse manuellement)
+
+\textbf{explication}: On commence par chercher l'identifiant de la classe puis on va dans la balise des cadres pour aller chercher les descriptions (identifiant des patrons de régime). Ensuite on moule les descriptions pour qu'elle fonctionne dans le formalisme de MATE et à chaque fois qu'il y a des groupes prépositionnels PP dans la description on va chercher la préposition qui domine ce syntagme pour l'ajouter dans la description même \draft{je me rappelle pu pourquoi on avait fait ça, à voir} puis on va chercher les exemples associés à chaque cadre de sous-cat. On finit avec un identifiant qui pointe vers les descriptions des cadres de sous-cat et les exemples associés à chacun d'entre eux. Le tout est ensuite fait à toute les sous-classes.
+
+\subsubsection{Troisième Bloc}
+
+objectif: avoir un dictionnaire qui contient les classes verbales de VerbNet avec tous les descriptions de leur patron de régime \draft{exemple de description} et les exemples qui corresponondent à ceux-ci. On veut aussi que le dictionnaire soit configuré de manière à tirer profit du mécanisme d'héritage de VerbNet que le logiciel MATE permet.
+
+explication courte: On ouvre un fichier lexicon.dict dans lequel on va écrire le dictionnaire à l'aide des deux fonctions que nous avions créées aux blocs 1 et 2. Puis nous allons passer ces fonctions à l'ensemble des documents XML qui composent VerbNet. Ensuite, nous allons écrire à l'aide de la fonction write la manière que nous voulons que les ouputs de ces fonctions soient présentés. Nous allons fonc faire en sorte que chaque classe verbale non-dominée pointe vers la chaîne de caractère 'verb' pour qu'elles héritent de la classe 'verb' dans MATE. Cela fait en sorte que tous les classes verbales non-dominées hériterons de la dpos, spos,..\draft{vérifier les autres traits} de 'verb' sans qu'on ait à les réécrie à chaque fois. Puis toutes les classes dominées pointe vers les classes les dominant afin qu'elles héritent des traits de leur mère. Puis une fois qu'on a fait ça, on ajoute les descriptions et exemples associés à chaque classe verbale (et sous-classe). Pour que ça donne \draft{montrer un exemple avec lstinline}
+
+\begin{lstlisting}[language=Python, caption = Importation de l'architecture des classes verbales, label=fig:archivn]
 # BLOC 1
 def supers(t, i):
-    ID = t.get('ID')
-    sc = {ID:i}
-    subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
+    ID = t.get('ID') # t = root of the verbal class, it contains the shared syntactic information.
+    sc = {ID:i} # simulates the inheritance mechanism.
+    subclasses = t.findall('SUBCLASSES/VNSUBCLASS') # gets all the information on the subclasses.
     if len(subclasses) > 0:
-        for sub in subclasses:
-            sc = {**sc, **supers(sub, ID)}
+        for sub in subclasses:             # If there's a subclass for a given VNCLASS, 
+            sc = {**sc, **supers(sub, ID)} # it'll point towards the class it's being dominated by.
     return sc
 		
 # BLOC 2
 def treeframes(t):
-    ID = t.get('ID')
-    z = []
+    ID = t.get('ID')  # gets the name of the verbnet class
+    z = []            
     for frame in t.findall('FRAMES/FRAME'):
-        description = re.sub(r"\s*[\s\.\-\ +\\\/\(\)]\s*", '_', 
-        frame.find('DESCRIPTION').get('primary'))
+        description = re.sub(r"\s*[\s\.\-\ +\\\/\(\)]\s*", '_',  
+        frame.find('DESCRIPTION').get('primary')) # primary description = identification of a GP
         if description in exclude:
             continue
-        description = re.sub('PP', 'PP_{}', description)
+        description = re.sub('PP', 'PP_{}', description) 
         preps = [p.get('value') or 
-                p.find('SELRESTRS/SELRESTR').get('type').upper() 
-                for p in frame.findall('SYNTAX/PREP')+frame.findall('SYNTAX/LEX')]
-        preps = [sorted(p.split()) for p in preps]     
-        examples = [e.text for e in frame.findall('EXAMPLES/EXAMPLE')]
+                p.find('SELRESTRS/SELRESTR').get('type').upper()                  
+                for p in frame.findall('SYNTAX/PREP')+frame.findall('SYNTAX/LEX')] 
+        preps = [sorted(p.split()) for p in preps] # manipulates data to insert the prep. in desc.                                
+        examples = [e.text for e in frame.findall('EXAMPLES/EXAMPLE')] # get ex. for each desc.
         if len(preps)==1:
             description = description.format('_'.join(preps[0]))
         elif len(preps)==2:
@@ -68,61 +77,51 @@ def treeframes(t):
         elif len(preps)==3:
             description = description.format('_'.join(preps[0]), 
                                              '_'.join(preps[1]), 
-                                             '_'.join(preps[2]))
+                                             '_'.join(preps[2])) # inserting preps in descriptions
         z.append((description, examples))
         
-    subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
-    subframes = [treeframes(subclass) for subclass in subclasses]
+    subclasses = t.findall('SUBCLASSES/VNSUBCLASS')  # gets the root of each subclasses
+    subframes = [treeframes(subclass) for subclass in subclasses] # applies function to subclasses
     subframes = sum(subframes, []) # flatten list of lists
-    return [(ID, z)] + subframes
+    return [(ID, z)] + subframes # returns list of (sub)class, GP-identification and example
 		
 # BLOC 3
-with open('lexicon.dict','w') as f:
+with open('lexicon.dict','w') as f: # we are going to write all of this block into lexicon.dict
     f.write('lexicon {\n')
-    for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']:
-        root = ET.parse('verbnet/'+file).getroot()       
-        d = dict(treeframes(root))
-        sc = supers(root, 'verb')
+    for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']: # open VerbNet XMl files
+        root = ET.parse('verbnet/'+file).getroot() # Applies the Python Element Tree module
+        d = dict(treeframes(root)) # makes a dictionary out of the results of treeframes on a file
+        sc = supers(root, 'verb') # applies supers function to each file
         for c in d.keys():
             f.write('"'+c+'"')
-            if sc[c] == 'verb':
-                f.write(': ' +sc[c] + ' {')
+            if sc[c] == 'verb': # all non-dominated classes point to the default verb class
+                f.write(': ' +sc[c] + ' {') 
             else:
-                f.write(': ' +'"'+sc[c]+'"' + ' {')
+                f.write(': ' +'"'+sc[c]+'"' + ' {') #dominated classes point towards their governor
             [f.write('\n  gp = { id=' + gp[0] + (max(len(gp[0]), 30)-len(gp[0]))
                      *' ' + ' dia=x } // ' + ' '.join(gp[1])) for gp in d[c]]
-            f.write('\n}\n')
+            f.write('\n}\n') # all GPs will have attributes: id and dia
     f.write('\n}')
 \end{lstlisting}
 
-\subsubsection{Premier Bloc}
--objectif de la fonction: la fonction \emph{supers} sert à recréer le mécanisme d'héritage qui compose l'architecture de VerbNet. Grâce à cette fonction, on peut faire en sorte que chaque classe fille hérite des traits de sa classe mère. 
+\subsection{Extraction des 6\,393 membres des classes verbales pour enrichir le dictionnaire lexicon.dict} \label{extracmembre}
 
--Explication brève de la fonction: Brièvement, cette fonction va chercher les identifiants de la classe mère, puis de toutes les sous-classes et sous-sous-classes. Puis elle crée un dictionnaire où la clé est la fille et la valeur est la mère: dictionnaire = {fille: mère}. Ce dictionnaire peut ensuite être utilisé par GenDR car comme nous l'avons vu à la section X, une lexie peut hériter des traits d'une entrée si on la fait pointer vers cette entrée. C'est exactement ce mécanisme d'héritage des traits que nous reprenons ici. Grâce à cela, nous n'avons pas à répéter toutes les informations comprises dans la classe mère à la classe fille, puisqu'effectivement elle hérite de tous les gps qui la compose. Mais grâce à cela, elle en hérite sans qu'on ait à les avoir dans l'entrée et ça fait en sorte que notre dictionnaire n'est pas saturé d'information. Puis nous utilisons l'aspect hiérarchique de VerbNet à notre avantage.
+Maintenant que nous avons extrait les classes verbales et l'architecture hiérarhique de VerbNet, il ne nous reste qu'à peupler le dictionnaire des membres qui appartienent à chaque classe verbale. De cette manière notre \emph{lexicon} pourra effectivement couvrir une grande partie de l'anglais. À cette étape, on procède aussi à la désambiguïsation des verbes puisque VerbNet détient souvent plusieurs acceptions pour un même vocable.
 
--Explication précise du code:
-d'abord on défini la fonction supers qui prendra deux arguments. t et i. t est le fichier XML de la classe verbale et i est une variable. Pour chaque arbre, on va aller chercher son identifiant. puis on va créer un dictionnaire dont la clé sera l'identifiant et la valeur la variable i. Puis on commande à Python de naviguer dans l'arbre XML pour aller jusqu'à la balise SUBCLASSES qui contient toutes les sous-classes et les sous-sous-classes. Pour chaque sous-classes (pour les besoins de la cause sous-classe fait référence à la fois aux sous-classes et aux sous-sous-classes) nous mettons à jour le dictionnaire pour qu'il comprenne à la fois lui-même tel qu'il était au début de la fonction et on passe la fonction super aux sous-classe. Car les sous-classes sont architecturés de la même manière que les classes. On fait donc passer la fonction supers à ces sous-classes. donc supers prend sub comme premier argument, qui est dans le fond l'arbre XMl commençant à chaque sous-classe. Puis rend en sortie ID qui on se rappelle est une valeur fixe. Dans ce cas, ID a été cherché dans l'arbre initial et c'était le ID de la classe supérieure. Ce qui fait en bout de ligne qu'on se ramasse avec un dictionnaire comprenant ID de la mère: i , ID de la fille: ID de la mère. Ce morceau de dictionnaire sera réutilisé par le bloc 3.
+\subsubsection{Bloc 1}
+objectif: Pour chaque classe verbale, on va chercher les membres leur étant associés.
 
-\subsubsection{Deuxième Bloc}
-objectif:la fonction treeframes est de nous donner pour chaque fichier XML (donc classe verbale) le ID et les descritions(cadre de sous-cat) et phrase exempled attachés à ce ID pour chaque classe, sous-classe et sous-sous-classe. spray-23-1 NP-V-NP Paul sprayed the wall. Cette information est celle qui peuplera notre lexique.
+description courte: On défini la fonction treemember comme étant une fonction qui prend un arbre xml comme argument. On va analyser cet arbre pour chercher les informations qu'on veut. D'abord on veut le ID (la classe verbale comme telle) puis pour chaque balise MEMBER qu'on trouve en parcourant l'arbre XML on va regarder pour les membres dans cette balise. On va répéter la chose pour les sous-classes. Puis on exige que la fonction retourne en output une liste de tuples classe verbale et membres associés.
 
-explication courte: On commence par chercher l'identifiant de la classe puis on va dans la balise des cadres pour aller chercher les descriptions (identifiant des patrons de régime). Ensuite on moule les descriptions pour qu'elle fonctionne dans le formalisme de MATE et à chaque fois qu'il y a des groupes prépositionnels PP dans la description on va chercher la préposition qui domine ce syntagme pour l'ajouter dans la description même \draft{je me rappelle pu pourquoi on avait fait ça, à voir} puis on va chercher les exemples associés à chaque cadre de sous-cat. On finit avec un identifiant qui pointe vers les descriptions des cadres de sous-cat et les exemples associés à chacun d'entre eux. Le tout est ensuite fait à toute les sous-classes.
+\subsubsection{Bloc 2}
+objectif:
+description courte:
 
-description précise: on définit d'abord la fonction treeframes. Elle prend un arbre en argument,l'arbre est le fichier XML. on va chercher le ID, puis on initialise une liste vide qui sera utile plus tard. Ensuite pour chaque frame dans FRAMES on va chercher les descriptions à chaque fois qu'on tombe sur un frame en parcourant le doc XML. On va d'abord utiliser un nombre d'expression régulières pour modéliser les descriptions pour qu'elles fittent dans notre système MATE. nous retirons les espaces, les points, les tirets, les barres obliques, les paranthèses, tout cela et nous les remplaçons par des underscores. Si une description fait partie de la liste exclude. Alors on skip la description et on passe à la prochaine description. Ensuite on remplace chaque string PP par une string PP\_\{\}. On fait cela car les crochets seront remplacés par d'autres string plus tard grâce à la fonction format. Nous procédons ensuite à aller chercher toutes les prépositions à l'intérieur des frames syntaxiques. Ceux-ci sont encodés dans les PP. Puis pour chaque cadre syntaxique nous mettons les prépositions en ordre alphabétique dans une liste preps. Puis on extrait les exemples qui se retrouvent dans la balise exemple qui accompagne chaque description dans chaque frame. Puis finalement nous utilisons la fonction format qui nous permet de joindre chaque préposition dans la liste prep et de la subsituer aux crochets dans les descriptions pour que les descriptions aient maintenant les prépositions dans les descriptions directement. De cette manière on identifie mieux les descriptions des patrons de régime. Les descriptions et exemples sont ensuite mis dans une liste z que nous avions initilaisé au début. Puis nous répétons le même processus pour les sous-classes et sous-sous-classes. au final Identifiant et description,exemple. 
+\subsubsection{Bloc 3}
+objectif:
+description courte:
 
-\subsubsection{Troisième Bloc}
-
-objectif: avoir un dictionnaire qui contient les classes verbales de VerbNet avec tous les descriptions de leur patron de régime \draft{exemple de description} et les exemples qui corresponondent à ceux-ci. On veut aussi que le dictionnaire soit configuré de manière à tirer profit du mécanisme d'héritage de VerbNet que le logiciel MATE permet.
-
-explication courte: On ouvre un fichier lexicon.dict dans lequel on va écrire le dictionnaire à l'aide des deux fonctions que nous avions créées aux blocs 1 et 2. Puis nous allons passer ces fonctions à l'ensemble des documents XML qui composent VerbNet. Ensuite, nous allons écrire à l'aide de la fonction write la manière que nous voulons que les ouputs de ces fonctions soient présentés. Nous allons fonc faire en sorte que chaque classe verbale non-dominée pointe vers la chaîne de caractère 'verb' pour qu'elles héritent de la classe 'verb' dans MATE. Cela fait en sorte que tous les classes verbales non-dominées hériterons de la dpos, spos,..\draft{vérifier les autres traits} de 'verb' sans qu'on ait à les réécrie à chaque fois. Puis toutes les classes dominées pointe vers les classes les dominant afin qu'elles héritent des traits de leur mère. Puis une fois qu'on a fait ça, on ajoute les descriptions et exemples associés à chaque classe verbale (et sous-classe). Pour que ça donne \draft{montrer un exemple avec lstinline}
-
-description: on ouvre un fichier appelé lexicon.dict. Puis pour chaque fichier dans le repository qui contient tous les fichiers XML peuplant VerbNet, on va les parser avec le module xml etree  et on va aller chercher la racine de chaque fichier XML. À partir de la racine on peut faire les opérations qu'on veut: treeframes et supers. En appliquant treeframes à root, puis encode le oupout dans un dictionnaire appelé 'd'. Puis on applique supers à root. Puis pour chaque clé de d (les ID) on écrit la clé puis on la fait pointer vers la classe qui la domine, si il n'y a pas de classe qui la domine, alors on la fait pointer vers la chaîne 'verb'. Puis à ce point on a ID(class):ID(classe dominante ou 'verb'). Il nous manque les descriptions des patrons de régime et les exemples. On va écrire ceux-ci dans un format lisible par MATE, puis le résultat final ressemble à \draft {mettre un court exemple du résultat.}
-
-\subsection{Extraction des 6393 membres des classes verbales pour enrichir le dictionnaire lexicon.dict} \label{extracmembre}
-
-Maintenant que nous avons extrait les classes verbales et l'architecture hiérarhique de VerbNet. Il ne nous reste qu'à peupler le dictionnaire des membres qui appartienent à chaque classe verbale. De cette manière notre lexicon.dict sera agrémenté de 6393 entrées lexicales désambiguisées. Effectivement à cette étape on procède aussi à la désambiguisation des verbes puisque plusieurs d'entre eux pointent vers des classes verbales différentes en fonction du sens dans lequel on les emploie. Cela a nécessairement un impact sur les patrons de régime qu'ils ont et nous voulons que notre dictionnaire tienne compte de cette diversité.
-
-\begin{lstlisting}[language=Python, caption = Code pour ajouter des lexèmes à lexicon.dict, label=scriptmember]
+\begin{lstlisting}[language=Python, caption = Ajout des membres de VerbNet, label=scriptmember]
 #Bloc 1
 def treemember(t):
     ID = t.get('ID')
@@ -161,40 +160,25 @@ with open('members.dict','w') as f:
 
 \end{lstlisting}
 
+\section{Création du dictionnaire de patrons de régime}
+
+Au lieu de mettre les \acp{GP} de chaque verbe dans le \emph{lexicon} et que cela sature notre dictionnaire d'information, nous avons décidé de les encoder dans un autre dictionnaire: le \emph{gpcon}. La raison derrière cela est qu'il y a un nombre limité de patrons de régime selon VerbNet. Ainsi, au lieu d'expliciter à chaque fois les \acp{GP} sélectionnés par un verbe donné, nous n'avons qu'à encoder les identifiants de ceux-ci, et GenDR se chargera de récupérer l'informatino dans le bon dictionnaire. 
+
+Nous avons du encoder manuellement les 274 \acp{GP} répertoriés par VerbNet. Nous ne pouvions pas les extraire automatiquement via les documents XML de VerbNet puisqu'il fallait revoir plusieurs aspects théoriques. D'abord, nous fonctionnons dans le cadre de la \ac{TST} et nous n'utilisons pas les rôles thématiques pour identifier les arguments d'un \ac{GP}. De plus, il fallait encoder les propriétés syntaxiques de chaque actant de manière à ce que GenDR puisse les lire. Par exemple, la relation syntaxique de surface, les parties du discours et les prépositions sélectionnées. Hormis la première propriétés, les autres sont encodées dans les cadres de VerbNet, mais pas dans un formalisme réutilisable dans GenDR. C'est pourquoi nous avons préféré créer le dictionnaire de patron de régime manuellement.
+
+Lors de la création du lexicon, nous nous sommes assurés que tous les identifiants des patrons de régime extraits pointaient vers des \acp{GP} réutilisables par GenDR. Il s'agissait en quelque sorte de faire un tri initial des \acp{GP} qui pourraient poser problèmes et des \acp{GP} que nous jugions inutiles ou erronés. Nous avons d'abord exclu les constructions stylistiques comme \lstinline|NP_location_V_NP| qui réalise ce type de phrase \form{All through the mountains raged a fire.}: déplacement de groupe prépositionnel pour ajouter du style. Nous avons aussi exclu les \acp{GP} qui sélectionne des constructions de type \emph{déplacement qu-} car GenDR ne traite pas celles-ci. Il a aussi fallu enlever les constructions contenant des modificateurs comme des groupes adverbiaux ou adjectivaux, par exemple \lstinline|NP_V_ADVP_Middle_PP_into_to_with| qui s'exemplifie par \form{The computer connected \textbf{well} to the network.}. Les adverbes ne devraient pas figurer dans les patrons de régime, car il ne sont pas des actants syntaxiques et il ne sont pas sélectionnés par le verbe. Au contraire, ce sont eux qui le modifient. Finalement, nous en avons retiré d'autres pour des motifs similaires, mais nous ne les énumèreront pas tous car il y en avait une grande quantité (140 pour être exact).
+
+Finalement, ceux qui ont été retenus seront encodés comme suit.
+
 \subsubsection{Bloc 1}
-objectif: Pour chaque classe verbale, on va chercher les membres leur étant associés.
-
-description courte: On défini la fonction treemember comme étant une fonction qui prend un arbre xml comme argument. On va analyser cet arbre pour chercher les informations qu'on veut. D'abord on veut le ID (la classe verbale comme telle) puis pour chaque balise MEMBER qu'on trouve en parcourant l'arbre XML on va regarder pour les membres dans cette balise. On va répéter la chose pour les sous-classes. Puis on exige que la fonction retourne en output une liste de tuples classe verbale et membres associés.
-
-explication:
-
+Objectif:
+Explication:
 \subsubsection{Bloc 2}
-objectif:
-description courte:
-explication:
-
+Objectif:
+Explication:
 \subsubsection{Bloc 3}
-objectif:
-description courte:
-explication:
-
-\section{Création du gpcon}
-Faire un dictionnaire de patron de régime. On a jugé bon de créer un second dictionnaire qui ne contiendrait que les gps, autrement dit un gpcon. l'information sur les patrons de régime (les actants syntaxiques). Il existe x nombre de gps répertoriés. Il nous fallait les créer, car tel que mentionné, nous ne pouvions pas extraire les gps de VerbNet dû à une différence trop grande (cadre théorique et application). Notre système de GAT fonctionne avec la théorie Sens-Texte et nous pensons que c'est la théorie qui s'y prête le plus pour faire ce type d'opérations et qui tient le mieux compte de la manière dont le langage fonctionne.
-
-Tri initial: Nous avions fait un tri initial des patrons de régime qui existent dans VerbNet. Dans ce tri on excluait les patrons de régime qui ne peuvent être gérés par MATE et les patrons de régime inutile d'encoder car l'information syntaxique fournie ne devrait pas s'inscrire dans un gp.
-
-Nous avons exclu les constructions stylistiques
-\lstinline!NP_location_V_NP!: 3 occurences de ça dont: ' All through the mountains raged a fire'
-
-Nous avons exclu les constructions avec des wh (whether, what, when, how, if, why, that) car GenDR ne peut pas traiter ces constructions syntaxiques
-
-Nous avons exclu les ADVP: NP\_V\_ADVP\_Middle\_PP\_into\_to\_with: The computer connected well to the network.
-
-Nous avons exclu les there: There\_V\_NP\_PP\_LOC:There ticked a grandather clock in the hallway
-
-Nous avons exclu les ADJP: NP\_V\_NP\_ADJP\_Result: Nora yanked the button loose ou Carla shoveled the walk clean ou Carol cut the envelop open
-
-Finalement: passive et citations.
+Objectif:
+Explication:
 
 \begin{lstlisting}[language=Python, caption = code pour gpcon.dict]
 #Bloc 1
@@ -212,9 +196,8 @@ def gp(name, real_actant):
             s = s + "   " + roman(i) + "={" + actant + "}\n"
     s = s + '}\n'
     return s
-
+		
 #Bloc 2
-
 #SUBJECTIVE
 subj = 'rel=subjective dpos=N'
 
@@ -231,34 +214,16 @@ indir_N = 'rel = indir_objective dpos = N'
 on_V = 'rel=oblique dpos=V prep=on'
 to_obl_N = 'rel=oblique dpos=N prep=to' 
 for_obl_N = 'rel=oblique dpos=N prep=for'
-as_N =  'rel=oblique dpos=N prep=as'
 against_N = 'rel=oblique dpos=N prep=against'
-at_N = 'rel=oblique dpos=N prep=at'
 ...
-
 # LOC
-
-locab = 'rel=oblique dpos=N prep=locab'
-locad = 'rel=oblique dpos=N prep=locad'
-locin = 'rel=oblique dpos=N prep=locin'
+locin = 'rel=oblique dpos=N prep=Locin'
 
 descriptions = {
 'NP_agent_V': [subj],
 'NP_agent_V_NP': [subj, dir_N],
 'NP_asset_V_NP_PP_from_out_of': [subj, dir_N, [from_N, out_of_N]],
-'NP_attribute_V': [subj],
-'NP_attribute_V_NP_extent': [subj, dir_N],
-'NP_attribute_V_PP_by_extent': [subj,by_N],
-'NP_cause_V_NP': [subj, dir_N ],
-'NP_instrument_V_NP': [subj, dir_N],
-'NP_location_V': [subj],
-'NP_location_V_NP_theme': [subj,dir_N],
-'NP_location_V_PP_with_agent': [subj, with_N],
-'NP_location_V_PP_with_theme': [subj, with_N],
-'NP_material_V_NP': [subj,dir_N],
-'NP_material_V_PP_into_product': [subj, into_N],
 ...
-
 #Bloc 3
 # CREATION DU GPCON
 with open('gpcon.dict','w') as f:
@@ -266,37 +231,35 @@ with open('gpcon.dict','w') as f:
     for d in descriptions.keys():
         f.write(gp(d, descriptions[d]))
     f.write('}')
-
 \end{lstlisting}
 
-Redondance des gps: Ce n'est pas un phénomène isolé dès qu'il y a un changement de rôle thématique, il crée un nouveau GP. ce n'est pas nécessaire.
-
-%NP_V_PP_with_theme
-%NP_V_PP_with_instrument
-%NP_V_PP_with_co_agent 
-%NP_V_PP_with_co_patient
-
-\section{Scripts pour faire les tests}
+\section{Scripts pour l'évaluation de GenDR}
 
 Nous allons faire des tests pour vérifier si l'extraction que nous avons fait de VerbNet est bonne. prendre les phrases exmeples et créer des graphes sémantiques correspondant à chaque phrase exemplifiant un gp pour une classe verbale donnée. Le but est de passer ce graphe sémantique à GenDR 2.0 pour ensuite analyser les outputs qui en sortent. Si les outputs sont bel et bien les RSyntP correspondant aux phrases en entrée, alors on jugera que le système fonctionne bien. Cela nous permettra de voir ce qui fonctionne de ce qui ne fonctionne pas. Évidemment il y aurait des problèmes techniques et théoriques et c'est ce que nous tenterons de départir. Le chapitre suivant est dédié à l'implémentation et l'évaluation du système.
 
 \subsection{Extraction des exemples}
+On extrait les exemples associés à chaque description de cadre syntaxique (identifiants de \ac{GP}) pour les mettre dans un fichier (\emph{phrases.txt}) qui seront utilisés par le script suivant pour créer les structures d'input.
 
-On extrait les exemples des frames pour les mettre dans un fichier phrases.txt qui sera utilisé pour créer les structures (le bon nombre) et insérer le texte des phrases dans le graphe sémantique.
+\subsubsection{Bloc 1}
+Le bloc 1 reprend une partie du bloc 2 de la figure~\ref{fig:archivn}, il crée donc une fonction parcourant chaque arbre XML en s'arrêtant aux exemples associés à chaque description de cadre syntaxiques. Puis, l'opération est répétée pour les sous-classes.
 
-\begin{lstlisting}[language=Python, caption = Code pour extraire les phrases exemples de VerbNet]
+\subsubsection{Bloc 2}
+objectif: Créer un document qui comprend une phrase exemple par ligne.
+explication courte: On créera un document \emph{phrases.txt} qui contiendra le résultat de cette version de la fonction \emph{treeframes}. Après avoir traverser tous les documents XML de VerbNet, Python extrait les phrases exemples et les écrit dans le document \emph{phrases.txt} en les divisant ligne par ligne. 
+
+\begin{lstlisting}[language=Python, caption = Extraction des phrases exemples de VerbNet]
 #Bloc 1
 def treeframes(t):
     z = []
-    for frame in t.findall('FRAMES/FRAME'):
+    for frame in t.findall('FRAMES/FRAME'): # for each syntactic frame
         description = re.sub(r"\s*[\s\.\-\ +\\\/\(\)]\s*", '_',
 				frame.find('DESCRIPTION').get('primary'))
         if description in exclude:
             continue    
-        examples = [e.text for e in frame.findall('EXAMPLES/EXAMPLE')]
+        examples = [e.text for e in frame.findall('EXAMPLES/EXAMPLE')] # get the examples
         z =  z + examples 
     subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
-    subframes = [treeframes(subclass) for subclass in subclasses]
+    subframes = [treeframes(subclass) for subclass in subclasses] #repeat operation for subclasses
     subframes = sum(subframes, []) # flatten list of lists
     return z + subframes
 
@@ -305,38 +268,27 @@ liste=[]
 with open('phrases.txt','w') as f:
     for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']:
         root = ET.parse('verbnet/'+file).getroot()       
-        d = (treeframes(root))
-        final_liste = liste + d
-        [f.write(x+'\n') for x in final_liste]
+        d = (treeframes(root))  # Applies treeframes function to all of VerbNet files
+        finale_liste = liste + d
+        [f.write(x+'\n') for x in finale_liste] # returns line after each example
 
 \end{lstlisting}
 
-\subsubsection{Bloc 1}
-objectif:
-explication courte:
-description:
-
-\subsubsection{Bloc 2}
-objectif:
-explication courte:
-description:
-
 \subsection{Création des structures sémantiques}
 
-Cette section crée les graphes de bases qui nous permettront de faire les tests. Ces graphes sont dépourvus de n\oe{}uds et d'arcs, ils contiennent uniquement le cadre nécessaire pour qu'ensuite, on écrire manuellement les inputs tels que nous les avons vu à la section \draft{pointer vers la bonne section}. Effectivement, dans l'exemple que nous avions vu, il y avait toutes les informations requises pour que GenDR lise la structure d'input. Ici, crée le cadre dans lequel on va écrire les n\oe{}uds et les relations et on insère la phrase à créer pour faciliter l'écriture manuelle des graphes d'input.
+Ce script crée les graphes de bases qui nous permettront de faire les tests pour évaluer l'implémentation de VerbNet à GenDR. Ces graphes sont dépourvus de n\oe{}uds et d'arcs, ils ne contiennent uniquement que les cadres nécessaires faciliter l'encodage manuel de chaque input (voir la figure~\ref{fig:debt}).
 
-\begin{lstlisting}[language=Python, caption = Code pour créer créer les structures sémantiques vides, label=structurepython]
+Pour ce faire, nous ouvrons le fichier \emph{phrases.txt} que nous avons créé avec le script prédédent car nous allons créer une structure individuelle par phrases exemples. Les stuctures contiendront le texte à représenter sémantiquement et les crochets \{ \} nécessaires pour encadrer le graphe. Finalement, le script créera 978 structures.
+
+\begin{lstlisting}[language=Python, caption = Code pour créer les structures sémantiques vides, label=structurepython]
 phrases = open('phrases.txt','r')
 
-with open('structures.str','w') as f:
-    for(i,p) in enumerate(phrases):
+with open('structures.str','w') as f: # create a .str structure
+    for(i,p) in enumerate(phrases):   # for each sentence
         with open('s'+str(i)+'.str','w') as g:
-            structure = 'structure Sem S'+str(i)+'
-						{\n S {text="'+p.strip()+'"\n\n main-> \n }\n}'
+            structure = 'structure Sem S'+str(i)+' # name each structure by enumeration
+						{\n S {text="'+p.strip()+'"\n\n main-> \n }\n}' # insert as texte the sentence
             f.write(structure)
             g.write(structure)
 \end{lstlisting}
 
-objectif:
-explication courte:
-description:

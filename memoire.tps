@@ -17,7 +17,7 @@ Class=LaTeXView
 Document=memoire.tex
 
 [Frame0_View0,0]
-TopLine=34
+TopLine=33
 Cursor=2576
 
 [Frame1]
@@ -53,7 +53,7 @@ Class=LaTeXView
 Document=ch2\gat.tex
 
 [Frame2_View0,0]
-TopLine=234
+TopLine=307
 Cursor=17565
 
 [Frame3]
@@ -71,7 +71,7 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame3_View0,0]
-TopLine=189
+TopLine=242
 Cursor=13483
 
 [Frame4]
@@ -89,8 +89,8 @@ Class=LaTeXView
 Document=ch4\verbnet.tex
 
 [Frame4_View0,0]
-TopLine=248
-Cursor=23234
+TopLine=289
+Cursor=26355
 
 [Frame5]
 Flags=0
@@ -107,8 +107,8 @@ Class=LaTeXView
 Document=ch5\python.tex
 
 [Frame5_View0,0]
-TopLine=232
-Cursor=17704
+TopLine=0
+Cursor=1374
 
 [Frame6]
 Flags=0
@@ -125,8 +125,8 @@ Class=LaTeXView
 Document=ch6\implementation.tex
 
 [Frame6_View0,0]
-TopLine=87
-Cursor=4110
+TopLine=61
+Cursor=4116
 
 [Frame7]
 Flags=0
@@ -197,7 +197,7 @@ Class=LaTeXView
 Document=preambule.tex
 
 [Frame10_View0,0]
-TopLine=138
+TopLine=141
 Cursor=6247
 
 [Frame11]

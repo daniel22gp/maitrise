@@ -106,55 +106,59 @@ with open('lexicon.dict','w') as f: # we are going to write all of this block in
 
 \subsection{Extraction des 6\,393 membres des classes verbales pour enrichir le dictionnaire lexicon.dict} \label{extracmembre}
 
-Maintenant que nous avons extrait les classes verbales et l'architecture hiérarhique de VerbNet, il ne nous reste qu'à peupler le dictionnaire des membres qui appartienent à chaque classe verbale. De cette manière notre \emph{lexicon} pourra effectivement couvrir une grande partie de l'anglais. À cette étape, on procède aussi à la désambiguïsation des verbes puisque VerbNet détient souvent plusieurs acceptions pour un même vocable.
+Maintenant que nous avons extrait les classes verbales et l'architecture hiérarhique de VerbNet, il ne nous reste qu'à peupler le dictionnaire des lexèmes encodés dans la section \texttt{<MEMBERS>} de chaque \texttt{<VN(SUB)CLASS>}. De cette manière notre \emph{lexicon} pourra effectivement couvrir une grande partie de l'anglais grâce au travail de \cite{SchulerVerbnetBroadcoverageComprehensive2005}. On procèdera aussi à la désambiguïsation des verbes en récupérant les indices que nous a donné VerbNet. Ils ont distingué les différentes acceptions d'un même vocable en leurs assignant des classes verbales différents en fonction des différents sens qu'une forme peut avoir.
 
 \subsubsection{Bloc 1}
-objectif: Pour chaque classe verbale, on va chercher les membres leur étant associés.
+L'objectif de la fonction \emph{treemember} est de récupérer les membres lexicaux assignés à chaque classe et sous-classe verbale encodés dans VerbNet.
 
-description courte: On défini la fonction treemember comme étant une fonction qui prend un arbre xml comme argument. On va analyser cet arbre pour chercher les informations qu'on veut. D'abord on veut le ID (la classe verbale comme telle) puis pour chaque balise MEMBER qu'on trouve en parcourant l'arbre XML on va regarder pour les membres dans cette balise. On va répéter la chose pour les sous-classes. Puis on exige que la fonction retourne en output une liste de tuples classe verbale et membres associés.
+Cette fonction récupère d'abord l'identifiant de la classe verbale puis les membres lui correspondant et répète l'opération pour les sous-classes, puis elle retourne une liste de paire identifiant et membre.
 
 \subsubsection{Bloc 2}
-objectif:
+L'objectif de ce bloc est d'extraire uniquement les membres car nous ferons quelques opérations sur ceux-ci avant de les implémenter au dictionnaire verbal. D'abord, nous avons extrait toutes les duplicats qui représentent les acceptions n'étant pas encore identifiées. Puis, nous avons identifié les acceptions d'un même vocable en leur assignant un numéro (ex: grill\_1, grill\_2, grill\_3). Finalement, nous avons identifié les vocables à une acception et nous les avons fusionné à la liste qui contenait tous les lexèmes désambiguïsés, ce qui nous donne l'entièreté des membres de VerbNet.
 description courte:
 
 \subsubsection{Bloc 3}
-objectif:
-description courte:
+L'objectif de ce bloc est de créer le dictionnaire \emph{member} qui sera éventuellement intégré au \emph{lexicon} comme étant la section \texttt{VERBNET MEMBERS}.
+
+Pour ce faire, nous créons un fichier s'appelant \emph{members} où on y ajoute les membres classé en ordre alphabétique et numérique. Puis nous assignons à chaque acception la classe verbale qui lui correspond.
 
 \begin{lstlisting}[language=Python, caption = Ajout des membres de VerbNet, label=scriptmember]
 #Bloc 1
 def treemember(t):
-    ID = t.get('ID')
-    members = [m.get('name') for m in t.findall('MEMBERS/MEMBER')]
+    ID = t.get('ID') # get ID of the VNCLASS
+    members = [m.get('name') for m in t.findall('MEMBERS/MEMBER')] # get members 
     subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
     submembers = []
-    if len(subclasses) > 0:
+    if len(subclasses) > 0: # if there's a subclass
         for sub in subclasses:
-            submembers = submembers + treemember(sub)
+            submembers = submembers + treemember(sub) # get ID of the subclass and members
     return [(ID, members )] + submembers
 
 # Bloc 2
 files = [f for f in os.listdir('verbnet') if f[-4:] == '.xml']
 members = dict(sum([treemember(ET.parse('verbnet/'+file).getroot())
- for file in files], [])) # ici on a classe: [membre,...]
-values = sum(list(members.values()), []) # ici c'est uniquement les membres
- sans infos sur leur classe
+ for file in files], [])) # VNCLASS : [member1, member2, etc. ]
+
+values = sum(list(members.values()), []) # just the members of all classes
+
 dups = {m:[ID for ID in members.keys() if m in members[ID]]
- for m in values if values.count(m)>1}
-unique_member = {m:ID for ID in members.keys()
- for m in values if m in members[ID] and values.count(m)==1}
+ for m in values if values.count(m)>1}  # get all the duplicates
+
 lexemes = {d[0]+'_'+str(n+1):d[1][n]
- for d in dups.items() for n in range(len(d[1]))}
-# Ici, je fusionne les dictionnaires ensemble
-unified_dict = {**unique_member, **lexemes}
+ for d in dups.items() for n in range(len(d[1]))} # enumerate all duplicates: eat_1, eat_2
+
+unique_member = {m:ID for ID in members.keys() 
+ for m in values if m in members[ID] and values.count(m)==1} #  get all unique lexemes
+
+unified_dict = {**unique_member, **lexemes} # fuse both dict. to get all members disambiguated
 
 #Bloc 3
-with open('members.dict','w') as f:
+with open('members.dict','w') as f: # open a file
     f.write('members {\n')
-    for key in sorted(unified_dict.keys()):
-        f.write(key)
+    for key in sorted(unified_dict.keys()): # sort the members
+        f.write(key) # write the members
         f.write(': '),
-        f.write('"'+str(unified_dict[key])+'"')
+        f.write('"'+str(unified_dict[key])+'"') # point members towards ID of VNCLASS
         f.write('\n')
     f.write('\n}\n')
 
@@ -171,31 +175,37 @@ Lors de la création du lexicon, nous nous sommes assurés que tous les identifi
 Finalement, ceux qui ont été retenus seront encodés comme suit.
 
 \subsubsection{Bloc 1}
-Objectif:
-Explication:
+L'objectif des fonctions \emph{roman} et \emph{gp} est d'assigner les étiquettes des actants syntaxiques selon leur emplacement dans les dans la section \emph{GPs IDENTIFICATION}. 
+
+Par exemple, dans \lstinline|NP_agent_V_NP: [subj, dir_N]|, puisque \texttt{dir\_N} est à la deuxième position, les propriétés qu'il renferme seront encodés dans un actant syntaxique \texttt{II}. En effet, si on se fie au produit final, nous avons dans le dictionnaire de patron de régime: \lstinline|NP_agent_V_NP { I={rel=subjective dpos=N} II={rel=dir_objective dpos=N} }|. 
+
+Cette fonction nous permet aussi de créer, par exemple, deux fois le même actant syntaxique pour un même \ac{GP}, afin de tenir compte du fait que certains actants sélectionnent deux prépositions: \lstinline| III={rel=oblique dpos=N prep=from}| et \lstinline|III={rel=oblique dpos=N prep="out of"}|. 
+
+Ce qui est illustré par le \ac{GP} \lstinline|NP_asset_V_NP_PP_from_out_of| qui se décrit par les items suivants: \lstinline|[subj, dir_N, [from_N, out_of_N]]|
+
 \subsubsection{Bloc 2}
-Objectif:
-Explication:
+
+Le deuxième bloc contient d'abord les propriétés syntaxiques des actants et la description, à l'aide de celles-ci, des \acp{GP} en soi. Ainsi, nous avons décrit toutes les propriétés syntaxiques possibles des actants répertoriés dans VerbNet et nous en avons fait des raccourcis pour faciliter l'encodage des \acp{GP} individuels. Cela nous a permi de spécifier l'élément dans la description du régime au lieu de toutes les propriétés à chaque fois. Cela a grandement augmenté l'efficacité de l'encodage des 274 patrons de régime. Par exemple, \lstinline|NP_agent_V_NP| est décrit par les éléments: [subj, dir\_N] qui sont respectivement encodé en fonction de leur relation syntaxique de surface. Donc le système vérifie que contient l'item \texttt{subj} puis récupère les valeurs à l'intérieur \lstinline|subj = 'rel=subjective dpos=N'| et il répète l'opération jusqu'à ce que toutes les propriétés syntaxiques soient récupérées.
+
 \subsubsection{Bloc 3}
-Objectif:
-Explication:
+Finalement, nous créons le dictionnaire \emph{gpcon} en imposant la fonction \emph{gp} à toutes les descriptions de \acp{GP} pour que l'actant syntaxique (I,II,etc.) soit réalisé et pour qu'il renferme les propriétés syntaxiques qui lui sont associées.
 
 \begin{lstlisting}[language=Python, caption = code pour gpcon.dict]
 #Bloc 1
 def roman(n):
-    return ['I', 'II', 'III', 'IV', 'V', 'VI'][n-1]
+    return ['I', 'II', 'III', 'IV', 'V', 'VI'][n-1] # transforms arabic numbers in roman numbers
 def gp(name, real_actant):
     s = name + ' {\n'
     i=0
     for actant in real_actant:
-        i = i+1
-        if type(actant) == list:
+        i = i+1                   # starts to enumerate at 1
+        if type(actant) == list:  # if not actant but list, apply function to actants in list
             for y in actant:
                 s = s + "   " + roman(i) + "={" + y + "}\n"
         else:
-            s = s + "   " + roman(i) + "={" + actant + "}\n"
+            s = s + "   " + roman(i) + "={" + actant + "}\n" # apply function to actant
     s = s + '}\n'
-    return s
+    return s 
 		
 #Bloc 2
 #SUBJECTIVE
@@ -215,10 +225,8 @@ on_V = 'rel=oblique dpos=V prep=on'
 to_obl_N = 'rel=oblique dpos=N prep=to' 
 for_obl_N = 'rel=oblique dpos=N prep=for'
 against_N = 'rel=oblique dpos=N prep=against'
-...
-# LOC
-locin = 'rel=oblique dpos=N prep=Locin'
 
+#GPs IDENTIFICATION
 descriptions = {
 'NP_agent_V': [subj],
 'NP_agent_V_NP': [subj, dir_N],
@@ -226,10 +234,10 @@ descriptions = {
 ...
 #Bloc 3
 # CREATION DU GPCON
-with open('gpcon.dict','w') as f:
+with open('gpcon.dict','w') as f: 
     f.write('gpcon {\n')
-    for d in descriptions.keys():
-        f.write(gp(d, descriptions[d]))
+    for d in descriptions.keys():       # for each gps descriptions,
+        f.write(gp(d, descriptions[d])) # write them with the correct syntactic label
     f.write('}')
 \end{lstlisting}
 

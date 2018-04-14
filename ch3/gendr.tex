@@ -4,13 +4,13 @@
 
 GenDR (pour \emph{Generic Deep Realizer}) est un réalisateur profond multilingue \citep{lareau18} qui a hérité de l'architecture de MARQUIS \citep{WannerMARQUISGENERATIONUSERTAILORED2010} que nous avons présenté à la section \ref{sectionmarquis}. Comme son prédécesseur, GenDR est un transducteur de graphes basé sur la \ac{TST}, et ses dictionnaires et grammaires fonctionnent essentiellement de la même manière.
 
-GenDR se démarque par sa capacité à traiter les collocations via les fonctions lexicales qui sont des concepts développés par la \ac{TST} pour expliquer comment se forment les collocations. Brièvement, la \ac{TST} a développé un mécanisme pour traiter les expressions comme \form{peur bleue} ou \form{grippe carabinée}. Dans ces deux cas, les modificateurs \sem{bleu} et \sem{carabiné} sont des intensificateurs qu'on représente par la fonction lexicale \lexfn{Magn}. Les fonctions lexicales modélisent les relations sémantico-lexicales entre ce type d'expression. Cela permet de rendre compte du fait que le lexème \lex{bleu} peut seulement agir en tant qu'intensificateur du lexème \lex{peur}. Dans d'autre cas, ça ne fait que signifier \sem{de couleur bleu}. Ainsi, c'est le lexème \lex{peur} qui sélectionne le lexème \lex{bleu} pour décrire un niveau d'intensité. On le représenterait ainsi \lexfn{Magn}(\lex{peur})=\lex{bleu}. Ce genre d'information doit être encodé dans un dictionnaire car ce ne sont pas des comportements prédictibles. Toutefois, il faut trouver un moyen d'encoder ce genre de phénomène dans un réalisateur si on souhaite générer du texte le plus naturel possible. Nous ne nous attarderons pas sur cette composante de GenDR puisqu'elle a été décrite dans un mémoire autre par \cite{LambreyImplementationcollocationspour2017}. \draft{Ce paragrahe est encore brouillon, mais est-ce que je devrais décrire les FL plus ou moins en détails ?}
+GenDR se démarque par sa capacité à traiter les collocations via les fonctions lexicales qui sont des concepts développés par la \ac{TST} pour expliquer comment se forment les collocations. Brièvement, la \ac{TST} a développé un mécanisme pour traiter les expressions comme \form{peur bleue} ou \form{grippe carabinée}. Dans ces deux cas, les modificateurs \sem{bleu} et \sem{carabiné} sont des intensificateurs qu'on représente par la fonction lexicale \lexfn{Magn}. Les fonctions lexicales modélisent les relations sémantico-lexicales entre ce type d'expression. Cela permet de rendre compte du fait que le lexème \lex{bleu} peut seulement agir en tant qu'intensificateur du lexème \lex{peur}. Dans d'autre cas, ça ne fait que signifier \sem{de couleur bleu}. Ainsi, c'est le lexème \lex{peur} qui sélectionne le lexème \lex{bleu} pour décrire un niveau d'intensité. On le représenterait ainsi \lexfn{Magn}(\lex{peur})=\lex{bleu}. Ce genre d'information doit être encodé dans un dictionnaire car ce ne sont pas des comportements prédictibles. Toutefois, il faut trouver un moyen d'encoder ce genre de phénomène dans un réalisateur si on souhaite générer du texte le plus naturel possible. Nous ne nous attarderons pas sur cette composante de GenDR puisqu'elle a été décrite dans un mémoire autre par \cite{LambreyImplementationcollocationspour2017}. \draft{Refaire ce paragraphe en décrivant les FL et collocation comme lareau18}
 
 Bref, GenDR offre une couverture beaucoup plus large que MARQUIS des fonctions lexicales en intégrant le module GÉCO \citep{lambrey15,LambreyImplementationcollocationspour2017}, qui implémente plus de 26\,000 fonctions lexicales (contre une trentaine pour MARQUIS). Toutefois, il est important de préciser que GenDR réalise en sortie des structures syntaxiques de surface. Le réalisateur se concentre principalement sur l'interface sémantique-syntaxe car c'est là qu'on peut modéliser les phénomènes langagiers profonds comme la lexicalisation et l'arborisation. Pour compléter la réalisation jusqu'au texte, il faut utiliser un réalisateur de surface qui prendrait les outputs de GenDR en entrée. D'ailleurs, \cite{MilleSharedTaskProposal2017a} ont mis au point un réalisateur de surface qui prend en input des arbres de dépendances universaux.
 
 GenDR reprend les composantes de base de MARQUIS qui gèrent les phénomènes langagiers élémentaires comme la  lexicalisation simple, la complémentation et la modification. Ces règles forment le noyau du système et sont généralement partagées par l'ensemble des langues. Puis, les phénomènes grammaticaux spécifiques comme l'insertion des auxilaires ou des déterminants sont régis par des règles propres à chaque langue.
 
-Le module sémantique contient 21 règles dont la plupart sont héritées de MARQUIS et 132 règles de lexicalisation \citep{LambreyImplementationcollocationspour2017}. Le module syntaxique contient nettement moins de règles. \draft{20 règles dont 12 partagées entre les langues.}\FL{pour les petits nombres, écris-les en français (vingt, douze)} Nous construirons donc la nouvelle version de GenDR à partir des bases de \cite{LambreyImplementationcollocationspour2017, lareau18,dubinskaite17}. Toutefois, nous avons retiré les fonctions lexicales de notre système car nous n'en avions pas besoin pour la nature de notre projet d'implémentation d'un dictionnaire verbal. Cela nous aurait demandé beaucoup de temps et ça n'aurai contribué en rien à la réussite (ou non) de l'implémentation.
+Le module sémantique contient 21 règles dont la plupart sont héritées de MARQUIS et 132 règles de lexicalisation \citep{LambreyImplementationcollocationspour2017}. Le module syntaxique en contient nettement moins: vingt règles dont douze partagées entre les langues. Nous construirons donc la nouvelle version de GenDR à partir des bases de \cite{LambreyImplementationcollocationspour2017, lareau18,dubinskaite17}. Toutefois, nous avons retiré les fonctions lexicales de notre système car nous n'en avions pas besoin pour la nature de notre projet d'implémentation d'un dictionnaire verbal. Cela nous aurait demandé beaucoup de temps et ça n'aurai contribué en rien à la réussite (ou non) de l'implémentation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- A R C H I T E C T U R E  GENDR  ---
@@ -36,12 +36,11 @@ Tel que nous l'avons mentionné, GenDR se sert de dictionnaire pour décrire le 
 
 Nous commencerons par décrire \textbf{le dictionnaire sémantique}, car c'est le premier dictionnaire qui est utilisé par le système lors du passage de la \ac{RSem} à la \ac{RSyntP}. Cette ressource décrit les lexicalisations possibles pour un sémantème donné. La figure~\ref{fig:semanticon} présente une entrée typique dans ce dictionnaire, qu'on appelle \emph{semanticon}, dans GenDR.Ce dictionnaire est une source importante de paraphrasage puisqu'une unité sémantique peut habituellement se réaliser de plus d'une manière. Par exemple, en anglais, le sens \sem{owe} peut se réaliser par les lexèmes \lex{owe} (un verbe) et \lex{debt} (un nom).
 
-\begin{minipage}{\linewidth}
+
 \begin{lstlisting}[language=Xml, caption=Échantillon du \emph{semanticon}, label=fig:semanticon]
 owe { lex = owe
       lex = debt }
 \end{lstlisting}
-\end{minipage}
 
 \textbf{Le dictionnaire lexical}, appelé \emph{lexicon}, contient de l'information détaillée à propos des lexies d'une langue donnée. Les entrées contiennent: \ac{DPOS}, \ac{SPOS}, la diathèse et les \acp{GP}(ces concepts sont clarifiés à la fin du chapitre, section~\ref{sec:gp}). \draft{expliquer rapidement la diathèse et le gp, puis pointer vers la dernière section pour plus d'information} D'ailleurs, comme nous le verrons dans la figure~\ref{fig:lexicon}, ces informations lexicales ne sont pas toujours explicitées dans l'entrée lexicale, dans ces cas, elles sont héritées de la classe par défaut qui leur est attribuée.
 
@@ -49,7 +48,6 @@ Si on se fie à la figure~\ref{fig:lexicon}, le verbe \lex{owe} ne semble conten
 
 Ce mécanisme facilite grandement l'encodage des unités lexicales car on n'a qu'à associer chaque nouvelle entrée lexicale à la classe par défaut qui lui appartient. D'ailleurs ce concept ne se limite pas qu'aux verbes, chaque partie du discours possède une classe par défaut. Dans le cas où l'information n'est pas celle qui est encodée par défaut, on peut spécifier la modification dans l'entrée lexicale directement. On voit un exemple à la figure~\ref{fig:lexicon}. On remarque que la lexie \lex{owe} permet deux \ac{DPOS} différentes en tant que contraintes du deuxième actant syntaxique qu'elle contrôle: \lstinline!gp={II={dpos=Num}}! et \lstinline!gp={II={dpos=N}}!. Elle permet ainsi la sélection d'un actant de type nominal ou numéral.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Xml, caption = Échantillon du \emph{lexicon}, label=fig:lexicon]
 predicate {
   gp = { 1 = I
@@ -94,7 +92,7 @@ owe : verb_dit {
   gp = { II = { dpos=N } }
 }
 \end{lstlisting}
-\end{minipage}
+
 
 Les dictionnaires anglais et français de GenDR contiennent les 1\,500 lexèmes les plus courants de chaque langue. Les dictionnaires lituanien \citep{dubinskaite17} et persan contiennent respectivement $\sim$180 et $\sim$60 lexèmes, assez pour tester le système.
 
@@ -127,7 +125,6 @@ Maitenant que nous avons fait un survol des dictionnaires et des modules de gram
 
 L'input du réalisateur GenDR est un graphe sémantique \citep{mel2012semantics}\FL{\bf **** check ta biblio **** Daniel: le caractère spécial du c fonctionne pas avec Zotero, j'vais tenter de trouver une solution} où les prédicats sont liés à leurs arguments par des relations numérotées qui indiquent la position logique de l'argument. La figure~\ref{fig:debt} montre comment on construit un graphe sémantique dans MATE.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption = Input sémantique, label=fig:debt]
 structure Sem debt {
   S {
@@ -138,7 +135,6 @@ structure Sem debt {
     3-> bank {number=SG definiteness=DEF}}
     main-> owe } }
 \end{lstlisting}
-\end{minipage}
 
 Toutefois, MATE offre aussi une version graphique pour encoder et visualiser le graphe sémantique (voir la figure~\ref{fig:graphesem}).
 
@@ -304,8 +300,6 @@ L'étape précédente a généré des arcs contraints en partance de la racine. 
 	\caption{Application des règles de lexicalisation}
 	\label{fig:lexstand2}
 \end{figure}
-
-\FL{trim les figures}
 
 \subsection{Arborisation de surface}
 

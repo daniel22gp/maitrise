@@ -12,8 +12,7 @@ Les premiers systèmes de \ac{GAT} ont été conçus pour générer des rapports
 
 Les textes générés automatiquement n'ont pas besoin d'être lus par une grande quantité de gens pour être considérés utiles. On considèrera qu'ils remplissent leur fonction dès qu'ils comblent un besoin. De plus, les produits des systèmes de \ac{GAT} peuvent aussi être \emph{taillés sur mesure}. Effectivement, quelques systèmes permettent de personnaliser le texte en fonction des besoins de l'utilisateur \citep{1948c0b7a8ca42679cad977bb2cdddc2}. Le système MARQUIS a implémenté cette composante, permettant à des utilisateurs de recevoir des bulletins sur la qualité de l'air en fonction de leur santé ou de leur profession \citep{WannerMARQUISGENERATIONUSERTAILORED2010}.
 
-D'autres chercheurs ont même poussé la \ac{GAT} vers le domaine journalistique qu'on dénomme le robo-journalisme. Effectivement, il semble y avoir de la demande pour cette branche de la \ac{GAT} puisqu'il y existe un grand nombre d'évènements qui ne sont pas couverts, mais qui pourraient interessés des gens. Par exemple, une match sportif, dans une ligne peu connue, pourrait ainsi bénéficier d'une certaine couverture journalistique. Les systèmes de robo-journalisme prennent en entrée des données brutes concernant un match donné et produisent un article qui en décrit le déroulement \citep{W17-3513}.
-\FL{lisser}
+D'autres chercheurs ont même poussé la \ac{GAT} vers le domaine journalistique qu'on dénomme le robo-journalisme. Concrètement, ces systèmes prennent en entrée des données brutes concernant un match donné et produisent un article qui en décrit le déroulement \citep{W17-3513}. En effet, il semble y avoir de la demande pour cette branche de la \ac{GAT} puisqu'il y existe un grand nombre d'évènements qui ne sont pas couverts, mais qui pourraient interessés des gens. Par exemple, une match sportif dans une ligne peu connue pourrait ainsi bénéficier d'une certaine couverture journalistique. 
 
 Il est aussi important de préciser que la \ac{GAT} présente une valeur linguistique théorique. En effet, les linguistes s'en servent pour tester leurs théories et vérifier si leur modélisation de la langue contient des erreurs \citep{DanlosPresentationmodelegeneration1983}. 
 
@@ -23,7 +22,7 @@ Il est aussi important de préciser que la \ac{GAT} présente une valeur linguis
 
 \section{Pipeline classique GAT} \label{ppc}
 
-Selon \cite{ReiterBuildingNaturalLanguage2000}, un système de \ac{GAT} se découpe en six modules, que nous illustrons à la figure~\ref{fig:Pipeline}. De façon plus grossière, on peut séparer ces modules en deux étapes majeures: le \emph{quoi-dire} et le \emph{comment-le-dire} \citep{DanlosPresentationmodelegeneration1983}, qui correspondent aux \emph{early process} et \emph{late process} de \cite{gatt18}. Le \emph{quoi-dire} fait référence à la sélection du contenu, la structuration du document et l'agrégation. Puis le \emph{comment-le-dire} fait référence à toutes les étapes subséquentes:\FL{mets jamais d'espace avant un signe de ponctuation, laisse \LaTeX\ gérer ça} la lexicalisation, la génération d'expressions référentielles et la réalisation linguistique. Pour mieux comprendre ce processus séquentiel, nous décrirons en quelques lignes chacune des étapes qui le compose.
+Selon \cite{ReiterBuildingNaturalLanguage2000}, un système de \ac{GAT} se découpe en six modules, que nous illustrons à la figure~\ref{fig:Pipeline}. De façon plus grossière, on peut séparer ces modules en deux étapes majeures: le \emph{quoi-dire} et le \emph{comment-le-dire} \citep{DanlosPresentationmodelegeneration1983}, qui correspondent aux \emph{early process} et \emph{late process} de \cite{gatt18}. Le \emph{quoi-dire} fait référence à la sélection du contenu, la structuration du document et l'agrégation. Puis le \emph{comment-le-dire} fait référence à toutes les étapes subséquentes: la lexicalisation, la génération d'expressions référentielles et la réalisation linguistique. Pour mieux comprendre ce processus séquentiel, nous décrirons en quelques lignes chacune des étapes qui le compose.
 
 \begin{figure}[htb] % utilise toujours [htb]
 	\centering
@@ -31,8 +30,6 @@ Selon \cite{ReiterBuildingNaturalLanguage2000}, un système de \ac{GAT} se déco
 	\caption{Pipeline classique}
 	\label{fig:Pipeline}
 \end{figure}
-
-\FL{ça vaut pas la peine de faire des sous-sections numérotées pour des petits paragraphes comme ça. commence chaque paragraphe par le nom de l'étape que tu décris, comme ça on voit clairement la structure. tu peux même les mettre en gras pour faciliter la lecture}
 
 Un système de \ac{GAT} doit départir les informations qui seront dans le texte de celles qui n'y seront pas. Il s'agit donc de déterminer ce qui est pertinent dans les données brutes. Par exemple, si on souhaite générer le compte rendu d'un match de soccer, on ne voudrait probablement pas mentionner toutes les passes et toutes les fautes commises durant ce match, même si ces informations figurent dans les données de base. La \textbf{sélection du contenu} dépend aussi beaucoup du public à qui le texte est adressé et de l'objectif du texte: on ne présente pas la même information à un expert et à un novice. Dans le cas d'un compte rendu sportif, par exemple, on pourrait vouloir adapter le texte en fonction de l'équipe préférée du lecteur.
 
@@ -158,14 +155,14 @@ RealPro a deux grammaires qui permettent successivement de passer d'une représe
 
 La figure~\ref{lst:realpro} illustre un arbre de dépendance (l'input) représentant la phrase \form{March had some rain days}. Ce qu'on peut retirer de cet exemple que \lex{have1} est la racine de l'arbre et que \lex{march} puis \lex{day} en sont les actants. Ceux-ci appartiennent à des classes nominales et on peut voir qu'il y a des contraintes sur certains n\oe{}uds. La lexie \lex{day} demande que le module morphologique fléchisse la lexie au pluriel. Cet exemple provient de \cite{ReiterBuildingNaturalLanguage2000}.
 
-\begin{minipage}{\linewidth}
+
 \begin{lstlisting}[language=Xml, caption=Input, label=lst:realpro]
 HAVE1 [tense:past]
 (I March [class:proper-noun]
 II day [class:common-noun numberpl]
 (ATTR rainy [class:adjective]))
 \end{lstlisting}
-\end{minipage}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- R É A L I S A T E U R    P R O F O N D  ---
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -183,7 +180,6 @@ La grammaire de ce système est implémentée à la manière d'un réseau orient
 
 Les informations comprises dans les inputs de ce système sont d'ordre sémantique et syntaxique. Ainsi, l'input de KPML est un\ac{SPL}, ce qui est une une matrice d'attributs et de valeurs. La figure~\ref{kpml} représente à quoi ressemble un \ac{SPL} et elle est issue de \cite{ReiterBuildingNaturalLanguage2000}. Elle représente la phrase \form{March had some rainy days}.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Xml, caption=SPL: input de KPML, label=kpml]
 (S1 \ generalized-possession
   :tense past 
@@ -197,7 +193,6 @@ Les informations comprises dans les inputs de ce système sont d'ordre sémantiq
 						 :property ascription
 						 (A1 \ quality :lex rainy)))
 \end{lstlisting}
-\end{minipage}
 
 \subsubsection{SURGE}
 SURGE, qui signifie \emph{Systemic Unification Realisation Grammar of English}, est une grammaire de l'anglais \citep{Elhadad98surge:a} qui est écrite en \ac{FUF}: une grammaire basée sur \acf{FUG} \citep{KayFunctionalUnificationGrammar1984}. \ac{FUF} est un langage de programmation créé pour construire des grammaires d'unification informatisées.
@@ -208,7 +203,6 @@ Dans ce système, la grammaire est aussi décrite en termes de \ac{FD}. Ainsi, r
 
 Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage2000}: \form{March had some rainy days}.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Xml, caption=FD: input de Surge, label=surge]
 ((cat clause)
  (proc ((type possessive)))
@@ -218,7 +212,6 @@ Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage200
 											(describer ((lex rainy)))
 											(selective yes) (number plural)))))
 \end{lstlisting}
-\end{minipage}
 
 \subsubsection{MARQUIS}\label{sectionmarquis}
 Comme RealPro, MARQUIS est basé sur la \ac{TST}, mais contrairement aux autres systèmes présentés ici, MARQUIS n'est pas qu'un réalisateur profond. Il s'agit d'un système de \ac{GAT} complet qui effectue toutes les étapes du processus de génération automatique de texte (voir \ref{ppc}). Cependant, nous ne nous intéresserons ici qu'à son module de réalisation profonde.\citep{Lareau2007TowardsAG} Pour plus d'informations concernant le pipeline complet de MARQUIS, voir \citep{WannerMARQUISGENERATIONUSERTAILORED2010}. 

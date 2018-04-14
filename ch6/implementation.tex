@@ -11,7 +11,6 @@ Au chapitre \ref{chapgendr}, nous avions démontré comment le lexique s'encodai
 \subsection{\emph{Lexicon 2.0}}
 Comme nous l'avons vu à la section \ref{sec:dictio}, GenDR listait et décrivait les comportements syntaxiques des verbes directement dans le \emph{lexicon}, qu'on a maintenant séparé en diverses sections. \textbf{La première section \texttt{DEFAULT ATTRIBUTES}} décrit les classes générales de GenDR. Elle décrit les propriétés génériques des verbes, noms,  adjectifs, etc. et les classes que nous avons vu précédemment qui nous ont permis de lexicaliser \sem{\$500} et \sem{Paul} (nom-propre, montant, lieu, ...). Anciennement, on explicitait les comportements syntaxiques des types de verbes (intransitif, transitif direct/indirect et ditransitif), mais désormais, la classe par défaut \texttt{VERB} ne contient que les informations partagées par tous les verbes du dictionnaire: sa partie du discours profonde et celle de surface. Les autres catégories contiennent de l'information sur la partie du discours, des traits morpho-syntaxiques et l'identifiant du patron de régime par défaut à utiliser pour l'arborisation. Effectivement, seuls les verbes n'ont pas d'identifiant de \acp{GP} dans cette section, puisqu'il s'agit de la classe de lexèmes la moins prédictible. C'est exactement pourquoi nous les avons directement importé d'une autre ressource. Les identifiants des \acp{GP} sont encodés dans un section à part qui liste toutes les classes verbales extraites de VerbNet.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption = Attributs par défaut des classes génériques, label=classedef]
 /*
 =======================================================
@@ -42,11 +41,9 @@ noun {
   gp = { id=NP dia=1}
 }
 \end{lstlisting}
-\end{minipage}
 
 \textbf{La prochaine section \texttt{VERBNET MEMBERS}} contient les membres des classes verbales de VerbNet que nous avions extrait avec le script Python (voir figure~\ref{scriptmember}). Sont listés tous les 6\,393 verbes ainsi que la classe de VerbNet (ou la sous-classe) qui leur correspond. Dans cette section, on distingue les différentes acceptions d'un vocable en fonction de la classe qui lui est associée. Par exemple, on peut désambiguïser la forme \lex{order} en fonction des classes \texttt{order\_1 : "get-13.5.1"} (au sens de \sem{passer une commande}) et \texttt{order\_2 : "order-60-1"} (signifiant \sem{donner un ordre}).
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption = Partie membre du lexicon]
 /*
  =======================================================
@@ -67,13 +64,11 @@ ornament_1 : "butter-9.9"
 ornament_2 : "fill-9.8"
 ornament_3 : "illustrate-25.3"
 \end{lstlisting}
-\end{minipage}
 
 \textbf{La troisième section est \texttt{VERBNET CLASSES}}. Cette section liste les types de \ac{GP} que sélectionnent chaque classe verbale. Cela se traduit en insérant un trait \texttt{gp} qui contient deux propriétés: la diathèse (\texttt{dia}) et l'identifiant du patron de régime (\texttt{id}). La diathèse d'un \ac{GP} s'encode ainsi différement dans le nouveau \emph{lexicon}. Anciennement, la diathèse était explicité dans l'entrée prédicate qui donnait une diathèse triviale à tous les prédicats du dictionnaire, mais s'il y avait un changement de diathèse, on pouvait la spécifier dans le \ac{GP} en question. Maintenant, on spécifie pour chaque \ac{GP} la diathèse qui lui est associée de cette manière: dia=132 (ça implique I:1 II:3 III:2). Autrement dit, l'ordre de présentation des actants sémantiques (les chiffres arabes 1,3,2) correspondra à la réalisation syntaxique de ces actants (I,II,III). Puis finalement, chaque classe verbale est dotée d'un trait \texttt{id} qui permettra au système de récupérer les propriétés syntaxiques de cet identifiant dans le dictionnaire de patron de régime.
 
 \draft{refaire ce paragraphe}Le mécanisme d'héritage des traits que nous avions exposé à la section \ref{sec:dictio} est réutilisé autrement. Les membres pointe vers les classes ou les sous-classes de VerbNet. Les sous-classes pointent vers les classes qui les domine, et les classes non-dominées pointe vers la classe 'verb' qui contient les attributs par défaut des verbes. Ce mécanisme d'héritage devrait pouvoir transmettre les paires de patrons de régime et de diathèse ainsi que les attributs par défaut. Si le système fonctionne bien, le mécanisme d'héritage nous permet de désaturer le dictionnaire et de calquer l'architecture de VerbNet telle qu'elle l'est.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption = Partie: Classes de VerbNet]
 /*
 =======================================================
@@ -99,11 +94,9 @@ ornament_3 : "illustrate-25.3"
 		     dia=132 } // Ellen told Helen about the situation.
 }
 \end{lstlisting}
-\end{minipage}
 
 Puis le lexicon contient la section \texttt{NON-VERBAL LEXICAL ENTRIES} qui regroupe \textbf{le reste du lexique}: noms, adjectifs, adverbes, prépositions, déterminants, etc. Ces entrées proviennent de la version originale de GenDR \citep{lareau18} et elles ont été enrichies par le lexèmes qu'on retrouvait dans les phrases exemples de VerbNet. Bref, les entrées de cette section pointent vers leurs classes (\texttt{NOUNS},\texttt{PREPOSITIONS},...) par défaut qui leur permettent d'hériter des attributs suivants: \ac{DPOS}, \ac{SPOS}, \texttt{id}, et \texttt{dia}.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption = Partie: Unités lexicales non-verbales]
 /*
 =======================================================
@@ -115,7 +108,6 @@ acorn : noun
 acquaitance  : noun
 across : preposition
 \end{lstlisting}
-\end{minipage}
 
 \subsection{Le dictionnaire de \ac{GP}: \emph{gpcon}}
 Le \emph{gpcon} est un dictionnaire de patrons de régime qui contient 278 identifiants uniques de \ac{GP} et leurs propriétés syntaxiques. Nous avons décidé de mettre les patrons de régime à part pour dans le but d'alléger le \emph{lexicon}, car dans le cas contraire, on aurait dû expliciter les comportements syntaxiques de chaque \ac{GP} de toutes les classes verbales, ce qui revient à expliciter les comportements syntaxiques de 980 classes. Considérant que plusieurs classes réutilisent les mêmes patrons de régime, il semblait logique d'en faire un dictionnaire à part et de faciliter la gestion de l'information.
@@ -124,7 +116,6 @@ Une entrée typique dans ce dictionnaire contient: l'identifiant du \ac{GP} et s
 
 Cependant, ce dictionnaire n'est pas sans failles. Nous nous sommes rendu compte qu'il existait des doublons de \ac{GP} en termes de contenu. La cause de ces doublons provient du fait que VerbNet utilise les rôles thématiques pour identifier les actants syntaxiques ce qui permet à deux \ac{GP} d'avoir des propriétés identiques mais des identifiants différents. Par exemple, les \texttt{id} \texttt{NP\_agent\_V} et \texttt{NP\_attribute\_V} ont des noms différents, mais couvrent la même construction. Comme nous n'utilisons pas cette terminologie pour identifier les actants syntaxiques,  ce scénario a tendance à se répèter. Nous n'avons pas remédier à la situation puisque nous voulions tester d'abord tester l'implémentation de VerbNet dans GenDR. Ensuite, si le tout fonctionne bien, GenDR gagnerait effectivement à filtrer le contenu du \emph{gpcon}.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption = Gpcon]
 NP_agent_V {
    I={rel=subjective dpos=N}
@@ -143,7 +134,6 @@ NP_attribute_V {
    I={rel=subjective dpos=N}
 }
 \end{lstlisting}
-\end{minipage}
 
 \section{Implémentations des nouvelles règles grammaticales}
 Nous avons ainsi terminé de décrire les dictionnaires. Il ne nous reste qu'à revisiter la grammaire de GenDR pour compléter le survol des modifications du réalisateur. Pour ce faire, nous présenterons un exemple de réalisation décrivant l'intéraction changée entre les dictionnaires et les nouvelles règles de grammaire. 
@@ -151,7 +141,6 @@ Nous avons ainsi terminé de décrire les dictionnaires. Il ne nous reste qu'à 
 \subsection{Input}
 Pour faire l'exemple, nous avons choisi de réaliser la phrase: \form{The teacher talked about history to the students.}. La figure~\ref{fig:history} représente la structure sémantique que nous avons donné en input au système. Le n\oe{}ud dominant est \sem{talk\_3} et il lie 3 actants sémantiques: 1: \sem{teacher}, 2: \sem{student} et 3: \sem{history}. Chaque n\oe{}ud se fait attribuer les traits grammaticaux nécessaires (le temps, le nombre et la définitude) à la réalisation de la phrase visée.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption=Input textuel, label=fig:history]
 structure Sem S {
   S:1{
@@ -168,7 +157,6 @@ structure Sem S {
   }
 }
 \end{lstlisting}
-\end{minipage}
 
 Cet input permet de générer neuf structures syntaxiques profondes qui correspondent aux phrases suivantes:
 \begin{easylist}[enumerate]
@@ -185,7 +173,6 @@ Cet input permet de générer neuf structures syntaxiques profondes qui correspo
 
 Bien que nous n'en visions qu'une en particulier, neuf réalisations ont découlé de l'application de cet input. Cela est une conséquence directe de l'utilisation de lexème \lex{talk\_3}. Effectivement, puisque celui-ci est issue de la classe \texttt{"talk-37.5"}, il donc hérite des neuf patrons de régime qui y sont encodés. À la lecture de l'output, toutes ces constructions ont pu être réalisées parce que les \acp{GP} satisfaisaient les contraintes demandées par l'input. Nous le verrons lorsque nous parlerons des règles actancielles, mais GenDR peut générer la phrase 1 même si la diathèse de \texttt{id=NP\_V} ne sélectionne qu'un actant plutôt que 123. Ainsi, un gp peut contenir moins d'actants sémantiques que ceux qui sont demandés, en autant qu'il soit présent dans l'input. Autrement dit, les actants 123 en input peuvent sélectionner les gps de types 1, 21, 12, 132, 123, 13, 31, etc. \draft{reformuler la fin}
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption=Classe \texttt{talk-37.5}]
 "talk-37.5": verb {
   gp = { id=NP_V
@@ -208,9 +195,7 @@ Bien que nous n'en visions qu'une en particulier, neuf réalisations ont découl
 	       dia=13 } // Susan talked about the problems of modern America.
 }
 \end{lstlisting}
-\end{minipage}
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption=Propriétés syntaxiques de \texttt{NP\_V\_PP\_about\_topic\_PP\_to\_co\_agent} , label=gpexemple]
 
 NP_V_PP_about_topic_PP_to_co_agent {
@@ -219,7 +204,6 @@ NP_V_PP_about_topic_PP_to_co_agent {
    III={rel=indir_objective dpos=N prep=to}
 	}
 \end{lstlisting}
-\end{minipage}
 
 \subsection{Création et lexicalisation de la racine}
 D'abord, comme dans l'ancienne version de GenDR, la première règle appliquée est \emph{root\_standard}. Cela crée la racine de l'arbre qui correspondra au \ac{ND} identifié dans l'input. S'ensuit de la lexicalisation de la racine par \lex{talk\_3} qui satisfait les contraintes du n\oe{}ud et qui est la correspondance de \sem{talk\_3}. La figure~\ref{deroulement0} expose l'application de la première règle.

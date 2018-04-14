@@ -2,8 +2,6 @@
 
 \chapter{VerbNet et les dictionnaires de verbes}
 
-\draft{on part à la recherche d'un dictionnaire de régimes de verbes. on en a passé plusieurs en revue, on a choisi VerbNet.}
-
 Avant de parler de VerbNet, nous expliquerons pourquoi nous l'avons choisi parmi tant de candidats possibles. Dans la section qui suit, nous ferons un bref survol de ces candidats. Nous avons regardé les composantes de: WordNet, FrameNet, XTAG, LCS, Comlex, Valex,et le VDE. Parmi ces dictionnaires, il y en a qui traitent d'autres parties du discours tandis que certains ne traitent que des verbes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,7 +40,7 @@ Chaque n\oe{}ud des LCS ont trois attributs: type, primitif sémantique et champ
 Une décomposition sémantique des verbes en termes de LCS explique leur propriété syntaxiques. Tel que \cite{verb-classes.levin.1993} l'avait perçu, les propriétés sémantiques des verbes influencent leur comportement syntaxique. À l'intérieur de ce cadre théorique, on pense que les verbes avec des LCS similaires partagent aussi des comportement syntaxiques comme des alternances de diathèses. La base de données LCS de \cite{DorrUseLexicalSemantics1992,AyanGeneratingParsingLexicon2002a} s'inspire fortement des travaux de Levin. Les verbes y sont rassemblés en classes verbales par le partage d'une structure LCS commune. Ainsi, tous les membres d'une classe partagent la même structure sémantique \citep{TraumGenerationLexicalConceptual2000}.
 
 Bien que cette ressource ressemble beaucoup à VerbNet en termes d'architecture (héritage de \cite{verb-classes.levin.1993}), elle possède des lacunes. \ac{LCS} ne couvre pas aussi large que VerbNet en termes de cadres syntaxiques et la base de données ne désambiguïse pas les différents sens des verbes.
-\FL{et comment s'appelle le dictionnaire de Dorr et al? Daniel: LCS database}
+
 
 \section{Comlex}\label{comlex}
 
@@ -118,9 +116,8 @@ Dans VerbNet, les verbes sont regroupés en classes, chacune contenant un ensemb
 
 Les auteurs de VerbNet se sont fortement inspirés de Acquilex Lexical Knowledge Base \citep{CopestakeACQUILEXLKBrepresentation1992} pour l'organisation du lexique. Acquilex ordonnait l'information lexicale en hiérarchie. VerbNet a donc aussi implémenté un aspect hiérarchique à son dictionnaire en créant jusqu'à trois niveaux de profondeur pour organiser les classes verbales. 
 
-Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe mère. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe mère montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \footnote{\url{https://verbs.colorado.edu/verb-index/VerbNet_Guidelines.pdf}, 15 février 2018}.\FL{tu peux citer ça comme un rapport technique. les auteurs sont pas spécifiés, donc mets le nom du labo comme auteur}
+Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe mère. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe mère montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \footcite{CLEARVerbNetAnnotationGuidelines}.\FL{tu peux citer ça comme un rapport technique. les auteurs sont pas spécifiés, donc mets le nom du labo comme auteur. Daniel: Comme ça ? (j'ai pas trouvé de date)}
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption = Hiérarchie, label=hierarch]
 <VNCLASS ID="spray-9.7">
     <SUBCLASSES>
@@ -132,7 +129,6 @@ Cela a entraîné la création des sous-classes qui héritent de tout le contenu
     </SUBCLASSES>
 </VNCLASS>
 \end{lstlisting}
-\end{minipage}
 
 \texttt{Spray-9.7} est le nom de la classe qui englobe toutes les autres ici. À l'intérieur de celle-ci, on spécifie tous les membres appartenant à cette classe, les rôles thématiques, les cadres syntaxiques et les prédicats sémantiques. Puis \texttt{Spray-9.7-1} représente un sous-ensemble de \texttt{Spray-9.7} dont les comportements syntaxiques lui sont propres .  Puis, \texttt{Spray-9.7-1-1} est une sous-classe d'une sous-classe, et ainsi de suite. Elle héritera des traits de sa classe mère ainsi que de la classe qui domine sa classe mère. Finalement \texttt{Spray-9.7-2} est la classe sœur de \texttt{Spray-9.7-1} donc, elle hérite aussi des traits de \texttt{Spray-9.7} mais ne partage pas les particularités de \texttt{Spray-9.7-1}.
 
@@ -154,40 +150,23 @@ Tel que démontré dans l'exemple \ref{hierarch}, les classes et sous-classes so
 \subsubsection{Membres}
 Traditionnellement, les entrées lexicales dans un dictionnaire représentent un seul et unique verbe. En ce qui concerne VerbNet, les entrées sont des classes verbales regroupant  plusieurs verbes à la fois. Cela permet à VerbNet de couvrir largement l'anglais sans recourir à un grand nombre d'entrées. Pour garnir leur section \emph{Members}, VerbNet a puisé dans les travaux de Levin \cite{verb-classes.levin.1993} et dans la base de données LCS \citep{AyanGeneratingParsingLexicon2002a}, et a mené sa propre enquête pour déterminer à quelle classe verbale un verbe appartient.
 
-Concrètement, cette information est encodée directement dans les entrées lexicales de VerbNet en XML. La figure~\ref{membre} montre à quoi ressemble la section \emph{Members}. On voit que \lex{deal, lend, loan, pass, peddle} et \lex{refund} sont les membres de la classe \texttt{give-13.1}.\FL{c'est quoi les numéros \texttt{deal\%2:40:01}?}\FL{trop de lignes vides sur cette page, pcq le listing se coupe pas. est-ce que tu peux les rendre flottants?}
+Concrètement, cette information est encodée directement dans les entrées lexicales de VerbNet en XML. La figure~\ref{membre} montre à quoi ressemble la section \emph{Members}. On voit que \lex{deal, lend, loan, pass, peddle} et \lex{refund} sont les membres de la classe \texttt{give-13.1}.\FL{c'est quoi les numéros \texttt{deal\%2:40:01} Daniel:Ce sont les ID des synsets de WordNet, mais c'est pas particulièrement pertinent et ça prend de la place pour rien, je vais les retirer}
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=XML, caption = Les membres d'une classe, label=membre]
+
+\begin{lstlisting}[language=XML, caption = Les membres d'une classe, label=membre][float]
 <VNCLASS ID="give-13.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
     <MEMBERS>
-        <MEMBER name="deal" 
-				wn="deal%2:40:01 deal%2:40:02 deal%2:40:07 deal%2:40:06" 
-				grouping="deal.04"/>
-        <MEMBER name="lend" 
-				wn="lend%2:40:00" 
-				grouping="lend.02"/>
-        <MEMBER name="loan" 
-				wn="loan%2:40:00" 
-				grouping=""/>
-        <MEMBER name="pass" 
-				wn="pass%2:40:00 pass%2:40:01 pass%2:40:13 pass%2:38:04" 
-				grouping="pass.04"/>
-        <MEMBER name="peddle" 
-				wn="peddle%2:40:00" 
-				grouping="peddle.01"/>
-        <MEMBER name="refund" 
-				wn="refund%2:40:00" 
-				grouping="refund.01"/>
-        <MEMBER name="render" 
-				wn="render%2:40:02 render%2:40:01 render%2:40:00 render%2:40:03" 
-				grouping="render.02"/>
-        <!--removed "trade" from class because doesn't take "to-PP"-->
-        <!--removed "volunteer "from class because doesn't fit dative or-->
-        <!--PP recipient PP frames-->
+        <MEMBER name="deal"/>
+        <MEMBER name="lend"/>
+        <MEMBER name="loan"/>
+        <MEMBER name="pass"/>
+        <MEMBER name="peddle"/>
+        <MEMBER name="refund"/>
+        <MEMBER name="render"/>
     </MEMBERS>
 \end{lstlisting}
-\end{minipage}
+
 
 \subsubsection{Rôles thématiques}
 \cite{SchulerVerbnetBroadcoverageComprehensive2005} critiquait les autres dictionnaires verbaux qui n'offraient pas de contenu sémantique, c'est pourquoi VerbNet inclut 23 rôles thématiques pour identifier les arguments sélectionnés par les verbes dans chaque cadre syntaxique. Il existe d'autres approches, dont la numérotation des arguments (\emph{Arg-1 Verbe Arg-2}) comme dans PropBank \citep{PalmerPropositionBankAnnotated2005}, mais Schuler considérait que l'usage des rôles thématiques permettait d'ajouter de l'information sémantique. En effet, l'assignation d'un rôle thématique à un argument nous donne de l'information quant au type d'argument nécessaire pour un verbe donné.
@@ -195,9 +174,8 @@ Concrètement, cette information est encodée directement dans les entrées lexi
 À la base, les rôles thématiques ont été mis de l'avant par \draft{\cite{fillmore:case}} et \cite{Jackendoff1972-JACSII-2}. Toutefois, VerbNet a créé sa propre banque de rôles thématiques. Beaucoup sont inspirés de Fillmore et Jackendoff, mais de nouveaux ont été créés. Les auteurs de VerbNet précisent donc que le nombre de rôles thématiques et la qualité des rôles thématiques est assez arbitraire. Il n'y a pas de justification théorique, mais c'est ce qu'ils ont convenu d'utiliser. Schuler voulait des rôles pouvant identifier tous les arguments possibles contenus dans les patrons de régime, donc, des rôles assez génériques pour se prêter à divers cadres. Ces rôles ne sont pas spécifiques à des classes en particulier.
 Les rôles thématiques utilisés dans VerbNet sont: \texttt{actor, agent, asset, attribute, beneficiary, cause, location, destination, source, experiencer, extent, goal, instrument, material, product, patient, predicate, recipient, stimulus, theme, time, topic}.
 
-Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>|\FL{change le style de lstinline pour qu'il soit en texttt} de chaque classe verbale. Une section \lstinline|<THEMROLES>| peut revenir dans une sous-classe lorsque celle-ci possède des rôles thématiques plus spécifiques à cette sous-classe de verbes. Ils sont ensuite mappés sur les arguments dans les cadres syntaxiques et sémantiques (qu'on peut voir aux figure~\ref{cadresynt} et \ref{cadresem}).
+Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>| de chaque classe verbale. Une section \lstinline|<THEMROLES>| peut revenir dans une sous-classe lorsque celle-ci possède des rôles thématiques plus spécifiques à cette sous-classe de verbes. Ils sont ensuite mappés sur les arguments dans les cadres syntaxiques et sémantiques (qu'on peut voir aux figure~\ref{cadresynt} et \ref{cadresem}).
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=XML, caption = Les rôles thématiques] % Majuscule aux captions
     <THEMROLES>
         <THEMROLE type="Agent">
@@ -217,14 +195,12 @@ Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>|\FL{
         </THEMROLE>
     </THEMROLES>
 \end{lstlisting}
-\end{minipage}
 
 Pour les besoins de notre travail, nous n'utilisons pas les rôles thématiques, mais nous voulions souligner qu'ils étaient importants pour les créateurs de VerbNet. Comme nous utilisons la théorie Sens-Texte dans notre réalisateur profond, les rôles thématiques n'ont pas leur place dans les patrons de régime que nous avons extraits de VerbNet. Pour plus de détails concernant la non-utilisation des rôles thématiques selon la TST, voir \cite[pp.~227--234]{mel2012semantics}.
 
 \subsubsection{Restrictions sélectionnelles}
 Les restrictions sélectionnelles s'ajoutent aux rôles thématiques. Ces traits imposent des contraintes aux arguments possibles pour un patron de régime donné. Dans l'exemple fourni ici, on remarquera que l'\texttt{Agent} doit être soit un être animé, soit une organisation.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Xml, caption = Les restrictions sélectionnelles]
     <THEMROLES>
         <THEMROLE type="Agent">
@@ -234,7 +210,6 @@ Les restrictions sélectionnelles s'ajoutent aux rôles thématiques. Ces traits
             </SELRESTRS>
         </THEMROLE>
 \end{lstlisting}
-\end{minipage}
 
 \subsubsection{Cadres syntaxiques}
 
@@ -244,7 +219,6 @@ Nous avons choisi VerbNet car nous voulions un dictionnaire qui énumère exhaus
 
 Le cadre syntaxique \ref{cadresynt} ci-dessous provient de la classe verbale \texttt{give-13.1}. Ce cadre permet la réalisation de surface \form{They lent a bicycle to me}. \lex{they} est le \lstinline{<NP value=``Agent''>}, \lex{lend} est le \lstinline{<VERB/>}, \lex{bicycle} est le \lstinline{<NP value=``Theme''>} et \lex{me} est le \lstinline{<NP value=``Recipient''>}.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Xml, caption = cadres syntaxiques, label=cadresynt]
 
             <SYNTAX>
@@ -263,12 +237,10 @@ Le cadre syntaxique \ref{cadresynt} ci-dessous provient de la classe verbale \te
                 </NP>
             </SYNTAX>
 \end{lstlisting}
-\end{minipage}
 
 \subsubsection{Prédicats sémantiques}
 Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageComprehensive2005} remarque que les dictionnaires servant de comparaison sont généralement critiqués pour leur manque d'information sémantique. C'est pourquoi elle a inséré un segment sémantique à VerbNet: \lstinline{<SEMANTICS>}. Cette section est constituée d'une suite de prédicats sémantiques. Chaque prédicat est décrit par une liste d'arguments qui sont, à leur tour, décrits par deux caractéristiques: \emph{type} et \emph{value}. Le cadre sémantique ci-dessous complémente le cadre syntaxique que nous venons d'exposer en \ref{cadresynt}. Il décrit à la fois \form{They lent a bicycle to me} et \form{They lent me a bicycle}.
 
-\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Xml, caption=Les prédicats sémantiques, label=cadresem]
 <SEMANTICS>
                 <PRED value="has_possession">
@@ -299,7 +271,6 @@ Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageCom
                 </PRED>
             </SEMANTICS>
 \end{lstlisting}
-\end{minipage}
 
 Cela conclut notre présentation des composantes de VerbNet. Pour plus d'informations, voir la thèse de \cite{SchulerVerbnetBroadcoverageComprehensive2005} et le guide d'annotation\footnote{\url{https://verbs.colorado.edu/verb-index/VerbNet_Guidelines.pdf}, 15-02-18}.
 

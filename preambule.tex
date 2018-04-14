@@ -99,6 +99,8 @@
 % Feedback
 \newcommand{\FL}[1]{\draft{\textbf{(FL)}}\footnote{\draft{#1}}}
 
+\usepackage{float}
+
 %lstlistings for writing code in Python and XML
 \usepackage{listings}
 \usepackage{color}
@@ -119,6 +121,12 @@
 \definecolor{gray}{rgb}{0.4,0.4,0.4}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.6}
 \definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+}
+
 \lstdefinelanguage{Python}{
 xleftmargin=1em,
 framextopmargin=2em,
@@ -164,6 +172,7 @@ emphstyle={\color{self}\slshape},
  framexbottommargin=2em,
  showspaces=false,
  showtabs=false,
+ float,
  showstringspaces=false,
  frame=l,
  tabsize=4,

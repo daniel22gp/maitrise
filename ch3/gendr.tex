@@ -4,11 +4,10 @@
 
 GenDR (pour \emph{Generic Deep Realizer}) est un réalisateur profond multilingue \citep{lareau18} qui a hérité de l'architecture de MARQUIS \citep{WannerMARQUISGENERATIONUSERTAILORED2010}, que nous avons présenté à la section \ref{sectionmarquis}. Comme son prédécesseur, GenDR est un transducteur de graphes basé sur la \ac{TST}, et ses dictionnaires et grammaires fonctionnent essentiellement de la même manière.
 
-GenDR se démarque par sa capacité à traiter les collocations via les fonctions lexicales, un outil formel développé dans le cadre de la \ac{TST} pour traiter les expressions comme \form{peur bleue} ou \form{grippe carabinée}. Dans ces deux cas, les modificateurs \sem{bleu} et \sem{carabiné} sont des intensificateurs qu'on représente par la fonction lexicale \lexfn{Magn}. Les fonctions lexicales modélisent des relations sémantico-lexicales récurrentes de ce type. Cela permet de rendre compte du fait que le lexème \lex{bleu} peut seulement agir en tant qu'intensificateur du lexème \lex{peur}. Dans d'autre cas, ça ne fait que signifier \sem{de couleur bleu}. Ainsi, c'est le lexème \lex{peur} qui sélectionne le lexème \lex{bleu} pour décrire un niveau d'intensité. On le représenterait ainsi \lexfn{Magn}(\lex{peur})=\lex{bleu}. Ce genre d'information doit être encodé dans un dictionnaire car ce ne sont pas des comportements prévisibles. Toutefois, il faut trouver un moyen d'encoder ce genre de phénomène dans un réalisateur si on souhaite générer du texte le plus naturel possible. Nous ne nous attarderons pas sur cette composante de GenDR puisqu'elle a été décrite dans un mémoire autre par \cite{LambreyImplementationcollocationspour2017}. \draft{Refaire ce paragraphe en décrivant les FL et collocation comme lareau18}\FL{pourquoi ouvrir ton chapitre avec les FL alors que tu t'en sers pas? tu mets le lecteur sur une fausse piste}
-GenDR offre une couverture beaucoup plus large que MARQUIS des fonctions lexicales en intégrant le module GÉCO \citep{lambrey15,LambreyImplementationcollocationspour2017}, qui implémente plus de 26\,000 fonctions lexicales (contre une trentaine pour MARQUIS). 
+%GenDR se démarque par sa capacité à traiter les collocations via les fonctions lexicales, un outil formel développé dans le cadre de la \ac{TST} pour traiter les expressions comme \form{peur bleue} ou \form{grippe carabinée}. Dans ces deux cas, les modificateurs \sem{bleu} et \sem{carabiné} sont des intensificateurs qu'on représente par la fonction lexicale \lexfn{Magn}. Les fonctions lexicales modélisent des relations sémantico-lexicales récurrentes de ce type. Cela permet de rendre compte du fait que le lexème \lex{bleu} peut seulement agir en tant qu'intensificateur du lexème \lex{peur}. Dans d'autre cas, ça ne fait que signifier \sem{de couleur bleu}. Ainsi, c'est le lexème \lex{peur} qui sélectionne le lexème \lex{bleu} pour décrire un niveau d'intensité. On le représenterait ainsi \lexfn{Magn}(\lex{peur})=\lex{bleu}. Ce genre d'information doit être encodé dans un dictionnaire car ce ne sont pas des comportements prévisibles. Toutefois, il faut trouver un moyen d'encoder ce genre de phénomène dans un réalisateur si on souhaite générer du texte le plus naturel possible. Nous ne nous attarderons pas sur cette composante de GenDR puisqu'elle a été décrite dans un mémoire autre par \cite{LambreyImplementationcollocationspour2017}. \draft{Refaire ce paragraphe en décrivant les FL et collocation comme lareau18}\FL{pourquoi ouvrir ton chapitre avec les FL alors que tu t'en sers pas? tu mets le lecteur sur une fausse piste}GenDR offre une couverture beaucoup plus large que MARQUIS des fonctions lexicales en intégrant le module GÉCO \citep{lambrey15,LambreyImplementationcollocationspour2017}, qui implémente plus de 26\,000 fonctions lexicales (contre une trentaine pour MARQUIS). 
 
 \FL{c'est un autre paragraphe parce que ça a pas rapport avec les FL}
-GenDR réalise en sortie des structures syntaxiques de surface. Le réalisateur se concentre principalement sur l'interface sémantique-syntaxe car c'est là qu'on peut modéliser les phénomènes langagiers profonds comme la lexicalisation et l'arborisation. Pour compléter la réalisation jusqu'au texte, il faut utiliser un réalisateur de surface qui prendrait les outputs de GenDR en entrée. D'ailleurs, \cite{MilleSharedTaskProposal2017a} ont mis au point un réalisateur de surface qui prend en input des arbres de dépendances universaux.\FL{non, ils proposent un shared task, c'est pas pareil!}
+GenDR réalise en sortie des structures syntaxiques de surface. Le réalisateur se concentre principalement sur l'interface sémantique-syntaxe car c'est là qu'on peut modéliser les phénomènes langagiers profonds comme la lexicalisation et l'arborisation. Pour compléter la réalisation jusqu'au texte, il faut utiliser un réalisateur de surface qui prendrait les outputs de GenDR en entrée. D'ailleurs, \cite{MilleSharedTaskProposal2017a} proposent un \emph{shared task} qui consisterait à mettre un point un réalisateur de surface capable de prendre en entrée des arbres de dépendances universaux, car le premier shared task de ce type focusait sur l'anglais uniquement, tandis que là ce serait pour un shared task de réalisateur de surface multilingue. \draft{relire}
 
 GenDR reprend les composantes de base de MARQUIS qui gèrent les phénomènes langagiers élémentaires comme la  lexicalisation simple, la complémentation et la modification. Ces règles forment le noyau du système et sont généralement partagées par l'ensemble des langues. Puis, les phénomènes grammaticaux spécifiques comme l'insertion des auxilaires ou des déterminants sont régis par des règles propres à chaque langue.
 
@@ -19,15 +18,13 @@ Le module sémantique contient 21 règles dont la plupart sont héritées de MAR
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Architecture de GenDR}
 
-Les composantes lexicales et grammaticales de GenDR sont prises en charge par le transducteur de graphes MATE \citep{BohnetDevelopmentEnvironmentMTTbased2000a,BOHNET10,bohnet07}.\FL{bohnet07 est plutôt sur MARQUIS que sur MATE, tu peux l'ajouter dans la section MARQUIS} Donc pour mieux comprendre comment la réalisation se déroule dans GenDR, il faut d'abord présenter comment fonctionne MATE.
+Les composantes lexicales et grammaticales de GenDR sont prises en charge par le transducteur de graphes MATE \citep{BohnetDevelopmentEnvironmentMTTbased2000a,BOHNET10}. Donc pour mieux comprendre comment la réalisation se déroule dans GenDR, il faut d'abord présenter comment fonctionne MATE.
 
-\subsection{MATE}
 MATE a été conçu à la base pour implémenter la \ac{TST} dans le but de générer du texte. Tous les niveaux de représentation (voir section \ref{sec:semsynt}) de la \ac{TST} correspondent à des graphes et la correspondance entre ceux-ci est assurée par des ensembles de règles modélisant chaque interface. En plus d'opérer la transduction de graphes, MATE a aussi été conçu pour tester, développer et maintenir une grammaire computationnelle, ce qui nous permet de réaliser du texte tout en testant les fondements théoriques.
 
 MATE comprend un éditeur de dictionnaires, un éditeur de graphes et un éditeur de grammaires. Les dictionnaires encodent les unités sémantiques et lexicales, alors que Les grammaires sont composées de règles modélisant le passage d'un niveau de représentation à l'autre. L'éditeur de graphes permet de construire et de visualiser ceux-ci. Le système comprend aussi un module d'inspection permettant de voir le déroulement de l'application des règles. Cet outil s'avère très utile au développement d'une grammaire, puisqu'il permet de cerner à quel endroit la réalisation a coincé. Pour plus de détails, voir \cite{BohnetOpensourcegraph2010,LambreyImplementationcollocationspour2017,LambreyGECOv1User}.
 
-Nous allons maintenant montrer brièvement à quoi ressemblent les éditeurs dictionnairiques, grammaticaux et graphiques.\FL{c'est pas vraiment les éditeurs que tu présentes, mais le contenu: dict, règles et structures}
-\FL{tu présentes MATE ou GenDR? y a un flou. l'organisation que tu présentes ici, c'est plûtôt l'architecture de GenDR (=MARQUIS)}
+Nous allons maintenant montrer brièvement à quoi ressemblent les dictionnaires, règles de grammaires et structures de GenDR dont l'architecture est hérité de Marquis.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ---------D I C T I O N N A I R E  ------------------
@@ -39,8 +36,8 @@ GenDR utilise trois dictionnaires pour décrire le vocabulaire qui sera utilisé
 
 \textbf{Le dictionnaire sémantique}, qu'on appelle \emph{semanticon}, est utilisé par le système lors du passage de la \ac{RSem} à la \ac{RSyntP}. Cette ressource décrit les lexicalisations possibles pour un sémantème donné. La figure~\ref{fig:semanticon} présente une entrée typique dans ce dictionnaire dans GenDR. Ce dictionnaire est une source importante de paraphrasage puisqu'une unité sémantique peut souvent se réaliser de plus d'une manière. Par exemple, en anglais, le sens \sem{owe} peut se réaliser par les lexèmes \lex{owe} (un verbe) et \lex{debt} (un nom).
 
-\FL{pas language=XML}
-\begin{lstlisting}[language=Xml, caption=Échantillon du \emph{semanticon}, label=fig:semanticon]
+
+\begin{lstlisting}[language=mate, caption=Échantillon du \emph{semanticon}, label=fig:semanticon]
 owe { lex = owe
       lex = debt }
 \end{lstlisting}
@@ -51,7 +48,7 @@ Ces informations lexicales ne sont pas toujours explicitées dans l'entrée lexi
 
 Le mécanisme d'héritage facilite grandement l'encodage des unités lexicales car on n'a qu'à associer chaque nouvelle entrée lexicale à la classe à laquelle il appartient. Chaque partie du discours possède une classe et potentiellement des sous-classes. On peut aussi bloquer l'héritage de traits pour une entrée lexicale donnée. On voit un exemple à la figure~\ref{fig:lexicon}: la lexie \lex{owe} permet deux \ac{DPOS} différentes en tant que contraintes du deuxième actant syntaxique qu'elle contrôle: \lstinline!gp={II={dpos=Num}}! et \lstinline!gp={II={dpos=N}}!. Elle permet ainsi la sélection d'un actant de type nominal ou numéral.
 
-\begin{lstlisting}[language=Xml, caption = Échantillon du \emph{lexicon}, label=fig:lexicon]
+\begin{lstlisting}[language=mate, caption = Échantillon du \emph{lexicon}, label=fig:lexicon]
 predicate {
   gp = { 1 = I
          2 = II
@@ -130,7 +127,7 @@ Maitenant que nous avons fait un survol des dictionnaires et des modules de gram
 
 L'input du réalisateur GenDR est un graphe sémantique \citep{mel2012semantics}\FL{\bf **** check ta biblio **** Daniel: le caractère spécial du c fonctionne pas avec Zotero, j'vais tenter de trouver une solution}\FL{c'est pas le v le priblème, mais les auteurs de cet ouvrage: Beck et Polguère sont pas auteurs!} où les prédicats sont liés à leurs arguments par des relations numérotées qui indiquent la position logique de l'argument. La figure~\ref{fig:debt} montre comment on construit un graphe sémantique dans MATE.
 
-\begin{lstlisting}[language=XML, caption = Graphe sémantique en mode textuel, label=fig:debt]
+\begin{lstlisting}[language=mate, caption = Graphe sémantique en mode textuel, label=fig:debt]
 structure Sem debt {
   S {
     owe {

@@ -23,6 +23,9 @@ Finalement, nous avons pu procéder à l'évaluation comme telle, sur les 50 str
 \section{Rappel}
 
 Rappelons que pour chaque structure sémantique, le système peut produire plusieurs structures syntaxiques. Nous avons mesuré le rappel selon la formule suivante:\FL{comment tu définis "structure attendue"?}
+
+\draft{je considère comme une structure attendue tous les gps applicables avec l'input qu'on a. Par exemple, si dans l'input je mets : Paul talked to Sara. Je m'attendrais à Paul talked with sara, Paul talked to Sara et Paul talked, puisque leur gp le permet. Ensuite, je regarde combien d'entre elles ont été générées.}
+
 \[\text{Rappel} = \frac{\text{nombre de structures attendues générées}}{\text{nombre de structures attendues}}\]
 
 Cette évaluation nous donne un rappel de 62\,\%,\FL{donne les chiffres bruts aussi, avec le nombre moyen de structures générées par input} ce qui se situe au-dessous de nos attentes, mais ce score s'explique par plusieurs facteurs, dont la majorité peuvent être corrigés en peu de temps.\FL{la question qui vient tout de suite: alors pourquoi pas avoir fait ces corrections?} \draft{entre le 20 et le 30 je vais refaire les calculs avec les corrections pour voir qu'est-ce que ça aurait donné dans le cas échéant.}
@@ -37,7 +40,7 @@ Certains problèmes de rappel provenaient d'incompatibilités d'analyse linguist
 
 Nous avons relevé d'autres cas similaires d'incompatibilité sémantique, comme la phrase \form{Gloria slept the sleep of the dead}. Dans cet exemple, \form{the sleep of the dead} est une expression figée qui représente un degré d'intensité (ce qui correspond sémantiquement à la fonction \lexfn{Magn}, cf.~chapitre~\ref{chapgendr}). Ainsi, cette expression est plutôt un prédicat qui modifie \sem{sleep}. Toutefois, VerbNet considère que \lex{sleep} sélectionne l'objet direct \emph{of the dead} et qu'il y a deux actants sémantiques.
 
-\subsection{Mécanisme d'héritage defectueux} \FL {c'est bizarre d'avoir une seule sous-section dans une section, zap}
+\textbf{Mécanisme d'héritage defectueux}
 
 Le dernier problème qui a le plus affecté le rappel est la défectuosité du mécanisme d'héritage des \acp{GP} présenté au chapitre~\ref{ch:implementation}. Concrètement, c'est ce qui permet en théorie qu'une sous-classe, comme \texttt{throw-17.1-1}, hérite des \acp{GP} encodés dans sa classe mère, \texttt{throw-17.1}, sans qu'on ait à les expliciter dans la sous-classe même. Ce mécanisme d'héritage est utilisé abondamment dans GenDR. D'ailleurs, dans l'ancienne version de ce système, les classes verbales étaient aussi organisées de façon hiérarchiques (mais de façon plus rudimentaires). Cependant, il semblerait que ce mécanisme ne fonctionne pas parfaitement.
 
@@ -51,20 +54,6 @@ Pour pallier à ce mécanisme d'héritage defectueux, nous pourrions directement
 Pour visualiser l'héritage dont nous parlons, voici une courte mise en situation qui nous a été révélée lors de l'évaluation. La phrase \form{Steved tossed the ball from the corner to the garden.} n'a pas pu être rappelée puisque nous n'avions pas le régime nécessaire dans l'entrée du verbe. Le lexème{toss\_3} pointait vers la classe \texttt{throw-17.1-1} qui est une classe dominée \texttt{throw-17.1} qui est elle-même dominée par \texttt{throw-17.1}. Cependant le \ac{GP} dont nous avions besoin pour réaliser la phrase souhaitée se trouvait dans le régime de la classe mère \texttt{throw-17.1}. GenDR n'a donc pas été capable de récupérer les traits nécessaires à l'arborisation, mais il a été capable de réaliser la racine de l'arbre grâce à l'héritage du trait \texttt{dpos=V} encodé dans la classe par défaut \texttt{verb}.
 
 }\FL{shit. c'est prace que tu redéfinis le trait "gp" dans chaque sous-classe, ce qui bloque l'héritage. c'est un défaut de design majeur qu'on aurait dû voir beaucoup plus tôt}
-
-\draft{À faire, tableau qui donne:
-\begin{itemize}
-	\item rappel et précision en DSynt vs en SSynt
-	\item pour chaque, donner le nombre d'erreurs dues à
-	\begin{enumerate}
-	 	\item VerbNet
-	 	\item Incompatibilités TST/VN
-	 	\item Erreurs dans GenDR: gpcon, lexicon, classes, règles
-	 \end{enumerate}
-\end{itemize}
-
-Recalcule ensuite préc/rappel en ne tenant compte que des erreurs de GenDR, et c'est ça tes vrais scores finaux
-}
 
 \section{Précision}
 
@@ -82,5 +71,46 @@ Parmi les informations lexicales extraites de VerbNet, certaines nous ont aussi 
 Un autre type d'erreur de précision provient de l'arborisation dans GenDR. Tel que nous l'avons vu plus tôt, la règle \emph{actant\_gp\_selection} crée autant de racines qu'il y a de \acp{GP} selon la classe verbale utilisée. Ensuite, GenDR sélectionne les \acp{GP} et vérifie que la diathèse de ceux-ci en permet l'application. Il peut alors sélectionner un \ac{GP} fautif,\FL{fautif dans quel sens?} mais qui respecte quand même la diathèse et les contraintes de l'input. C'est ainsi que le système a pu générer la phrase \ungr\form{The street gushed}, puisque rien dans notre système nous empêchait de réaliser cette forme fautive.\FL{à partir de quel input? je comprends pas bien le problème} Pour régler ce problème, il faudrait revoir l'application\FL{conception?} de nos règles.
 
 \section{Synthèse}
+
+\textbf{Rappel:}
+GenDR : mécanisme d’héritage defectueux
+Erreurs humaines: oubli préposition dans gpcon, erreur d’encodage de diathèse, mauvaise désambiguisation d’un verbe,
+VerbNet: pas l’entrée de DO, mauvais gp de believe, manque un gp à go\_2
+Incompatibalilité sem-synt: PLays and ballets alternate
+
+\textbf{Précision:}
+GEnDR: quand il ne sait pas quoi faire avec une entrée : le considère entre autre comme un nom, et ça donne n’importe quoi, préposiitons bizarres,  utilisation du gp de GO qui donne des trucs fautifs (généralement le cas quand y’a deux verbes), mauvaise désambiguisation de VerbNet qui mène à des emplois de gps fautifs
+VerbNet : mauvaise désambiguisation, 
+
+
+\begin{center}
+ \begin{tabular}{||c c c c c c||} 
+ \hline
+  & DSynt & SSynt & GenDR & Interface Sem-Synt & VerbNet \\ [0.5ex] 
+ \hline\hline 
+ \hline
+ Rappel & 72\%  (73/125) & 62\% (90/125) & 10 & 2 & 5 \\
+ \hline
+ Précision & 80\% (79/99) & 66\% (66/100) & 8 & 2 & 4 \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center}
+
+Juste les erreurs de GenDR : 
+\textbf{précision}: Les prépositions donnent des phrases bizarres. 
+\textbf{rappel}: Le mécanisme d'héritage est defectueux.
+
+\begin{center}
+ \begin{tabular}{||c c c c||} 
+ \hline
+  & DSynt & SSynt & GenDR \\ [0.5ex] 
+ \hline\hline 
+ \hline
+ Rappel & 80\%(103/128) & 77\% (99/128) & 9 \\
+ \hline
+ Précision & 91\% (78/86) & 88\% (76/86) & 6 \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center}
 
 \draft{tableau, discussion des résultats}

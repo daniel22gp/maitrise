@@ -16,7 +16,7 @@ La première section, \textbf{\texttt{DEFAULT ATTRIBUTES}}, décrit les classes 
 
 \FL{language=XML dans listings: pas bon}
 
-\begin{lstlisting}[language=XML, caption = Extrait du \emph{lexicon}: attributs par défaut des classes génériques, label=classedef]
+\begin{lstlisting}[language=mate, caption = Extrait du \emph{lexicon}: attributs par défaut des classes génériques, label=classedef]
 /*
 =======================================================
                   DEFAULT ATTRIBUTES
@@ -50,7 +50,7 @@ noun {
 
 La deuxième section, \textbf{\texttt{VERBNET MEMBERS}}, contient les membres des classes verbales de VerbNet que nous avons extraits (voir figure~\ref{scriptmember}). Sont ici listés tous les 6\,393 verbes, ainsi que la classe de VerbNet (ou la sous-classe) à laquelle ils appartiennent. Dans cette section, on distingue les différentes acceptions d'un vocable en fonction de la classe qui lui est associée. Par exemple, pour la forme \form{order}, on a \texttt{order\_1 : "get-13.5.1"} (\sem{passer une commande}) et \texttt{order\_2 : "order-60-1"} (\sem{donner un ordre}).
 
-\begin{lstlisting}[language=XML, caption = Extrait du \emph{lexicon}: unités lexicales verbales]
+\begin{lstlisting}[language=mate, caption = Extrait du \emph{lexicon}: unités lexicales verbales]
 /*
  =======================================================
                       VERBNET MEMBERS
@@ -77,7 +77,7 @@ La troisième section, \textbf{\texttt{VERBNET CLASSES}}, liste les types de \ac
 \draft{refaire ce paragraphe}
 Le mécanisme d'héritage des traits que nous avons exposé à la section \ref{sec:dictio} est réutilisé autrement. Les membres pointe vers les classes ou les sous-classes de VerbNet. Les sous-classes pointent vers les classes qui les domine, et les classes non-dominées pointe vers la classe 'verb' qui contient les attributs par défaut des verbes. Ce mécanisme d'héritage devrait pouvoir transmettre les paires de patrons de régime et de diathèse ainsi que les attributs par défaut. Si le système fonctionne bien, le mécanisme d'héritage nous permet de désaturer le dictionnaire et de calquer l'architecture de VerbNet telle qu'elle l'est.
 
-\begin{lstlisting}[language=XML, caption = Extrait du \emph{lexicon}: classes de VerbNet]
+\begin{lstlisting}[language=mate, caption = Extrait du \emph{lexicon}: classes de VerbNet]
 /*
 =======================================================
                    VERBNET CLASSES
@@ -106,7 +106,7 @@ Le mécanisme d'héritage des traits que nous avons exposé à la section \ref{s
 
 Puis le \emph{lexicon} contient la section \texttt{NON-VERBAL LEXICAL ENTRIES} qui regroupe \textbf{le reste du lexique}: noms, adjectifs, adverbes, prépositions, déterminants, etc. Ces entrées proviennent de la version originale de GenDR \citep{lareau18} et elles ont été enrichies par le lexèmes qu'on retrouvait dans les phrases exemples de VerbNet. Bref, les entrées de cette section pointent vers leurs classes (\texttt{NOUNS}, \texttt{PREPOSITIONS}, \ldots) par défaut qui leur permettent d'hériter des attributs suivants: \ac{DPOS},\FL{ici c'est pas un acronyme, c'est un élément du code, texttt} \ac{SPOS}, \texttt{id}, et \texttt{dia}.
 
-\begin{lstlisting}[language=XML, caption = Extrait du \emph{lexicon}: unités lexicales non-verbales]
+\begin{lstlisting}[language=mate, caption = Extrait du \emph{lexicon}: unités lexicales non-verbales]
 /*
 =======================================================
                NON-VERBAL LEXICAL ENTRIES     
@@ -127,7 +127,7 @@ Une entrée typique dans ce dictionnaire contient: l'identifiant du \ac{GP} et s
 
 Cependant, ce dictionnaire n'est pas sans failles. Nous nous sommes rendu compte qu'il existait des doublons de \ac{GP} en termes de contenu. L'origine de ces doublons est que VerbNet utilise des rôles thématiques pour identifier les actants syntaxiques, ce qui permet à deux \ac{GP} d'avoir des propriétés identiques mais des identifiants différents. Par exemple, les patrons \texttt{NP\_agent\_V} et \texttt{NP\_attribute\_V} ont des noms différents, mais couvrent la même construction. Comme nous n'utilisons pas cette terminologie pour identifier les actants syntaxiques, ce scénario a tendance à se répèter.\FL{scénario?} Nous n'avons pas remédié à la situation puisque nous voulions d'abord tester l'implémentation de VerbNet dans GenDR. Ensuite, si le tout fonctionne bien, GenDR gagnerait effectivement à filtrer le contenu du \emph{gpcon}.\FL{pas clair: donc t'as des entrées du gpcon qui ont le meme contenu, mais on les laisse là au cas où plus tard on voudrait exploiter les rôles Th?}
 
-\begin{lstlisting}[language=XML, caption = Extrait du \emph{gpcon}]
+\begin{lstlisting}[language=mate, caption = Extrait du \emph{gpcon}]
 NP_agent_V {
    I={rel=subjective dpos=N}
 }
@@ -155,7 +155,7 @@ Ces modifications apportées aux dictionnaires entraînent des modifications dan
 
 Pour notre exemple, nous allons voir comme se réalise la phrase \form{The teacher talked about history to the students}. La figure~\ref{fig:history} représente la structure sémantique que nous avons donnée en input au système. Le n\oe{}ud dominant est \sem{talk\_3} et il lie 3 actants sémantiques: \sem{teacher}, \sem{student} et \sem{history}. Chaque n\oe{}ud reçoit les traits grammaticaux de temps, nombre et définitude appropriés.
 
-\begin{lstlisting}[language=XML, caption=Structure sémantique de \form{The teacher talked about history to the students}, label=fig:history]
+\begin{lstlisting}[language=mate, caption=Structure sémantique de \form{The teacher talked about history to the students}, label=fig:history]
 structure Sem S {
   S:1{
     talk_3:1{
@@ -188,7 +188,7 @@ Cet input permet de générer neuf structures syntaxiques profondes, qui corresp
 
 Bien que nous n'en visions qu'une en particulier, neuf réalisations ont découlé de l'application de cet input parce que \lex{talk\_3} appartient à la classe \texttt{"talk-37.5"} et en hérite les neuf patrons de régime associés. Toutes ces constructions ont pu être réalisées parce que les \acp{GP} satisfaisaient les contraintes demandées par l'input. Nous le verrons lorsque nous parlerons des règles actancielles,\FL{c'est pour ça que c'est bizarre de commencer par un exemple, t'illustres ce que t'as pas encore expliqué} mais GenDR peut générer la phrase 1 même si la diathèse de \texttt{id=NP\_V} ne sélectionne qu'un actant plutôt que les trois. Ainsi, un \ac{GP} peut contenir moins d'actants sémantiques que ceux qui sont demandés dans l'input. Autrement dit, les actants 123 en input peuvent sélectionner les gps de types 1, 21, 12, 132, 123, 13, 31, etc. \draft{reformuler la fin}
 
-\begin{lstlisting}[language=XML, caption=Classe \texttt{talk-37.5} dans le \emph{lexicon}]
+\begin{lstlisting}[language=mate, caption=Classe \texttt{talk-37.5} dans le \emph{lexicon}]
 "talk-37.5": verb {
   gp = { id=NP_V
 	       dia=1 } // Susan talked.

@@ -71,7 +71,7 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame3_View0,0]
-TopLine=424
+TopLine=535
 Cursor=24621
 
 [Frame4]
@@ -89,8 +89,8 @@ Class=LaTeXView
 Document=ch4\verbnet.tex
 
 [Frame4_View0,0]
-TopLine=448
-Cursor=24522
+TopLine=467
+Cursor=34481
 
 [Frame5]
 Flags=0
@@ -107,8 +107,8 @@ Class=LaTeXView
 Document=ch5\python.tex
 
 [Frame5_View0,0]
-TopLine=18
-Cursor=1374
+TopLine=337
+Cursor=27922
 
 [Frame6]
 Flags=0
@@ -125,7 +125,7 @@ Class=LaTeXView
 Document=ch6\implementation.tex
 
 [Frame6_View0,0]
-TopLine=375
+TopLine=342
 Cursor=14291
 
 [Frame7]
@@ -143,8 +143,8 @@ Class=LaTeXView
 Document=ch7\evaluation.tex
 
 [Frame7_View0,0]
-TopLine=196
-Cursor=19026
+TopLine=103
+Cursor=11659
 
 [Frame8]
 Flags=0
@@ -197,7 +197,7 @@ Class=LaTeXView
 Document=preambule.tex
 
 [Frame10_View0,0]
-TopLine=128
+TopLine=140
 Cursor=5474
 
 [Frame11]

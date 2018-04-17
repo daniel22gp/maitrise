@@ -10,11 +10,9 @@ Au chapitre \ref{chapgendr}, nous avons montré comment le lexique s'encodait da
 
 \subsection{Une nouvelle architecture pour le \emph{lexicon}}
 
-Comme nous l'avons vu à la section \ref{sec:dictio}, GenDR listait et décrivait les comportements syntaxiques des verbes directement dans le \emph{lexicon}, qu'on a maintenant séparé en \draft{diverses}\FL{combien?} sections.
+Comme nous l'avons vu à la section \ref{sec:dictio}, GenDR listait et décrivait les comportements syntaxiques des verbes directement dans le \emph{lexicon}, qu'on a maintenant séparé en quatre sections.
 
 La première section, \textbf{\texttt{DEFAULT ATTRIBUTES}}, décrit les classes générales de GenDR. Elle donne les propriétés génériques des verbes, noms, noms propres, adjectifs, montants, etc. Anciennement, on avait une hiérarchie rudimentaire de classes de verbes (intransitif, transitif direct/indirect et ditransitif), avec toute l'information syntaxique pour chaque sous-classe. Maintenant, la classe générale \texttt{VERB} ne contient que les informations partagées par tous les verbes du dictionnaire: sa partie du discours profonde et celle de surface. Les autres catégories contiennent de l'information sur la partie du discours,\FL{tu l'as pas déjà dans verb?} des traits morpho-syntaxiques et l'identifiant du patron de régime à utiliser pour l'arborisation. \draft{En effet, seuls les verbes n'ont pas d'identifiant de \ac{GP} dans cette section, puisqu'il s'agit de la classe de lexèmes la moins prédictible. C'est exactement pourquoi nous les avons directement importé d'une autre ressource. Les identifiants des \acp{GP} sont encodés dans un section à part qui liste toutes les classes verbales extraites de VerbNet.}\FL{pas clair}
-
-\FL{language=XML dans listings: pas bon}
 
 \begin{lstlisting}[language=mate, caption = Extrait du \emph{lexicon}: attributs par défaut des classes génériques, label=classedef]
 /*
@@ -104,7 +102,7 @@ Le mécanisme d'héritage des traits que nous avons exposé à la section \ref{s
 ...
 \end{lstlisting}
 
-Puis le \emph{lexicon} contient la section \texttt{NON-VERBAL LEXICAL ENTRIES} qui regroupe \textbf{le reste du lexique}: noms, adjectifs, adverbes, prépositions, déterminants, etc. Ces entrées proviennent de la version originale de GenDR \citep{lareau18} et elles ont été enrichies par le lexèmes qu'on retrouvait dans les phrases exemples de VerbNet. Bref, les entrées de cette section pointent vers leurs classes (\texttt{NOUNS}, \texttt{PREPOSITIONS}, \ldots) par défaut qui leur permettent d'hériter des attributs suivants: \ac{DPOS},\FL{ici c'est pas un acronyme, c'est un élément du code, texttt} \ac{SPOS}, \texttt{id}, et \texttt{dia}.
+Puis le \emph{lexicon} contient la section \texttt{NON-VERBAL LEXICAL ENTRIES} qui regroupe \textbf{le reste du lexique}: noms, adjectifs, adverbes, prépositions, déterminants, etc. Ces entrées proviennent de la version originale de GenDR \citep{lareau18} et elles ont été enrichies par le lexèmes qu'on retrouvait dans les phrases exemples de VerbNet. Bref, les entrées de cette section pointent vers leurs classes (\texttt{NOUNS}, \texttt{PREPOSITIONS}, \ldots) par défaut qui leur permettent d'hériter des attributs suivants: \texttt{dpos},\texttt{spos}, \texttt{id}, et \texttt{dia}.
 
 \begin{lstlisting}[language=mate, caption = Extrait du \emph{lexicon}: unités lexicales non-verbales]
 /*
@@ -125,7 +123,7 @@ Le \emph{gpcon} est un dictionnaire de patrons de régime qui contient 278 ident
 
 Une entrée typique dans ce dictionnaire contient: l'identifiant du \ac{GP} et ses propriétés syntaxiques qui sont explicitées par l'énumémration des actants syntaxiques compris pour ce régime ainsi que les contraintes des actants (comme la partie du discours nécessaire à la lexicalisation). Nous avons aussi instauré un mécanisme pour tenir compte du fait que certains patrons de régime permettent deux prépositions en compétition pour le même actant syntaxique. C'est le cas par exemple pour le \ac{GP} \texttt{NP\_asset\_V\_NP\_PP\_from\_out\_of}, qui contient \lstinline|III={rel=oblique dpos=N prep=from}| et \lstinline|III={rel=oblique dpos=N prep="out of"}|. Ce mécanisme nous permet de mieux exploiter la richesse de combinatoire des verbes pour générer plus de paraphrases.
 
-Cependant, ce dictionnaire n'est pas sans failles. Nous nous sommes rendu compte qu'il existait des doublons de \ac{GP} en termes de contenu. L'origine de ces doublons est que VerbNet utilise des rôles thématiques pour identifier les actants syntaxiques, ce qui permet à deux \ac{GP} d'avoir des propriétés identiques mais des identifiants différents. Par exemple, les patrons \texttt{NP\_agent\_V} et \texttt{NP\_attribute\_V} ont des noms différents, mais couvrent la même construction. Comme nous n'utilisons pas cette terminologie pour identifier les actants syntaxiques, ce scénario a tendance à se répèter.\FL{scénario?} Nous n'avons pas remédié à la situation puisque nous voulions d'abord tester l'implémentation de VerbNet dans GenDR. Ensuite, si le tout fonctionne bien, GenDR gagnerait effectivement à filtrer le contenu du \emph{gpcon}.\FL{pas clair: donc t'as des entrées du gpcon qui ont le meme contenu, mais on les laisse là au cas où plus tard on voudrait exploiter les rôles Th?}
+Cependant, ce dictionnaire n'est pas sans failles. Nous nous sommes rendu compte qu'il existait des doublons de \ac{GP} en termes de contenu. L'origine de ces doublons est que VerbNet utilise des rôles thématiques pour identifier les actants syntaxiques, ce qui permet à deux \ac{GP} d'avoir des propriétés identiques mais des identifiants différents. Par exemple, les patrons \texttt{NP\_agent\_V} et \texttt{NP\_attribute\_V} ont des noms différents, mais couvrent la même construction. Comme nous n'utilisons pas cette terminologie pour identifier les actants syntaxiques, ce \draft{problème} a tendance à se répèter. Nous n'avons pas remédié à la situation puisque nous voulions d'abord tester l'implémentation de VerbNet dans GenDR. Ensuite, si le tout fonctionne bien, GenDR gagnerait effectivement à filtrer le contenu du \emph{gpcon}.\FL{pas clair: donc t'as des entrées du gpcon qui ont le meme contenu, mais on les laisse là au cas où plus tard on voudrait exploiter les rôles Th?}
 
 \begin{lstlisting}[language=mate, caption = Extrait du \emph{gpcon}]
 NP_agent_V {
@@ -148,6 +146,8 @@ NP_attribute_V {
 \end{lstlisting}
 
 \section{Adaptation de la grammaire}
+
+\draft{présenter la grammaire avec un exemple, et pas le contraire}
 
 Ces modifications apportées aux dictionnaires entraînent des modifications dans les règles de la grammaire, que nous présenterons au moyen d'un exemple illustrant l'intéraction changée entre les dictionnaires et les nouvelles règles de grammaire.\FL{c'est un peu bizarre d'avoir un exemple au lieu d'une présentation plus formelle des règles, ça devrait plutôt être une explication accompagnée d'un exemple}
 

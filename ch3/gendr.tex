@@ -222,7 +222,7 @@ Une fois que l'arborisation et la lexicalisation sont effectuées, GenDR passe �
 % ---------  L E X I C A L I S A T I O N  ------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Lexicalisation}
+\subsection{Lexicalisation}\label{sec:lexicalisation}
 
 Le processus de lexicalisation est réparti sur plusieurs niveaux de représentation (\ac{RSem}, \ac{RSyntP}, \ac{RSyntS}) formant deux interfaces, \ac{RSem}--\ac{RSyntP} et \ac{RSyntP}--\ac{RSyntS} \citep{PolguerePourmodelestratifie}. La première interface modélise la lexicalisation profonde qui consiste à assurer la correspondance entre une unité sémantique et une (ou des) unité(s) lexicale(s) profonde(s). Cette correspondance est encodée dans le dictionnaire d'un système \ac{TST}. La seconde interface consiste à effectuer la lexicalisation de surface qui introduit les mots fonctionnels (déterminants, auxiliaires ou prépositions) et les lexies de surface (comme les collocations).
 
@@ -369,9 +369,8 @@ De plus, le \ac{GP} encode aussi les conditions dans lesquelles une structure sy
 
 L'une des raisons qui nous a poussé à nous tourner vers une ressource lexicale verbale provient des limites du logicel MATE quant à l'encodage de multiples patrons de régime pour une même entrée. Pour un verbe donné, on ne peut pas avoir deux parties du discours différentes qui compétitionnent pour la même position syntaxique. Autrement dit, si nous voulions exhaustivement représenter les comportements du verbe \lex{want}, il nous faudrait un \ac{GP} qui puisse tenir compte du fait que le second actant syntaxique de ce verbe peut avoir une \ac{DPOS} de type verbale ou nominale: \form{I want to eat} vs \form{I want a dog}. Cela nous était impossible à encoder dans MATE avec les paramètres que nous avions car le système ne nous laissait pas donner deux versions de l'actant syntaxique II de \lex{want}. Ce qui s'offrait à nous comme solution était de créer deux verbes \lex{want} qui encoderaient séparés ces comportements syntaxiques, ce qui n'était pas viable. Nous nous sommes alors tourné vers l'idée d'ajouter un dictionnaire supplémentaire à notre ressource, qui encoderait tous les régimes existants de l'anglais. Puis, nous n'aurions qu'à encoder l'identification des \ac{GP} dans les unités lexicales appropriées ce qui nous permettait de contourner le problème des \acp{GP} multiples.
 
-Notre ancienne méthode restreignait conséquemment le nombre de réalisations possibles pour un verbe donné ou peuplait inutilement le dictionnaire d'entrées verbales en fonction des diverses restrictions sur les actants syntaxiques.
+Notre ancienne méthode restreignait conséquemment le nombre de réalisations possibles pour un verbe donné ou peuplait inutilement le dictionnaire d'entrées verbales quasi-identiques mais qui se distinguaient en fonction des régimes différents. 
 
-\FL{reformuler}De plus, en obtenant une ressource comme celles qui regroupent les patrons de régime des verbes, nous allons aussi chercher les verbes. Donc nous enrichissons le contenu lexical de notre dictionnaire en plus de trouver une solution au problème. Afin d'augmenter notre couverture, il aurait fallu manuellement enregistrer les verbes de l'anglais et c'est une tâche qui aurait pris énormément de temps. Ainsi, plusieurs groupes de recherches ont travaillé pour bâtir des ressources lexicales riches en comportements syntaxiques afin que les applications \ac{TAL} en bénéficient.
-
+En résumé, nous enrichissons considérablement le contenu lexical de notre dictionnaire en plus de trouver une solution au problème mentionné ci-haut. Pour trouver la bonne ressource, nous avons regardé les candidats qui s'offraient à nous, puis nous avons choisi celui qui correspondait le plus à nos besoins et qui pouvait s'intégrer le mieux à notre système. Le chapitre suivant est dédié à ces ressources lexicales, et nous décrirons celui que nous avons choisi.
 
 

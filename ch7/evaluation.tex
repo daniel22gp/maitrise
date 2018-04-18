@@ -6,80 +6,83 @@
 
 La méthode d'évaluation basée sur l'exécution de tâches consiste à trouver des évaluateurs qui exécuterons une tâche quelconque en se basant sur des rapports rédigés automatiquement. Dans ce contexte, on évalue directement l'impact des textes.  Les textes générés sont ainsi évalués en fonction de  Ainsi, il faut trouver des participants qui seront prêts à donner de leurs temps pour exécuter la tâche donnée. \cite{ReiterInvestigationValidityMetrics2009} estiment que c'est celle qui évalue le mieux le contenu des réalisations d'un système de \ac{GAT} puisqu'on peut mesurer concrètement si le texte généré est de bonne qualité. Par exemple, un texte bien composé permettra aux participants de réussir la tâche rapidement, tandis qu'un texte ilisible ou très mal écrit nuira grandement à la rapidité d'exécution de la tâche. Toutefois, c'est aussi la méthode la plus coûteuse en termes de temps et de ressources puisqu'il faut trouver des participants prêts à faire cette évaluation. Coûtent cher et sont généralement longs à entreprendre. Par exemple, quand c'est une tâche, l'évaluation est faite sur le nombre d'erreur. Ainsi, un bon texte génèrera moins d'erreurs, et un mauais texte plus.
 
-Parmi les méthodes automatiques, la méthode BLEU, qui a été conçu à la base pour les systèmes de traductions automatique, semble très populaire en \ac{GAT}. Traditionnellement, dans un cadre de traduction automatique, il s'agissait de prendre une phrase tirée d'un corpus, en faire la traduction automatique et comparer le résultat avec la traduction de la même phrase, mais faite par un humain. En \ac{GAT}, le concept est similaire, il s'agit de parser \draft{la traduction qu'on me donne est 'analyser', est-ce que c'est bon ?} un texte d'un corpus, puis de fournir ce qui a été extrait à un système de \ac{GAT} puis de généré le texte, et finalement comparer le output automatique avec le texte original. \cite{Langkilde-gearyForestbasedstatisticalsentence2000} et \cite{Habash2003MatadorAL} ont utilisé cette méthode pour évaluer leurs systèmes. Toutefois, cette méthode d'évaluation est parfois critiquée, par exemple \cite{DBLP:conf/semeval/MilleCBW17} soulignent que BLEU évalue bien la couverture, mais ils critiquent leur évaluation de la qualité des outputs. Dans cet article, ils argumentent que leur réalisateur, FORGe, obtient un score au-dessus de la moyenne pour l'évaluation humaine, mais un score plus faible avec BLEU, et expliquent ce décalage par le fait que leur réalisateur favorise la précision par rapport au rappel.
+Parmi les méthodes automatiques, la méthode BLEU, qui a été conçu à la base pour les systèmes de traductions automatique, est relativement commune en \ac{GAT}. Par exemple, \cite{Langkilde-gearyForestbasedstatisticalsentence2000} et \cite{Habash2003MatadorAL} ont utilisé cette méthode pour évaluer leurs systèmes. Elle consiste à comparer le résultat à une phrase étalon préparée manuellement (ou tirée d'un corpus). Toutefois, cette méthode d'évaluation est souvent critiquée. Par exemple \cite{DBLP:conf/semeval/MilleCBW17} soulignent que BLEU évalue bien la couverture, mais ils critiquent son valeur dans l'évaluation de la qualité des outputs. Dans cet article, ils argumentent que leur réalisateur, FORGe, obtient un score au-dessus de la moyenne pour l'évaluation humaine, mais un score plus faible avec BLEU, et expliquent ce décalage par le fait que leur réalisateur favorise la précision par rapport au rappel.
 
-L'évaluation humaine consiste à coter les outputs en fonction de leur performance à produire des phrases syntaxiquement et sémantiquement correctes selon les jugements des évaluateurs. \cite{BelzFirstSurfaceRealisation2011} ont proposent trois critères pour juger du texte généré automatiquement: la clareté, qu'on juge en fonction de la facilité à lire le texte, la lisibilité, qu'on juge par la fluidité du texte (construction syntaxique étranges, erreurs grammaticales,etc.) et la similarité de sens qui teste le paraphrasage. Cette méthode d'évaluation est plus simple à mettre en place que la méthode à base de tâche, mais elle demande plus temps à exécuter que la méthode automatique.
+L'évaluation humaine consiste à noter les phrases produites selons divers paramètres. Par exemple, \cite{BelzFirstSurfaceRealisation2011} proposent comme critères d'évaluation la clareté (qu'on juge en fonction de la facilité à lire le texte), la lisibilité (qu'on juge par la fluidité du texte: construction syntaxique étranges, erreurs grammaticales, etc.) et la similarité de sens (qui teste le paraphrasage). Cette méthode d'évaluation est plus simple à mettre en place que la méthode à base de tâches, mais elle demande plus temps à exécuter que la méthode automatique.
  
-Considérant notre projet de recherche, les évaluations basées sur l'exécution de tâches ou sur les méthodes automatiques ne peuvent s'appliquer. D'abord, parce que notre système ne réalise pas du texte dans un but précis, donc nous n'avons pas de tâches à effectuer pour tester la validité des réalisations. De plus, nous ne génèrons pas du texte linéarisé, donc il faudrait trouver des participants capables de lire des arbres de dépendances. Pour cette même raison, nous ne pouvons pas utiliser la méthode automatique puisqu'on ne peut pas comparer automatiquement nos arbres de dépendances de surface avec des textes linéarisés écrits par des humains. Bref, la seule méthode d'évaluation qui s'offre à nous est l'évaluation humaine et c'est elle que nous avons employé.
+Considérant notre projet de recherche, les évaluations basées sur l'exécution de tâches ou sur les méthodes automatiques ne peuvent s'appliquer. D'abord, parce que notre système ne réalise pas du texte dans un but précis, donc nous n'avons pas de tâches à effectuer pour tester la validité des réalisations. De plus, nous ne génèrons pas du texte linéarisé, donc il faudrait trouver des participants capables de lire des arbres de dépendances. Pour cette même raison, nous ne pouvons pas utiliser la méthode automatique puisqu'on ne peut pas comparer automatiquement nos arbres de dépendances de surface avec des textes linéarisés écrits par des humains, et nous ne disposons pas d'un assez grand nombre de phrases annotés en syntaxe de surface. Bref, la méthode d'évaluation qui s'impose à nous est l'évaluation humaine, et la prochaine section explicite notre méthodologie.
+
+\FL{en fait ce que tu fais c'est une méthode automatique: t'as un ensemble de structures attendues, et tu compares ton output à ces structures. c'est juste que t'as pas automatisé la chose, mais c'est quand même ça}
 
 \section{Méthodologie d'évaluation}
 
-Pour procéder à l'évaluation de notre système, nous avons construit 978 graphes sémantiques représentant les phrases exemples extraites de VerbNet (voir section \ref{sec:pythonstruc}) et nous en avons passé un échantillon à GenDR. Le but était de tester la qualité et la couverture de GenDR sur la base de deux critères: le rappel et la précision.
-
-Pour mener à bien notre évaluation, nous avons pris un échantillon des 978 structures car nous étions limité par le temps. Ainsi, 75 structures furent choisies aléatoirement dont 25 ont servi pour une phase de \emph{développement} précédant la phase d'évaluation, pour vérifier quels étaient les problèmes immédiats et les corriger avant d'entamer la partie \emph{évaluation}. La phase de développement nous a permi de constater que de nombreux inputs comportaient des erreurs d'encodage, ce qui nous a forcé à vérifier que chacun des inputs de la partie \emph{évaluation} soit impeccable. De plus, la partie \emph{développement} nous a aussi permi de constater que certains lexèmes, appartenant à des parties du discours différentes, apparaissaient en double dans notre dictionnaire. Nous avons conséquemment procédé à un filtrage pour les retrouver et nous avons remédier à la situation. Par exemple, le verbe \lex{work} et le nom \lex{work} ont le même signifiant, donc le système ne sait pas comment les différencier. Nous avons ainsi désambiguïser chacun d'entre eux en les encodant comme deux lexèmes différents ayant le même signifié, généralement en encodant les noms comme \lex{work} de cette manière \lex{work\_n}. 
-
-Ensuite, après la phase de développement terminée, il ne nous restait qu'à passer à la phase d'évaluation sur sur les 50 structures restantes.
+Pour procéder à l'évaluation de notre système, nous avons construit 978 graphes sémantiques représentant les phrases exemples extraites de VerbNet (voir section \ref{sec:pythonstruc}), dont nous avons passé un échantillon à GenDR afin de calculer la précision et le rappel du système. Nous avons pris 75 structures aléatoirement, dont 25 ont servi lors d'une phase de développement précédant la phase d'évaluation à proprement parler. La phase de développement nous a permis de constater
+% que de nombreux inputs comportaient des erreurs, ce qui nous a forcé à vérifier que chacun des inputs de la partie \emph{évaluation} soit impeccable. De plus, la partie \emph{développement} nous a aussi permi de constater 
+que certains lexèmes, appartenant à des parties du discours différentes, apparaissaient en double dans notre dictionnaire. Par exemple, les entrées pour le verbe \lex{work} et le nom \lex{work} avaient le même nom, donc le système n'accédait qu'à la dernière des entrées et ignorait la première. Nous avons conséquemment procédé à un filtrage pour les retrouver et remédier à la situation en donnant un nom différent aux entrées homonymiques. Ensuite, après la phase de développement terminée, nous avons procédé à l'évaluation sur les 50 structures restantes.
                               
 \section{Rappel}
 \draft{centrer les tableaux}
-Nous avons mesuré le rappel en considérant le nombre de structures attendues que GenDR a généré par rapport au nombre de structures attendues. Dans ce contexte, une \scare{structure attendue} est une structure qui devrait normalement être générée par notre système lorsqu'un \ac{GP} permet sa réalisation. Ainsi, chaque structure manquante à l'appel est considérée comme une erreur.
+\FL{Y a un problème dans cette métho. Tu définis une structure attendue comme une structure prévue par un GP, mais les GP c'est toi qui les as faits? Ou tu parles des GP de VN?}
+Nous avons mesuré le rappel en calculant le ratio entre le nombre de structures attendues que GenDR a pu générer et le nombre total de structures attendues. Dans ce contexte, une \scare{structure attendue} est une structure qui devrait normalement être générée par notre système lorsqu'un \ac{GP} permet sa réalisation. Ainsi, chaque structure manquante à l'appel est considérée comme une erreur.
 \[\text{Rappel} = \frac{\text{nombre de structures attendues générées}}{\text{nombre de structures attendues}}\]
 
+\FL{dans les documents professionnels, on évite autant que possible les lignes verticales dans les tableaux. ça alourdit inutilement les tables. Aussi, j'ai loadé le package booktabs, qui fournit les macros toprule, midrule et bottomrule. ça fait des plus belles tables}
+
 \begin{table}
-\caption{Données du rappel}
-\begin{tabular}{ |p{6cm}||c|c|  }
- \hline
- \multicolumn{3}{|c|}{Rappel} \\
- \hline
-  & RSyntP & RSyntS\\
- \hline
+\caption{Évaluation du rappel}
+\begin{tabular}{lrr}
+ % \hline
+ % \multicolumn{3}{|c|}{Rappel} \\
+ \toprule
+   & RSyntP & RSyntS\\
+ \midrule
  Nombre de structures attendues   & 120  &127  \\
  Nombre de structures générées &  118  & 120   \\
- Erreurs de GenDR & 0 & 0\\
- Erreurs de VerbNet    & 0 & 5\\
- Incompatibilité TST/VerbNet & 2 & 2\\
- Pourcentage global & 98\%  & 94\% \\
- Pourcentage GenDR & 100\%  & 100\% \\
- \hline
+ Silences dus à GenDR & 0 & 0\\
+ Silences dus à VerbNet    & 0 & 5\\
+ Silences dus à une incompatibilité TST/VerbNet & 2 & 2\\
+ \midrule
+Pourcentage global & 98\%  & 94\% \\
+Pourcentage GenDR & 100\%  & 100\% \\
+\bottomrule
 \end{tabular}
 \end{table}
 
-Nous avons fait des tests à la fois pour la RSyntP et la RSyntS, puisque GenDR réalise des arbres pour chacune de ces représentations. Comme les résultats changeaient quelque peu en fonction de la représentation, nous avons jugé pertinent de le démontrer. Certaines erreurs ne sont pas visibles en syntaxe profonde, notamment lorsqu'il s'agit de prépositions. 
+Nous avons mesuré le rappel séparément pour la RSyntP et la RSyntS. En effet, certaines erreurs ne sont pas visibles en syntaxe profonde, notamment quand il y a des prépositions régies.
 
-D'abord, à la lecture du tableau, on remarque que GenDR a un bon rappel. En effet, les scores sont excellents et cela est dû à notre système qui fonctionne à base de règles. \draft{élaborer un ti peu plusse}
+Les cinq RSyntS qui n'ont pas pu être générées à cause de VerbNet sont dues au fait que quelques verbes utilisés dans les phrases d'exemples de VerbNet ne figurent pas dans la base de données. Par le fait même, les \acp{GP} associés à ces verbes ne sont pas connus de GenDR, ce qui mène à l'impossibilité de générer l'arbre attendu. C'était le cas par exemple de la structure 077--\form{He begged her to do it}, où le verbe \lex{do} n'a pas d'entrée dans VerbNet. Les autres erreurs de VerbNet sont similaires, mais au lieu que ce soit une entrée verbale qui manque, c'est un \ac{GP} qui est absent. Cela fait en sorte que la structure à laquelle on s'attendrait ne sera pas générée puisque GenDR appliquera un \ac{GP} par défaut, qui n'est pas toujours approprié. Par exemple, nous avions la phrase 974--\form{He backed out of going on the trip}, mais aucune des acceptions de \lex{go} ne contenait le régime nécessaire pour réaliser cette phrase.
 
-Ensuite en ce qui concerne les erreurs de VerbNet en syntaxe profonde, il n'en y en a pas, mais 5 structures attendues n'ont pas été générées en surface. Ces erreurs de surface sont dues au fait que quelques verbes utilisés dans les phrases d'exemples de VerbNet ne figurent pas dans la base de données. Par le fait même, les \acp{GP} associés à ces verbes ne sont pas connus de GenDR, ce qui mène à l'impossibilité de générer l'arbre attendu. C'était le cas par exemple de la structure 077-\form{He begged her to do it}, où le verbe \lex{do} n'a pas d'entrée dans VerbNet. Les autres erreurs de VerbNet sont similaires, mais au lieu que ce soit une entrée verbale qui manque, c'est un \ac{GP} qui est absent. Cela fait en sorte que la structure à laquelle on s'attendrait ne sera pas générée puisque GenDR appliquera un \ac{GP} par défaut, mais les chances sont que ce ne soit pas le bon. Par exemple, nous avions la phrase 974-\form{He backed out of going on the trip}, mais aucune des acceptions de \lex{go} ne contenait le régime nécessaire pour réaliser cette phrase.
-
-Finalement, les autres erreurs proviennent d'incompatibilités théoriques entre VerbNet et la \ac{TST}. En effet, nous avons représenté chaque phrase exemple en graphe sémantique à la \cite{mel2012semantics}. Comme les patrons de régime font le pont entre la sémantique et la syntaxe, s'il y a une incompatibilité entre la sémantique de l'énoncé et sa représentation syntaxique selon VerbNet, ça mènera à un échec. Par exemple, la phrase \form{The plays and ballets alternate} se traduit par la combinaison du verb \lex{alternate} un seul actant syntaxique (le NP \emph{plays and ballets}) selon VerbNet. Comme l'input sémantique que nous avons fourni au système contenait deux actants sémantiques, le \ac{GP} qui régit la construction (\texttt{NP\_V}) ne peut pas faire le pont entre notre interprétation sémantique et les constructions fournies par VerbNet. Toutefois, en \ac{TST}, nous considérons qu'il y a deux actants sémantiques, donc deux actants syntaxiques puisqu'ils sont réalisés en surface. Malgré tout, notre système est capable de générer 036-\form{Plays alternate with ballets}, ce qui démontre la flexibilité du système.
+Les deux autres silences proviennent d'incompatibilités théoriques entre VerbNet et la \ac{TST}. En effet, nous avons représenté chaque phrase exemple en graphe sémantique à la \cite{mel2012semantics}. Comme les patrons de régime font le pont entre la sémantique et la syntaxe, s'il y a une incompatibilité entre la sémantique de l'énoncé et sa représentation syntaxique selon VerbNet, ça mènera à un échec. Par exemple, dans la phrase \form{The plays and ballets alternate}, selon VerbNet le verbe \lex{alternate} n'a qu'un seul actant (le syntagme \emph{plays and ballets}). Toutefois, en \ac{TST}, nous considérons qu'il y a deux actants sémantiques, donc l'input que nous avons fourni au système contient deux actants sémantiques, et le \ac{GP} qui régit la construction (\texttt{NP\_V}) ne peut pas faire le pont entre notre interprétation sémantique et les constructions fournies par VerbNet. Malgré tout, notre système est capable de générer 036--\form{Plays alternate with ballets} (où VerbNet voit deux actants comme nous).
 
 \section{Précision}
 \draft{centrer les tableaux}
-Pour mesurer la précision, nous avons considéré le nombre de structures correctes générées (correctes signifiant grammaticales), par rapport au nombre de structures générées (peu importe leur grammaticalité). Autrement dit, chaque structure agrammaticale générée correspond à une erreur.
+Pour mesurer la précision, nous avons mesuré le ratio entre le nombre de structures grammaticalement correctes générées et le nombre total de structures générées:
 \[\text{Précision} = \frac{\text{nombre de structures grammaticales}}{\text{nombre de structures générées}}\]
 
 \begin{table}
-\caption{Données de la précision}
-\begin{tabular}{ |p{6cm}||c|c|  }
- \hline
- \multicolumn{3}{|c|}{Précision} \\
- \hline
+\caption{Évaluation de la précision}
+\begin{tabular}{lrr}
+ \toprule
   & DSynt & SSynt\\
- \hline
- Nombre de structures générées   & 120  &127  \\
- Nombre de structures correctes &  101  & 100   \\
- Erreurs de GenDR & 0 & 3\\
- Erreurs de VerbNet    & 18 & 23\\
- Incompatibilité TST/VerbNet & 1 & 1\\
+ \midrule
+ Nombre de structures générées   & 120 \draft{118?}  & 127  \draft{120?} \\
+ Nombre de structures correctes  &  101  & 100   \\
+ Erreurs dues à GenDR & 0 & 3\\
+ Erreurs dues à VerbNet    & 18 & 23\\
+ Erreurs dues à une incompatibilité TST/VerbNet & 1 & 1\\
+ \midrule
  Pourcentage global & 83\%  & 77\% \\
  Pourcentage GenDR & 100\%  & 97\% \\
- \hline
+ \bottomrule
 \end{tabular}
 \end{table}
 
+\FL{cette histoire de PRO, c'est peut-être juste une erreur d'input. On a tu besoin de ce PRO?}
 Les trois erreurs de GenDR en surface proviennent du fait que certaines structures à deux verbes nécessitent la présence d'un PRO qui agit comme le premier actant du second verbe, puisque nous ne pouvons pas faire de construction triangulaire dans GenDR pour l'instant \draft{faire un exemple dans PowerPoint}. Le problème est qu'en surface, le PRO disp Incapable de faire disparaître le PRO en surface, il manque une règle pour faire ça.
 
-Parmi les informations lexicales extraites de VerbNet, certaines nous ont aussi fait réaliser des phrases quasi-correctes mais bizarres. Cela est une conséquence des \acp{GP} qui permettent de deux à quatre prépositions différentes pour la réalisation d'un même actant. Le système va donc générer plusieurs arbres différents en fonction des prépositions possibles, mais généralement seule l'une d'entre elles donne une phrase grammaticale. Ainsi, en appliquant les\acp{GP} de VerbNet, GenDR génère les phrases \form{The doctor cured pat of pneumonia} et \ungr\form{The doctor cured pat out of pneumonia} str 177 .
+Parmi les informations lexicales extraites de VerbNet, certaines nous ont aussi fait réaliser des phrases douteuses. Cela est une conséquence des \acp{GP} qui permettent plusieurs prépositions différentes pour la réalisation d'un même actant. Le système génère alors autant d'arbres différents qu'il y a de choix de prépositions dans VerbNet, mais très souvent seule l'une d'entre elles donne une phrase grammaticale. Ainsi, en appliquant les\acp{GP} de VerbNet, GenDR génère à partir de l'input 177 les phrases \form{The doctor cured pat of pneumonia} et \ungr\form{The doctor cured pat out of pneumonia}.
 
+\draft{
 problèmes: VerbNet a pas le bon gp, donc les phrases qui sont réalisées sont agrammaticales : "he backed out of going" str 974, 
 utilisation d'un gp qui rend la phrase agramamticale. VerbNet a plusierus gp dans une classe verbale qui devraient tous bin fonctionnés, mais pas tjs "`barry cryer erased at the writing"' str 968 I ended, I ended with a speech str 843
 
@@ -87,8 +90,9 @@ DO n'Est pas encodé dans verbnet, donc GenDR tente des trucs, dont le considér
 
 Problème de GenDR: on ne peut pas traiter les constructions triangulaires, donc on fait appel à un Pro lorsqu'il y a deux verbes. Et il nous faut un mécanisme pour supprimer le PRO en SSynt. L'arbre en soi était bon, mais il y avait un PRO qui flottait tout seul dans la réalisation finale. 
 
-\draft{mécanisme d'héritage (le documenter) (l'écrire au chap 4) et le rectifier au chap 5.
+mécanisme d'héritage (le documenter) (l'écrire au chap 4) et le rectifier au chap 5.
 
 se baser sur le manuel pour parler du core, plus la présentation, présenter chaque règle et son fonctionnement de façon abstraite. Présenter les règles, pas l'exemple, il sert à appuyer la description.
 
-relire les marqueurs comme d'ailleurs, effectivement, brièvement,etc. (reformuler plus clairement), zapper les mots vides}
+relire les marqueurs comme d'ailleurs, effectivement, brièvement,etc. (reformuler plus clairement), zapper les mots vides
+}

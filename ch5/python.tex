@@ -2,24 +2,24 @@
 
 À l'aide du module \emph{xml.etree.cElementTree}\footnote{\url{https://docs.python.org/3/library/xml.etree.elementtree.html}, 01-06-17} créé pour le langage de programmation \emph{Python}, nous avons pu manipuler et extraire les données de VerbNet qui sont encodées en \emph{XML}. Ensuite, nous les avons compilées dans des fichiers\emph{.dict} pour les implémenter dans GenDR. Ainsi, nous créerons un dictionnaire de classes verbales, suivi d'un dictionnaire des membres de VerbNet et finalement, un dictionnaire de patron de régime. Les premiers dictionnaires seront fusionnées et intégrér à GenDR, puis le dictionnaire de patron de régime fonctionnera à part. De plus, nous avons aussi utilisé les données de VerbNet pour nous créer une banque de phrases exemples afin de tester notre système. L'extraction des exemples a aussi été effectuée dans l'environnement \emph{Python}.
  
-\section{Adaptation du \emph{lexicon} de GenDR}
+\section{Préparation du nouveau \emph{lexicon} de GenDR}
 
 Le dictionnaire lexical que nous prévoyons utiliser pour GenDR se divisera en quatre sections: les classes abstraites (classes originaires de GenDR), les membres verbaux de VerbNet, les classes verbales et le reste du lexique. Pour adapter le \emph{lexicon}, il nous manque deux sections:\texttt{VERBNET CLASSES} et \texttt{VERBNET MEMBERS}. Nous décrirons dans les passages suivants comment les scripts Python que nous avons créé nous ont permi de bâtir ces futures section pour le \emph{lexicon} de la nouvelle version de GenDR.
 
-D'abord, pour mieux comprendre la manière dont nous avons créé la section \texttt{VERBNET CLASSES}, il faut rappeler quelques notions de base du fonctionnement de GenDR. Plus tôt au chapitre \ref{chapgendr}, nous avons décrit le mécanisme d'héritage qui façonne l'architecture du lexique (section \ref{sec:dictio}). Ce mécanisme permet à une entrée d'hériter des traits d'une autre entrée. Concrètement, cela s'effectue en faisant pointer une entrée vers une autre (ex: \texttt{owe} : \texttt{verb\_dit}). Ainsi, nous n'avions pas à réécrire pour chaque verbe transitif, leur comportement syntaxique. En effet, on pouvait transmettre les propriétés du \ac{GP} des verbes transitifs à une entrée lexicale désirée. Nous avons donc importer l'architecture de VerbNet dans notre dictionnaire en ayant ce mécanisme en tête. Dans la version originale de VerbNet, les classes abstraites (ex: intransitif, transitif, ditransitif) incorporaient toute l'information syntaxique nécessaire: patrons de régime, diathèses, partie du discours, etc. Cela permettait, par exemple, à \lex{owe} d'en hériter via son association à l'une de ces classes.  
+D'abord, pour mieux comprendre la manière dont nous avons créé la section \texttt{VERBNET CLASSES}, il faut rappeler quelques notions de base du fonctionnement de GenDR. Plus tôt au chapitre \ref{chapgendr}, nous avons décrit le mécanisme d'héritage qui façonne l'architecture du lexique (section \ref{sec:dictio}). Ce mécanisme permet à une entrée d'hériter des traits (patrons de régime, diathèses, partie du discours, etc.) d'une classe abstraite. Cette transmission s'effectuait en faisant pointer une entrée vers une classe abstraite (ex: \texttt{owe} : \texttt{verb\_dit}). Ainsi, nous n'avions pas à réécrire pour chaque verbe transitif, leur comportement syntaxique. Nous avons donc pensé l'importation des classes verbales de VerbNet et de leurs membres en ayant ce mécanisme en tête.  
 
-Nous reprendrons ce mécanisme pour deux objectifs. D'abord, pour reprendre l'architecture de VerbNet qui consiste à établir une hiérarchie entre les classes \scare{mères} et leurs classes \scare{filles}. Comme nous l'avons vu à la section \ref{sec:vnarchitecture}, les classes verbales sont hiérarchisées et les traits des classes dominantes sont transmis aux classes qu'elles gouvernent. Nous voulions donc reprendre cette architecture en créant la section \texttt{VERBNET CLASSES} avec le mécanisme d'héritage. Le but était de transmettre les patrons de régimes des classes \scare{mères} aux classes \scare{filles} en récupérant le mécanisme d'héritage. Puis, nous reprenons ce mécanisme pour transmettre les traits de partie du discours de la classe abstraite \texttt{VERB} afin d'éviter de répéter cette information pour chacune des classes verbales. Pour ce faire, on reprend le même concept qui lie les classes filles à leurs classes mères, mais cette fois-ci, on lie chaque classe mère à la classe abstraite VERB qui contient les \ac{SPOS} et \ac{DPOS} afin que les traits de partie du discours se transmette jusqu'à tous les lexèmes verbaux.
+\draft{relire}Nous reprendrons ce mécanisme pour deux objectifs. D'abord, pour reprendre l'architecture de VerbNet qui consiste à établir une hiérarchie entre les classes \scare{mères} et leurs classes \scare{filles}. Comme nous l'avons vu à la section \ref{sec:vnarchitecture}, les classes verbales sont hiérarchisées et les traits des classes dominantes sont transmis aux classes qu'elles gouvernent. Nous voulions donc reprendre cette architecture pour la section \texttt{VERBNET CLASSES}. Le but était de transmettre les patrons de régimes des classes \scare{mères} aux classes \scare{filles} grâce au mécanisme d'héritage. Puis, nous reprenons ce mécanisme pour transmettre les traits de partie du discours de la classe abstraite \texttt{VERB} afin d'éviter de répéter cette information pour chacune des classes verbales. Pour ce faire, on reprend le même concept qui lie les classes \scare{filles} à leurs classes \scare{mères}, mais cette fois-ci, on lie chaque classe mère à la classe abstraite \texttt{VERB} qui contient les traits de partie du discours afin qu'ils se transmettent à tous les lexèmes verbaux.
 
-\begin{lstlisting}[language=XML, caption=Traits de la classe abstraite \texttt{VERB}]
+\begin{lstlisting}[language=mate, caption=Traits de la classe abstraite \texttt{VERB}]
 verb {
   dpos = V
   spos = verb
 }
 \end{lstlisting}
 
-Ensuite, nous avons extrait les verbes compris dans toutes les classes verbales de VerbNet et nous les avons soumis au mécanisme d'héritage. En effet, chaque membre pointe vers la classe ou la sous-classe qui le représente, ce qui fait en sorte qu'il hérite de tous les traits de la classe qui lui correspond. Par exemple, les lexèmes \lex{absorb}, \lex{ingest}, \lex{take in} hériteront tous les trois des traits compris dans l'entrée \texttt{absorb-39.8}. Cela nous permet de traiter 6\,393 acceptions sans avoir à décrire leur comportement syntaxique systématiquement.
+Ensuite, nous avons extrait les verbes (membres) compris dans toutes les classes verbales de VerbNet et nous les avons aussi soumise à ce mécansime. En effet, chaque membre pointera vers la classe ou la sous-classe qui le représente, ce qui fait en sorte qu'il héritera de tous les traits de la classe qui lui correspond. Par exemple, les lexèmes \lex{absorb}, \lex{ingest} et \lex{take in} hériteront, tous les trois, des traits compris dans la classe verbale \texttt{absorb-39.8}. Cela nous permet de traiter 6\,393 acceptions sans avoir à décrire leur comportement syntaxique systématiquement, ce qui évite de saturer notre dictionnaire lexical.
 
-\begin{lstlisting}[language=XML]
+\begin{lstlisting}[language=mate, caption=Membres verbaux pointant vers leur classe correspondante]
 absorb: "absorb-39.8"
 take_in: "absorb-39.8"
 ingest_1: "absorb-39.8"
@@ -27,28 +27,24 @@ ingest_1: "absorb-39.8"
 
 \subsection{Extractions de l'architecture de VerbNet}
 
-Nous avons divisé la description du premier script en trois blocs pour faciliter la compréhension du fonctionnement de chacun de ceux-ci.
+Nous avons divisé la description du premier script en trois blocs pour en faciliter la compréhension.
 
-\subsubsection{Hiérarchie des classes verbales}
+\subsubsection{Bloc 1: Hiérarchie des classes verbales}
 
-\textbf{L'objectif} de la fonction \emph{supers} est de recréer l'architecture de VerbNet pour pouvoir l'implémenter à GenDR. Cette fonction récupère l'identifiant de la classe \scare{mère}, puis de toutes les sous-classes imbriquées en elle. Ensuite, \textbf{la fonction} crée un dictionnaire dont la clé correspond à l'identifiant de la classe \scare{fille} et la valeur est l'identifiant de la classe \scare{mère}. Cela correspond au mécanisme qui nous permettra de transmettre les attributs d'une classe \scare{mère} à une classe \scare{fille}. Le résultat de cette fonction ressemble à \lstinline|"begin-55.1-1": "begin-55.1"|. Dans ce contexte, \texttt{begin-55.1-1} héritera des traits de la classe \texttt{begin-55.1}
+\textbf{L'objectif} de la fonction \emph{supers} est de recréer l'architecture de VerbNet pour pouvoir l'implémenter à GenDR. Cette fonction récupère l'identifiant de la classe \scare{mère}, puis de toutes les sous-classes imbriquées sous elle. Ensuite, \textbf{la fonction} crée un dictionnaire \emph{Python} de type \emph{key: value} dont la clé correspond à l'identifiant de la classe \scare{fille} et la valeur est l'identifiant de la classe \scare{mère}. Cette configuration correspond à celle qui est nécessaire à GenDR pour l'application du mécanisme qui nous permettra de transmettre les attributs d'une classe \scare{mère} à une classe \scare{fille}. Le résultat de cette fonction ressemble à: \lstinline|"begin-55.1-1": "begin-55.1"|. Dans ce contexte, \texttt{begin-55.1-1} héritera des traits de la classe \texttt{begin-55.1}.
 
-\subsubsection{Création du dictionnaire de classes verbales}
+\subsubsection{Bloc 2: Création du dictionnaire de classes verbales}
 
-\textbf{L'objectif} de la fonction \emph{treeframes} est de récupérer, pour chaque classe VerbNet, l'identifiant de la classe verbale, les identifiants des patrons de régime compris sous celle-ci et une phrase exemple. Ainsi, cette fonction rend un trio de ce type: \lstinline|{spray-9.7, NP_V_NP_destination, Jessica sprayed the wall}|.
+\textbf{L'objectif} de la fonction \emph{treeframes} est de récupérer, pour chaque classe VerbNet, l'identifiant de la classe verbale, les identifiants des patrons de régime compris sous celle-ci et une phrase exemple. Ainsi, cette fonction rend un trio: \lstinline|{spray-9.7, NP_V_NP_destination, Jessica sprayed the wall}|.
 
-La fonction \emph{treeframes} récupère d'abord l'identifiant de la classe \texttt{spray-9.7} puis, les identifiants des patrons de régime qui sont encodés dans la section \texttt{<FRAME>}. Ensuite, grâce aux expressions régulières, on manipule les identifiants de \ac{GP} pour qu'ils correspondent au type de code demandé par MATE. De plus, nous intégrons les prépositions régies par chaque patron de régime à l'intérieur de l'identifiant afin de les distinguer, puisque certains patrons de régime de VerbNet s'écrivent de la même manière, mais ne sélectionne pas les mêmes prépositions. Donc, lorsque nous encoderons les patrons de régime dans un dictionnaire, nous saurons quelle préposition inclure pour un patron de régime donné puisque ceux-ci se retrouveront dans l'identifiant que nous aurons repêché: \texttt{NP\_asset\_V\_NP\_PP\_from\_out\_of} est un identifiant de \ac{GP} dans lequel sont encodés les prépositions from et out of pour le troisième actant syntaxique.  
+Plus précisément, la fonction \emph{treeframes} récupère d'abord l'identifiant de la classe \texttt{spray-9.7} puis, les identifiants des patrons de régime qui sont encodés dans la section \texttt{<FRAME>} de cette classe verbale. Ensuite, grâce aux expressions régulières, on manipule les identifiants de \ac{GP} pour qu'ils correspondent au type de code demandé par GenDR. De plus, nous intégrons les prépositions régies par chaque patron de régime à l'intérieur de l'identifiant afin de les distinguer, puisque certains patrons de régime de VerbNet s'écrivent de la même manière, mais ne sélectionne pas les mêmes prépositions. Cette distinction s'avèrera très utile pour la description des patrons de régime dans le \emph{gpcon}, section \ref{sec:creategpcon}. Finalement, on récupère les exemples accompagnant chaque patron de régime pour compléter le trio: identifiant de classe, identifiant de \acp{GP} et exemple. 
 
-Finalement, on récupère les exemples accompagnant chaque patron de régime pour compléter le trio: identifiant de classe, de \acp{GP} et exemple. 
+\subsubsection{Bloc 3: Implémentation des données dans le fichier \emph{lexicon.dict}}
 
-\subsubsection{Implémentation des données dans un fichier .dict}
-
-L'objectif de ce dernier bloc de code est d'obtenir un dictionnaire qui contiendra les classes verbales de VerbNet avec tous les identifiants de patrons de régime que la classe englobe et les exemples qui correspondent à ceux-ci.
-
-Pour procéder, nous ouvrons un fichier appellé \emph{lexicon.dict} dans lequel nous écrirons les informations que extrairons grâce aux deux fonctions que nous venons de créer. Nous fournirons ces fonctions à l'ensemble des documents XML qui composent la ressource VerbNet et le résultat de ce processus nous donne la section \texttt{VERBNET CLASSES} que nous implémenterons dans le dictionnaire de GenDR.
+\textbf{L'objectif} de ce dernier bloc de code est de créer un fichier qui contiendra le résultat des deux fonctions sur l'ensemble des données de VerbNet. Pour procéder, nous ouvrons un fichier appellé \emph{lexicon.dict} dans lequel nous écrirons les informations de VerbNet concernant les cadres syntaxiques et les classes verbales de VerbNet manipulés grâces aux fonctions \emph{treeframes} et \emph{supers}. Le produit de ce bloc correspondra à la section \texttt{VERBNET CLASSES} du prochain \emph{lexicon} de GenDR.
 
 \begin{lstlisting}[language=Python, caption = Importation de l'architecture des classes verbales, label=fig:archivn]
-# VERBNET HIERARCHY
+# BLOCK 1 : VERBNET HIERARCHY
 def supers(t, i):
     ID = t.get('ID') # t = root of the verbal class, it contains the shared syntactic information.
     sc = {ID:i} # simulates the inheritance mechanism.
@@ -58,7 +54,7 @@ def supers(t, i):
             sc = {**sc, **supers(sub, ID)} # it'll point towards the class it's being dominated by.
     return sc
 		
-# EXTRACTION of GPS identification and EXAMPLES
+# BLOCK 2 : EXTRACTION of GPS identification and EXAMPLES
 def treeframes(t):
     ID = t.get('ID')  # gets the name of the verbnet class
     z = []            
@@ -89,7 +85,7 @@ def treeframes(t):
     subframes = sum(subframes, []) # flatten list of lists
     return [(ID, z)] + subframes # returns list of (sub)class, GP-identification and example
 		
-# WRITING of the EXTRACTED INFORMATION in a DICT FILE
+# BLOCK 3 : WRITING of the EXTRACTED INFORMATION in a FILE
 with open('lexicon.dict','w') as f: # we are going to write all of this block into lexicon.dict
     f.write('lexicon {\n')
     for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']: # open VerbNet XMl files
@@ -110,7 +106,7 @@ with open('lexicon.dict','w') as f: # we are going to write all of this block in
 
 \subsection{Création du dictionnaire des membres verbaux} \label{extracmembre}
 
-Maintenant que nous avons extrait les classes verbales et l'architecture de celles-ci, il ne nous reste qu'à peupler le dictionnaire des lexèmes encodés dans la section \texttt{<MEMBERS>} de chaque classe de VerbNet. De cette manière notre \emph{lexicon} pourra effectivement couvrir une immense partie de l'anglais grâce au travail de %\cite{SchulerVerbnetBroadcoverageComprehensive2005}. À cette étape, nous procèderons aussi à la désambiguïsation des verbes. Schuler a distingué les différentes acceptions d'un même vocable en leurs assignant des classes verbales différents en fonction des différents sens d'un vocable.
+Maintenant que nous avons extrait les classes verbales et l'architecture de celles-ci, il ne nous reste qu'à peupler le dictionnaire des lexèmes encodés dans la section \texttt{<MEMBERS>} de chaque classe de VerbNet. De cette manière notre \emph{lexicon} pourra effectivement couvrir une immense partie de l'anglais grâce au travail de \cite{SchulerVerbnetBroadcoverageComprehensive2005}. À cette étape, nous procèderons aussi à la désambiguïsation des verbes. Schuler a distingué les différentes acceptions d'un même vocable en leurs assignant des classes verbales différents en fonction des différents sens d'un vocable.
 
 \subsubsection{Récupérer les membres}
 L'objectif de la fonction \emph{treemember} est de récupérer les membres assignés à chaque classe et sous-classe verbale encodés dans VerbNet.
@@ -170,7 +166,7 @@ with open('members.dict','w') as f: # open a file
     f.write('\n}\n')
 \end{lstlisting}
 
-\section{Création du dictionnaire de patrons de régime}
+\section{Création du dictionnaire de patrons de régime}\label{sec:creategpcon}
 
 Lors de la création de la section \texttt{VERBNET CLASSES}, nous avons extrait les classes verbales de VerbNet ainsi que les identifiants des patrons de régime qui sont encodés dans ces classes. Nous avons analysé le contenu des patrons de régime prélevés afin de trouver une manière d'encoder les propriétés lexicales de chaque patron de régime dans un dictionnaire prêt à cet effet.
 

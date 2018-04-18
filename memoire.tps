@@ -71,8 +71,8 @@ Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame3_View0,0]
-TopLine=522
-Cursor=26762
+TopLine=408
+Cursor=28805
 
 [Frame4]
 Flags=0
@@ -107,8 +107,8 @@ Class=LaTeXView
 Document=ch5\python.tex
 
 [Frame5_View0,0]
-TopLine=261
-Cursor=19743
+TopLine=244
+Cursor=23501
 
 [Frame6]
 Flags=0
@@ -125,8 +125,8 @@ Class=LaTeXView
 Document=ch6\implementation.tex
 
 [Frame6_View0,0]
-TopLine=93
-Cursor=11446
+TopLine=180
+Cursor=12154
 
 [Frame7]
 Flags=0
@@ -197,7 +197,7 @@ Class=LaTeXView
 Document=preambule.tex
 
 [Frame10_View0,0]
-TopLine=157
+TopLine=160
 Cursor=6532
 
 [Frame11]
@@ -220,5 +220,5 @@ Cursor=480
 
 [SessionInfo]
 FrameCount=12
-ActiveFrame=6
+ActiveFrame=5
 

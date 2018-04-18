@@ -130,7 +130,7 @@ Une entrée typique dans ce dictionnaire contient: l'identifiant du \ac{GP} et s
 
 Cependant, ce dictionnaire n'est pas sans failles. Nous nous sommes rendu compte qu'il existait des doublons de \ac{GP} en termes de contenu. L'origine de ces doublons provient de VerbNet qui utilise des rôles thématiques pour identifier les actants syntaxiques, ce qui permet à deux \ac{GP} d'avoir des propriétés identiques mais des identifiants différents. Par exemple, les patrons \texttt{NP\_agent\_V} et \texttt{NP\_attribute\_V} couvrent la même construction, mais la différence provient du fait que l'actant syntaxique I est de type agentif et l'actant II est attributif. Nous avons gardé ces doublons puisqu'ils proviennent de l'architecture de VerbNet et ils pourraient nous être utile si nous voulions faire le pont avec une autre ressource qui se sert des rôles thématiques pour identifier la diathèse.
 
-\begin{lstlisting}[language=mate, caption = Extrait du \emph{gpcon}]
+\begin{lstlisting}[language=mate, caption = Extrait du \emph{gpcon}, label=fig:4entries-gpcon]
 NP_agent_V {
    I={rel=subjective dpos=N}
 }

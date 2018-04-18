@@ -176,31 +176,22 @@ Nous en sommes venus à la conclusion que nous ne pouvions pas directement extra
 
 Bref, nous avons manipuler l'extraction des identifiants de \acp{GP} pour que ceux-ci nous donnent le plus d'information possible. Ainsi, un identifiant comme : \texttt{NP\_V\_NP\_destination\_PP\_with\_theme} nous donne les informations suivantes: la partie du discours de chaque actant syntaxique, l'ordre des actants syntaxique en \ac{RSyntP} et les prépositions régies par le verbe pour un actant donné. Ensuite, l'union de cet l'identifiant à la phrase \form{Jessica loaded the wagon with boxes.} nous permet de déduire les relations de surface (sujet, objet direct, etc.) de chaque actant syntaxique. C'est grâce à ces informations que nous avons construit le \emph{gpcon}.
 
-Pour mieux comprendre le code qui nous a permi de créer le \emph{gpcon}, nous décrirons brièvement les étapes importantes qui ont mené à sa complétion. Donc, on prenait la description qui nous donnait les: dpos, relation, et préposition lié à un actant. Puis on créait une entrée de gp à partir de ça. À l'aide d'une fonction, nous avons pu parcourir toutes les calsses verbales de VerbNet et trouver qu'il y avait 274 identifiants de GP unique. Nous savions donc combien de gp il nous fallait coder. Pour procédéer à la chose, nous avons donc pris chaque gp unique et en avons fait une entrée dans notre dictionnaire. Nous l'avons encodé manuellement puisqu'aucune partie de VerbNet ne nous permettait de l'importer directement puisque le cadre théorique dans lequel nous nous insérons et GenDR demande que les patrons de régime soient décrits d'une certaine façon. De plus, comme ni la diathèse, ni relations de surface sont explicités, il fallait le faire nous-même. Pour accélérer le processus nous avons défini des objets qui représentent des actants syntaxiques non-étiquettés, mais qui incorprorent les traits lexicaux qu'un tel actant syntaxique demanderait.
+À l'aide d'un petit script Python, nous avons pu établir qu'il y avait 274 identifiants de \ac{GP} uniques. Ceux-ci correspondent à la liste de \acp{GP} que nous devront encoder et chacun d'entre eux sera une entrée dans le dictionnaire de patrons de régime. Nous avons dû codé chaque patron de régime \emph{à la main} dans Python puisque les cadres syntaxiques de VerbNet ne pouvaient pas être manipulés pour rendre des patrons de régime prêt à utiliser avec GenDR. Cependant, pour accélérer ce processus manuel, nous avons défini des objets qui représentent des actants syntaxiques non-étiquettés incorporant des traits lexicaux et syntaxiques. Ensuite, nous avons défini une fonction permettant d'assigner une étiquette au contenu d'un actant syntaxique, puis la combinaison du contenu et de l'étiquette nous a permi de créer des patrons de régime assez rapidement. Le tout sera expliqué en détails dans cette section.
 
-{définir les objets, définir une fonction pour prendre les objets et leur attribuer une étiquette syntaxique, puis créer les régimes grâce à ça}
+\subsection{Contenu lexical et syntaxique d'un actant non-étiquetté}
 
-\subsection{Propriétés des actants syntaxiques}
-
-Dans le premier bloc, nous définissons des objets comme subj ou dir\_N qui correspondent à des propriétés syntaxiques qu'on attribue normalement à un actant syntaxique. Par exemple, l'objet subj contient les traits suivants \lstinline|subj = 'rel=subjective dpos=N'|, qui sont généralement attribués au premier actant syntaxique. Nous avons ainsi défini toutes les propriétés syntaxiques possibles des actants que nous avons relevé dans les \acp{GP} de VerbNet. Ainsi, ces objets correspondent à des raccourcis pour faciliter l'encodage des \acp{GP} individuels. Puisque nous avons codé chaque patron de régime manuellement, il nous fallait un raccourci pour décrire les propriétés d'un actant syntaxique. Par exemple, au lieu d'écrire au complet \lstinline|I = { rel = subjective dpos = N}| à chaque fois qu'un patron de régime a un tel actant syntaxique, nous n'avons qu'à spécifier l'objet défini dans cette section. 
-
-Cela nous a permi de spécifier l'objet dans la description du régime au lieu de toutes les propriétés de l'actant syntaxique à chaque fois. Cela a grandement augmenté l'efficacité de l'encodage des 274 patrons de régime. Par exemple, \lstinline|NP_agent_V_NP| est décrit par les éléments: [subj, dir\_N] qui sont respectivement encodé en fonction de leur relation syntaxique de surface. Donc le système vérifie que contient l'item \texttt{subj} puis récupère les valeurs à l'intérieur \lstinline|subj = 'rel=subjective dpos=N'| et il répète l'opération jusqu'à ce que toutes les propriétés syntaxiques soient récupérées.
+Dans le premier bloc, nous définissons des objets comme \texttt{subj} ou \texttt{dir\_N} qui correspondent à des propriétés syntaxiques qui seraient normalement contenues dans un actant syntaxique. Par exemple, l'objet \texttt{subj} contient les traits suivants \lstinline|subj = 'rel=subjective dpos=N'|. Nous avons ainsi défini tous les propriétés lexico-syntaxiques possibles des actants que nous avons relevé parmi les identifiants de \acp{GP}. Autrement dit, ces objets correspondent à des raccourcis pour faciliter l'encodage des \acp{GP} individuels. Ensuite, nous avons créé une fonction pour prendre ces raccourcis et leur assigner une étiquette selon leur position dans le \ac{GP}. Cela nous évitera de décrire les propriétés syntaxiques des actants à chaque patron de régime. Bref, nous avons décrit tous les patrons de régime à l'aide de ces raccourcis: \lstinline|{'NP_agent_V_NP': [subj, dir_N],}|. Pour l'instant, ces objets n'incorporent que des propriétés syntaxiques, mais elles ne sont pas encore étiquettées (I,II, III, etc.).
 
 \subsection{Assignation des étiquettes syntaxiques profondes aux actants}
 
-L'objectif de la combinaison des fonctions \emph{roman} et \emph{gp} est d'assigner les étiquettes des actants syntaxiques selon leur emplacement dans la description d'un \ac{GP}. Par exemple, dans \lstinline|NP_agent_V_NP: [subj, dir_N]|, puisque \texttt{dir\_N} est à la deuxième position, les propriétés qu'il renferme seront encodés dans un actant syntaxique \texttt{II}. En effet, si on se fie au produit final, nous avons dans le dictionnaire de patron de régime: \lstinline|NP_agent_V_NP { I={rel=subjective dpos=N} II={rel=dir_objective dpos=N} }|.  Cette fonction nous permet aussi de créer, par exemple, deux fois le même actant syntaxique pour un même \ac{GP}, afin de tenir compte du fait que certains actants sélectionnent deux prépositions: \lstinline| III={rel=oblique dpos=N prep=from}| et \lstinline|III={rel=oblique dpos=N prep="out of"}|. 
-
-Ce qui est illustré par le \ac{GP} \lstinline|NP_asset_V_NP_PP_from_out_of| qui se décrit par les items suivants: \lstinline|[subj, dir_N, [from_N, out_of_N]]|
-
-\subsubsection{Construction d'une entrée de \ac{GP}}
-
+L'objectif de la combinaison des fonctions \emph{roman} et \emph{gp} est d'assigner les étiquettes des actants syntaxiques selon leur position dans l'encodate d'un \ac{GP}. Par exemple, dans \lstinline|NP_agent_V_NP: [subj, dir_N]|, puisque \texttt{dir\_N} est à la deuxième position, les propriétés qu'il renferme seront encodés dans un actant syntaxique \texttt{II}. Le produit final d'une telle mécanique permet de générer le patron de régime: \lstinline|NP_agent_V_NP { I={rel=subjective dpos=N} II={rel=dir_objective dpos=N} }|. De plus, cette fonction nous permet aussi de dédoubler le même actant syntaxique pour un \ac{GP} dont l'un des actants syntaxiques se réalise à l'aide de deux prépositions différentes. Cela est illustré par le \ac{GP} \lstinline|NP_asset_V_NP_PP_from_out_of| qu'on a décrit à l'aide des objets: \lstinline|[subj, dir_N, [from_N, out_of_N]]|. Le résultat nous fournit \lstinline| III={rel=oblique dpos=N prep=from}| et \lstinline|III={rel=oblique dpos=N prep="out of"}| pour décrire le troisième actant syntaxique. 
 
 \subsubsection{Création du gpcon}
-Finalement, nous créons le dictionnaire \emph{gpcon} en imposant la fonction \emph{gp} à toutes les descriptions de \acp{GP} pour que l'actant syntaxique (I,II,etc.) soit réalisé et pour qu'il renferme les propriétés syntaxiques qui lui sont associées.
+Finalement, après avoir manuellement décrit tous les \acp{GP} répertoriés, nous leur imposons la fonction fonction \emph{gp} pour que l'étiquette de l'actant syntaxique soit réalisé et pour que le contenu des objets prédifinis soient générés à l'intérieur de l'étiquette. Un exemple du contenu final de ce dictionnaire est illustré à la figure~\ref{fig:4entries-gpcon}.
 
 \begin{lstlisting}[language=Python, caption = Création du dictionnaire de patrons de régime]
 
-# 1 SYNTACTIC ACTANTS PROPERTIES
+# BLOCK 1 SYNTACTIC ACTANTS PROPERTIES
 #subjective
 subj = 'rel=subjective dpos=N'
 
@@ -220,7 +211,7 @@ for_obl_N = 'rel=oblique dpos=N prep=for'
 against_N = 'rel=oblique dpos=N prep=against'
 ...
 
-# 2 ASSIGN SYNTACTIC LABEL to ACTANT
+# BLOCK 2 ASSIGN SYNTACTIC LABEL to ACTANT
 def roman(n):
     return ['I', 'II', 'III', 'IV', 'V', 'VI'][n-1] # transforms arabic numbers in roman numbers
 def gp(name, real_actant):
@@ -236,14 +227,14 @@ def gp(name, real_actant):
     s = s + '}\n'
     return s 
 
-# 3 CONSTRUCTION OF A GP ENTRY
+# BLOCK 3 CONSTRUCTION OF A GP ENTRY
 descriptions = {
 'NP_agent_V': [subj],
 'NP_agent_V_NP': [subj, dir_N],
 'NP_asset_V_NP_PP_from_out_of': [subj, dir_N, [from_N, out_of_N]],
 ...
 
-# 4 GPCON CREATION
+# BLOCK 4 GPCON CREATION
 with open('gpcon.dict','w') as f: 
     f.write('gpcon {\n')
     for d in descriptions.keys():       # for each gps descriptions,
@@ -262,7 +253,7 @@ L'\textbf{extraction des exemples} se fait grâce à la fonction \emph{treeframe
 Le second bloc de code s'occupe de la \textbf{compilation des phrases} extraites dans le fichier \emph{phrases.txt}, en les divisant ligne par ligne. 
 
 \begin{lstlisting}[language=Python, caption = Extraction des phrases exemples de VerbNet]
-#EXAMPLES EXTRACTION
+# BLOCK 1 EXAMPLES EXTRACTION
 def treeframes(t):
     z = []
     for frame in t.findall('FRAMES/FRAME'): # for each syntactic frame
@@ -277,7 +268,7 @@ def treeframes(t):
     subframes = sum(subframes, []) # flatten list of lists
     return z + subframes
 
-#LIST OF SENTENCES IN THE FILE phrases.txt
+# BLOCK 2 LIST OF SENTENCES IN THE FILE phrases.txt
 liste=[]
 with open('phrases.txt','w') as f:
     for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']:

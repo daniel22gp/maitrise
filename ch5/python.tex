@@ -31,6 +31,35 @@ ingest_1: "absorb-39.8"
 
 \subsection{Extraction de l'architecture de VerbNet}
 
+Exemple d'input:
+\begin{lstlisting}[language=XML, caption=Cadre syntaxique de VerbNet pour la classe absorb-39.8, label=fig:absorbxml]
+<FRAMES>
+        <FRAME>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+            <EXAMPLES>
+                <EXAMPLE>Cotton absorbs water.</EXAMPLE>
+            </EXAMPLES>
+            <SYNTAX>
+                <NP value="Goal">
+                    <SYNRESTRS/>
+                </NP>
+                <VERB/>
+                <NP value="Theme">
+                    <SYNRESTRS/>
+                </NP>
+            </SYNTAX>
+		<FRAME>
+         ...
+\end{lstlisting}
+
+Exemple d'output:
+\begin{lstlisting}[language=mate, caption=Membres verbaux pointant vers leur classe]
+"absorb-39.8": verb {
+  gp = { id=NP_V_NP                        dia=x } // Cotton absorbs water.
+ ...
+}
+\end{lstlisting}
+
 \draft{faudrait commencer par montrer un exemple d'input et d'output avant d'expliquer comment tu passes de un à l'autre}
 
 Nous avons divisé la description du premier script en trois blocs pour en faciliter la compréhension.
@@ -249,60 +278,3 @@ with open('gpcon.dict','w') as f:
         f.write(gp(d, descriptions[d])) # write them with the correct syntactic label
     f.write('}')
 \end{lstlisting}
-
-\section{Scripts pour l'évaluation de GenDR}
-\FL{ça irait plutôt dans le chapitre éval?}
-
-Pour évaluer la qualité de l'implémentation de VerbNet à GenDR, nous avons extrait les phrases exemples qui figurent dans VerbNet dans le but d'en faire des inputs et de tenter de les générer. Autrement dit, nous avons pris les phrases exemples accompagnant chaque cadre syntaxique, et nous voulions créer des graphes sémantiques à partir de ces phrases, dans le but de les donner à GenDR pour qu'il tente de générer la phrase de départ.
-
-\subsection{Extraction des exemples}
-
-L'\textbf{extraction des exemples} se fait grâce à la fonction \emph{treeframe} que nous reprenons du script ayant servi à extraire les identifiants de \acp{GP} (voir figure~\ref{fig:archivn}). L'objectif est de parcourir les fichiers XML pour uniquement récupérer les phrases exemples contenues dans les classes verbales et sous-classes.
-
-Le second bloc de code s'occupe de la \textbf{compilation des phrases} extraites dans le fichier \emph{phrases.txt}, en les divisant ligne par ligne. 
-
-\begin{lstlisting}[language=Python, caption = Extraction des phrases exemples de VerbNet]
-# BLOCK 1 EXAMPLES EXTRACTION
-def treeframes(t):
-    z = []
-    for frame in t.findall('FRAMES/FRAME'): # for each syntactic frame
-        description = re.sub(r"\s*[\s\.\-\ +\\\/\(\)]\s*", '_',
-				frame.find('DESCRIPTION').get('primary'))
-        if description in exclude:
-            continue    
-        examples = [e.text for e in frame.findall('EXAMPLES/EXAMPLE')] # get the examples
-        z =  z + examples 
-    subclasses = t.findall('SUBCLASSES/VNSUBCLASS')
-    subframes = [treeframes(subclass) for subclass in subclasses] #repeat operation for subclasses
-    subframes = sum(subframes, []) # flatten list of lists
-    return z + subframes
-
-# BLOCK 2 LIST OF SENTENCES IN THE FILE phrases.txt
-liste=[]
-with open('phrases.txt','w') as f:
-    for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']:
-        root = ET.parse('verbnet/'+file).getroot()       
-        d = (treeframes(root))  # Applies treeframes function to all of VerbNet files
-        finale_liste = liste + d
-        [f.write(x+'\n') for x in finale_liste] # returns line after each example
-
-\end{lstlisting}
-
-\subsection{Création des structures sémantiques}\label{sec:pythonstruc}
-
-Ce script crée les graphes de bases qui nous permettront de faire les tests. Ces inputs en préparation sont dépourvus de n\oe{}uds et d'arcs. Ils ne contiennent que des éléments non-sémantiques qui faciliteront l'encodage des inputs.
-
-Pour ce faire, nous ouvrons le fichier \emph{phrases.txt} qui contient chaque phrase exemple, ligne par ligne. Le script créera 978 structures sémantiques vides pour les 978 phrases extraites de VerbNet. Il identifiera chaque structure de 1 à 978.\FL{initialement ça allait de 0 à 977, t'as ajusté?} Les stuctures créées par ce script ne contiendront que le texte à représenter sémantiquement et les crochets \{ \} nécessaires pour encadrer le graphe. Finalement, le script créera 978 structures.
-
-\begin{lstlisting}[language=Python, caption = Création des structures sémantiques vides, label=structurepython]
-phrases = open('phrases.txt','r')
-
-with open('structures.str','w') as f: # create a .str structure
-    for(i,p) in enumerate(phrases):   # for each sentence
-        with open('s'+str(i)+'.str','w') as g:
-            structure = 'structure Sem S'+str(i)+' # name each structure by enumeration
-						{\n S {text="'+p.strip()+'"\n\n main-> \n }\n}' # insert as texte the sentence
-            f.write(structure)
-            g.write(structure)
-\end{lstlisting}
-

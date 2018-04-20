@@ -2,17 +2,18 @@
 
 \chapter*{Conclusion}
 
-Verbes contrôlent le langage, ressources penchés sur verbes: verbNet
+Problématique 9-10 lignes:
 
-Application TAL gagne à contrôler les verbes
+\draft{Problématique1: Il faut avoir des ressources lexicales riches décrivant les différents comportements syntaxiques des verbes car les verbes contrôlent la structure de la plupart des énoncés et leurs comportements sont très imprévisibles. Donc, en détenant les propriétés syntaxiques des verbes d'une langue donnée, on peut couvrir une grande partie des constructions de phrases possibles pour celle-ci. De là vient notre objectif, qui est d'intégrer au réalisateur profond GenDR un dictionnaire de comportements syntaxiques renfermant une quantité exhaustive des constructions possibles de l'anglais. De plus, comme GenDR se veut multilingue, si l'intégration est réussie, alors cela nous amènerait vers l'acquisition d'autres ressources lexicales similaires dans d'autres langues afin d'exploiter l'aspect multilingue de GenDR à pleine capacité. Pour clarifier l'expression \scare{comportements syntaxiques}, il s'agit des cooccurences syntaxique d'une unité lexicale donnée avec les arguments que cette lexie sélectionne. Par exemple, la relation entre un verbe et son sujet, ou bien la relation entre un nom et le complément qu'il sélectionne. La raison pour laquelle nous encodons généralement ces comportements dans des dictionnaires est du à l'aspect imprévisible de ces comportemetns. En effet, on ne peut pas prédire le nombre d'actants qu'un prédicat gouverne, ou bien les prépositions qu'il régit. ce qui est illustré par \cite{MilicevicSchemaregimepont2009}: \form{on se souvient de $X$}, mais \form{on se rappelle $X$}.
 
-Les systèmes de GAT auraient beaucoup à gagner des dictionnaires de patrons de régime. Cela permet de couvrir une immense partie du langage.
+Problématique2: De plus, une autre raison qui nous a poussé à acquérir une telle ressource provient du fait que l'architecture présente de GenDR, le réalisateur que nous utilisons présente des limites quant à l'encodage de divers comportements syntaxiques pour un lexème.Pour un verbe donné, on ne peut pas avoir deux parties du discours différentes qui compétitionnent pour la même position syntaxique. Autrement dit, si nous voulions exhaustivement représenter les comportements du verbe \lex{want}, il nous faudrait un \ac{GP} qui puisse tenir compte du fait que le second actant syntaxique de ce verbe peut avoir une \ac{DPOS} de type verbale ou nominale: \form{I want to eat} vs \form{I want a dog}. Cela nous était impossible à encoder dans MATE avec les paramètres que nous avions car le système ne nous laissait pas donner deux versions de l'actant syntaxique II de \lex{want}.Nous nous sommes alors tourné vers l'idée d'ajouter un dictionnaire supplémentaire à notre ressource, qui encoderait tous les régimes existants de l'anglais. Puis, nous n'aurions qu'à encoder l'identification des \ac{GP} dans les unités lexicales appropriées ce qui nous permettait de contourner le problème des \acp{GP} multiples. Notre ancienne méthode restreignait conséquemment le nombre de réalisations possibles pour un verbe donné.}
 
-Nous voulions voir si l'implémentation d'une telle ressource était viable dans un réalisateur profond et si c'était faisable.
+Application TAL gagnerait à avoir plus de coverage, dont la GAT. Par exemple, GenDR
 
-comment notre mémoire répond à la problématique
+Rappeler l'objectif du mémoire:\draft{L'objet de ce mémoire est de pourvoir GenDR d'une couverture linguistique beaucoup plus grande que celle qu'il a présentement en y intégrant VerbNet qui est une base de données lexicales décrivant les comportements syntaxiques de 6\,394 verbes. On devrait pouvoir modéliser toutes les constructions possibles par une langue en ayant des descriptions très précises des verbes puisque les verbes contrôlent la plupart des énoncés. Nous voulions voir si l'implémentation d'une telle ressource était viable dans un réalisateur profond et si c'était faisable.}
 
-Reprendre synthèse chaque chapitre avec les fait saillants (plus grande description qu'à l'intro):
+Le mémoire répond à la problématique en faisant la tentative d'implémenter une telle ressource dans un réalisateur profond.
+
 Chapitre 1: Fait le tour des différents réalisateurs
 Chapitre 2: Étudié GenDR en profondeur
 Chapitre 3: Regarder pourquoi VerbNet était gagnant

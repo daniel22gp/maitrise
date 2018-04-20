@@ -116,7 +116,7 @@ Dans VerbNet, les verbes sont regroupés en classes, chacune contenant un ensemb
 
 Les auteurs de VerbNet se sont fortement inspirés de Acquilex Lexical Knowledge Base \citep{CopestakeACQUILEXLKBrepresentation1992} pour l'organisation du lexique. Acquilex ordonnait l'information lexicale en hiérarchie. VerbNet a donc aussi implémenté un aspect hiérarchique à son dictionnaire en créant jusqu'à trois niveaux de profondeur pour organiser les classes verbales. 
 
-Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe mère. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe mère montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \footcite{CLEARVerbNetAnnotationGuidelines}.\FL{tu peux citer ça comme un rapport technique. les auteurs sont pas spécifiés, donc mets le nom du labo comme auteur. Daniel: Comme ça ? (j'ai pas trouvé de date)}
+Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe mère. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe mère montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \footcite{CLEARVerbNetAnnotationGuidelines2005}.
 
 \begin{lstlisting}[language=XML, caption = Hiérarchie, label=hierarch]
 <VNCLASS ID="spray-9.7">
@@ -150,7 +150,7 @@ Tel que démontré dans l'exemple \ref{hierarch}, les classes et sous-classes so
 \subsubsection{Membres}
 Traditionnellement, les entrées lexicales dans un dictionnaire représentent un seul et unique verbe. En ce qui concerne VerbNet, les entrées sont des classes verbales regroupant  plusieurs verbes à la fois. Cela permet à VerbNet de couvrir largement l'anglais sans recourir à un grand nombre d'entrées. Pour garnir leur section \emph{Members}, VerbNet a puisé dans les travaux de Levin \cite{verb-classes.levin.1993} et dans la base de données LCS \citep{AyanGeneratingParsingLexicon2002a}, et a mené sa propre enquête pour déterminer à quelle classe verbale un verbe appartient.
 
-Concrètement, cette information est encodée directement dans les entrées lexicales de VerbNet en XML. La figure~\ref{membre} montre à quoi ressemble la section \emph{Members}. On voit que \lex{deal, lend, loan, pass, peddle} et \lex{refund} sont les membres de la classe \texttt{give-13.1}.\FL{c'est quoi les numéros \texttt{deal\%2:40:01} Daniel:Ce sont les ID des synsets de WordNet, mais c'est pas particulièrement pertinent et ça prend de la place pour rien, je vais les retirer}
+Concrètement, cette information est encodée directement dans les entrées lexicales de VerbNet en XML. La figure~\ref{membre} montre à quoi ressemble la section \emph{Members}. On voit que \lex{deal, lend, loan, pass, peddle} et \lex{refund} sont les membres de la classe \texttt{give-13.1}.
 
 
 \begin{lstlisting}[language=XML, caption = Les membres d'une classe, label=membre][float]

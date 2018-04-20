@@ -2,9 +2,34 @@
 
 \chapter*{Conclusion}
 
-Reprendre synthèse chaque chapitre avec les fait saillants:
-mettre en valeur la contribution de la recherche
-limites du système (VerbNet)
-Quelques pistes à explorer: travaux futurs: VerbNet dans les autres langues, et implémentation des GPS des noms
+Verbes contrôlent le langage, ressources penchés sur verbes: verbNet
+
+Application TAL gagne à contrôler les verbes
+
+Les systèmes de GAT auraient beaucoup à gagner des dictionnaires de patrons de régime. Cela permet de couvrir une immense partie du langage.
+
+Nous voulions voir si l'implémentation d'une telle ressource était viable dans un réalisateur profond et si c'était faisable.
+
+comment notre mémoire répond à la problématique
+
+Reprendre synthèse chaque chapitre avec les fait saillants (plus grande description qu'à l'intro):
+Chapitre 1: Fait le tour des différents réalisateurs
+Chapitre 2: Étudié GenDR en profondeur
+Chapitre 3: Regarder pourquoi VerbNet était gagnant
+Chapitre 4: Extrait VerbNet
+Chapitre 5: Implémenter la ressource dans GenDR : passe de 500 à 6394 verbes, passe de 4-5 patrons de régime généraux à 274	
+Chapitre 6: Évaluer le rappel et la précision ,avec deux méthodes rappel est de x, précision est de x. GenDR performe à 100 pourcent partout, VerbNet excellent pour le rappel, mais moins top pour la précision, 
+
+Contribution:
+- comment encoder une telle ressource dans un système à base de règles: besoin d'un dictionnaire de patron de régime et la dynamique des verbes vers les classes c'est top
+-on a évalué VerbNet en même temps
+- on montre qu'avec une telle ressource, notre réalisateur est capable de générer presque toute les phrases input
+- contribution en quelques semaines on a intégré ça à notre système et ça marche déjà très bien sans ajustement, avec les ajustements le système serait super performant
+- on montre l'apport d'avoir une telle ressource en GAT, c'tait facile à implémenter et les résultats sont très bons
+- pas tous les réalisateurs profonds qui intègrent ça
+
+donc ça nous a permi à la fois d'implémenter une telle ressource dans notre système mais en plus de regarder si VerbNet s'implémente bien dans un réalisateur profond. Quelles sont ses limites
+
+Pour encore plus améliorer le système, nous pourrions implémenter les régimes des noms, grâce aux autres ressources. Nous pourrions aussi aller chercher les gps manquant dans d'autres ressources que nous avons répertoriés. Maintenant qu'on sait comment s'y prendre, ça n'est plus trop compliqué. De plus, comme il existe des VerbNet dans d'autres langues, on aurait avantage à aller les chercher, ce sera facile vu qu'on a déjà le frame d'importation. Et comme GenDr est multilingue ça vient rejoindre le but.
 
 

@@ -283,15 +283,14 @@ Cela conclut notre présentation des composantes de VerbNet. Pour plus d'informa
 
 VerbNet est largement utilisé en \ac{TAL}, notamment pour construire des graphes conceptuels automatiquement \citep{HensmanAutomaticallyBuildingConceptual2004}, faire de l'analyse sémantique \citep{Shi:2005:PPT:2132047.2132058}, faire de la désambiguisation \citep{AbendSupervisedAlgorithmVerb2008} et dans les systèmes de question-réponse \citep{DBLP:conf/nlpke/WenJH08}. \citep{PfeilAlgorithmsResourcesScalable2016} s'en est aussi servi en \ac{GAT} dans le cadre du projet S-STRUCT. De leur côté, \cite{MilleLargeCoverageDetailed2015} ont publié un court article expliquant qu'ils prévoyaient utiliser un dictionnaire de \ac{GP} comme VerbNet car ils avaient besoin d'une ressource lexicale riche pour faire de la \ac{GAT}. Ils mentionnent que des réalisateurs classiques comme KPML \citep{BatemanEnablingTechnologyMultilingual1997}, SURGE \citep{Elhadad98surge:a}, et RealPro \citep{LavoieFastPortableRealizer1997} auraient bénéficié d'un tel enrichissement lexical.
 
-% Effectivement, Schuler le présente très bien dans sa thèse:
-% \begin{quote}
-% A variety of natural language tasks including machine translation, language generation (Dorr, 1997), document classifcation (Klavans and Kan, 1998), lexicography (San llppo, 1994), semantic role labeling (Gildea and Jurafsky, 2002), word sense disambiguation (Dang, 2004), and subcategorization acquisition (Korhonen, 2002) have benefited from the use of verb classes. Some of this work however has been done in a small scale and/or has dealt with restricted domains. A large-scale lexical resource that exploits the notion of verb classes is needed for real-world tasks.
-% \end{quote}
-% \vspace{-\baselineskip}
-% \hfill
-% \cite{SchulerVerbnetBroadcoverageComprehensive2005}
+Comme d'autres, nous avons choisi ce dictionnaire d'abord pour son imposante couverture de la langue anglaise, avec 6\,394 acceptions de 4\,423 vocables, puis pour son architecture héritée de \cite{verb-classes.levin.1993}. De plus, les descriptions syntaxiques encodées en XML sont facilement exportables dans un format qui nous convient. Par le fait même, le traitement en Python devenait très accessible puisque le module NLTK \footnote{\url{https://www.nltk.org/, 01-06-17}} avait déjà fait un pré-traitement de VerbNet. Ainsi il existait des modules dont nous pouvions nous inspirer pour extraire l'information dans les balises de VerbNet.
 
-Comme d'autres, nous avons choisi ce dictionnaire d'abord pour son imposante couverture de la langue anglaise, avec 6\,394 acceptions de 4\,423 vocables, puis pour son architecture héritée de \cite{verb-classes.levin.1993}. De plus, les descriptions syntaxiques encodées en XML sont facilement exportables dans un format qui nous convient. Par le fait même, le traitement en Python devenait très accessible puisque le module NLTK \footnote{\url{https://www.nltk.org/, 01-06-17}} avait déjà fait un pré-traitement de VerbNet. Ainsi il existait des modules dont nous pouvions nous inspirer pour extraire l'information dans les balises de VerbNet. 
+\begin{quote}
+Rich lexical resources are particularly important for verbs that typically act as main predicates of sentences and carry key syntactic-semantic information for language understanding. For verbs, one of the richest lexical resources currently available is VerbNet. 
+ \end{quote}
+ \vspace{-\baselineskip}
+ \hfill
+ \cite{Majewska2017}
 
 Un autre point important est qu'il existe beaucoup de ressources linguistiques à la VerbNet dans d'autres langues que l'anglais, dont le français \citep{danlos:hal-01179175}, le portugais \citep{ScartoncrosslinguisticVerbNetstylelexicon} et l'italien \citep{BussoItalianVerbNetConstructionbased}, ce qui est très intéressant dans le cadre d'un système multilingue comme GenDR.
 

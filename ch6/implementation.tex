@@ -140,7 +140,7 @@ Dans le chapitre \ref{chapgendr}, nous avons démontré comment fonctionnait l'a
 	
 	Bref, une règle actancielle est appliquée en fonction de la diathèse qui est précisée par le trait \texttt{dia}. Autrement dit, pour que l'arborisation se fasse correctement, il faut que les actants sémantiques se trouvant dans la diathèse existent aussi dans la structure sémantique donnée. Cette règle va donc permettre uniquement l'application des \acp{GP} satisfaisant les contraintes de diathèse.
 	
-	Ce mécanisme est nouveau puisque dans la version originale de GenDR, le système traitait chaque relation actancielle sémantique individuellement, puis la faisait correspondre à une relation syntaxique. Cela se traduisait formellement par la création d'un arc entre la racine et un n\oe{}ud vide (qui se faisait imposer des contraintes par son gouverneur, cf. section~\ref{sec:r-actantgp}).\FL{pourquoi c'était pas bon?} La version actuelle de GenDR ne fonctionne plus ainsi, maintenant le \ac{GP} sélectionné déclenche une règle actancielle en fonction du nombre d'actants compris dans sa diathèse, puis la règle crée tous les arcs néssaires en fontion de la diathèse. La règle \emph{actant\_ijk} créera ainsi 3 arcs en syntaxe profonde dont les n\oe{}uds sont vides et non-contraints.
+	Ce mécanisme est nouveau puisque dans la version originale de GenDR, le système traitait chaque relation actancielle sémantique individuellement, puis la faisait correspondre à une relation syntaxique. Cela se traduisait formellement par la création d'un arc entre la racine et un n\oe{}ud vide (qui se faisait imposer des contraintes par son gouverneur, cf. section~\ref{sec:r-actantgp}).\FL{pourquoi c'était pas bon?} La version actuelle de GenDR ne fonctionne plus ainsi, maintenant le \ac{GP} sélectionné déclenche une règle actancielle en fonction du nombre d'actants compris dans sa diathèse, puis la règle crée tous les arcs néssaires en fontion de la diathèse. La règle \emph{actant\_ijk} créera ainsi 3 arcs en syntaxe profonde dont les n\oe{}uds sont vides et non-contraints.\draft{on a changé la manière de procéder pour tenir compte du fait que la diathèse est maintenant encodée en paquet, il nous fallait donc une règle de correspondance qui fonntionne par paquet. C'est pas que l'ancienne méthode n'est pas bonne, c'est juste qu'elle ne convient plus à la manière dont on a encodé l'information}
 	
 	\item \textbf{Application des contraintes sur les n\oe{}uds}
 Notre avons créé une règle qui s'occupait strictement d'imposer les contraintes aux noeuds nouvellement créés par les règles actancielles. Cette règle récupère les restrictions sur les n\oe{}uds qui sont encodés comme propriétés syntaxiques des \acp{GP} dans le \emph{gpcon} (voir la figure~\ref{gpexemple}). La règle d'application de contraintes s'applique autant de fois qu'il y a de n\oe{}uds à contraindre.
@@ -209,8 +209,6 @@ Bien que nous n'en visions qu'une en particulier, huit réalisations ont découl
 }
 \end{lstlisting}
 
-\FL{assure-toi que tes captions soient très explicites, parce que les lecteurs vont souvent juste sauter d'une figure à l'autre et lire le texte seulement s'ils ne comprennent pas la figure}
-
 \begin{lstlisting}[language=mate, caption=Propriétés syntaxiques de \texttt{NP\_V\_PP\_about\_topic\_PP\_to\_co\_agent} , label=gpexemple]
 
 NP_V_PP_about_topic_PP_to_co_agent {
@@ -225,7 +223,7 @@ Application de la règle \emph{root\_standard} pour créer la racine et y impose
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.4\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch6/figs/root.png}
+	\includegraphics[width=0.4\textwidth, trim = {0cm 0.5cm 0cm 0cm},clip]{ch6/figs/root.png}
 	\caption{Création de la racine à partir du n\oe{}ud dominant}
 	\label{deroulement0}
 \end{figure}
@@ -236,7 +234,7 @@ Ensuite, la règle \emph{actant\_gp\_selection} est déclenchée par l'apparitio
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.4\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch6/figs/selectiongp.png}
+	\includegraphics[width=0.4\textwidth, trim = {0.7cm 0.2cm 0cm 0cm},clip]{ch6/figs/selectiongp.png}
 	\caption{Application de la règle actant\_gp\_selection}
 	\label{deroulement1}
 \end{figure}
@@ -246,7 +244,7 @@ La règle \emph{actant\_gp\_ijk} est sélectionnée puisque le trait de diathès
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch6/figs/actant_gp_ijk.png}
+	\includegraphics[width=1\textwidth, trim = {0cm 0.4cm 0cm 0cm},clip]{ch6/figs/actant_gp_ijk.png}
 	\caption{Application d'une règle actancielle: actant\_gp\_ijk}
 	\label{deroulement2}
 \end{figure}
@@ -259,7 +257,7 @@ On lexicalise tous les noeuds puisqu'ils en respectent les contraintes. Le syst�
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch6/figs/lex.png}
+	\includegraphics[width=1\textwidth, trim = {0cm 0.9cm 0cm 0cm},clip]{ch6/figs/lex.png}
 	\caption{Applications d'une règle de lexicalisation: lex\_standard}
 	\label{deroulement3}
 \end{figure}
@@ -271,7 +269,7 @@ En ce qui concerne \textbf{l'arborisation de surface}, nous n'élaborerons pas s
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.5\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch6/figs/ssynt.png}
+	\includegraphics[width=0.6\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch6/figs/ssynt.png}
 	\caption{Applications des règles actancielles et réalisation des lexies fonctionnelles}
 	\label{deroulement4}
 \end{figure}

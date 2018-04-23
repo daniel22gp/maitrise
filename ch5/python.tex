@@ -2,11 +2,11 @@
 
 \chapter{Importation de VerbNet dans GenDR}\label{ch:python}
 
-Nous avons écrit un script en Python pour automatiser en grande partie l'importation des données de VerbNet dans GenDR. Nous avons utilisé le module \emph{xml.etree.cElementTree}\footnote{\url{https://docs.python.org/3/library/xml.etree.elementtree.html}, 01-06-17} pour manipuler et extraire les fichiers \emph{XML} qui contiennent l'information de VerbNet. Ensuite, nous avons compilé ces informations dans des fichiers \emph{.dict} de format MATE pour les utiliser dans GenDR. Nous avons créé un trois dictionnaires: un dictionnaire qui décrit les classes verbales, un dictionnaire qui mappe les unités lexicales sur leur classe VerbNet, et un dictionnaire de patrons de régime. Les deux premiers dictionnaires sont fusionnées dans un même fichier GenDR, puis le dictionnaire de patrons de régime est placé dans un fichier à part. De plus, nous en avons profité pour extraire de VerbNet les phrases exemples afin de nous constituer une banque de phrases construites sur le vocabulaire de VerbNet pour tester notre système.
+Nous avons écrit un script en Python pour automatiser en grande partie l'importation des données de VerbNet dans GenDR. Nous avons utilisé le module \emph{xml.etree.cElementTree}\footnote{\url{https://docs.python.org/3/library/xml.etree.elementtree.html}, 01-06-17} pour manipuler et extraire les fichiers \emph{XML} qui contiennent l'information de VerbNet. Ensuite, nous avons compilé ces informations dans des fichiers \emph{.dict} de format MATE pour les utiliser dans GenDR. Nous avons créé trois dictionnaires: un dictionnaire qui décrit les classes verbales, un dictionnaire qui mappe les unités lexicales sur leur classe VerbNet, et un dictionnaire de patrons de régime. Les deux premiers dictionnaires sont fusionnées dans un même fichier GenDR, puis le dictionnaire de patrons de régime est placé dans un fichier à part.
  
 \section{Préparation du nouveau \emph{lexicon} de GenDR}
 
-Le dictionnaire lexical original de GenDR contient des classes abstraites et des entrées lexicales. À ces deux sections, nous proposons d'ajouter les classes verbales de VerbNet et les membres verbaux de ces classes, deux nouvelles sections que nous identifions comme \texttt{VERBNET CLASSES} et \texttt{VERBNET MEMBERS}. Nous décrirons dans les pages suivants comment les scripts Python que nous avons créés nous ont permi de bâtir ces nouvelles sections du \emph{lexicon}.
+Le dictionnaire lexical original de GenDR contient des classes abstraites et des entrées lexicales. À ces deux sections, nous proposons d'ajouter les classes verbales de VerbNet et les membres verbaux de ces classes, deux nouvelles sections que nous identifions comme \texttt{VERBNET CLASSES} et \texttt{VERBNET MEMBERS}. Nous décrirons dans les pages suivantes comment les scripts Python que nous avons créés nous ont permi de bâtir ces nouvelles sections du \emph{lexicon}.
 
 D'abord, pour mieux comprendre la manière dont nous avons créé la section \texttt{VERBNET CLASSES}, il faut rappeler quelques notions de base du fonctionnement de GenDR. Au chapitre \ref{chapgendr}, nous avons décrit le mécanisme d'héritage qui façonne l'architecture du lexique (p.~\pageref{sec:dictio}). 
 
@@ -21,7 +21,7 @@ verb {
 }
 \end{lstlisting}
 
-Ensuite, nous avons extrait les verbes compris dans toutes les classes verbales de VerbNet et nous les avons aussi soumis à ce mécansime. Ainsi, chaque membre pointe vers sa classe ou sous-classe, dont il hérite de tous les traits. Par exemple, les lexèmes \lex{absorb}, \lex{ingest} et \lex{take in} hériten, tous les trois des traits spécifiés dans la classe verbale \texttt{absorb-39.8}. Cela nous permet de traiter 6\,393 acceptions sans avoir à décrire leur comportement syntaxique complet, simplement en pointant vers la bonne classe, telle qu'indiquée dans VerbNet. L'ajout de nouveaux verbes consisterait essentiellement à trouver à quelle classe ils doivent appartenir.
+Ensuite, nous avons extrait les verbes compris dans toutes les classes verbales de VerbNet et nous les avons aussi soumis à ce mécansime. Ainsi, chaque membre pointe vers sa classe ou sous-classe, dont il hérite de tous les traits. Par exemple, les lexèmes \lex{absorb}, \lex{ingest} et \lex{take in} héritent, tous les trois des traits spécifiés dans la classe verbale \texttt{absorb-39.8}. Cela nous permet de traiter 6\,393 acceptions sans avoir à décrire leur comportement syntaxique complet, simplement en pointant vers la bonne classe, telle qu'indiquée dans VerbNet. L'ajout de nouveaux verbes consisterait essentiellement à trouver à quelle classe ils doivent appartenir.
 
 \begin{lstlisting}[language=mate, caption=Membres verbaux pointant vers leur classe]
 absorb: "absorb-39.8"
@@ -38,7 +38,7 @@ ingest_1: "absorb-39.8"
 \begin{lstlisting}[language=XML, caption=Input du script: cadres syntaxique imbriqués dans les fichiers VerbNet, label=fig:input-absorb]
 <FRAMES>
         <FRAME>
-            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive" xtag=""/>
+            <DESCRIPTION descriptionNumber="0.2" primary="NP V NP" secondary="Basic Transitive"/>
             <EXAMPLES>
                 <EXAMPLE>Cotton absorbs water.</EXAMPLE>
             </EXAMPLES>
@@ -79,7 +79,7 @@ def supers(t, i):
     return sc
 \end{lstlisting}
 
-L'objectif de la fonction \emph{supers} est de recréer l'architecture de VerbNet pour pouvoir l'intégrer à GenDR. Cette fonction récursive récupère l'identifiant d'une classe, puis de toutes les sous-classes imbriquées sous elle. Ensuite, \textbf{la fonction} crée un dictionnaire\footnote{Un dictionnaire en python ne correspond pas au dictionnaire typique en linguistique, ces ressources en Python sont des paires de clé et de valeur non-ordonnées.} Python dont la clé correspond à l'identifiant d'une classe fille et la valeur est l'identifiant de sa classe mère. Cette configuration correspond à celle qui est nécessaire à GenDR pour l'application du mécanisme qui nous permettra de transmettre les attributs d'une classe mère à une classe fille. Par exemple, cette fonction produit \lstinline|"begin-55.1-1": "begin-55.1"|, ce qui indique que \texttt{begin-55.1-1} hérite des traits de la classe \texttt{begin-55.1}.
+L'objectif de la fonction \emph{supers} est de recréer l'architecture de VerbNet pour pouvoir l'intégrer à GenDR. Cette fonction récursive récupère l'identifiant d'une classe, puis de toutes les sous-classes imbriquées sous elle. Ensuite, \textbf{la fonction} crée un dictionnaire\footnote{Un dictionnaire en Python ne correspond pas au dictionnaire typique en linguistique, ils sont en fait des paires de clé et de valeur non-ordonnées.} Python dont la clé correspond à l'identifiant d'une classe \scare{fille} et la valeur est l'identifiant de sa classe \scare{mère}. Cette configuration correspond à celle qui est nécessaire à GenDR pour l'application du mécanisme qui nous permettra de transmettre les attributs d'une classe \scare{mère} à une classe \scare{fille}. Par exemple, cette fonction produit \lstinline|"begin-55.1-1": "begin-55.1"|, ce qui indique que \texttt{begin-55.1-1} hérite des traits de la classe \texttt{begin-55.1}.
 
 \subsubsection{Bloc 2: Création du dictionnaire de classes verbales}
 
@@ -118,7 +118,7 @@ def treeframes(t):
 
 L'objectif de la fonction \emph{treeframes} est de récupérer, pour chaque classe VerbNet, l'identifiant de la classe verbale, les identifiants des patrons de régime compris sous celle-ci et une phrase exemple. Ainsi, cette fonction retourne un couple dont le deuxième élément est un couple: \texttt{(ID classe verbale, (ID \ac{GP}, exemple))}, ce qui se traduit concrètement par cela:\lstinline|('spray-9.7', ('NP_V_NP_destination', 'Jessica sprayed the wall'))|. Dans cet exemple, l'étiquette \lstinline|NP_V_NP_destination| correspond à la description d'un patron de régime et à son identifiant.
 
-Plus précisément, la fonction \emph{treeframes} récupère d'abord l'identifiant de la classe \texttt{spray-9.7}, puis les identifiants des patrons de régime qui sont encodés dans la section \texttt{<FRAME>} de cette classe verbale. Ensuite, grâce aux expressions régulières, on manipule les identifiants de \ac{GP} pour qu'ils correspondent au type de code demandé par GenDR. De plus, nous intégrons les prépositions régies par chaque patron de régime à l'intérieur de l'identifiant afin de les distinguer, puisque certains patrons de régime de VerbNet s'écrivent de la même manière, mais ne sélectionnent pas les mêmes prépositions. Cette distinction s'avèrera très utile pour la description des patrons de régime dans le \emph{gpcon}, section \ref{sec:creategpcon}. Finalement, on récupère les exemples accompagnant chaque patron de régime pour compléter le triplet.
+Pour ce faire, la fonction \emph{treeframes} récupère d'abord l'identifiant de la classe \texttt{spray-9.7}, puis les identifiants des patrons de régime qui sont encodés dans la section \texttt{<FRAME>} de cette classe verbale. Ensuite, grâce aux expressions régulières, on manipule les identifiants de \ac{GP} pour qu'ils correspondent au type de code demandé par GenDR. De plus, nous intégrons les prépositions régies de chaque patron de régime à l'intérieur de l'identifiant de celui-ci afin de les distinguer. En effet, nous nous sommes rendu compte que certains identifiants de régime portaient le même nom, mais ne comprenaient pas les mêmes types de prépositions. Ainsi, en mettant les prépositions sélectionnées dans les identifiants des \ac{GP}, nous pouvons les distinguer et faire en sorte que les classes verbales utilisent les bonnes prépositions. Par exemple, le patron de régime \lstinline|NP_V_PP_patient| peut se distinguer par la préposition qui accompagagne le groupe prépositionnel, donc pour nous assurer que les classes verbales sélectionnent les bonnes prépositions, nous les avons distinguées ainsi: \lstinline|NP_V_PP_on_patient| et \lstinline|NP_V_PP_from_patient|. Finalement, on récupère les exemples accompagnant chaque patron de régime pour compléter le triplet.
 
 \subsubsection{Bloc 3: Écriture des données dans le fichier \emph{lexicon.dict}}
 
@@ -152,10 +152,27 @@ L'objectif de ce dernier bloc de code est de créer un fichier qui contiendra le
 
 Maintenant que nous avons complété la section \texttt{VERBNET CLASSES} de notre dictionnaire, il ne nous reste qu'à peupler le dictionnaire avec les verbes que VerbNet a décrits. De cette manière notre \emph{lexicon} pourra effectivement couvrir une partie importante du lexique anglais grâce au travail de \cite{SchulerVerbnetBroadcoverageComprehensive2005}, qui a associé plus de 6\,000 verbes à leur classe verbale. Lors de l'importation de ces verbes, nous procèderons aussi à leur désambiguïsation. Bien que Schuler ait distingué les différentes acceptions d'un même vocable en leur assignant des classes verbales différentes, la forme des verbes n'est pas désambiguïsée. Pour que GenDR reconnaisse chaque entrée verbale, elles doivent porter des étiquettes différentes.
 
+\begin{lstlisting}[language=XML, caption=Input du script: verbes correspondant aux membres d'une classe verbale, label=fig:member-absorb]
+<VNCLASS ID="absorb-39.8" >
+    <MEMBERS>
+        <MEMBER name="absorb">
+        <MEMBER name="ingest" >
+        <MEMBER name="take_in">
+    </MEMBERS>
+\end{lstlisting}
+
+\begin{lstlisting}[language=mate, caption=Output du script: lexèmes pointant vers la classe verbale qui leur correspond, label=fig:member-output-absorb]
+abound : "swarm-47.5.1-2-1"
+abrade : "other_cos-45.4"
+abridge : "other_cos-45.4"
+absolve : "free-80-1"
+absorb : "absorb-39.8"
+\end{lstlisting}
+
 \subsubsection{Récupérer les verbes}
 L'objectif de la fonction \emph{treemember} est de récupérer les membres assignés à chaque classe et sous-classe verbale de VerbNet. Cette fonction récupère d'abord l'identifiant de la classe verbale, puis les membres qui lui sont associés. Finalement, la fonction retourne des paires de classes verbales et de membres. Par exemple, le script récupèrera deux fois le vocable \lex{order}, une fois comme \lstinline|{order : "get-13.5.1"}|, puis comme \lstinline|{order : "order-60-1"}|. À cette étape, nous venons de récupérer la désambiguïsation de VerbNet, mais elle ne s'insère pas dans notre dictionnaire puisque nous devons donner des noms différents à ces entrées.
 
-\begin{lstlisting}[language=Python, caption = Importation des verbes de VerbNet, label=fig:scriptmember-bloc1]
+\begin{lstlisting}[language=Python, caption = Récupération des verbes de VerbNet, label=fig:scriptmember-bloc1]
 #GET MEMBERS FROM VERBNET CLASSES
 def treemember(t):
     ID = t.get('ID') # get ID of the VNCLASS
@@ -169,6 +186,8 @@ def treemember(t):
 \end{lstlisting}
 
 \subsubsection{Désambiguïser les noms des entrées}
+
+L'objectif de ce bloc est de désambiguïser les différentes acceptions d'un même vocable. Pour cela, nous avons extrait toutes les entrées homonymiques, puis nous les avons distinguées en leur assignant un numéro (ex.: \texttt{grill\_1}, \texttt{grill\_2}, \texttt{grill\_3}). Finalement, nous avons identifié les vocables monosémiques et nous les avons mis à part dans une liste. Nous avons ensuite fusionné les acceptions désambiguïsées et celles qui ne le nécessitaient pas dans une même liste.
 
 \begin{lstlisting}[language=Python, caption = Désambiguïsation des noms des entrées, label=fig:scriptmember-bloc2]
 # DISAMBIGUATE MEMBERS
@@ -190,9 +209,9 @@ unique_member = {m:ID for ID in members.keys()
 unified_dict = {**unique_member, **lexemes} # fuse both dict. to get all members disambiguated
 \end{lstlisting}
 
-L'objectif de ce bloc est de désambiguïser les différentes acceptions d'un même vocable. Pour cela, nous avons extrait toutes les entrées homonymiques, puis nous les avons distinguées en leur assignant un numéro (ex.: \texttt{grill\_1}, \texttt{grill\_2}, \texttt{grill\_3}). Finalement, nous avons identifié les vocables monosémiques et nous les avons mis à part dans une liste. Nous avons ensuite fusionné les acceptions désambiguïsées et celles qui ne le nécessitaient pas dans une même liste.
-
 \subsubsection{Écriture des verbes dans un fichier \emph{.dict}}
+
+L'objectif de ce bloc est de créer le dictionnaire \emph{members.dict}, qui sera ensuite intégré au \emph{lexicon.dict} en tant que section \texttt{VERBNET MEMBERS}. Pour ce faire, nous classons alphabétiquement les verbes, puis nous assignons à chaque acception sa classe verbale (ex.: \lstinline|order_1 : "get-13.5.1"|) grâce à la fonction \emph{treemember}. Finalement, nous insérons le tout dans le fichier \emph{members.dict}
 
 \begin{lstlisting}[language=Python, caption = Écriture des verbes dans le fichier \emph{members.dict}, label=fig:scriptmember-bloc3]
 # WRITE MEMBERS IN A FILE
@@ -205,9 +224,6 @@ with open('members.dict','w') as f: # open a file
         f.write('\n')
     f.write('\n}\n')
 \end{lstlisting}
-
-L'objectif de ce bloc est de créer le dictionnaire \emph{members.dict}, qui sera ensuite intégré au \emph{lexicon.dict} en tant que section \texttt{VERBNET MEMBERS}. Pour ce faire, nous classons alphabétiquement les verbes, puis nous assignons à chaque acception sa classe verbale (ex.: \lstinline|order_1 : "get-13.5.1"|) grâce à la fonction \emph{treemember}. Finalement, nous insérons le tout dans le fichier \emph{members.dict}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- G P C O N    ---------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -227,6 +243,8 @@ Bref, nous avons extrait le plus d'information possible des identifiants des \ac
 À l'aide d'un petit script Python, nous avons établi qu'il y avait 274 \ac{GP} uniques. Chacun sera une entrée dans le dictionnaire de patrons de régime, que nous avons écrite manuellement. Cependant, pour accélérer ce processus, nous avons défini dans Python des objets qui représentent des actants syntaxiques non-étiquettés incorporant des traits lexicaux et syntaxiques. Ensuite, nous avons défini une fonction permettant d'assigner une étiquette au contenu d'un actant syntaxique, puis la combinaison du contenu et de l'étiquette nous a permis de créer des patrons de régime assez rapidement. Le tout sera expliqué en détail dans la section qui suit.
 
 \subsection{Contenu lexical et syntaxique d'un actant non-étiqueté}
+
+Dans le premier bloc, nous définissons des objets comme \texttt{subj} ou \texttt{dir\_N} qui correspondent à des propriétés syntaxiques qui seraient normalement associées à un actant syntaxique. Par exemple, l'objet \texttt{subj} renvoie aux traits \lstinline|'rel=subjective dpos=N'|. Nous avons ainsi défini toutes les propriétés lexico-syntaxiques possibles des actants que nous avons relevés parmi les identifiants des \acp{GP}. Autrement dit, ces objets correspondent aux éléments constitutifs des \acp{GP}. Ensuite, nous avons créé une fonction pour prendre ces éléments et leur assigner une étiquette selon leur position dans le \ac{GP}. Cela nous évite de décrire les propriétés syntaxiques des actants à chaque patron de régime. Finalement, nous avons décrit tous les patrons de régime en combinant ces éléments: \lstinline|{'NP_agent_V_NP': [subj, dir_N],}|.
 
 \begin{lstlisting}[language=Python, caption = Contenu lexical et syntaxique d'un actant non-étiqueté]
 # BLOCK 1 SYNTACTIC ACTANTS PROPERTIES
@@ -250,12 +268,12 @@ against_N = 'rel=oblique dpos=N prep=against'
 ...
 \end{lstlisting}
 
-Dans le premier bloc, nous définissons des objets comme \texttt{subj} ou \texttt{dir\_N} qui correspondent à des propriétés syntaxiques qui seraient normalement associées à un actant syntaxique. Par exemple, l'objet \texttt{subj} renvoie aux traits \lstinline|'rel=subjective dpos=N'|. Nous avons ainsi défini toutes les propriétés lexico-syntaxiques possibles des actants que nous avons relevés parmi les identifiants des \acp{GP}. Autrement dit, ces objets correspondent aux éléments constitutifs des \acp{GP}. Ensuite, nous avons créé une fonction pour prendre ces éléments et leur assigner une étiquette selon leur position dans le \ac{GP}. Cela nous évite de décrire les propriétés syntaxiques des actants à chaque patron de régime. Finalement, nous avons décrit tous les patrons de régime en combinant ces éléments: \lstinline|{'NP_agent_V_NP': [subj, dir_N],}|.
-
 \subsection{Assignation des relations syntaxiques profondes aux actants}
 
+L'objectif de la combinaison des fonctions \emph{roman} et \emph{gp} est d'assigner les relations syntaxiques profondes aux actants selon leur position dans un \ac{GP}. Par exemple, dans \lstinline|NP_agent_V_NP: [subj, dir_N]|, puisque \texttt{dir\_N} est à la deuxième position, les propriétés qu'il renferme seront celles de l'actant syntaxique \texttt{II}. Cela permet de générer le patron de régime \lstinline|NP_agent_V_NP { I={rel=subjective dpos=N} II={rel=dir_objective dpos=N} }|, qui est le format attendu dans GenDR. De plus, cette fonction nous permet aussi de dédoubler le même actant syntaxique pour un \ac{GP} dont l'un des actants syntaxiques se réalise à l'aide de deux prépositions différentes. Cela est illustré par le \ac{GP} \lstinline|NP_asset_V_NP_PP_from_out_of| qu'on a décrit à l'aide des objets \lstinline|[subj, dir_N, [from_N, out_of_N]]|. Cela nous donne \lstinline| III={rel=oblique dpos=N prep=from}| et \lstinline|III={rel=oblique dpos=N prep="out of"}| pour le troisième actant syntaxique.
+
 \begin{lstlisting}[language=Python, caption = Assignation des relations syntaxiques profondes aux actants et construction des patrons de régime]
-# BLOCK 2 ASSIGN SYNTACTIC LABEL to ACTANT
+# BLOCK 2.1 ASSIGN SYNTACTIC LABEL to ACTANT
 def roman(n):
     return ['I', 'II', 'III', 'IV', 'V', 'VI'][n-1] # transforms arabic numbers in roman numbers
 def gp(name, real_actant):
@@ -271,7 +289,7 @@ def gp(name, real_actant):
     s = s + '}\n'
     return s 
 
-#  CONSTRUCTION OF A GP ENTRY
+# BLOCK 2.2 CONSTRUCTION OF A GP ENTRY
 descriptions = {
 'NP_agent_V': [subj],
 'NP_agent_V_NP': [subj, dir_N],
@@ -279,17 +297,17 @@ descriptions = {
 ...
 \end{lstlisting}
 
-L'objectif de la combinaison des fonctions \emph{roman} et \emph{gp} est d'assigner les relations syntaxiques profondes aux actants selon leur position dans un \ac{GP}. Par exemple, dans \lstinline|NP_agent_V_NP: [subj, dir_N]|, puisque \texttt{dir\_N} est à la deuxième position, les propriétés qu'il renferme seront celles de l'actant syntaxique \texttt{II}. Cela permet de générer le patron de régime \lstinline|NP_agent_V_NP { I={rel=subjective dpos=N} II={rel=dir_objective dpos=N} }|, qui est le format attendu dans GenDR. De plus, cette fonction nous permet aussi de dédoubler le même actant syntaxique pour un \ac{GP} dont l'un des actants syntaxiques se réalise à l'aide de deux prépositions différentes. Cela est illustré par le \ac{GP} \lstinline|NP_asset_V_NP_PP_from_out_of| qu'on a décrit à l'aide des objets \lstinline|[subj, dir_N, [from_N, out_of_N]]|. Cela nous donne \lstinline| III={rel=oblique dpos=N prep=from}| et \lstinline|III={rel=oblique dpos=N prep="out of"}| pour le troisième actant syntaxique.
-
 \subsection{Création du \emph{gpcon}}
 
+Finalement, il ne nous reste qu'à créer le fichier \emph{gpcon.dict} qui renfermera tous les \ac{GP}. Donc, nous appliquons la fonction \emph{gp} à chaque description (\lstinline|ex: 'NP_agent_V_NP'|) pour que le contenu des objets (\lstinline|[subj, dir_N]|) se fassent assigner une étiquette syntaxique (\lstinline|I ='rel=subjective dpos=N'|, \lstinline|II = dir_N = 'rel=dir_objective dpos=N'|). Un exemple du contenu final de ce dictionnaire est illustré à la figure~\ref{fig:4entries-gpcon}.
+
 \begin{lstlisting}[language=Python, caption = Création du dictionnaire de patrons de régime]
-# BLOCK 4 GPCON CREATION
+# BLOCK 3 GPCON CREATION
 with open('gpcon.dict','w') as f: 
     f.write('gpcon {\n')
     for d in descriptions.keys():       # for each gps descriptions,
         f.write(gp(d, descriptions[d])) # write them with the correct syntactic label
     f.write('}')
 \end{lstlisting}
-Finalement, après avoir manuellement décrit tous les \acp{GP} répertoriés, nous leur appliquons la fonction \emph{gp} pour que l'étiquette de l'actant syntaxique soit réalisé et que le contenu des objets prédifinis soit généré à l'intérieur de l'étiquette.\FL{pas clair} Un exemple du contenu final de ce dictionnaire est illustré à la figure~\ref{fig:4entries-gpcon}.
+
 

@@ -158,7 +158,7 @@ RealPro a deux grammaires qui permettent successivement de passer d'une représe
 La figure~\ref{lst:realpro} illustre un arbre de dépendance (l'input) représentant la phrase \form{March had some rain days}. Ce qu'on peut retirer de cet exemple que \lex{have1} est la racine de l'arbre et que \lex{march} puis \lex{day} en sont les actants. Ceux-ci appartiennent à des classes nominales et on peut voir qu'il y a des contraintes sur certains n\oe{}uds. La lexie \lex{day} demande que le module morphologique fléchisse la lexie au pluriel. Cet exemple provient de \cite{ReiterBuildingNaturalLanguage2000}.
 
 
-\begin{lstlisting}[language=Xml, caption=Input, label=lst:realpro]
+\begin{lstlisting}[language=mate, caption=Input, label=lst:realpro]
 HAVE1 [tense:past]
 (I March [class:proper-noun]
 II day [class:common-noun numberpl]
@@ -182,7 +182,7 @@ La grammaire de ce système est implémentée à la manière d'un réseau orient
 
 Les informations comprises dans les inputs de ce système sont d'ordre sémantique et syntaxique. Ainsi, l'input de KPML est un\ac{SPL}, ce qui est une une matrice d'attributs et de valeurs. La figure~\ref{kpml} représente à quoi ressemble un \ac{SPL} et elle est issue de \cite{ReiterBuildingNaturalLanguage2000}. Elle représente la phrase \form{March had some rainy days}.
 
-\begin{lstlisting}[language=Xml, caption=SPL: input de KPML, label=kpml]
+\begin{lstlisting}[language=mate, caption=SPL: input de KPML, label=kpml]
 (S1 \ generalized-possession
   :tense past 
 	:domain (N1 \ time-interval
@@ -205,7 +205,7 @@ Dans ce système, la grammaire est aussi décrite en termes de \ac{FD}. Ainsi, r
 
 Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage2000}: \form{March had some rainy days}.
 
-\begin{lstlisting}[language=Xml, caption=FD: input de Surge, label=surge]
+\begin{lstlisting}[language=mate, caption=FD: input de Surge, label=surge]
 ((cat clause)
  (proc ((type possessive)))
  (tense past)

@@ -2,7 +2,7 @@
 
 \chapter{GenDR: un réalisateur profond générique}\label{chapgendr}
 
-GenDR (pour \emph{Generic Deep Realizer}) est un réalisateur profond multilingue \citep{lareau18} qui a hérité de l'architecture de MARQUIS \citep{WannerMARQUISGENERATIONUSERTAILORED2010}, que nous avons présenté à la section \ref{sectionmarquis}. Comme son prédécesseur, GenDR est un transducteur de graphes basé sur la \ac{TST}, et ses dictionnaires et grammaires fonctionnent essentiellement de la même manière.
+GenDR (pour \emph{Generic Deep Realizer}) est un réalisateur profond multilingue \citep{lareau18} qui a hérité de l'architecture de MARQUIS \citep{WannerMARQUISGENERATIONUSERTAILORED2010} (section\ref{sectionmarquis}). Comme son prédécesseur, GenDR est un transducteur de graphes basé sur la \ac{TST}, et ses dictionnaires et grammaires fonctionnent essentiellement de la même manière.
 
 Cependant, contrairement à MARQUIS, GenDR génère uniquement des structures syntaxiques de surface, car ce réalisateur se concentre sur la modélisation de phénomènes langagiers profonds comme la lexicalisation et l'arborisation. Pour compléter la réalisation jusqu'au texte, il faudrait utiliser un réalisateur de surface qui prenne les outputs de GenDR en entrée et réalise du texte fléchi et linéarisé. À ce sujet, \cite{MilleSharedTaskProposal2017a} proposent une compétition pour créer un réalisateur de surface multilingue capable de prendre en input des arbres de dépendances universels \citep{NIVRE16.348}. On pourrait alors envisager de mapper l'output de GenDR sur ce type de structure.
 
@@ -17,7 +17,7 @@ Les composantes lexicales et grammaticales de GenDR sont prises en charge par le
 
 MATE a été conçu à la base pour implémenter la \ac{TST} dans le but de générer du texte. Tous les niveaux de représentation (voir section \ref{sec:semsynt}) de la \ac{TST} correspondent à des graphes et la transformation d'un graphe en un autre est assurée par des ensembles de règles modélisant chaque interface (module sémantique et module syntaxique). En plus d'opérer la transduction de graphes, MATE a aussi été conçu pour tester, développer et maintenir une grammaire computationnelle, ce qui nous permet de réaliser du texte tout en testant les fondements théoriques de la \ac{TST}.
 
-MATE comprend un éditeur de dictionnaires, un éditeur de graphes et un éditeur de grammaires. Les dictionnaires encodent les propriétés des unités sémantiques et lexicales, alors que les grammaires sont composées de règles modélisant le passage d'un niveau de représentation à un autre. L'éditeur de graphes permet de construire et de visualiser ceux-ci. MATE comprend aussi un module d'inspection permettant de voir le déroulement de l'application des règles. Cet outil s'avère très utile au développement d'une grammaire, puisqu'il permet de cerner à quel endroit la réalisation a échoué. Pour plus de détails, voir \cite{BohnetOpensourcegraph2010,LambreyImplementationcollocationspour2017,LambreyGECOv1User2016}.
+MATE comprend un éditeur de dictionnaires, de graphes et de grammaires. Les dictionnaires encodent les propriétés des unités sémantiques et lexicales, alors que les grammaires sont composées de règles modélisant le passage d'un niveau de représentation à un autre. L'éditeur de graphes permet de construire et de visualiser ceux-ci. MATE comprend aussi un module d'inspection permettant de voir le déroulement de l'application des règles. Cet outil s'avère très utile au développement d'une grammaire, puisqu'il permet de cerner à quel endroit la réalisation a échoué. Pour plus de détails, voir \cite{BohnetOpensourcegraph2010,LambreyImplementationcollocationspour2017,LambreyGECOv1User2016}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ---------D I C T I O N N A I R E  ------------------
@@ -25,23 +25,29 @@ MATE comprend un éditeur de dictionnaires, un éditeur de graphes et un éditeu
 
 \subsubsection{Dictionnaires}\label{sec:dictio}
 
-GenDR utilise trois dictionnaires pour décrire le vocabulaire qui sera utilisé dans les textes: un qui fait le pont entre les unités sémantiques et les unités lexicales, un qui décrit le comportement syntaxique des unités lexicales, et un qui décrit les fonctions lexicales. Nous excluerons le troisième dictionnaire de la discussion pour les raisons mentionnées précédemment.
+GenDR utilise trois dictionnaires pour décrire le vocabulaire qui sera utilisé dans les textes: un qui fait le pont entre les unités sémantiques et les unités lexicales, un qui décrit le comportement syntaxique des unités lexicales, et un qui décrit les fonctions lexicales. Nous excluerons le troisième dictionnaire de la discussion parce que nous ne traitons pas des fonctions lexicales dans ce mémoire.
 
 \textbf{Le dictionnaire sémantique}, qu'on appelle \emph{semanticon}, est utilisé par le système lors du passage de la \ac{RSem} à la \ac{RSyntP}. Cette ressource décrit les lexicalisations possibles pour un sémantème donné. C'est une source importante de paraphrasage puisqu'une unité sémantique peut souvent se réaliser de plus d'une manière. Par exemple, en anglais, le sens \sem{owe} peut se réaliser par les lexèmes \lex{owe} (un verbe) et \lex{debt} (un nom).
 
-
-\begin{lstlisting}[language=mate, caption=Échantillon du \emph{semanticon}, label=fig:semanticon]
+\begin{figure}
+  \caption{Échantillon du \emph{semanticon}}
+	\label{fig:semanticon}
+\begin{lstlisting}[language=mate]
 owe { lex = owe
       lex = debt }
 \end{lstlisting}
+\end{figure}
 
 \textbf{Le dictionnaire lexical}, appelé \emph{lexicon}, contient de l'information détaillée à propos des lexies d'une langue donnée. Les entrées contiennent: la \ac{DPOS}, la \ac{SPOS}, la diathèse et les \acp{GP}. Ces deux derniers concepts seront clarifiés à la fin du chapitre, section~\ref{sec:gp}, mais en résumé, la diathèse d'une lexie assure la correspondance entre ses actants sémantiques et ses actants syntaxiques, puis un \ac{GP} correspond à la description d'une construction syntaxique sélectionnée par un lexème.
 
-Dans le \emph{lexicon}, ces propriétés ne sont pas toujours explicitées pour chaque entrée lexicale, puisqu'il existe un mécanisme d'héritage permettant de transmettre des traits entre entrées. Par exemple, à la figure~\ref{fig:lexicon}, le verbe \lex{owe} contient très peu d'information syntaxique parce qu'il hérite de plusieurs propriétés de la classe absraite \texttt{verb\_dit} (\lstinline|owe : verb_dit|). Cela permet à \lex{owe} d'hériter d'une partie du \ac{GP} de la classe qui le domine et cela fait en sorte que GenDR traitera ce lexème en fonction des traits qui lui auront été transmis. À son tour, la classe \emph{verb\_dit} hérite des traits de sa classe mère, \lstinline|verb_dit : verb_dt|, puis successivement jusqu'à ce que tous les traits à transmettre sont octroyés. Ainsi, le mécanisme d'héritage facilite grandement l'encodage des unités lexicales car on n'a qu'à associer chaque nouvelle entrée lexicale à la classe abstraite qui lui correspond. Il en existe pour chaque partie du discours (verbes, noms, adjectifs, adverbes, prépositions, etc.).
+Dans le \emph{lexicon}, ces propriétés (\ac{DPOS}, \ac{SPOS}, \ac{GP} et diathèse) ne sont pas toujours explicitées pour chaque entrée lexicale, puisque GenDR renferme un mécanisme d'héritage permettant de transmettre des traits entre lexèmes. Par exemple, à la figure~\ref{fig:lexicon}, le verbe \lex{owe} contient très peu d'information syntaxique parce qu'il hérite de plusieurs propriétés de la classe absraite \texttt{verb\_dit}, qui correspond à la classe des verbes ditransitifs. Cela permet à \lex{owe} d'hériter d'une partie du \ac{GP} de la classe ditransititive qui le domine. À son tour, la classe \emph{verb\_dit} hérite des traits de sa classe mère, \lstinline|verb_dit : verb_dt|. Autrement dit, la classe des verbes ditransitifs imbriquent les propriétés de la classe transitive, en plus de préciser la sélection d'un actant syntaxique de plus. Ainsi, le mécanisme d'héritage facilite grandement l'encodage des unités lexicales, car on n'a qu'à associer chaque nouvelle entrée lexicale à la classe abstraite qui lui correspond. Il en existe pour chaque partie du discours (verbes, noms, adjectifs, adverbes, prépositions, etc.).
 
 On peut aussi bloquer l'héritage de traits pour une entrée lexicale donnée. Par exemple, la figure~\ref{fig:lexicon} illustre que la lexie \lex{owe} permet deux \ac{DPOS} différentes pour le deuxième actant syntaxique qu'elle contrôle: \lstinline!gp={II={dpos=Num}}! et \lstinline!gp={II={dpos=N}}!. Elle permet ainsi la sélection d'un actant de type nominal ou numéral, ce qui ne fait pas partie du régime de la classe abstraite \texttt{verb\_dit}.
 
-\begin{lstlisting}[language=mate, caption = Échantillon du \emph{lexicon}, label=fig:lexicon]
+\begin{figure}
+  \caption{Échantillon du \emph{lexicon}}
+	\label{fig:lexicon}
+\begin{lstlisting}[language=mate]
 predicate {
   gp = { 1 = I
          2 = II
@@ -85,7 +91,7 @@ owe : verb_dit {
   gp = { II = { dpos=N } }
 }
 \end{lstlisting}
-
+\end{figure}
 
 Finalement, les dictionnaires anglais et français de GenDR contiennent les 1\,500 lexèmes les plus courants de chaque langue. Pour leur part, les dictionnaires lituanien \citep{dubinskaite17} et persan contiennent respectivement $\sim$180 et $\sim$60 lexèmes, assez pour tester le système.
 
@@ -117,11 +123,14 @@ Pour donner une meilleure idée de l'allure de l'éditeur de règles, la figure~
 
 \subsubsection{Graphes}\label{entree-sortie}
 
-Maitenant que nous avons fait un survol des dictionnaires et de la grammaire, il ne nous reste qu'à présenter les graphes. Dans un premier temps nous présenterons brièvement la construction d'un graphe d'input. Puis nous montrerons à quoi ressemblent les graphes en output.
+Maitenant que nous avons fait un survol des dictionnaires et de la grammaire, il ne nous reste qu'à présenter les graphes. Dans un premier temps nous présenterons brièvement la construction d'un graphe d'input, puis nous montrerons à quoi ressemblent les graphes en output.
 
 L'input du réalisateur GenDR est un graphe sémantique \citep{mel2012semantics} où les prédicats sont liés à leurs arguments par des relations numérotées qui indiquent la position logique de l'argument. La figure~\ref{fig:debt} montre comment on construit un graphe sémantique dans MATE.
 
-\begin{lstlisting}[language=mate, caption = Graphe sémantique en mode textuel, label=fig:debt]
+\begin{figure}
+  \caption{Graphe sémantique en mode textuel}
+	\label{fig:debt}
+\begin{lstlisting}[language=mate]
 structure Sem debt {
   S {
     owe {
@@ -131,6 +140,7 @@ structure Sem debt {
     3-> bank {number=SG definiteness=DEF}}
     main-> owe } }
 \end{lstlisting}
+\end{figure}
 
 Toutefois, MATE offre aussi une version graphique pour encoder et visualiser les graphes (voir la figure~\ref{fig:graphesem}).
 
@@ -193,7 +203,7 @@ Pour se rendre au \emph{Texte} final, le \emph{Sens} traverse de nombreux niveau
 
 L'arborisation est le processus de transformation d'un graphe sémantique acyclique (DAG) en arbre de dépendance. Nous la décrirons à la fois d'un point de vue théorique et d'un point de vue appliqué.
 
-Selon la \ac{TST}, la structure syntaxique d'un énoncé correspond à l'ensemble des liens de dependances fonctionnelles qui existent entre les unités lexicales de cet énoncé \citep{melcuk1988}. Cette approche syntaxique provient de \cite{TesniereElementssyntaxestructurale1965} qui est le premier à l'avoir théorisée. Formellement, le passage de la \ac{RSem} à la \ac{RSyntP} se fait grâce à la combinaison de l'arborisation et la lexicalisation. L'arborisation se fait ainsi à partir d'une structure sémantique qui subit des transformations grâces à l'application de règles de correspondances sémantiques pour qu'il en résulte un arbre de dépendances profond. Pour illustrer ce qu'est l'arborisation, nous reprendrons la description de \cite{lareau18} dans le contexte de GenDR. L'arbre syntaxique profond est construit avec un algorithme \emph{top-down} qui est emprunté de MARQUIS, mais qui est, à la base, inspiré de \cite{PolguereStructurationmisejeu1990}. Nous l'avions brièvement illustré avec la figure \ref{fig:marquis} lorsque nous avions présenté MARQUIS.
+Selon la \ac{TST}, la structure syntaxique d'un énoncé correspond à l'ensemble des liens de dependances fonctionnelles qui existent entre les unités lexicales de cet énoncé \citep{melcuk1988}. Cette approche syntaxique provient de \cite{TesniereElementssyntaxestructurale1965} qui est le premier à l'avoir théorisée. Formellement, le passage de la \ac{RSem} à la \ac{RSyntP} se fait grâce à la combinaison de l'arborisation et la lexicalisation. L'arborisation se fait ainsi à partir d'une structure sémantique qui subit des transformations grâces à l'application de règles de correspondances sémantiques pour qu'il en résulte un arbre de dépendances profond. Pour illustrer ce qu'est l'arborisation, nous reprendrons la description de \cite{lareau18} dans le contexte de GenDR. L'arbre syntaxique profond est construit avec un algorithme \emph{top-down} qui est emprunté de MARQUIS, mais qui est, à la base, inspiré de \cite{PolguereStructurationmisejeu1990}. Nous l'avions brièvement illustré avec la figure \ref{fig:marquis} lorsque nous avions présenté MARQUIS et FORGe.
 
 Dans GenDR, l'arborisation s'opère en trois étapes \citep{lareau18}:
 
@@ -216,7 +226,7 @@ chaque arc est considéré successivement dans l'ordre du parcours, puis est tra
 Les micro-structures syntaxiques correspondent aux branches créées et aux n\oe{}uds  au bout de celles-ci qui se font, à leur tour, imposer des contraintes par le \ac{GP} du n\oe{}ud qui les gouverne (dans ce cas,la racine). C'est ainsi qu'on retourne à la seconde étape pour lexicaliser ces n\oe{}uds. Puis, nous répétons la troisième étape qui est de créer les arcs en partance de ces n\oe{}uds, puisque de nouveaux n\oe{}uds lexicalisés amènent leur patron de régime avec eux. Puis on boucle à travers les étapes 2 et 3 jusqu'à ce que le graphe sémantique soit complètement réalisé en syntaxe profonde.
 \end{enumerate} 
 
-Une fois que l'arborisation et la lexicalisation sont effectuées, GenDR passe à la prochaine étape: l'arborisation et la lexicalisation de surface qui impliquent les opérations suivantes. Dans un premier temps, les relations syntaxiques profonds seront réalisées en surface par l'étiquette qui leur correspondront (ex: la relation I deviendra sujet, la relation II deviendra complément d'objet direct, etc.). Puis, il faudra incorporer les lexies vides (prépositions, déterminants, etc.) qui sont encodées dans les lexies profondes sous formes d'attributs. Cela est effectué grâce aux règles de correspondances profondes (le module syntaxique) et grâce aux informations contenues dans les dictionnaires.
+Une fois que l'arborisation et la lexicalisation sont effectuées, GenDR passe à la prochaine étape: l'arborisation et la lexicalisation de surface qui impliquent les opérations suivantes. Dans un premier temps, les relations syntaxiques profondes seront réalisées en surface par l'étiquette qui leur correspondront (ex: la relation \emph{I} deviendra \emph{sujet}, la relation \emph{II} deviendra \emph{complément d'objet direct}, etc.). Puis, il faudra incorporer les lexies vides (prépositions, déterminants, etc.) qui sont encodées dans les lexies profondes sous formes d'attributs. Cela est effectué grâce aux règles de correspondances profondes (le module syntaxique) et grâce aux informations contenues dans les patrons de régime des entrées concernées.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ---------  L E X I C A L I S A T I O N  ------
@@ -277,23 +287,23 @@ La racine vide déclenchera l'application d'une règle de lexicalisation, c'est 
 	\centering
 	\includegraphics[width=0.7\textwidth, trim = {0cm 0.7cm 0cm 0.9cm},clip]{ch3/figs/lex_standard_root.png}
 		\vspace{-0.5cm}
-	\caption{Application de lex\_standard}
+	\caption{Application de \emph{lex\_standard}}
 	\label{fig:lexstand1}
 \end{figure}
 
 \subsubsection{Application de la règle \emph{actant\_gp}}\label{sec:r-actantgp}
-Une fois que la racine est pourvue d'un lexème, l'application de la règle \emph{actant\_gp} est déclenchée. Celle-ci traduit les relations sémantiques prédicat-argument de \sem{owe} en arcs syntaxiques profonds. La correspondance est confirmée par les informations sur la diathèse encodée dans le régime de la lexie \lex{owe}. Comme le prédicat lie trois actants sémantiques, alors la règle s'applique trois fois. Ensuite, les n\oe{}uds au bout des arcs syntaxiques seront contraints en fonction des restrictions prévues par le \ac{GP} de \lex{owe}. Ce mécanisme assure la grammaticalité de la construction de l'arbre. Pour cet exemple, le \ac{GP} de \lex{owe} permet à son deuxième actant syntaxique d'être soit un nom soit un nombre (la figure~\ref{fig:dictio} montre le régime du verbe).
+Une fois que la racine est pourvue d'un lexème, l'application de la règle \emph{actant\_gp} est déclenchée. Celle-ci traduit les relations sémantiques prédicat-argument de \sem{owe} en arcs syntaxiques profonds. La correspondance est confirmée par les informations sur la diathèse encodée dans le régime de la lexie \lex{owe}. Comme le prédicat lie trois actants sémantiques, alors la règle s'applique trois fois. Ensuite, les n\oe{}uds au bout des arcs syntaxiques seront contraints en fonction des restrictions prévues par le \ac{GP} de \lex{owe}. Ce mécanisme assure la grammaticalité de la construction de l'arbre. Pour cet exemple, le \ac{GP} de \lex{owe} permet à son deuxième actant syntaxique d'être soit un nom soit un nombre (la figure~\ref{fig:lexicon} montre le régime du verbe).
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1\textwidth, trim = {0cm 8mm 0cm 15mm},clip]{ch3/figs/actant_gp1.png}
-	\caption{Application de actant\_gp}
+	\caption{Application de \emph{actant\_gp}}
 	\label{fig:actantgp}
 \end{figure}
 
 \subsubsection{Application des règles \emph{lex\_class} et \emph{lex\_standard}}
 
-L'étape précédente a généré des arcs contraints en partance de la racine. Les n\oe{}uds de ces arcs devront donc être lexicalisés afin de poursuivre la construction de l'arbre. GenDR appliquera deux règles de lexicalisation pour réaliser les lexèmes correspondant à \sem{Paul}, \sem{bank} et \sem{\$500}. La règle \emph{lex\_class} sera utilisée puisque \sem{Paul} et \sem{\$500} affichent, respectivement, les traits \texttt{class=proper\_noun} et \texttt{class=amount} dans l'input sémantique. Cette règle fait en sorte que GenDR passe directement au \emph{lexicon}, puisque les sens ne sont pas décrits dans le \emph{semanticon}. L'étiquette du n\oe{}ud sémantique est directement copiée en syntaxe puis GenDR s'assure finalement que les traits de \lex{Paul} et \lex{\$500} respectent les contraintes des n\oe{}uds générés par la règle précédente. La règle \emph{lex\_standard} s'applique pour lexicaliser \sem{bank}.
+L'étape précédente a généré des arcs contraints en partance de la racine. Les n\oe{}uds de ces arcs devront donc être lexicalisés afin de poursuivre la construction de l'arbre. GenDR appliquera deux règles de lexicalisation pour réaliser les lexèmes correspondant à \sem{Paul}, \sem{bank} et \sem{\$500}. D'abord, la règle \emph{lex\_class} sera utilisée puisque \sem{Paul} et \sem{\$500} affichent, respectivement, les traits \texttt{class=proper\_noun} et \texttt{class=amount} dans l'input sémantique. Cette règle fait en sorte que GenDR passe directement au \emph{lexicon}, puisque les sens ne sont pas décrits dans le \emph{semanticon}. L'étiquette du n\oe{}ud sémantique est directement copiée en syntaxe puis GenDR s'assure finalement que les traits de \lex{Paul} et \lex{\$500} respectent les contraintes des n\oe{}uds générés par la règle précédente. Ensuite, la règle \emph{lex\_standard} s'applique pour lexicaliser \sem{bank}.
 
 \begin{figure}[htb]
 	\centering
@@ -302,11 +312,11 @@ L'étape précédente a généré des arcs contraints en partance de la racine. 
 	\label{fig:lexstand2}
 \end{figure}
 
-\subsection{Arborisation de surface}
+\subsection{Arborisation et lexicalisation de surface}
 
 \subsubsection{Application des règles de lexicalisation de surface}
 
-On va chercher les lexicalisations de surface de chacune des unités lexicales avec les règles \emph{lex\_class} (qui s'occupe des lexèmes comme \lex{Paul}) et \emph{lex\_lu}. Il y en a deux, car il faut une règle spécifique pour les lexèmes appertenant à des classes puisque leurs traits de surface ne sont pas encodé dans leurs entrées lexicale, mais dans la classe qui leur est assignée.
+On récupère les lexicalisations de surface de chacune des unités lexicales avec les règles \emph{lex\_class} (qui s'occupe des lexèmes comme \lex{Paul}) et \emph{lex\_lu}. Il y en a deux, car il faut une règle spécifique pour les lexèmes appertenant à des classes puisque leurs traits de surface ne sont pas encodé dans leurs entrées lexicale, mais dans la classe qui leur est assignée.
 
 \begin{figure}[htb]
 	\centering
@@ -316,7 +326,7 @@ On va chercher les lexicalisations de surface de chacune des unités lexicales a
 \end{figure}
 
 \subsubsection{Application des règles actancielles de surface}
-Ces règles remplacent les étiquettes des branches de l'arbre profond (I, II, III,...) par des étiquettes de surface (sujet, objet direct, objet indirect,...). Elles sont encodées dans le \ac{GP} du gouverneur de cette manière \lstinline|gp = { I = { dpos = N \textbf{rel = subjective} } }|. Pour remplacer l'étiquette profonde par l'étiquette de surface de l'actant I, GenDR emploie la règle \emph{actant\_subj} qui récupère dans le \ac{GP} la valeur \texttt{subjective} et fait le remplacement nécessaire. Ensuite, il y a une règle qui s'occupe de la la relation objective directe (\emph{actant\_obj}). Celle-ci fonctionne de la même manière que la règle subjectale sauf qu'elle récupère la valeur de l'actant II et réalisera la valeur \texttt{dir\_objective}. 
+Ces règles remplacent les étiquettes des branches de l'arbre profond (I, II, III,...) par des étiquettes de surface (sujet, objet direct, objet indirect,...). Elles sont encodées dans le \ac{GP} du gouverneur de cette manière: \lstinline|gp = { I = { dpos = N \textbf{rel = subjective} } }|. Pour remplacer l'étiquette profonde par l'étiquette de surface de l'actant I, GenDR emploie la règle \emph{actant\_subj} qui récupère dans le \ac{GP} la valeur \texttt{subjective} et fait le remplacement nécessaire. Ensuite, il y a une règle qui s'occupe de la la relation objective directe (\emph{actant\_obj}). Celle-ci fonctionne de la même manière que la règle subjectale sauf qu'elle récupère la valeur de l'actant II et réalisera la valeur \texttt{dir\_objective}. 
 
 Finalement, les relations indirectes/obliques sont à part car elles nécessitent la réalisation de n\oe{}uds intermédiaires en surface. C'est la règle \emph{actant\_prep} qui se charge de créer un n\oe{}ud intermédiaire en syntaxe de surface permettant d'accueillir le lexème fonctionnel nécessaire à la bonne formation de la phrase. La préposition est directement encodée dans le \ac{GP} du verbe, de cette manière: \lstinline! gp = {III = { dpos = N  rel = indir_objective  prep = to} }!.
 
@@ -348,11 +358,11 @@ In particular, since verbs often convey the main idea of a sentence, such a reso
 \hfill
 \cite{SchulerVerbnetBroadcoverageComprehensive2005}
 
-Nous sommes en accord avec cette déclaration et nous ne sommes pas le seul:  \cite{Korhonenlargesubcategorizationlexicon2006} suggèrent aussi que la modélisation informatique des langues naturelles passe par la création de dictionnaire renfermant les propriétés syntaxiques des verbes. Notre objectif est d'intégrer au réalisateur profond GenDR un dictionnaire de cadre syntaxique des verbes de la langue anglaise. De plus, comme GenDR se veut multilingue, si l'expérience fonctionne bien, l'objectif serait d'acquérir d'autres ressources lexicales similaires dans d'autres langues afin d'exploiter GenDR au maximum de sa capacité.
+Nous sommes en accord avec cette déclaration et nous ne sommes pas les seuls:  \cite{Korhonenlargesubcategorizationlexicon2006} suggèrent aussi que la modélisation informatique des langues naturelles passe par la création de dictionnaire renfermant les propriétés syntaxiques des verbes. Notre objectif est d'intégrer au réalisateur profond GenDR un dictionnaire de cadre syntaxique des verbes de la langue anglaise. De plus, comme GenDR se veut multilingue, si l'expérience fonctionne bien, l'objectif serait d'acquérir d'autres ressources lexicales similaires dans d'autres langues afin d'exploiter le réalisateur au maximum de sa capacité.
 
 \section{Patrons de régime}\label{sec:gp}
 
-Ce que plusieurs appellent des \scare{comportements syntaxiques} sont encodés dans des patrons de régime en TST. D'abord, il faut préciser que ce qu'on appelle \ac{GP} se nomme de différentes manières selon le cadre théorique utilisé: cadre valenciel, valence, cadre de sous-catégorisation, cadre syntaxique ou schéma de régime. Selon \cite{MilicevicSchemaregimepont2009}, les \acp{GP} décrivent les cooccurrences syntaxiques d'un lexème avec les actants qu'il régit. Par exemple, la relation entre un verbe et son sujet, ou bien la relation entre un nom et le complément qu'il sélectionne. Autrement dit, les \acp{GP} d'une lexie correspondent à l'ensemble des constructions syntaxiques que la lexie régit. On encode ces constructions syntaxiques dans un dictionnaire, car les \acp{GP} des lexèmes sont généralement imprévisibles. En effet, on ne peut pas prédire le nombre d'actants qu'un prédicat gouverne, ou bien les prépositions qu'il régit. De plus, même des verbes sémantiquement proches ne possèderont pas nécessairement les mêmes constructions syntaxiques, ce qui est illustré par \cite{MilicevicSchemaregimepont2009}: \form{on se souvient de $X$}, mais \form{on se rappelle $X$}.
+Ce que plusieurs appellent des \scare{comportements syntaxiques} sont encodés dans des patrons de régime en TST. D'abord, il faut préciser que ce qu'on appelle \ac{GP} se nomme de différentes manières selon le cadre théorique utilisé: cadre valenciel, valence, cadre de sous-catégorisation, cadre syntaxique ou schéma de régime. Selon \cite{MilicevicSchemaregimepont2009}, les \acp{GP} décrivent les cooccurrences syntaxiques d'un lexème avec les actants qu'il régit. Par exemple, la relation entre un verbe et son sujet, ou bien la relation entre un nom et le complément qu'il sélectionne. Autrement dit, les \acp{GP} d'une lexie correspondent à l'ensemble des constructions syntaxiques que la lexie régit. On encode ces constructions syntaxiques dans un dictionnaire, car les \acp{GP} des lexèmes sont généralement imprévisibles. En effet, on ne peut pas prédire le nombre d'actants qu'un prédicat gouverne, ou bien les prépositions qu'il régit. En ce sens, même des verbes sémantiquement proches ne possèderont pas nécessairement les mêmes constructions syntaxiques, ce qui est illustré par \cite{MilicevicSchemaregimepont2009}: \form{on se souvient de $X$}, mais \form{on se rappelle $X$}.
 
 \begin{quote}
 Comme le choix lexical détermine le choix des constructions syntaxiques possibles (la lexie sélectionnée \og amène\fg\ avec elle son régime) et vice-versa (le choix d’une structure impose certains choix lexicaux), on peut dire que c’est le schéma de régime qui, au sein d’un [modèle Sens-Texte], fait le pont entre le lexique et la grammaire.
@@ -363,11 +373,11 @@ Comme le choix lexical détermine le choix des constructions syntaxiques possibl
 
 À la section \ref{sec:semsynt}, nous avions parlé de l'interface sémantique-syntaxe et des règles de correspondance sémantiques qui font la transition \ac{RSem}--\ac{RSyntP}. Une partie du rôle du \ac{GP} est d'encoder les informations lexicales nécessaires pour que les règles de correspondances sémantiques génèrent des arbres profonds grammaticaux. 
 
-En effet, les \acp{GP} contiennent l'information pertinente à l'arborisation (et à la lexicalisation). L'arborisation, parce que les \acp{GP} encodent la diathèse qui fait la correspondance entre les actants sémantiques d'une lexie et ses actants syntaxiques profonds. Elle est spécifiée dans les entrées lexicales d'un dictionnaire de cette manière : \lstinline|{1 = I, 2 = II, etc.}|. Dans ce scénario, le premier actant sémantique correspond au premier actant syntaxique et ainsi de suite (il s'agit d'une diathèse triviale), comme dans \form{Paul aime le ski}, où le sémantème \sem{aimer} et le lexème lex{aimer} placent leurs actants dans le même ordre. Le premier actant sémantique est \sem{Paul} et le second \sem{ski}, puis l'ordre entre ces actants est conservé en syntaxe profonde. Toutefois, si on lexicalise \sem{aimer} par le lexème \lex{plaire}, alors la diathèse est différente: \lstinline|{ 2 = I, 1 = II }|. Cela n'affecte en aucun cas le sens de l'énoncé: \sem{Le ski plaît à Paul}=\sem{Paul aime le ski}. Ensuite, au niveau du passage à la syntaxe de surface, le \ac{GP} encode aussi la réalisation des actants syntaxique en relation de surface où on passe d'une étiquette en chiffre romains à une étiquette superficielle: \lstinline|{ I = { rel = subjective } }|, l'actant \texttt{I} correspond au sujet.
+En effet, les \acp{GP} contiennent l'information pertinente à l'arborisation (et à la lexicalisation) parce qu'ils renferment les données sur la diathèse d'un lexème. La diathèse, c'est le trait qui fait la correspondance entre les actants sémantiques d'une lexie et ses actants syntaxiques profonds. Elle est spécifiée dans les entrées lexicales d'un dictionnaire de cette manière : \lstinline|{1 = I, 2 = II, etc.}|. Dans ce scénario, le premier actant sémantique correspond au premier actant syntaxique et ainsi de suite (il s'agit d'une diathèse triviale), comme dans \form{Paul aime le ski}, où le sémantème \sem{aimer} et le lexème lex{aimer} placent leurs actants dans le même ordre. Le premier actant sémantique est \sem{Paul} et le second \sem{ski}, puis l'ordre entre ces actants est conservé en syntaxe profonde. Toutefois, si on lexicalise \sem{aimer} par le lexème \lex{plaire}, alors la diathèse est différente: \lstinline|{ 2 = I, 1 = II }|. Cela n'affecte en aucun cas le sens de l'énoncé: \sem{Le ski plaît à Paul}=\sem{Paul aime le ski}. Ensuite, au niveau du passage à la syntaxe de surface, le \ac{GP} encode aussi la réalisation des actants syntaxique en relation de surface où on passe d'une étiquette en chiffre romains à une étiquette superficielle: \lstinline|{ I = { rel = subjective } }|, l'actant \texttt{I} correspond au sujet.
 
-De plus, le \ac{GP} encode les conditions dans lesquelles une structure syntaxique est exprimée. Par exemple, c'est dans le \ac{GP} qu'on précise que le troisième actant syntaxique doit être de telle partie du discours et qu'il sélectionne telle préposition. Ces conditions décrivent la combinatoire lexicale et syntaxique d'une lexie donnée. Par exemple, dans le dictionnaire de GenDR, cela est encodé ainsi: \lstinline|{ gp = {III = { dpos = N  rel = indir_objective  prep = to} } }|. Grâce à ces conditions, les règles de correspondances formeront des arbres bien formés.
+De plus, le \ac{GP} encode les conditions dans lesquelles une structure syntaxique est exprimée. Par exemple, c'est dans le \ac{GP} qu'on précise que le troisième actant syntaxique doit être de telle partie du discours et qu'il sélectionne telle préposition. Ces conditions décrivent la combinatoire lexicale et syntaxique d'une lexie donnée. Par exemple, dans le dictionnaire de GenDR, cela est encodé ainsi: \lstinline|{ gp = {III = { dpos = N  rel = indir_objective  prep = to} } }|. Ainsi, grâce à ces restrictions, les règles de correspondances construiront des arbres de bonne formation.
 
-L'une des raisons qui nous a poussé à nous tourner vers une ressource lexicale verbale provient des limites du logicel MATE quant à l'encodage de multiples patrons de régime pour une même entrée. Pour un verbe donné, on ne peut pas avoir deux parties du discours différentes qui compétitionnent pour la même position syntaxique. Autrement dit, si nous voulions exhaustivement représenter les comportements du verbe \lex{want}, il nous faudrait un \ac{GP} qui puisse tenir compte du fait que le second actant syntaxique de ce verbe peut avoir une \ac{DPOS} de type verbale ou nominale: \form{I want to eat} vs \form{I want a dog}. Cela nous était impossible à encoder dans MATE avec les paramètres que nous avions car le système ne nous laissait pas donner deux versions de l'actant syntaxique II de \lex{want}. Ce qui s'offrait à nous comme solution était de créer deux verbes \lex{want} qui encoderaient séparés ces comportements syntaxiques, ce qui n'était pas viable. Nous nous sommes alors tourné vers l'idée d'ajouter un dictionnaire supplémentaire à notre ressource, qui encoderait tous les régimes existants de l'anglais. Puis, nous n'aurions qu'à encoder l'identification des \ac{GP} dans les unités lexicales appropriées ce qui nous permettait de contourner le problème des \acp{GP} multiples.
+Également, l'une des raisons qui nous a poussé à nous tourner vers une ressource lexicale verbale provient des limites du logicel MATE quant à l'encodage de multiples patrons de régime pour une même entrée. Par exemple, pour un verbe donné, on ne peut pas avoir deux parties du discours différentes compétitionnant pour la même position syntaxique. Autrement dit, si nous voulions exhaustivement représenter les comportements du verbe \lex{want}, il nous faudrait un \ac{GP} qui puisse tenir compte du fait que le second actant syntaxique de ce verbe peut avoir une \ac{DPOS} de type verbale ou nominale: \form{I want to eat} vs \form{I want a dog}. Cela nous était impossible à encoder dans MATE avec les paramètres que nous avions car le système ne nous laissait pas donner deux versions de l'actant syntaxique II de \lex{want}. Ce qui s'offrait à nous comme solution était de créer deux verbes \lex{want} qui encoderaient séparément ces comportements syntaxiques, ce qui n'était pas viable. Nous nous sommes alors tournés vers l'idée d'ajouter un dictionnaire supplémentaire à notre ressource, qui encoderait tous les régimes existants de l'anglais. Puis, nous n'aurions qu'à encoder l'identification des \ac{GP} dans les unités lexicales appropriées ce qui nous permettait de contourner le problème des \acp{GP} multiples.
 
 Notre ancienne méthode restreignait conséquemment le nombre de réalisations possibles pour un verbe donné ou peuplait inutilement le dictionnaire d'entrées verbales quasi-identiques mais qui se distinguaient en fonction des régimes différents. 
 

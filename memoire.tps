@@ -12,13 +12,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=ch8\conclusion.tex
+Document=ch0\merci.tex
 
 [Frame0_View0,0]
 TopLine=0
-Cursor=6087
+Cursor=58
 
 [Frame1]
 Flags=0
@@ -30,7 +30,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=BibTeXView
 Document=biblio\references.bib
 
@@ -48,13 +48,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=lng-acro-fr.sty
+Document=preambule.tex
 
 [Frame2_View0,0]
-TopLine=72
-Cursor=4685
+TopLine=134
+Cursor=7157
 
 [Frame3]
 Flags=0
@@ -66,13 +66,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=preambule.tex
+Document=lng-acro-fr.sty
 
 [Frame3_View0,0]
-TopLine=125
-Cursor=3035
+TopLine=72
+Cursor=4685
 
 [Frame4]
 Flags=0
@@ -84,13 +84,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=memoire.tex
+Document=..\..\..\..\Program Files\MiKTeX 2.9\tex\generic\babel-french\frenchb.ldf
 
 [Frame4_View0,0]
-TopLine=24
-Cursor=2409
+TopLine=23
+Cursor=1699
 
 [Frame5]
 Flags=0
@@ -102,13 +102,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=ch0\sommaire.tex
+Document=ch1\intro.tex
 
 [Frame5_View0,0]
 TopLine=0
-Cursor=2469
+Cursor=8995
 
 [Frame6]
 Flags=0
@@ -120,13 +120,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=ch1\intro.tex
+Document=ch0\sommaire.tex
 
 [Frame6_View0,0]
-TopLine=2
-Cursor=1106
+TopLine=0
+Cursor=2469
 
 [Frame7]
 Flags=0
@@ -138,13 +138,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=ch2\gat.tex
+Document=memoire.tex
 
 [Frame7_View0,0]
-TopLine=0
-Cursor=4533
+TopLine=44
+Cursor=2602
 
 [Frame8]
 Flags=0
@@ -156,13 +156,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
 Document=ch3\gendr.tex
 
 [Frame8_View0,0]
-TopLine=554
-Cursor=32852
+TopLine=73
+Cursor=5396
 
 [Frame9]
 Flags=0
@@ -174,13 +174,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=ch4\verbnet.tex
+Document=ch2\gat.tex
 
 [Frame9_View0,0]
-TopLine=460
-Cursor=34522
+TopLine=438
+Cursor=35138
 
 [Frame10]
 Flags=0
@@ -192,13 +192,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=ch5\python.tex
+Document=ch4\verbnet.tex
 
 [Frame10_View0,0]
-TopLine=182
-Cursor=13649
+TopLine=458
+Cursor=27189
 
 [Frame11]
 Flags=0
@@ -210,13 +210,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
 Class=LaTeXView
-Document=ch6\implementation.tex
+Document=ch5\python.tex
 
 [Frame11_View0,0]
-TopLine=198
-Cursor=17150
+TopLine=142
+Cursor=6798
 
 [Frame12]
 Flags=0
@@ -228,15 +228,51 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
-NormalPos.bottom=398
+NormalPos.bottom=462
+Class=LaTeXView
+Document=ch6\implementation.tex
+
+[Frame12_View0,0]
+TopLine=0
+Cursor=31
+
+[Frame13]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=26
+NormalPos.right=1362
+NormalPos.bottom=462
 Class=LaTeXView
 Document=ch7\evaluation.tex
 
-[Frame12_View0,0]
-TopLine=220
-Cursor=18795
+[Frame13_View0,0]
+TopLine=0
+Cursor=31
+
+[Frame14]
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-1
+MaxPos.y=-1
+NormalPos.left=4
+NormalPos.top=26
+NormalPos.right=1362
+NormalPos.bottom=462
+Class=LaTeXView
+Document=ch8\conclusion.tex
+
+[Frame14_View0,0]
+TopLine=0
+Cursor=8399
 
 [SessionInfo]
-FrameCount=13
-ActiveFrame=6
+FrameCount=15
+ActiveFrame=0
 

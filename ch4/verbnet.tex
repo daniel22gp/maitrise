@@ -9,24 +9,24 @@ Avant de parler de VerbNet, nous expliquerons pourquoi nous l'avons choisi parmi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{WordNet}
-Wordnet \citep{Fellbaum1998} est une base de données lexicales traitant les verbes, noms, adjectifs et adverbes de la langue anglaise. C'est un large réseau lexical qui ressemble à un thésaurus car il regroupe les lexies en fonction de leur sens. WordNet propose une désambiguïsation exhaustive des vocables et contient 21\,000 acceptions verbales \citep{MillerWordNetonlinelexical1990}. On réfère généralement à cette base de données comme un modèle relationnel du lexique car le sens des lexies est représenté en termes de ses relations avec d'autres lexies, qui peuvent être de nature lexicale ou conceptuelle. La principale relation lexicale est la synonymie, WordNet regroupant les mots en ensembles de synonymes, ou \emph{synsets}. Les principales relations conceptuelles sont celles d'hyponymie et d'hyperonymie. Ces relations lient des \emph{synsets} généraux à des \emph{synsets} plus spécifiques, et vice-versa. Ces relations permettent de représenter le lexique à la fois verticalement (relations conceptuelles) et horizontalement (relations lexicales). Le tout crée un grande toile lexicale.
+Wordnet \citep{Fellbaum1998} est une base de données lexicales traitant les verbes, noms, adjectifs et adverbes de la langue anglaise. C'est un large réseau lexical qui ressemble à un thésaurus car il regroupe les lexies en fonction de leur sens. WordNet propose une désambiguïsation exhaustive des vocables et contient 21\,000 acceptions verbales \citep{MillerWordNetonlinelexical1990}. On réfère généralement à cette base de données comme un modèle relationnel du lexique car le sens des lexies est représenté en termes de ses relations avec d'autres lexies, qui peuvent être de nature lexicale ou conceptuelle. La principale relation lexicale est la synonymie. En effet, WordNet regroupe les mots en ensembles de synonymes, ou \emph{synsets}. Les principales relations conceptuelles sont celles d'hyponymie et d'hyperonymie. Ces relations lient des \emph{synsets} généraux à des \emph{synsets} plus spécifiques, et vice-versa. Ces relations permettent de représenter le lexique à la fois verticalement (relations conceptuelles) et horizontalement (relations lexicales). Le tout crée un grande toile lexicale.
 
-Concrètement, WordNet fournit des définitions et des relations sémantiques entre les lexies mais ne fournit pas explicitement de données syntaxiques. Toutefois, la base de données se justifie en soulignant que les gloses qui servent à exemplifier l'emploi d'une lexie peuvent aussi servir à déduire le comportement syntaxique de celle-ci. Bref, cela fournirait implicitement des données sur la syntaxe des lexies de WordNet \citep{FellbaumLargescaleLexicographyDigital2014}. Comme nous voulions acquérir un dictionnaire verbal pour les patrons de régime, il nous fallait un dictionnaire qui explicite ce genre d'information lexicale, c'est pourquoi nous avons laissé de côté WordNet.
+WordNet fournit des définitions et des relations sémantiques entre les lexies mais ne fournit pas explicitement de données syntaxiques. Toutefois, la base de données se justifie en soulignant que les gloses qui servent à exemplifier l'emploi d'une lexie peuvent aussi servir à déduire le comportement syntaxique de celle-ci. Bref, cela fournit implicitement des données sur les comportements syntaxiques des lexies de WordNet \citep{FellbaumLargescaleLexicographyDigital2014}. Comme nous voulions acquérir un dictionnaire verbal pour les patrons de régime, il nous fallait un dictionnaire qui explicite ce genre d'information lexicale, c'est pourquoi nous avons laissé de côté WordNet.
 
 \section{FrameNet}
 FrameNet est une base de données construite par extraction d'information sémantique et syntaxique à partir de corpus électroniques manuellement et automatiquement annotés \citep{FillmoreBackgroundFramenet2003a}. Son nom provient de la théorie linguistique de la \emph{Frame Semantics} \citep{BakerBerkeleyFrameNetProject1998}. Ce projet couvre les domaines suivants: santé, chance, perception, communication, transactions, temps, espace, corps, motion, étapes de la vie, contextes sociaux, émotions et cognition. Pour mieux comprendre le fonctionnement de FrameNet, nous devons présenter les bases de la théorie des \emph{Frame Semantics}. L'idée centrale derrière celle-ci est que le sens des lexies doit être décrit en termes de cadres sémantiques qui décrivent les intéractions sémantiques entre la lexie décrite et les participants de la situation dénotée (appelés \emph{frame elements}). Autrement dit, FrameNet analyse le sens des lexies en faisant appel aux contextes (cadres) dans lesquels ces mots apparaissent et en explicitant les propriétés syntaxiques de ces lexies.
 
-Les cadres sémantiques et les lexies forment les unités de base de ce système. Ainsi, FrameNet désambiguïse ses entrées en les traitant par paire de cadre sémantique-lexie. De cette manière, on pourra différencier les sens d'une lexie donnée en fonction des cadres sémantiques qui lui correspondent.
+Les cadres sémantiques et les lexies forment les unités de base de ce système. Ainsi, FrameNet désambiguïse ses entrées en les traitant par paire de cadre sémantique-lexie. De cette manière, on pourra différencier les sens d'une lexie donnée en fonction des cadres sémantiques qui lui sont associés.
 
-Dans FrameNet, les patrons de valence sont explicitement identifiés, contrairement à WordNet, et contiennent de l'information sémantique et syntaxique. La partie sémantique est rendue par les \emph{frame elements}. La valence sémantique est aussi notée en termes de structure argumentale (à la manière des structures logiques). Pour ce qui est de l'information syntaxique, on décrit les arguments de la lexie en leur attribuant une partie du discours (groupe nominal, groupe prépositionnel, etc.) et une fonction grammaticale (sujet, objet, etc.). De plus, FrameNet a annoté les citations extraites des corpus pour démontrer comment les patrons de valence sont instanciés dans de véritables phrases.
+Dans FrameNet, les patrons de valence sont explicitement identifiés, contrairement à WordNet, puis ils contiennent de l'information sémantique et syntaxique. La partie sémantique est rendue par les \emph{frame elements}. La valence sémantique est aussi notée en termes de structure argumentale (à la manière des structures logiques). Pour ce qui est de l'information syntaxique, on décrit les arguments de la lexie en leur attribuant une partie du discours (groupe nominal, groupe prépositionnel, etc.) et une fonction grammaticale (sujet, objet, etc.). De plus, FrameNet a annoté les citations extraites des corpus pour démontrer comment les patrons de valence sont instanciés dans de véritables phrases.
 
-Les données de FrameNet sont stockées dans une base de données relationnelle qui reflète les bases théoriques du projet, composée de trois modules: un dictionnaire des unités lexicales traitées, un dictionnaire des cadres sémantiques, et des exemples annotées manuellement. Finalement, nous n'avons pas pris FrameNet bien qu'il s'agisse d'un excellent candidat. En effet, cette base de données explicite très bien les comportements sémantiques et syntaxiques du lexique, mais contrairement à VerbNet, elle n'est pas hiérarchisée et elle ne rassemble pas en groupe les verbes se comportant identiquement. Importer FrameNet dans notre système l'aurait saturé d'information, bien que celles-ci aurait été très pertinentes.
+Les données de FrameNet sont stockées dans une base de données relationnelle qui reflète les bases théoriques du projet, composée de trois modules: un dictionnaire des unités lexicales traitées, un dictionnaire des cadres sémantiques, et des exemples annotées manuellement. Finalement, nous n'avons pas pris FrameNet bien qu'il s'agisse d'un excellent candidat. En effet, cette base de données explicite très bien les comportements sémantiques et syntaxiques du lexique, mais contrairement à VerbNet, elle n'est pas hiérarchisée et elle ne rassemble pas en groupe les verbes se comportant identiquement. Importer FrameNet dans notre système l'aurait saturé d'information.
 
 \section{XTAG}
 
 XTAG est une \ac{TAG} de l'anglais développée chez Xerox \citep{XTAGResearchGroupLexicalizedTreeAdjoining2001, ParoubekXTAGGraphicalWorkbench1992} qui offre des descriptions syntaxiques riches de 9\,000 verbes. Dans ce dictionnaire, chaque unité lexicale se voit assigner un ensemble d'arbres qui décrivent les constructions syntaxiques permises pour celle-ci.
 
-En \ac{TAG}, les phénomènes linguistiques sont représentés par des arbres élémentaires qui doivent se combiner par unification \citep{JoshiTreeAdjoiningGrammars1997}. Dans le cas de lexies prédicatives, ces arbres élémentaires sont pourvus de branches au bout desquelles il y a des n\oe{}uds non lexicalisés (mais contraints, notamment quant à leur partie du discours) destinés à acceuillir les arguments qu'elles sélectionnent. Ce sont les contraintes sur les n\oe{}uds qui contrôlent l'unification. Il n'existe que deux types d'unifications: substitution et adjonction. La substitution permet à un arbre de se substituer à un n\oe{}ud pour le combler (par exemple, un arbre représentant un groupe nominal pourra se substituer à un n\oe{}ud nominal dans un autre arbre, s'il en satisfait toutes les contraintes). L'adjonction permet à un arbre de se joinder à un autre arbre sans substituer de n\oe{}ud. Par exemple, un arbre élémentaire de type adverbial pourra s'adjoindre à un arbre représentant un groupe verbal. La substitution modélise la complémentation, et l'adjonction modélise la modification.
+En \ac{TAG}, les phénomènes linguistiques sont représentés par des arbres élémentaires qui doivent se combiner par unification \citep{JoshiTreeAdjoiningGrammars1997}. Dans le cas de lexies prédicatives, ces arbres élémentaires sont pourvus de branches au bout desquelles il y a des n\oe{}uds non lexicalisés (mais contraints, notamment quant à leur partie du discours) destinés à acceuillir les arguments qu'elles sélectionnent. Ce sont les contraintes sur les n\oe{}uds qui contrôlent l'unification. Il n'existe que deux types d'unifications: substitution et adjonction. La substitution permet à un arbre de se substituer à un n\oe{}ud pour le combler (par exemple, un arbre représentant un groupe nominal pourra se substituer à un n\oe{}ud nominal dans un autre arbre, s'il en satisfait toutes les contraintes). L'adjonction permet à un arbre de se joindre à un autre arbre sans substituer de n\oe{}ud. Par exemple, un arbre élémentaire de type adverbial pourra s'adjoindre à un arbre représentant un groupe verbal. La substitution modélise la complémentation, et l'adjonction modélise la modification.
 
 Le dictionnaire XTAG organise l'information syntaxique en regroupant les arbres \ac{TAG} en familles. Un arbre individuel représente une construction syntaxique donnée, mais une famille d'arbres comprend toutes les variantes syntaxiques possibles pour un arbre canonique. Ainsi, dans XTAG, chaque lexie se voit attribuer un nombre de familles d'arbres. Grâce à ce mécanisme, XTAG n'a pas à lister tous les arbres possibles permis pour une lexie verbale \citep{DoranXTAGSystemWide1994}.
 
@@ -37,7 +37,7 @@ La base de données \ac{LCS} de \cite{DorrUseLexicalSemantics1992} s'est constru
 
 Chaque n\oe{}ud des LCS ont trois attributs: type, primitif sémantique et champ. Ceux-ci permettent de contraindre les n\oe{}uds des graphes sémantiques pour que les unités lexicales sélectionnées soient les bonnes.
 
-Une décomposition sémantique des verbes en termes de LCS explique leur propriété syntaxiques. Tel que \cite{verb-classes.levin.1993} l'avait perçu, les propriétés sémantiques des verbes influencent leur comportement syntaxique. À l'intérieur de ce cadre théorique, on pense que les verbes avec des LCS similaires partagent aussi des comportement syntaxiques comme des alternances de diathèses. La base de données LCS de \cite{DorrUseLexicalSemantics1992,AyanGeneratingParsingLexicon2002a} s'inspire fortement des travaux de Levin. Les verbes y sont rassemblés en classes verbales par le partage d'une structure LCS commune. Ainsi, tous les membres d'une classe partagent la même structure sémantique \citep{TraumGenerationLexicalConceptual2000}.
+Une décomposition sémantique des verbes en termes de LCS explique leur propriété syntaxiques. Tel que \cite{verb-classes.levin.1993} l'avait perçu, les propriétés sémantiques des verbes influencent leur comportement syntaxique. À l'intérieur de ce cadre théorique, on pense que les verbes avec des LCS similaires partagent aussi des comportement syntaxiques comme des alternances de diathèses. La base de données LCS de \cite{DorrUseLexicalSemantics1992} s'inspire fortement des travaux de Levin. Les verbes y sont rassemblés en classes verbales par le partage d'une structure LCS commune. Ainsi, tous les membres d'une classe partagent la même structure sémantique \citep{TraumGenerationLexicalConceptual2000, AyanGeneratingParsingLexicon2002a}.
 
 Bien que cette ressource ressemble beaucoup à VerbNet en termes d'architecture (héritage de \cite{verb-classes.levin.1993}), elle possède des lacunes. \ac{LCS} ne couvre pas aussi large que VerbNet en termes de cadres syntaxiques et la base de données ne désambiguïse pas les différents sens des verbes.
 
@@ -50,18 +50,18 @@ Nous n'avons pas choisi cette ressource d'abord parce qu'elle est payante, mais 
 
 \section{Valex}
  
-Valex est un dictionnaire de \ac{SCF} et \cite{Korhonenlargesubcategorizationlexicon2006} qui contient 6\,397 verbes de l'anglais. Elle a bâti son dictionnaire par acquition automatique. Contrairement à Comlex, que nous avons présenté plus haut, Korhonen stipule que les dictionnaires bâtis manuellement comportent naturellement plus d'erreursque ceux construits automatiquement. Elle souligne aussi que la méthode automatique est moins coûteuse en termes de temps et de ressource. De plus, elle suggère que les dictionnaires manuellement construits comportent une faille cruciale: le manque d'information statistique. Grâce aux informations statistiques acquises via le traitement de corpus, on a de l'information quant à la fréquence d'utilisation d'un \ac{SCF} pour un verbe donné. Finalement, elle souligne qu'en raison du nombre d'applications \ac{TAL} fonctionnant avec des méthodes probabilistes, la présence d'information statistique ajoute à leur bon fonctionnement. En ce qui nous concerne, notre application \ac{TAL} fonctionne à base de règles, donc les statistiques n'ajoutent rien à notre système. Toutefois, si nous le souhaitions, MATE \citep{BohnetDevelopmentEnvironmentMTTbased2000a,BOHNET10,bohnet07} pourrait tenir compte des statistiques lors de la réalisation linguistique, c'est une fonctionnalité qu'il possède.
+Valex \citep{Korhonenlargesubcategorizationlexicon2006}  est un dictionnaire de \ac{SCF} qui contient 6\,397 verbes de l'anglais. \citeauthor{Korhonenlargesubcategorizationlexicon2006} ont bâti cette ressource par acquisition automatique. Contrairement à Comlex, les auteurs stipulent que les dictionnaires bâtis manuellement comportent naturellement plus d'erreurs que ceux construits automatiquement. Ils soulignent aussi que la méthode automatique est moins coûteuse en termes de temps et de ressource. Ils suggèrent également que les dictionnaires manuellement construits comportent une faille cruciale: le manque d'information statistique. Grâce aux informations statistiques acquises via le traitement de corpus, on a de l'information quant à la fréquence d'utilisation d'un \ac{SCF} pour un verbe donné. Finalement, ils soulignent qu'en raison du nombre d'applications \ac{TAL} fonctionnant avec des méthodes probabilistes, la présence d'information statistique ajoute à leur bon fonctionnement. En ce qui nous concerne, notre application \ac{TAL} fonctionne à base de règles, donc les statistiques n'ajoutent rien à notre système. Toutefois, si nous le souhaitions, MATE \citep{BohnetDevelopmentEnvironmentMTTbased2000a,BOHNET10,bohnet07} pourrait tenir compte des statistiques lors de la réalisation linguistique, c'est une fonctionnalité qu'il possède.
 
-Dans son article, Korhonen explique avoir utilisé le système d'acquisition de \cite{BriscoeSecondReleaseRASP2006}, qui se basent sur la méthode RASP. En bref, les \ac{SCF} sont extraits grâce au système RASP à partir de textes non-annotés. Ce système tokenise, étiquette puis lemmatise les données brutes. Ensuite, les \ac{SCF} sont extraits des phrases analysées du corpus (qui est composé de 5 corpus différents). Finalement, un filtrage est effectué pour se débarrasser du bruit. Le dictionnaire en ainsi construit automatiquement en récupérant les verbes des corpus ainsi que les \ac{SCF} qui leurs sont associés.
+Dans leur article, \citeauthor{Korhonenlargesubcategorizationlexicon2006} expliquent avoir utilisé le système d'acquisition de \cite{BriscoeSecondReleaseRASP2006}, qui se basent sur la méthode RASP. En bref, les \ac{SCF} sont extraits grâce au système RASP à partir de textes non-annotés. Ce système tokenise, étiquette puis lemmatise les données brutes. Ensuite, les \ac{SCF} sont extraits des phrases analysées du corpus (qui est composé de 5 corpus différents). Finalement, un filtrage est effectué pour se débarrasser du bruit. Le dictionnaire est ainsi construit automatiquement en récupérant les verbes des corpus ainsi que les \ac{SCF} qui leurs sont associés.
 
-Dans Valex, une entrée lexicale comprend, entre autres, la combinaison d'un verbe et d'un SCF, la syntaxe des arguments et la fréquence d'utilisation du SCF. Bien que cette ressource soit intéressante, nous avons préféré nous tourner vers VerbNet en raison de son architecture hiérarchisée, qui nous est très utile. L'architecture de Valex ne nous permet pas de tirer profit du mécanisme d'héritage des traits que nous avons vu à la section \ref{dictio}, ce qui fait en sorte qu'en utilisant Valex, notre dictionnaire serait très lourd et saturé d'informations redondantes.
+Dans Valex, une entrée lexicale comprend, entre autres, la combinaison d'un verbe et d'un SCF, la syntaxe des arguments et la fréquence d'utilisation du SCF. Bien que cette ressource soit intéressante, nous avons préféré nous tourner vers VerbNet en raison de son architecture hiérarchisée, qui nous est très utile. L'architecture de Valex ne nous permet pas de tirer profit du mécanisme d'héritage des traits que nous avons vu à la section \ref{sec:dictio}, ce qui fait en sorte qu'en utilisant Valex, notre dictionnaire serait très lourd et saturé d'informations redondantes.
 
 \section{Valency dictionary of English}
-Le \acf{VDE} est un dictionnaire de valences de l'anglais de \cite{HerbstValencyDictionaryEnglish2004} qui contient les patrons de régime de 511 verbes (il traite aussi les noms et les adjectifs). Dans ce dictionnaire, chaque entrée décrit une valence possible pour un verbe. Le tout est accompagné d'un exemple provenant de la \emph{Bank of English} \draft{\citep{REF}}.
+Le \acf{VDE} est un dictionnaire de valences de l'anglais de \cite{HerbstValencyDictionaryEnglish2004} qui contient les patrons de régime de 511 verbes (il traite aussi les noms et les adjectifs). Dans ce dictionnaire, chaque entrée décrit une valence possible pour un verbe. Le tout est accompagné d'un exemple provenant de la \emph{Bank of English} \citep{JarvinenAnnotating200Million1994}.
 
 Les 511 verbes du VDE ont été choisis sur la base de leur fréquence dans la langue anglaise, de leurs propriétés complexes et de leur utilité pour des apprenants de l'anglais. Les patrons de valence qu'on retrouve dans le VDE proviennent d'une étude de corpus faite sur le COBUILD. 
 
-Lors de sa création, le VDE n'était pas destiné à des applications TAL, mais les auteurs se sont rapidement rendu compte que ce dictionnaire pourrait intéresser les linguistes computationnels. Cela a entraîné la création de l'\emph{Erlangen Valency Pattern Bank} \citep{faucris.1039365}, une ressource électronique squi liste les patrons de valence identifié par le VDE. Les patrons y sont décrits en termes de syntaxe de surface. Le dictionnaire est divisé en deux: une liste des 511 verbes désambiguïsés et les patrons de valence leur étant associés dans un premier dictionnaire, et les patrons de valence de la langue anglaise dans un dictionnaire séparé.
+Lors de sa création, le VDE n'était pas destiné à des applications TAL, mais les auteurs se sont rapidement rendu compte que ce dictionnaire pourrait intéresser les linguistes computationnels. Cela a entraîné la création de l'\emph{Erlangen Valency Pattern Bank} \citep{faucris.1039365}, une ressource électronique qui liste les patrons de valence identifié par le VDE. Les patrons y sont décrits en termes de syntaxe de surface. Le dictionnaire est divisé en deux: une liste des 511 verbes désambiguïsés et les patrons de valence leur étant associés dans un premier dictionnaire, et les patrons de valence de la langue anglaise dans un dictionnaire séparé.
 
 Ce dictionnaire ne couvre que les verbes les plus fréquents, et nous cherchions une ressources avec une bonne couverture. Toutefois, il s'agit d'un travail manuel, donc on s'attend à ce qu'il ne comporte pas beaucoup d'erreurs, et on pourrait ainsi en extraire une partie pour complémenter le dictionnaire de VerbNet si tel est le besoin.
 
@@ -71,13 +71,13 @@ Ce dictionnaire ne couvre que les verbes les plus fréquents, et nous cherchions
 
 \section{VerbNet}
 
-VerbNet a été créé dans un contexte où il y avait un réel besoin pour un dictionnaire décrivant la richesse et la complexité des verbes \citep{KipperClassBasedConstructionVerb2000}. \cite{SchulerVerbnetBroadcoverageComprehensive2005} trouvait qu'il y avait un manque de lignes directrices par rapport à l'organisation des verbes dans les dictionnaires destinés à des applications \ac{TAL}, et c'est pour remédier à cela qu'elle a construit VerbNet. Son dictionnaire est organisé en une hiérarchie de classes verbales héritées de \cite{verb-classes.levin.1993}. Nous allons d'abord présenter ce classement avant de voir en détail VerbNet.
+VerbNet a été créé dans un contexte où il y avait un réel besoin pour un dictionnaire décrivant la richesse et la complexité des verbes \citep{KipperClassBasedConstructionVerb2000}. \cite{SchulerVerbnetBroadcoverageComprehensive2005} trouvait qu'il y avait un manque de lignes directrices par rapport à l'organisation des verbes dans les dictionnaires destinés à des applications \ac{TAL}, et c'est pour remédier à cela qu'elle a construit VerbNet. Son dictionnaire est organisé en une hiérarchie de classes verbales héritées de \cite{verb-classes.levin.1993}. Nous présenterons d'abord ce classement avant de voir en détail VerbNet.
 
 \subsection{Classes verbales de Levin}
 
 \cite{verb-classes.levin.1993} proposait une méthode de classification des verbes qui a inspiré plusieurs dictionnaires, dont VerbNet \citep{SchulerVerbnetBroadcoverageComprehensive2005} et la LCS database \citep{AyanGeneratingParsingLexicon2002a,DorrUseLexicalSemantics1992}. Dans sa classification, les verbes de la langue anglaise sont placés dans un nombre fini de classes verbales. L'appartenance d'un verbe à l'une d'entre elles est motivée par le partage de comportements syntaxiques communs. Levin remarquait que tout locuteur natif est conscient des alternances de diathèses possibles pour un verbe, et ce sans avoir de connaissances méta-linguistiques préalables. Ainsi, en se basant sur son intuition, Levin a tenté de délimiter tous les patrons de régime possibles pour les verbes de la langue anglaise. Lorsque plusieurs présentaient des caractéristiques communes sur le plan syntaxique, elle rassemblait ces verbes dans une classe.
 
-Bien que son travail s'insère dans le cadre de la syntaxe, elle supposait que les verbes qui se comportent de la même façon syntaxiquement possèdent probablement des propriétés sémantiques sous-jacentes communes. Toutefois, elle souligne que deux verbes en apparence synonymiques peuvent très bien appartenir à deux classes différentes, tout comme deux verbes qui, en apparence, ne se ressemblent pas du tout, peuvent appartenir à une même classe. Bref, le classement des verbes permettait de prouver sa théorie en plus de faciliter la classification des verbes de l'anglais.
+Bien que son travail s'insère dans le cadre de la syntaxe, elle supposait que les verbes qui se comportent de la même façon syntaxiquement possèdent probablement des propriétés sémantiques sous-jacentes communes. Ainsi, elle démontre que deux verbes en apparence synonymiques peuvent très bien appartenir à deux classes différentes, tout comme deux verbes qui, en apparence, ne se ressemblent pas du tout, peuvent appartenir à une même classe. Bref, le classement des verbes permettait de prouver sa théorie en plus de faciliter la classification des verbes de l'anglais.
 
 Voici un exemple tiré de la thèse de \cite[pp.~12--13]{SchulerVerbnetBroadcoverageComprehensive2005}. On prend les verbes \lex{break} et \lex{cut}, et on teste diverses configurations possibles pour décider s'ils appartiennent à la même classe. À prime abord, on pourrait penser que c'est le cas puisque leurs signifiés se ressemblent. \sem{Break} et \sem{cut} partagent évidemment des composantes sémantiques car le sens d'altérer quelque chose est présent dans ces deux verbes. Cependant, les faits suivants nous démontrent qu'ils appartiennent à deux classes distinctes:
 
@@ -98,7 +98,7 @@ Voici un exemple tiré de la thèse de \cite[pp.~12--13]{SchulerVerbnetBroadcove
 	\b. John valiantly cut at the frozen loaf, but his knife was too dull to make a dent in it.
 
 
-On voit d'abord que les constructions en \ref{ex:transitive} et en \ref{ex:middle} sont possibles pour ces deux verbes. Toutefois, en \ref{ex:intransitive} et en \ref{ex:conative}, on remarque qu'ils ne partagent pas ces cadres syntaxiques: \lex{Break} prend seulement la construction intransitive et exclut la conative, tandis que \lex{cut} prend la construction conative et exclut l'intransitive. Selon la logique de Levin, cela est dû à des différences de composantes sémantiques. Le verbe \lex{cut} décrit une série d'actions entreprises dans le but de séparer un objet en morceaux. Toutefois, il est possible de commencer à découper un objet sans que l'objet ne soit séparé. Dans ce scénario, on peut tout de même percevoir que l'objet a été découpé. En ce qui concerne \lex{break}, le changement d'état (le fait d'être séparé en morceau) est ponctuel et le c\oe{}ur sémantique de ce lexème. Si on n'arrive pas au résultat final, une tentavive de briser quelque chose ne peut être perçue.
+On voit d'abord que les constructions en \ref{ex:transitive} et en \ref{ex:middle} sont possibles pour ces deux verbes. Toutefois, en \ref{ex:intransitive} et en \ref{ex:conative}, on remarque qu'ils ne partagent pas ces cadres syntaxiques: \lex{Break} prend seulement la construction intransitive et exclut la conative, tandis que \lex{cut} prend la construction conative et exclut l'intransitive. Selon la logique de Levin, cela est dû à des différences de composantes sémantiques. Le verbe \lex{cut} décrit une série d'actions entreprises dans le but de séparer un objet en morceaux. Toutefois, il est possible de commencer à découper un objet sans que l'objet ne soit séparé. Dans ce scénario, on peut tout de même percevoir que l'objet a été découpé. En ce qui concerne \lex{break}, le changement d'état (le fait d'être séparé en morceau) est ponctuel. Si on n'arrive pas au résultat final, une tentavive de briser quelque chose ne peut être perçue.
 
 Toutefois, dans ces exemples de Levin, \form{break} n'a pas le même sens en \ref{ex:intransitive} et en \ref{ex:transitive}. Dans l'exemple \ref{ex:intransitive}, on pourrait traduire le sens de \form{break} par \sem{se briser} tandis que le sens de \form{break} dans l'exemple \ref{ex:transitive} serait plutôt \sem{briser}. Cela a un impact direct sur la syntaxe, puisque le premier sens ne peut prendre qu'un seul argument, tandis que le second en prend nécessairement au moins deux. Cette lacune théorique de Levin est aussi présente dans VerbNet.
 
@@ -116,9 +116,12 @@ Dans VerbNet, les verbes sont regroupés en classes, chacune contenant un ensemb
 
 Les auteurs de VerbNet se sont fortement inspirés de Acquilex Lexical Knowledge Base \citep{CopestakeACQUILEXLKBrepresentation1992} pour l'organisation du lexique. Acquilex ordonnait l'information lexicale en hiérarchie. VerbNet a donc aussi implémenté un aspect hiérarchique à son dictionnaire en créant jusqu'à trois niveaux de profondeur pour organiser les classes verbales. 
 
-Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe mère. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe mère montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \citep{CLEARVerbNetAnnotationGuidelines2005}.
+Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe \scare{mère}. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe \scare{mère} montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \citep{CLEARVerbNetAnnotationGuidelines2005}.
 
-\begin{lstlisting}[language=XML, caption = Hiérarchie, label=hierarch]
+\begin{figure}[htb]
+  \caption{Hiérarchie des classes verbales dans VerbNet}
+	\label{hierarch}
+\begin{lstlisting}[language=XML]
 <VNCLASS ID="spray-9.7">
     <SUBCLASSES>
         <VNSUBCLASS ID="spray-9.7-1">
@@ -129,6 +132,7 @@ Cela a entraîné la création des sous-classes qui héritent de tout le contenu
     </SUBCLASSES>
 </VNCLASS>
 \end{lstlisting}
+\end{figure}
 
 \texttt{Spray-9.7} est le nom de la classe qui englobe toutes les autres ici. À l'intérieur de celle-ci, on spécifie tous les membres appartenant à cette classe, les rôles thématiques, les cadres syntaxiques et les prédicats sémantiques. Puis \texttt{Spray-9.7-1} représente un sous-ensemble de \texttt{Spray-9.7} dont les comportements syntaxiques lui sont propres .  Puis, \texttt{Spray-9.7-1-1} est une sous-classe d'une sous-classe, et ainsi de suite. Elle héritera des traits de sa classe mère ainsi que de la classe qui domine sa classe mère. Finalement \texttt{Spray-9.7-2} est la classe sœur de \texttt{Spray-9.7-1} donc, elle hérite aussi des traits de \texttt{Spray-9.7} mais ne partage pas les particularités de \texttt{Spray-9.7-1}.
 
@@ -148,12 +152,14 @@ Tel que démontré dans l'exemple \ref{hierarch}, les classes et sous-classes so
 \end{itemize}
 
 \subsubsection{Membres}
-Traditionnellement, les entrées lexicales dans un dictionnaire représentent un seul et unique verbe. En ce qui concerne VerbNet, les entrées sont des classes verbales regroupant  plusieurs verbes à la fois. Cela permet à VerbNet de couvrir largement l'anglais sans recourir à un grand nombre d'entrées. Pour garnir leur section \emph{Members}, VerbNet a puisé dans les travaux de Levin \cite{verb-classes.levin.1993} et dans la base de données LCS \citep{AyanGeneratingParsingLexicon2002a}, et a mené sa propre enquête pour déterminer à quelle classe verbale un verbe appartient.
+Traditionnellement, les entrées lexicales dans un dictionnaire représentent un seul et unique verbe. En ce qui concerne VerbNet, les entrées sont des classes verbales regroupant  plusieurs verbes à la fois. Cela permet à VerbNet de couvrir largement l'anglais sans recourir à un grand nombre d'entrées. Pour garnir leur section \texttt{<MEMBERS>}, VerbNet a puisé dans les travaux de Levin \cite{verb-classes.levin.1993} et dans la base de données LCS \citep{AyanGeneratingParsingLexicon2002a}, et a mené sa propre enquête pour déterminer à quelle classe verbale un verbe appartient.
 
-Concrètement, cette information est encodée directement dans les entrées lexicales de VerbNet en XML. La figure~\ref{membre} montre à quoi ressemble la section \emph{Members}. On voit que \lex{deal, lend, loan, pass, peddle} et \lex{refund} sont les membres de la classe \texttt{give-13.1}.
+Concrètement, cette information est encodée directement dans les entrées lexicales de VerbNet en \emph{XML}. La figure~\ref{membre} montre à quoi ressemble la section \texttt{<MEMBERS>}. On voit que \lex{deal, lend, loan, pass, peddle} et \lex{refund} sont les membres de la classe \texttt{give-13.1}.
 
-
-\begin{lstlisting}[language=XML, caption = Les membres d'une classe, label=membre][float]
+\begin{figure}[htb]
+  \caption{Les membres d'une classe verbale}
+	\label{membre}
+\begin{lstlisting}[language=XML]
 <VNCLASS ID="give-13.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
     <MEMBERS>
@@ -166,17 +172,20 @@ Concrètement, cette information est encodée directement dans les entrées lexi
         <MEMBER name="render"/>
     </MEMBERS>
 \end{lstlisting}
-
+\end{figure}
 
 \subsubsection{Rôles thématiques}
 \cite{SchulerVerbnetBroadcoverageComprehensive2005} critiquait les autres dictionnaires verbaux qui n'offraient pas de contenu sémantique, c'est pourquoi VerbNet inclut 23 rôles thématiques pour identifier les arguments sélectionnés par les verbes dans chaque cadre syntaxique. Il existe d'autres approches, dont la numérotation des arguments (\emph{Arg-1 Verbe Arg-2}) comme dans PropBank \citep{PalmerPropositionBankAnnotated2005}, mais Schuler considérait que l'usage des rôles thématiques permettait d'ajouter de l'information sémantique. En effet, l'assignation d'un rôle thématique à un argument nous donne de l'information quant au type d'argument nécessaire pour un verbe donné.
 
-À la base, les rôles thématiques ont été mis de l'avant par \draft{\cite{fillmore:case}} et \cite{Jackendoff1972-JACSII-2}. Toutefois, VerbNet a créé sa propre banque de rôles thématiques. Beaucoup sont inspirés de Fillmore et Jackendoff, mais de nouveaux ont été créés. Les auteurs de VerbNet précisent donc que le nombre de rôles thématiques et la qualité des rôles thématiques est assez arbitraire. Il n'y a pas de justification théorique, mais c'est ce qu'ils ont convenu d'utiliser. Schuler voulait des rôles pouvant identifier tous les arguments possibles contenus dans les patrons de régime, donc, des rôles assez génériques pour se prêter à divers cadres. Ces rôles ne sont pas spécifiques à des classes en particulier.
+À la base, les rôles thématiques ont été mis de l'avant par \cite{FillmoreCaseCase1968} et \cite{Jackendoff1972-JACSII-2}. Toutefois, VerbNet a créé sa propre banque de rôles thématiques. Beaucoup sont inspirés de Fillmore et Jackendoff, mais de nouveaux ont été créés. Les auteurs de VerbNet précisent donc que le nombre de rôles thématiques et la qualité des rôles thématiques est assez arbitraire. Il n'y a pas de justification théorique, mais c'est ce qu'ils ont convenu d'utiliser. Schuler voulait des rôles pouvant identifier tous les arguments possibles contenus dans les patrons de régime, donc, des rôles assez génériques pour se prêter à divers cadres. Ces rôles ne sont pas spécifiques à des classes en particulier.
 Les rôles thématiques utilisés dans VerbNet sont: \texttt{actor, agent, asset, attribute, beneficiary, cause, location, destination, source, experiencer, extent, goal, instrument, material, product, patient, predicate, recipient, stimulus, theme, time, topic}.
 
 Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>| de chaque classe verbale. Une section \lstinline|<THEMROLES>| peut revenir dans une sous-classe lorsque celle-ci possède des rôles thématiques plus spécifiques à cette sous-classe de verbes. Ils sont ensuite mappés sur les arguments dans les cadres syntaxiques et sémantiques (qu'on peut voir aux figure~\ref{cadresynt} et \ref{cadresem}).
 
-\begin{lstlisting}[language=XML, caption = Les rôles thématiques] % Majuscule aux captions
+\begin{figure}[htb]
+ \label{}
+ \caption{Les rôles thématiques}
+\begin{lstlisting}[language=XML] % Majuscule aux captions
     <THEMROLES>
         <THEMROLE type="Agent">
             <SELRESTRS logic="or">
@@ -195,13 +204,16 @@ Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>| de 
         </THEMROLE>
     </THEMROLES>
 \end{lstlisting}
+\end{figure}
 
 Pour les besoins de notre travail, nous n'utilisons pas les rôles thématiques, mais nous voulions souligner qu'ils étaient importants pour les créateurs de VerbNet. Comme nous utilisons la théorie Sens-Texte dans notre réalisateur profond, les rôles thématiques n'ont pas leur place dans les patrons de régime que nous avons extraits de VerbNet. Pour plus de détails concernant la non-utilisation des rôles thématiques selon la TST, voir \cite[pp.~227--234]{mel2012semantics}.
 
 \subsubsection{Restrictions sélectionnelles}
 Les restrictions sélectionnelles s'ajoutent aux rôles thématiques. Ces traits imposent des contraintes aux arguments possibles pour un patron de régime donné. Dans l'exemple fourni ici, on remarquera que l'\texttt{Agent} doit être soit un être animé, soit une organisation.
 
-\begin{lstlisting}[language=Xml, caption = Les restrictions sélectionnelles]
+\begin{figure}[htb]
+ \caption{Les restrictions sélectionnelles sur les rôles thématiques}
+\begin{lstlisting}[language=Xml]
     <THEMROLES>
         <THEMROLE type="Agent">
             <SELRESTRS logic="or">
@@ -210,6 +222,7 @@ Les restrictions sélectionnelles s'ajoutent aux rôles thématiques. Ces traits
             </SELRESTRS>
         </THEMROLE>
 \end{lstlisting}
+\end{figure}
 
 \subsubsection{Cadres syntaxiques}
 
@@ -219,7 +232,10 @@ Nous avons choisi VerbNet car nous voulions un dictionnaire qui énumère exhaus
 
 Le cadre syntaxique \ref{cadresynt} ci-dessous provient de la classe verbale \texttt{give-13.1}. Ce cadre permet la réalisation de surface \form{They lent a bicycle to me}. \lex{they} est le \lstinline{<NP value=``Agent''>}, \lex{lend} est le \lstinline{<VERB/>}, \lex{bicycle} est le \lstinline{<NP value=``Theme''>} et \lex{me} est le \lstinline{<NP value=``Recipient''>}.
 
-\begin{lstlisting}[language=Xml, caption = cadres syntaxiques, label=cadresynt]
+\begin{figure}[htb]
+  \caption{Cadres syntaxiques}
+	\label{cadresynt}
+\begin{lstlisting}[language=Xml]
 
             <SYNTAX>
                 <NP value="Agent">
@@ -237,11 +253,15 @@ Le cadre syntaxique \ref{cadresynt} ci-dessous provient de la classe verbale \te
                 </NP>
             </SYNTAX>
 \end{lstlisting}
+\end{figure}
 
 \subsubsection{Prédicats sémantiques}
-Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageComprehensive2005} remarque que les dictionnaires servant de comparaison sont généralement critiqués pour leur manque d'information sémantique. C'est pourquoi elle a inséré un segment sémantique à VerbNet: \lstinline{<SEMANTICS>}. Cette section est constituée d'une suite de prédicats sémantiques. Chaque prédicat est décrit par une liste d'arguments qui sont, à leur tour, décrits par deux caractéristiques: \emph{type} et \emph{value}. Le cadre sémantique ci-dessous complémente le cadre syntaxique que nous venons d'exposer en \ref{cadresynt}. Il décrit à la fois \form{They lent a bicycle to me} et \form{They lent me a bicycle}.
+Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageComprehensive2005} remarque que plusieurs dictionnaires orientés \ac{TAL} manquent d'information sémantique. C'est pourquoi elle a inséré un segment sémantique à VerbNet: \lstinline{<SEMANTICS>}. Cette section est constituée d'une suite de prédicats sémantiques. Chaque prédicat est décrit par une liste d'arguments qui sont, à leur tour, décrits par deux caractéristiques: \emph{type} et \emph{value}. Le cadre sémantique ci-dessous complémente le cadre syntaxique que nous venons d'exposer en \ref{cadresynt}. Il décrit à la fois \form{They lent a bicycle to me} et \form{They lent me a bicycle}.
 
-\begin{lstlisting}[language=Xml, caption=Les prédicats sémantiques, label=cadresem]
+\begin{figure}[htb]
+  \caption{Section \texttt{<SEMANTICS>} de VerbNet}
+	\label{cadresem}
+\begin{lstlisting}[language=Xml]
 <SEMANTICS>
                 <PRED value="has_possession">
                     <ARGS>
@@ -271,6 +291,7 @@ Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageCom
                 </PRED>
             </SEMANTICS>
 \end{lstlisting}
+\end{figure}
 
 Cela conclut notre présentation des composantes de VerbNet. Pour plus d'informations, voir la thèse de \cite{SchulerVerbnetBroadcoverageComprehensive2005} et le guide d'annotation\footnote{\url{https://verbs.colorado.edu/verb-index/VerbNet_Guidelines.pdf}, 15-02-18}.
 
@@ -281,9 +302,9 @@ Cela conclut notre présentation des composantes de VerbNet. Pour plus d'informa
 
 \section{Synthèse}
 
-VerbNet est largement utilisé en \ac{TAL}, notamment pour construire des graphes conceptuels automatiquement \citep{HensmanAutomaticallyBuildingConceptual2004}, faire de l'analyse sémantique \citep{Shi:2005:PPT:2132047.2132058}, faire de la désambiguisation \citep{AbendSupervisedAlgorithmVerb2008} et dans les systèmes de question-réponse \citep{DBLP:conf/nlpke/WenJH08}. \citep{PfeilAlgorithmsResourcesScalable2016} s'en est aussi servi en \ac{GAT} dans le cadre du projet S-STRUCT. De leur côté, \cite{MilleLargeCoverageDetailed2015} ont publié un court article expliquant qu'ils prévoyaient utiliser un dictionnaire de \ac{GP} comme VerbNet car ils avaient besoin d'une ressource lexicale riche pour faire de la \ac{GAT}. Ils mentionnent que des réalisateurs classiques comme KPML \citep{BatemanEnablingTechnologyMultilingual1997}, SURGE \citep{Elhadad98surge:a}, et RealPro \citep{LavoieFastPortableRealizer1997} auraient bénéficié d'un tel enrichissement lexical.
+VerbNet est largement utilisé en \ac{TAL}, notamment pour construire des graphes conceptuels automatiquement \citep{HensmanAutomaticallyBuildingConceptual2004}, faire de l'analyse sémantique \citep{Shi:2005:PPT:2132047.2132058}, faire de la désambiguïsation \citep{AbendSupervisedAlgorithmVerb2008} et dans les systèmes de question-réponse \citep{DBLP:conf/nlpke/WenJH08}. \citep{PfeilAlgorithmsResourcesScalable2016} s'en est aussi servi en \ac{GAT} dans le cadre du projet S-STRUCT. De leur côté, \cite{MilleLargeCoverageDetailed2015} ont publié un court article expliquant qu'ils prévoyaient utiliser un dictionnaire de \ac{GP} comme VerbNet car ils avaient besoin d'une ressource lexicale riche pour faire de la \ac{GAT}. Ils mentionnent que des réalisateurs classiques comme KPML \citep{BatemanEnablingTechnologyMultilingual1997}, SURGE \citep{Elhadad98surge:a}, et RealPro \citep{LavoieFastPortableRealizer1997} auraient bénéficié d'un tel enrichissement lexical.
 
-Comme d'autres, nous avons choisi ce dictionnaire d'abord pour son imposante couverture de la langue anglaise, avec 6\,394 acceptions de 4\,423 vocables, puis pour son architecture héritée de \cite{verb-classes.levin.1993}. De plus, les descriptions syntaxiques encodées en XML sont facilement exportables dans un format qui nous convient. Par le fait même, le traitement en Python devenait très accessible puisque le module NLTK \footnote{\url{https://www.nltk.org/, 01-06-17}} avait déjà fait un pré-traitement de VerbNet. Ainsi il existait des modules dont nous pouvions nous inspirer pour extraire l'information dans les balises de VerbNet.
+Comme d'autres, nous avons choisi ce dictionnaire d'abord pour son imposante couverture de la langue anglaise, avec 6\,393 acceptions de 4\,423 vocables, puis pour son architecture héritée de \cite{verb-classes.levin.1993}. De plus, les descriptions syntaxiques encodées en \emph{XML} sont facilement exportables dans un format qui nous convient. Par le fait même, le traitement en Python devenait très accessible puisque le module NLTK \footnote{\url{https://www.nltk.org/, 01-06-17}} avait déjà fait un pré-traitement de VerbNet. Ainsi il existait des modules dont nous pouvions nous inspirer pour extraire l'information dans les balises de VerbNet.
 
 \begin{quote}
 Rich lexical resources are particularly important for verbs that typically act as main predicates of sentences and carry key syntactic-semantic information for language understanding. For verbs, one of the richest lexical resources currently available is VerbNet. 
@@ -292,6 +313,6 @@ Rich lexical resources are particularly important for verbs that typically act a
  \hfill
  \cite{Majewska2017}
 
-Un autre point important est qu'il existe beaucoup de ressources linguistiques à la VerbNet dans d'autres langues que l'anglais, dont le français \citep{danlos:hal-01179175}, le portugais \citep{ScartoncrosslinguisticVerbNetstylelexicon} et l'italien \citep{BussoItalianVerbNetConstructionbased}, ce qui est très intéressant dans le cadre d'un système multilingue comme GenDR.
+Un autre point important est qu'il existe beaucoup de ressources linguistiques à la VerbNet dans d'autres langues que l'anglais: français \citep{danlos:hal-01179175}, portugais \citep{ScartoncrosslinguisticVerbNetstylelexicon}, italien \citep{busso2016italian}, espagnol \citep{TauleAnCoraNetMappingSpanish2010}, tchèque \citep{pala2008can}, mandarin \citep{liu2008construction}, ce qui est très intéressant dans le cadre d'un système multilingue comme GenDR.
 
 Dans le chapitre suivant, nous expliquerons comment nous avons importé de VerbNet les informations dont nous avions besoin pour GenDR.

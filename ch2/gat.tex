@@ -27,7 +27,7 @@ Selon \cite{ReiterBuildingNaturalLanguage2000}, un système de \ac{GAT} se déco
 \begin{figure}[htb] % utilise toujours [htb]
 	\centering
 	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch2/figs/pipeline.pdf}
-	\caption{Pipeline classique}
+	\caption{Pipeline classique, tiré de \citep{ReiterBuildingNaturalLanguage2000}}
 	\label{fig:Pipeline}
 \end{figure}
 
@@ -68,15 +68,13 @@ Nous nommerons d'abord, l'\textbf{approche à base de patrons}. Elle est génér
 
 En \ref{a.}, le patron contient trois variables, marquées par les \$. Celles-ci peuvent être respectivement comblées par un nom de joueur, suivi d'un nom d'équipe et d'une indication temporelle. L'avantage de cette approche est qu'on peut prévoir exactement ce qui sera généré et on diminue, par le fait même, les risques d'erreurs. L'inconvénient est que cette approche est très rigide et laisse place à quasi aucune paraphrase. Cependant, les réalisateurs à base de patrons peuvent être complémentés par des règles de grammaire, ce qui les rend plus flexibles. Toutefois, puisqu'ils sont codés à la main, ces sytèmes ont l'inconvénient d'être coûteux à développer. \cite{gatt18} soulignent qu'ils peuvent aussi être combinés à de l'apprentissage machine pour automatiser l'écriture des patrons, ce qui rend la tâche moins coûteuse. D'ailleurs, la combinaison d'approches est une démonstration de l'affaissement des frontières (création de systèmes hybrides) entre les méthodes traditionnelles de réalisation.
 
+Ensuite, il y a l'approche \textbf{basée sur des règles grammaticales}. Celles-ci s'emploient autant dans les domaines spécifiques (météo, sport, etc.) que les domaines généraux (conversation libre). Ces systèmes de réalisation se prêtent bien à la langue courante puisqu'ils sont conçus pour représenter le langage à travers des règles de grammaire. Cependant, les grammaires et les dictionnaires nécessaires au bon fonctionnement de cette approche sont codés manuellement, ce qui demande du temps et des ressources.
 
-Ensuite, il y a l'approche textbf{basée sur des règles grammaticales}. Celles-ci s'emploient autant dans les domaines spécifiques (météo, sport, etc.) que les domaines généraux (conversation libre). Ces systèmes de réalisation se prêtent bien à la langue courante puisqu'ils sont conçus pour représenter le langage à travers des règles de grammaire. Cependant, les grammaires et les dictionnaires nécessaires au bon fonctionnement de cette approche sont codés manuellement, ce qui demande du temps et des ressources.
-
-
-Finalement, il y a les \textbf{méthodes statistiques}. On peut les utiliser pour filtrer les sorties d'un système à l'aide d'un modèle probabiliste qui déterminera quel output est la meilleur candidat \citep{LangkildeForestbasedStatisticalSentence2000} (aussi appellée l'approche \emph{generate-and-filter}). On peut aussi développer un modèle probabiliste permettant à un système de \ac{GAT} d'apprendre automatiquement les règles nécessaires pour générer du texte \citep{WhiteMinimalDependencyLength2012}. Les méthodes statistiques diminuent considérablement la charge de travail manuelle \citep{LangkildeForestbasedStatisticalSentence2000}.
+Finalement, il y a les \textbf{méthodes statistiques}. On peut les utiliser pour filtrer les sorties d'un système à l'aide d'un modèle probabiliste qui déterminera quel output est le meilleur candidat \citep{LangkildeForestbasedStatisticalSentence2000} (aussi appellée l'approche \emph{generate-and-filter}). On peut aussi développer un modèle probabiliste permettant à un système de \ac{GAT} d'apprendre automatiquement les règles nécessaires pour générer du texte \citep{WhiteMinimalDependencyLength2012}. Les méthodes statistiques diminuent considérablement la charge de travail manuelle \citep{LangkildeForestbasedStatisticalSentence2000}.
 
 Considérant les approches que nous venons de présenter, une question surgit quant à la nécessité de continuer à développer des méthodes à base de règles lorsqu'on peut sauver du temps et employer des méthodes probabilistes. À ce sujet, \cite{BelzSystemBuildingCost2009} se sont demandé si le temps gagné en automatisant la réalisation se faisait au détriment de la qualité et si c'était le cas, à quel point. Leur évaluation consistait à tester les deux méthodes en leur demandant de faire la même tâche. Ils ont ainsi considérer la qualité des textes via une évaluation humaine, puis une évaluation métrique faite automatiquement. Suite à l'analyse, ils nous expliquent que les évaluations humaines pointaient en faveur des systèmes à base de règles et que certaines évaluations métriques surévaluaient le système statistique et sous-évaluaient le système à base de règles.
 
-Reiter s'est aussi penché sur la question et en a fait un survol dans un article tiré de son blog.\footnote{\url{https://ehudreiter.com/2016/12/12/nlg-and-ml/}, 12-03-18} Selon lui, même si les systèmes d'apprentissage automatique produisent généralement de bons textes, ils en génèrent occasionnellement des bizarretés. Ce comportement n'est pas approprié dans des domaines professionnels où des utilisateurs comptent sur la qualité des textes, entre autre, car ils prendront potentiellement des décisions en fonction des textes générés. De plus, les systèmes basés sur des méthodes statistiques ont souvent plus de difficulté à corriger les incongruités. En revanche, les systèmes à base de règles permettent de cerner les problème avec plus de facilité et de les corriger. Cependant, Reiter termine son blog en soulignant que la \ac{GAT} a aussi beaucoup à gagner de l'emploi des méthodes statistiques. Il suggère qu'on se serve d'elles pour automatiser des étapes du processus de réalisation (à base de règles).
+Reiter s'est aussi penché sur la question et en a fait un survol dans un article tiré de son blog.\footnote{\url{https://ehudreiter.com/2016/12/12/nlg-and-ml/}, 12-03-18} Selon lui, même si les systèmes d'apprentissage automatique produisent généralement de bons textes, ils génèrent occasionnellement des bizarretés. Ce comportement n'est pas approprié dans des domaines professionnels où des utilisateurs comptent sur la qualité des textes, entre autre, car ils prendront potentiellement des décisions en fonction des textes générés. De plus, les systèmes basés sur des méthodes statistiques ont souvent plus de difficulté à corriger les incongruités. En revanche, les systèmes à base de règles permettent de cerner les problème avec plus de facilité et de les corriger. Cependant, Reiter termine son blog en soulignant que la \ac{GAT} a aussi beaucoup à gagner de l'emploi des méthodes statistiques. Il suggère qu'on se serve d'elles pour automatiser des étapes du processus de réalisation (à base de règles).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- R É A L I S A T E U R   S U R F A C E ---
@@ -87,17 +85,20 @@ Reiter s'est aussi penché sur la question et en a fait un survol dans un articl
 Dans cette section, nous présenterons trois réalisateurs de surface connus: SimpleNLG, JSrealB et RealPro.
 
 \subsubsection{SimpleNLG}
-SimpleNLG \citep{GattSimpleNLGRealisationEngine2009} est un réalisateur de surface pour l'anglais écrit en java. Le texte est réalisé à partir d'une structure syntaxique déjà lexicalisée encodée en XML. Par la suite, le réalisateur effectue les opérations morphologiques nécessaires (flexion, dérivation, ajout d'auxiliaires, gestion de l'accord) tout en linéarisant le texte.
+SimpleNLG \citep{GattSimpleNLGRealisationEngine2009} est un réalisateur de surface pour l'anglais écrit en java. Le texte est réalisé à partir d'une structure syntaxique déjà lexicalisée encodée en \emph{XML}. Par la suite, le réalisateur effectue les opérations morphologiques nécessaires (flexion, dérivation, ajout d'auxiliaires, gestion de l'accord) tout en linéarisant le texte.
 
 Puisqu'il s'agit d'un réalisateur à base de règles, SimpleNLG est doté d'une grammaire et d'un dictionnaire. Ce dernier encode les propriétés syntaxiques et morphologiques des unités lexicales. Puis, le module grammatical contient des règles permettant le passage de la syntaxe à la morphologie.
 
 SimpleNLG sépare son processus de réalisation en quatre étapes. Premièrement, les lexèmes compris dans la structure d'input sont mis en correspondance avec leurs entrées de dictionnaire. Deuxièmement, on détermine les traits spécifiques des lexèmes. Troisièmement, on combine les lexèmes en créant des syntagmes de plus en plus larges, jusqu'à ce que l'entièreté de la phrase forme un syntagme phrastique. Finalement, les règles morphologiques sont appliquées et les lexèmes sont accordés afin d'obtenir les formes fléchies.
 
-D'ailleurs, SimpleNLG a été traduit dans plusieurs langues dont l'espagnol \citep{RamosSotoAdaptingSimpleNLGSpanish2017}, l'italien \citep{MazzeiSimpleNLGITadaptingSimpleNLG2016}, le français \citep{VaudryAdaptingSimpleNLGBilingual2013}, le portugais \citep{deOliveiraAdaptingSimpleNLGBrazilian2014} et l'allemand \citep{BollmannAdaptingSimpleNLGGerman2011}.
+SimpleNLG a également été traduit dans plusieurs langues dont l'espagnol \citep{RamosSotoAdaptingSimpleNLGSpanish2017}, l'italien \citep{MazzeiSimpleNLGITadaptingSimpleNLG2016}, le français \citep{VaudryAdaptingSimpleNLGBilingual2013}, le portugais \citep{deOliveiraAdaptingSimpleNLGBrazilian2014} et l'allemand \citep{BollmannAdaptingSimpleNLGGerman2011}.
 
 La figure~\ref{simplenlg} illustre l'input nécessaire permettant de réaliser la phrase \form{Refactoring is needed}. Elle provient du GitHub de SimpleNLG.\footnote{\url{https://github.com/simplenlg/simplenlg/blob/master/docs/XMLRepresentationOfTextSpecifications.pdf}}
 
-\begin{lstlisting}[language=Xml, caption=Structure d'input dans SimpleNLG, label=simplenlg]
+\begin{figure}[htb]
+ \caption{Structure d'input permettant de réaliser \form{Refactoring is needed} dans SimpleNLG}
+ \label{simplenlg}
+\begin{lstlisting}[language=Xml]
 <Document>
   <child xsi:type="SPhraseSpec">
     <subj xsi:type="VPPhraseSpec" FORM="PRESENT_PARTICIPLE">
@@ -118,13 +119,17 @@ La figure~\ref{simplenlg} illustre l'input nécessaire permettant de réaliser l
   </child>
 </Document>
 \end{lstlisting}
+\end{figure}
 
 \subsubsection{JSrealB}
-JSrealB (pour \emph{JavaScript Realiser Bilingual}) \citep{DBLP:conf/enlg/MolinsL15} est conçu pour les programmeurs web. Ce réalisateur génère des expressions et phrases bien formées qui peuvent être formattées en HTML pour ensuite être utilisées dans un fureteur. JSreal peut aussi s'employer seul à des fins purement linguistiques. Généralement, les spécificités de JSreal sont assez similaires à celles de SimpleNLG \citep{GattSimpleNLGRealisationEngine2009}.
+JSrealB (pour \emph{JavaScript Realiser Bilingual}) \citep{DBLP:conf/enlg/MolinsL15} est conçu pour les programmeurs web. Ce réalisateur génère des expressions et phrases bien formées qui peuvent être formattées en \emph{HTML} pour ensuite être utilisées dans un fureteur. JSreal peut aussi s'employer seul à des fins purement linguistiques. Généralement, les spécificités de JSreal sont assez similaires à celles de SimpleNLG \citep{GattSimpleNLGRealisationEngine2009}.
 
-Pour générer du texte, JSrealB prend en input des structures syntaxiques lexicalisées. La construction de la phrase découle de l'application de règles syntaxiques et morphologiques déclenchées par les lexèmes. JSrealB fonctionne aussi avec un dictionnaire et une grammaire. Son dictionnaire définit la catégorie des lexèmes qui le peuple et leurs traits lexicaux (genre, nombre, irrégularités, etc.). La grammaire de JSrealB contient des règles morpho-syntaxiques qui lui permettent de faire l'accord entre les constituants. Finalement, il existe aussi une version bilingue de JSrealB \citep{MolinsJSrealBBilingualText2015} qui incorpore le français et l'anglais. L'input qu'illustre la figure~\ref{jsreal} permet au réalisateur de générer la phrase: \form{The cat sat on the oach}. Cet exemple est tiré du GitHub de JSrealB.\footnote{\url{https://github.com/rali-udem/JSrealB}}
+Pour générer du texte, JSrealB prend en input des structures syntaxiques lexicalisées. La construction de la phrase découle de l'application de règles syntaxiques et morphologiques déclenchées par les lexèmes. JSrealB fonctionne aussi avec un dictionnaire et une grammaire. Son dictionnaire définit la catégorie des lexèmes qui le peuple et leurs traits lexicaux (genre, nombre, irrégularités, etc.). La grammaire de JSrealB contient des règles morpho-syntaxiques qui lui permettent de faire l'accord entre les constituants. Finalement, il existe aussi une version bilingue de JSrealB \citep{MolinsJSrealBBilingualText2015} qui incorpore le français et l'anglais. L'input qu'illustre la figure~\ref{jsreal} permet au réalisateur de générer la phrase: \form{The cat sat on the coach}. Cet exemple est tiré du GitHub de JSrealB.\footnote{\url{https://github.com/rali-udem/JSrealB}}
 
-\begin{lstlisting}[language=Xml, caption=JSreal, label=jsreal]
+\begin{figure}[htb]
+\caption{Structure d'input réalisant \form{The cat sat on the coach} dans JSrealB}
+\label{jsreal}
+\begin{lstlisting}[language=Xml]
 JSrealLoader({
         language: "en",
         lexiconUrl: URL.lexicon.en,
@@ -138,32 +143,36 @@ JSrealLoader({
                 VP(V("sit"), PP(P("on"), NP(D("the"), N("coach")))).t("ps")
             )
 \end{lstlisting}
+\end{figure}
 		
 \subsubsection{RealPro}
-RealPro \citep{LavoieFastPortableRealizer1997} est implémenté en C++. Il est le plus profond des réalisateurs de surface préséntés ici. Il prend en input des arbres de dépendances, ce qui le distingue des deux autres systèmes qui utilisent des arbres de constituants \citep{DBLP:conf/enlg/MolinsL15,GattSimpleNLGRealisationEngine2009}. Rapidement, un arbre de dépendance est non-linéarisé dont les arcs et les n\oe{}uds sont étiquetés. Les n\oe{}uds sont des lexèmes, donc la lexicalisation a déjà eu lieu. On appelle ça un arbre syntaxique car les branches liant les n\oe{}uds entre eux correspondent à des relations syntaxiques. Seuls les mots sémantiquement pleins figurent dans l'input (cela exclut les déterminants, prépositions, etc.).
+RealPro \citep{LavoieFastPortableRealizer1997} est implémenté en \emph{C++} et c'est le plus profond des réalisateurs de surface préséntés ici. Il prend en input des arbres de dépendances, ce qui le distingue des deux autres systèmes qui utilisent des arbres de constituants \citep{DBLP:conf/enlg/MolinsL15,GattSimpleNLGRealisationEngine2009}. Rapidement, un arbre de dépendance est un arbre non-linéarisé dont les arcs et les n\oe{}uds sont étiquetés. Les n\oe{}uds sont des lexèmes, donc la lexicalisation a déjà eu lieu. On appelle ça un arbre syntaxique car les branches liant les n\oe{}uds entre eux correspondent à des relations syntaxiques. Seuls les mots sémantiquement pleins figurent dans l'input (cela exclut les déterminants, prépositions, etc.).
 
-Cette architecture est basée sur la \ac{TST} \citep{melcuk1988}. C'est une théorie linguistique qui a fait ses preuves en matière de \ac{GAT} si on se fie à RealPro \citep{LavoieFastPortableRealizer1997} que nous présontons ici et FORGe \citep{MilledemoFORGePompeu2017} ou MARQUIS \citep{WannerMARQUISGENERATIONUSERTAILORED2010} qui l'utilise aussi. De plus, \cite{Vicentegeneracionlenguajenatural2015} mentionne ce cadre théorique comme étant une bonne interface pour modéliser le langage dans une système de \ac{GAT}.
+Cette architecture est basée sur la \ac{TST} \citep{melcuk1988} qui est une théorie linguistique qui a fait ses preuves en matière de \ac{GAT} si on se fie à RealPro \citep{LavoieFastPortableRealizer1997} que nous présontons ici et FORGe \citep{MilledemoFORGePompeu2017} ou MARQUIS \citep{WannerMARQUISGENERATIONUSERTAILORED2010} qui l'utilise aussi. De plus, \cite{Vicentegeneracionlenguajenatural2015} mentionne ce cadre théorique comme étant une bonne interface pour modéliser le langage dans une système de \ac{GAT}.
 
 Brièvement, il s'agit d'une théorie qui divise le langage en quatre niveaux de représentations majeurs: sémantique, syntaxique (profonde et de surface), morphologique (profonde et de surface), phonologique (profonde et de surface) -- ce dernier étant court-circuité pour la génération de texte écrit. Pour plus de détails concernant les arbres de dépendances et la \ac{TST}, voir le chapitre~\ref{chapgendr}.
 
-RealPro a deux grammaires qui permettent successivement de passer d'une représentation profonde à une représentation de surface, puis de celle-ci à une linéarisation morphologique de l'input. Pour effectuer toutes les transitions, le système fait aussi appel à un dictionnaire qui encode les propriétés lexicales et morphosyntaxiques des unité. Le graphique \ref{fig:RealPro} démontre l'intéraction de ces deux ressources pour réaliser le texte.
+RealPro a deux grammaires qui permettent successivement de passer d'une représentation profonde à une représentation de surface, puis de celle-ci à une linéarisation morphologique de l'input. Pour effectuer toutes les transitions, le système fait aussi appel à un dictionnaire qui encode les propriétés lexicales et morphosyntaxiques des unité. Le graphique \ref{fig:RealPro} illustre l'intéraction de ces deux ressources pour réaliser du texte.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch2/figs/realpro.pdf}
-	\caption{RealPro}
+	\caption{Modules dictionnairiques et grammaticaux de RealPro}
 	\label{fig:RealPro}
 \end{figure}
 
-La figure~\ref{lst:realpro} illustre un arbre de dépendance (l'input) représentant la phrase \form{March had some rain days}. Ce qu'on peut retirer de cet exemple que \lex{have1} est la racine de l'arbre et que \lex{march} puis \lex{day} en sont les actants. Ceux-ci appartiennent à des classes nominales et on peut voir qu'il y a des contraintes sur certains n\oe{}uds. La lexie \lex{day} demande que le module morphologique fléchisse la lexie au pluriel. Cet exemple provient de \cite{ReiterBuildingNaturalLanguage2000}.
+La figure~\ref{lst:realpro} illustre un arbre de dépendance (l'input) représentant la phrase \form{March had some rain days}, elle provient de \cite{ReiterBuildingNaturalLanguage2000}.
 
-
-\begin{lstlisting}[language=mate, caption=Input, label=lst:realpro]
+\begin{figure}[htb]
+\caption{Input de la phrase \form{March had some rain days} dans RealPro}
+\label{lst:realpro}
+\begin{lstlisting}[language=mate]
 HAVE1 [tense:past]
 (I March [class:proper-noun]
 II day [class:common-noun numberpl]
 (ATTR rainy [class:adjective]))
 \end{lstlisting}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- R É A L I S A T E U R    P R O F O N D  ---
@@ -171,7 +180,7 @@ II day [class:common-noun numberpl]
 
 \subsection{Réalisateurs profonds}
 
-Les réalisateurs profonds prennent généralement en input des structures plus abstraites, ce qui a pour conséquence plus de variation linguistique. Comme les réalisateurs profonds incorporent généralement la lexicalisation, un input peut généralement produire divers outputs \citep{PolguerePourmodelestratifie}. Le \scare{pouvoir paraphrastique} de ces systèmes permet donc au réalisateur de tenir compte de toute la richesse langagière d'une langue. Dans le pipeline classique, comme nous l'avons vu à la section \ref{ppc}, la lexicalisation est opérée avant la réalisation. Cet ordre a pour conséquence que les inputs fournis au réalisateur sont déjà lexicalisés et cela restreint grandement les réalisations possibles (puisque les lexèmes incorporent des propriétés de combinaitoires bien précises autours desquelles la phrase doit s'articuler). 
+Les réalisateurs profonds prennent généralement en input des structures plus abstraites, ce qui permet de réaliser des phénomènes langagiers plus profonds. Comme les réalisateurs profonds incorporent généralement la lexicalisation, cela fait en sorte qu' un seul input peut souvent produire divers outputs \citep{PolguerePourmodelestratifie}, autrement dit, le \scare{pouvoir paraphrastique} de ces systèmes permet donc au réalisateur de tenir compte de toute la richesse langagière d'une langue. Dans le pipeline classique, comme nous l'avons vu à la section \ref{ppc}, la lexicalisation est opérée avant la réalisation. Cet ordre a pour conséquence que les inputs fournis au réalisateur sont déjà lexicalisés et cela restreint grandement les réalisations possibles (puisque les lexèmes incorporent des propriétés de combinaitoires bien précises autours desquelles la phrase doit s'articuler). 
 
 Dans cette section, nous présenterons les réalisateurs profonds suivants: KPML, SURGE, FORGe et MARQUIS.
 
@@ -180,9 +189,12 @@ KMPL \citep{BatemanEnablingTechnologyMultilingual1997} est un réalisateur multi
 
 La grammaire de ce système est implémentée à la manière d'un réseau orienté. Chaque intersection dans le réseau correspond à un choix grammatical à faire entre différents traits fonctionnels. Ces choix deviennent de plus en plus précis lorsqu'on avance dans le réseau. Ainsi, la forme de surface d'un input donné est la conséquence du parcours de ces réseaux.
 
-Les informations comprises dans les inputs de ce système sont d'ordre sémantique et syntaxique. Ainsi, l'input de KPML est un\ac{SPL}, ce qui est une une matrice d'attributs et de valeurs. La figure~\ref{kpml} représente à quoi ressemble un \ac{SPL} et elle est issue de \cite{ReiterBuildingNaturalLanguage2000}. Elle représente la phrase \form{March had some rainy days}.
+Les informations comprises dans les inputs de ce système sont d'ordre sémantique et syntaxique. Ainsi, l'input de KPML est un \ac{SPL}, ce qui est une matrice d'attributs et de valeurs. La figure~\ref{kpml} illustre un \ac{SPL} et elle est issue de \cite{ReiterBuildingNaturalLanguage2000}.
 
-\begin{lstlisting}[language=mate, caption=SPL: input de KPML, label=kpml]
+\begin{figure}[htb]
+\caption{SPL: input pour réaliser \form{March had some rainy days} dans KPML}
+\label{kpml}
+\begin{lstlisting}[language=mate]
 (S1 \ generalized-possession
   :tense past 
 	:domain (N1 \ time-interval
@@ -195,17 +207,21 @@ Les informations comprises dans les inputs de ce système sont d'ordre sémantiq
 						 :property ascription
 						 (A1 \ quality :lex rainy)))
 \end{lstlisting}
+\end{figure}
 
 \subsubsection{SURGE}
 SURGE, qui signifie \emph{Systemic Unification Realisation Grammar of English}, est une grammaire de l'anglais \citep{Elhadad98surge:a} qui est écrite en \ac{FUF}: une grammaire basée sur \acf{FUG} \citep{KayFunctionalUnificationGrammar1984}. \ac{FUF} est un langage de programmation créé pour construire des grammaires d'unification informatisées.
 
 SURGE prend en input des arbres thématiques non linéarisés dont les n\oe{}uds sont des unités sémantiques pleines (donc ça exclut les prépositions,etc.). Ces arbres sont représentés comme des structures de traits encodé dans le formalisme \ac{FUF}. Ces structures de traits sont appellées des \ac{FD}. Il s'agit d'ensemble de paires d'attributs-valeurs qui peuvent être sucessivement enchâssées. Les entrées lexicales et leurs propriétés sont directement encodées dans les \ac{FD} ce qui fait en sorte que SURGE n'a pas besoin de dictionnaire. Chaque constituant se fait attribuer une catégorie syntaxique et c'est grâce à ces traits que la grammaire sait comment unifier la phrase.
 
-Dans ce système, la grammaire est aussi décrite en termes de \ac{FD}. Ainsi, réaliser du texte, SURGE prend en entrée à la fois les \ac{FD} du sens de la phrase désirée et les \ac{FD} représentant les règles de grammaire du système afin d'unifier les structures. Le résultat est une structure d'entrée enrichie par des spécifications grammaticales (syntaxique et morphologique). Cela permet au réalisateur de passer à l'étape suivante qui est la linéarisation. SURGE applique ainsi les traits morphologiques en fonction des spécifications encodées lors de l'unification. L'output est une phrase anglaise exprimant le sens de la \ac{FD} en fonction des contraintes imposées par la grammaire.
+Dans ce système, la grammaire est aussi décrite en termes de \ac{FD}. Ainsi, pour réaliser du texte, SURGE prend en entrée à la fois les \ac{FD} du sens de la phrase désirée et les \ac{FD} représentant les règles de grammaire du système afin d'unifier les structures. Le résultat est une structure d'entrée enrichie par des spécifications grammaticales (syntaxique et morphologique). Cela permet au réalisateur de passer à l'étape suivante qui est la linéarisation. SURGE applique ainsi les traits morphologiques en fonction des spécifications encodées lors de l'unification. L'output est une phrase anglaise exprimant le sens de la \ac{FD} en fonction des contraintes imposées par la grammaire.
 
 Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage2000}: \form{March had some rainy days}.
 
-\begin{lstlisting}[language=mate, caption=FD: input de Surge, label=surge]
+\begin{figure}[htb]
+ \caption{FD: input pour réaliser \form{March had some rainy days} dans SURGE}
+ \label{surge}
+\begin{lstlisting}[language=mate]
 ((cat clause)
  (proc ((type possessive)))
  (tense past)
@@ -214,44 +230,44 @@ Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage200
 											(describer ((lex rainy)))
 											(selective yes) (number plural)))))
 \end{lstlisting}
+\end{figure}
 
 \subsubsection{MARQUIS}\label{sectionmarquis}
-Comme RealPro, MARQUIS est basé sur la \ac{TST}, mais contrairement aux autres systèmes présentés ici, MARQUIS n'est pas qu'un réalisateur profond. Il s'agit d'un système de \ac{GAT} complet qui effectue toutes les étapes du processus de génération automatique de texte (voir \ref{ppc}). Cependant, nous ne nous intéresserons ici qu'à son module de réalisation profonde.\citep{Lareau2007TowardsAG} Pour plus d'informations concernant le pipeline complet de MARQUIS, voir \citep{WannerMARQUISGENERATIONUSERTAILORED2010,bohnet07}. 
+Comme RealPro, MARQUIS est basé sur la \ac{TST}, mais contrairement aux autres systèmes présentés ici, MARQUIS n'est pas qu'un réalisateur profond. Il s'agit d'un système de \ac{GAT} complet qui effectue toutes les étapes du processus de génération automatique de texte (voir \ref{ppc}). Cependant, nous ne nous intéresserons ici qu'à son module de réalisation profonde \citep{Lareau2007TowardsAG}. Pour plus d'informations concernant le pipeline complet de MARQUIS, voir \citep{WannerMARQUISGENERATIONUSERTAILORED2010,bohnet07}. 
 
-Le but du projet MARQUIS était de générer, à partir de données brutes, des bulletins météorologiques multilingues sur la qualité de l'air. Ces bulletins sont générés en fonction de l'utilisateur. Autrement dit, ceux-ci se créent des profils avec leurs informations personelles et cela permet à MARQUIS de réaliser du texte en fonction de leur niveau de connaissance du domaine et de leurs besoins de santé. Le tout est fait à partir d'un input conceptuel partagé par toutes les langues traitées par MARQUIS (l'anglais, l'allemand, l'espagnol, le catalan, le portugais, le français, le finnois et le polonais). 
+Le but du projet MARQUIS était de générer, à partir de données brutes, des bulletins météorologiques multilingues sur la qualité de l'air. Ces bulletins sont produits en fonction de l'utilisateur. Autrement dit, ceux-ci se créent des profils avec leurs informations personelles et cela permet à MARQUIS de réaliser du texte en fonction de leur niveau de connaissance du domaine et de leurs besoins de santé. Le tout est fait à partir d'un input conceptuel partagé par toutes les langues traitées par MARQUIS (l'anglais, l'allemand, l'espagnol, le catalan, le portugais, le français, le finnois et le polonais). 
 
-La figure~\ref{fig:marquis} illustre le processus de réalisation que MARQUIS entreprend pour générer du texte. On peut y voir que le système prend en input des graphes conceptuels et qu'il produit du texte. Concrètement, pour arriver à la réalisation finale, MARQUIS prend la structure \#1 et à l'aide de dictionnaires et de grammaires, il construit un nouveau graphe correspondant à la structure précédente et ainsi de suite jusqu'à ce qu'il arrive à la dernière représentation. 
+La figure~\ref{fig:marquis} illustre le processus de réalisation que MARQUIS entreprend pour générer du texte. On peut y voir que le système prend en input des graphes conceptuels et qu'il produit du texte. Pour arriver à la réalisation finale, le réalisteur prend la structure \#1 en input, puis il l'analyse à l'aide de de règles de grammaire et de dictionnaires pour qu'il en résulte la structure \#2. Celle-ci correpondra à la structure qui lui a servi d'input, mais à un autre niveau de représentation. Cette transduction est ainsi répétée jusqu'à ce que le système se rende au dernier niveau de représentation: le texte.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch2/figs/marquis.pdf}
-	\caption{Pipeline de MARQUIS}
+	\caption{Pipeline de MARQUIS \citep{WannerMARQUISGENERATIONUSERTAILORED2010}}
 	\label{fig:marquis}
 \end{figure}
 
-Nous expliquerons brièvement les mécanismes qui permettent la transition d'une représentation à une autre puisque le tout sera mieux expliquée à la section \ref{sec:semsynt}. Alors, il faut d'abord que le système analyse la structure conceptuelle. Ensuite les règles de transduction permettent de passer de la représentation conceptuelle à la représentation sémantique. Le passage des unités conceptuelles aux unités sémantique se fait via l'entremise des dictionnaires respectifs. On a alors une structure sémantique. MARQUIS prendra ce graphe pour en dériver un arbre de dépendances syntaxique profond grâce aux règles de transduction de cette interface. La mise en correspondance d'unités sémantiques et lexicales est opérée grâce au dictionnaire sémantique (\emph{semanticon}) et lexical (\emph{lexicon}) ainsi qu'au dictionnaire de fonctions lexicales. Finalement, les autres transitions de représentations sont assurées par des règles de transductions successives et les informations contenues dans le lexicon. La figure~\ref{fig:reglesdict} démontre ces rouages.
+Nous expliquerons brièvement ici les mécanismes qui permettent la transition d'une représentation à une autre (plus de détails suivront à la section \ref{sec:semsynt}). Il faut d'abord que le système analyse la structure conceptuelle à l'aide des règles de transduction qui permettent de passer de la représentation conceptuelle à la représentation sémantique. Le passage des unités conceptuelles aux unités sémantique se fait grâce aux informations encodées dans un dictionnaire prêt à cet effet. Ensuite, après que la structure sémantique est créée, MARQUIS la prend pour en dériver un arbre de dépendances syntaxique profond grâce aux règles de transduction de cette interface (sémantique-syntaxe). La mise en correspondance d'unités sémantiques et lexicales est opérée grâce au dictionnaire sémantique (\emph{semanticon}) et lexical (\emph{lexicon}) ainsi qu'au dictionnaire de fonctions lexicales. Finalement, les autres transitions de représentations sont assurées par des règles de transductions successives et les informations contenues dans le \emph{lexicon}. La figure~\ref{fig:reglesdict} présente ces rouages.
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch2/figs/module.pdf}
-	\caption{Combinaison des règles et dictionnaires}
+	\caption{Combinaison des règles et dictionnaires pour effectuer les transductions de graphes \citep{LambreyImplementationcollocationspour2017}}
 	\label{fig:reglesdict}
 \end{figure}
 
-Pour mieux comprendre à quoi servent les dictionnaires mentionnés dans le paragraphe précédent, nous les décrirons rapidement. Le dictionnaire conceptuel comprend tous les concepts utiles à la génération des rapports sur la qualité de l'air et des termes du domaine général. Ce dictionnaire mappe les concepts aux unités sémantiques pour chaque langue traitée par le système. Le dictionnaire sémantique mappe les unités sémantiques aux lexies. Finalement, il nous faut un dictionnaire lexical qui contient toutes les unités lexicales avec leurs propriétés syntaxiques et morphologiques et leur combinatoire lexicale.
+Pour mieux comprendre à quoi servent les dictionnaires mentionnés dans le paragraphe précédent, nous les décrirons rapidement. Le dictionnaire conceptuel comprend tous les concepts utiles à la génération des rapports sur la qualité de l'air et des termes du domaine général. Ce dictionnaire mappe les concepts aux unités sémantiques pour chaque langue traitée par le système. Le dictionnaire sémantique mappe les unités sémantiques aux lexies. Finalement, il nous faut un dictionnaire lexical qui contient toutes les unités lexicales avec leurs propriétés syntaxiques et morphologiques et leur combinatoire lexicale pour que le texte générée soit grammatical.
 
 \subsubsection{FORGe}
-FORGe est un transducteur de graphes qui génère du texte à l'aide de ressources lexicales dictionnairiques et grammaticales \citep{MilledemoFORGePompeu2017,DBLP:conf/semeval/MilleCBW17}. C'est un réalisateur profond qui a hérité de l'architecture de Marquis \citep{WannerMARQUISGENERATIONUSERTAILORED2010}. FORGe a été conçu pour l'anglais à la base, mais il se veut multilingue (espagnol, allemand, français et polonais sont en développement). C'est un réalisateur qui peut aisément générer du texte en différentes langues grâce à ses règles grammaticales, qui seront majoritairement partagées par toutes les langues. Les règles fonctionnant pour l'anglais ont ainsi été conçues pour pouvoir fonctionner avec d'autres langues.
+FORGe est un transducteur de graphes qui génère du texte à l'aide de ressources lexicales dictionnairiques et grammaticales \citep{MilledemoFORGePompeu2017,DBLP:conf/semeval/MilleCBW17}. C'est un réalisateur profond qui a hérité de l'architecture de Marquis \citep{WannerMARQUISGENERATIONUSERTAILORED2010}. FORGe a été conçu pour l'anglais à la base, mais il se veut multilingue (espagnol, allemand, français et polonais sont en développement). C'est un réalisateur qui peut aisément générer du texte en différentes langues grâce à ses règles grammaticales, qui seront majoritairement partagées par toutes les langues.
 
-La théorie linguistique sous-jacente à ce système est la \ac{TST} \citep{melcuk1988, mel2012semantics, PolgueretheorieSensTexte1998, kahane05a, Milicevic2007ASG}. D'ailleurs nous verrons plus en détails dans la section \ref{chapgendr} au chapitre suivant comment cette théorie linguistique se prête à des transducteur de graphes.
+La théorie linguistique sous-jacente à ce système est la \ac{TST} \citep{melcuk1988, mel2012semantics, PolgueretheorieSensTexte1998, kahane05a, Milicevic2007ASG} \footnote{Nous verrons plus en détails au chapitre \ref{chapgendr} comment cette théorie linguistique se prête à des transducteur de graphes.}.
 
-FORGe prend en input des représentations sémantiques sous forme de graphes orientés acycliques représentant les relations prédicats-arguments entre des sémantèmes (donc, des unités pas encore lexialisées). Pour visualiser de quoi on parle ici, nous vous référons à la structure \#2 dans la figure~\ref{fig:marquis} de la section MARQUIS \ref{sectionmarquis}. Plus tôt, nous avons vu que RealPro fontionnait aussi avec la \ac{TST}. La réalisation du texte se faisait en passant de la \ac{RSyntP} en traversant la syntaxe de surface puis, en traversant la morphologie pour linéariser le tout. FORGe fonctionne sur les mêmes bases, mais son input est encore plus profond que la \ac{RSyntP}, il s'agit de la \ac{RSem}. Autrement dit, une représentation dépourvue de structure où les relations entre les n\oe{}uds ne sont que prédicats-arguments. Ainsi, la réalisation de texte dans FORGe se découpe en trois étapes: le transfert de la \ac{RSem} à la \ac{RSyntP}, suivi du transfert de la \ac{RSyntP} à la \ac{RSyntS}, et finalement de la \ac{RSyntS} au texte linéarisé et morphologisé. Le fonctionnement est donc très similaire, mais FORGe peut ainsi traiter beaucoup plus de phénomènes langagiers puisqu'il n'est pas contraint par des unités lexicales dans sa structure d'input.
+FORGe prend en input des représentations sémantiques sous forme de graphes orientés acycliques représentant les relations prédicats-arguments entre des sémantèmes,ce qui correspond à la structure \#2 dans la figure~\ref{fig:marquis} de la section MARQUIS \ref{sectionmarquis}. Plus tôt, nous avions vu que RealPro \citep{LavoieFastPortableRealizer1997} réalisait du texte en passant par la \ac{RSyntP} en traversant la syntaxe de surface, puis la morphologie pour que le tout soit linéarisé. FORGe fonctionne essentiellement sur les mêmes bases, mais son input est encore plus profond que la \ac{RSyntP}, il s'agit de la \ac{RSem}. Autrement dit, une représentation dépourvue de structure où les relations entre les n\oe{}uds ne sont que prédicats-arguments. Ainsi, la réalisation de texte dans FORGe se découpe en trois étapes: le transfert de la \ac{RSem} à la \ac{RSyntP}, suivi du transfert de la \ac{RSyntP} à la \ac{RSyntS}, et finalement de la \ac{RSyntS} au texte linéarisé et morphologisé. Le fonctionnement est donc très similaire à celui de RealPro, mais FORGe peut ainsi traiter beaucoup plus de phénomènes langagiers puisqu'il n'est pas contraint par les propriétés de combinatoire des unités lexicales dans sa structure d'input.
 
-La première étape de réalisation est le passage de la sémantique à la syntaxe profonde qui est effectué via un algorithme récursif qu'on appelle \scare{\emph{top-down}}. Tel que nous le verrons dans le chapitre suivant à la section \ref{sec:arbo}, on rèfère à cet algorithme dans la \ac{TST} comme l'arborisation. Brièvement, on crée un arbre syntaxique de dépendance à partir d'un \ac{RSem} qui précise un n\oe{}ud dominant. Celui-ci sera l'équivalent du \emph{top} qu'on appelle la racine. La racine se fait généralement imposé une partie du discours verbale. Car on veut que le lexème qui consommera la racine soit un verbe puisque ce sont eux qui contrôlent généralement la phrase. Une fois que la racine est lexicalisé, on peut désormais ajouter des branches qui font office de relation syntaxique entre la racine et les arguments qu'elle sélectionne. Les n\oe{}uds au bout de ces branches sont vides et contraints par le gouverneur afin que seule les lexè
-mes respectant les contraintes soient lexicalisés. L'aspect récursif de l'algorithme est que ces opérations se répètent jusqu'à ce que l'arbre représente en syntaxe profonde la \ac{RSem} qu'on avait donné en entrée. Cette construction se fait sur les bases des dictionnaires et de la grammaire pour s'assurer que c'est un arbre de bonne formation.
+La première étape de réalisation est le passage de la sémantique à la syntaxe profonde qui est effectué via un algorithme récursif qu'on appelle \scare{\emph{top-down}}. Tel que nous le verrons dans le chapitre suivant à la section \ref{sec:arbo}, on rèfère à cet algorithme dans la \ac{TST} comme \textbf{l'arborisation}. En résumé, on crée un arbre syntaxique de dépendance à partir d'une \ac{RSem} qui précise un n\oe{}ud dominant. Celui-ci sera l'équivalent du \emph{top} qu'on appelle la racine qui se fait généralement imposé une partie du discours verbale. Cette restriction s'impose généralement, car on veut que le lexème qui consommera la racine soit un verbe, puisque ce sont eux qui contrôlent généralement la phrase. Une fois que la racine est lexicalisé, on peut désormais ajouter des branches qui font office de relation syntaxique entre la racine et les arguments qu'elle sélectionne. Les n\oe{}uds au bout de ces branches sont vides et contraints par le gouverneur afin que seule les lexèmes respectant les contraintes soient lexicalisés. On dit que cet algorithme est récursif car ses opérations se répètent jusqu'à ce que l'arbre représente en syntaxe profonde la \ac{RSem} qu'on lui avait donné en entrée. Cette construction se fait sur les bases des dictionnaires et de la grammaire pour s'assurer que ce sera un arbre de bonne formation (grammatical).
 
-Ensuite, la seconde étape est le passage de la \ac{RSyntP} à la \ac{RSyntS}. Cela correspond à l'étape où on introduit les mots fonctionnels (prépositions, auxiliaires, déterminants) et les relations de surface (sujet, objet direct, etc.) dans l'arbre de dépendance créé à l'étape précédente. C'est là que FORGe se démarque de MARQUIS. Ils utilisent un dictionnaire de verbes qui explicitent leurs comportements syntaxiques. Cela permet de rendre compte de la richesse linguistique des verbes et de générer encore plus de paraphrases puisque ce sont les verbes qui contrôlent la construction d'un arbre. Nous reviendrons à cette problématique dans la section \ref{sec:gp} au chapitre \ref{chapgendr}.
+Ensuite, la seconde étape est le passage de la \ac{RSyntP} à la \ac{RSyntS}. Cela correspond à l'étape où on introduit les mots fonctionnels (prépositions, auxiliaires, déterminants) et les relations de surface (sujet, objet direct, etc.) dans l'arbre de dépendance créé à l'étape précédente. C'est là que FORGe se démarque de MARQUIS. L'héritier de ce dernier possède un dictionnaire de verbes qui explicitent les comportements syntaxiques de ceux-ci. Cela permet de rendre compte de la richesse linguistique des verbes et de générer encore plus de paraphrases puisque c'est cette partie du discours qui contrôlent généralement la construction d'un arbre. Nous reviendrons à cette problématique dans la section \ref{sec:gp} au chapitre \ref{chapgendr}.
                                                                                                                      
-Finalement, la dernière étape pour achever la réalisation consiste à linéariser la structure syntaxique de surface et à appliquer les règles morpho-syntaxiques aux lexèmes pour produire le texte final.
+Finalement, la dernière étape pour achever la réalisation dans FORGe consiste à linéariser la structure syntaxique de surface et à appliquer les règles morpho-syntaxiques aux lexèmes pour produire le texte final.
 
-En conclusion, MARQUIS et FORGe partent de niveaux d'abstraction plus profonds que les autres systèmes présentés. Cela leur permet d'être plus flexibles dans leurs réalisations. C'est pourquoi nous utilisons aussi un réalisateur profond très similaire à ces deux réalisateurs. Comme FORGe, nous utiliserons aussi un système basé sur MARQUIS, le système GenDR \citep{lambrey15,LambreyImplementationcollocationspour2017,lareau18}, que le chapitre suivant décrira en détail.
+En conclusion, MARQUIS et FORGe partent de niveaux d'abstraction plus profonds que les autres systèmes présentés. Cela leur permet d'être plus flexibles dans leurs réalisations. C'est pourquoi nous travaillerons avec un réalisateur profond très similaire à ces deux réalisateurs. Comme FORGe, nous utiliserons aussi un système basé sur MARQUIS, le système GenDR \citep{lambrey15,LambreyImplementationcollocationspour2017,lareau18}, que le chapitre suivant décrira en détails.

@@ -681,8 +681,8 @@
   \def\thechapter{\@Alph\c@chapter}
    \AppendixPageNumber}
 \def\AppendixPageNumber{
-\def\chapter{\cleardoublepage \setcounter{page}{1}\thispagestyle{empty}
-  \def\thepage{\thechapter -\roman{page}}
+\def\chapter{\cleardoublepage\pagenumbering{roman}\setcounter{page}{23}\thispagestyle{empty}
+%  \def\thepage{\roman{page}}
   \global\@topnum\z@
   \@afterindentfalse \secdef\@chapter\@schapter}
 }
@@ -837,7 +837,8 @@
     \renewcommand\theenumiv{\arabic{enumiv}}\let\p@enumiv\@empty
     \list{\@biblabel{\theenumiv}}{\settowidth\labelwidth{\@biblabel{#1}}%
 %    \leftmargin\labelwidth \advance\leftmargin\labelsep
-    \leftmargin=0pt % ne plus décaler la bibliographie vers la gauche
+    \leftmargin=1em % ne plus décaler la bibliographie vers la gauche
+    \itemindent=-1em
     \usecounter{enumiv}}%
     \sloppy \clubpenalty\@M \widowpenalty\clubpenalty
     \sfcode`\.=\@m

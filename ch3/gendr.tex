@@ -155,14 +155,14 @@ L'éditeur de graphes de MATE nous permet de construire les structures sémantiq
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 3cm 0cm 2cm},clip]{ch3/figs/realsurfex.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 3cm 3cm 2cm},clip]{ch3/figs/realsurfex.pdf}
 	\caption{Réalisation de surface}
 	\label{fig:realsurfex}
 \end{figure} 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.5\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/exemples_real.png}
+	\includegraphics[width=1.3\textwidth, trim = {6cm 0cm 0cm 0cm},clip]{ch3/figs/6_real_surface.pdf}
 	\caption{Six réalisations syntaxiques de surface \citep{lareau18}}
 	\label{fig:6realsurf}
 \end{figure}
@@ -234,7 +234,7 @@ Une fois que l'arborisation et la lexicalisation sont effectuées, GenDR passe �
 
 \subsection{Lexicalisation}\label{sec:lexicalisation}
 
-Le processus de lexicalisation est réparti sur plusieurs niveaux de représentation (\ac{RSem}, \ac{RSyntP}, \ac{RSyntS}) formant deux interfaces, \ac{RSem}--\ac{RSyntP} et \ac{RSyntP}--\ac{RSyntS} \citep{PolguerePourmodelestratifie,lareau18}. La première interface modélise la lexicalisation profonde qui consiste à assurer la correspondance entre une unité sémantique et une (ou des) unité(s) lexicale(s) profonde(s). Cette correspondance est encodée dans le dictionnaire d'un système \ac{TST}. La seconde interface consiste à effectuer la lexicalisation de surface qui introduit les mots fonctionnels (déterminants, auxiliaires ou prépositions) et les lexies de surface (comme les collocations).
+Le processus de lexicalisation est réparti sur plusieurs niveaux de représentation (\ac{RSem}, \ac{RSyntP}, \ac{RSyntS}) formant deux interfaces, \ac{RSem}--\ac{RSyntP} et \ac{RSyntP}--\ac{RSyntS} \citep{lareau18, PolguerePourmodelestratifie1998}. La première interface modélise la lexicalisation profonde qui consiste à assurer la correspondance entre une unité sémantique et une (ou des) unité(s) lexicale(s) profonde(s). Cette correspondance est encodée dans le dictionnaire d'un système \ac{TST}. La seconde interface consiste à effectuer la lexicalisation de surface qui introduit les mots fonctionnels (déterminants, auxiliaires ou prépositions) et les lexies de surface (comme les collocations).
 
 \begin{quote}
 La lexicalisation vise donc à sélectionner les Sens qui seront directement exprimés par des lexèmes au niveau syntaxique profond.
@@ -266,7 +266,7 @@ Puis, il y a un second type de lexies fonctionnelles, notamment les préposition
 
 Pour illustrer le fonctionnement des règles et des dictionnaires que nous venons de présenter, nous décortiquerons la réalisation profonde de l'exemple vu à la figure~\ref{fig:debt}.
 
-\subsection{Arborisation profonde}
+\subsection{Arborisation et lexicalisation profonde}
 
 Cette section illustre les étapes successives qui ont permis à GenDR de passer de la \ac{RSem} à la \ac{RSyntP}.
 
@@ -274,7 +274,7 @@ Cette section illustre les étapes successives qui ont permis à GenDR de passer
 La règle crée un n\oe{}ud vide qui sera la racine de l'arbre à construire et qui se voit imposer les contraintes suivantes: \texttt{dpos=V} (la racine doit être un verbe) et \texttt{finiteness=FIN} (fini). La figure~\ref{fig:rootstand} illustre la création du n\oe{}ud non-étiqueté.
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.6\textwidth, trim = {1cm 0.5cm 0cm 1cm},clip]{ch3/figs/inspecteur_root.png}
+	\includegraphics[width=1\textwidth, trim = {0cm 5cm 0cm 2cm},clip]{ch3/figs/root_standard.pdf}
 	\vspace{-0.5cm}
 	\caption{Application de \emph{root\_standard}}
 	\label{fig:rootstand}
@@ -285,7 +285,7 @@ La racine vide déclenchera l'application d'une règle de lexicalisation, c'est 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.7\textwidth, trim = {0cm 0.7cm 0cm 0.9cm},clip]{ch3/figs/lex_standard_root.png}
+	\includegraphics[width=1\textwidth, trim = {0cm 3cm 0cm 4cm},clip]{ch3/figs/lex_standard1.pdf}
 		\vspace{-0.5cm}
 	\caption{Application de \emph{lex\_standard}}
 	\label{fig:lexstand1}
@@ -296,7 +296,7 @@ Une fois que la racine est pourvue d'un lexème, l'application de la règle \emp
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 8mm 0cm 15mm},clip]{ch3/figs/actant_gp1.png}
+	\includegraphics[width=1\textwidth, trim = {0cm 4.5cm 0cm 4cm},clip]{ch3/figs/application_actant_gp.pdf}
 	\caption{Application de \emph{actant\_gp}}
 	\label{fig:actantgp}
 \end{figure}
@@ -307,7 +307,7 @@ L'étape précédente a généré des arcs contraints en partance de la racine. 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 8mm 0cm 10mm},clip]{ch3/figs/lex_standard2.png}
+	\includegraphics[width=1\textwidth, trim = {0cm 4.5cm 0cm 4cm},clip]{ch3/figs/lexical_2.pdf}
 	\caption{Application des règles de lexicalisation}
 	\label{fig:lexstand2}
 \end{figure}
@@ -320,7 +320,7 @@ On récupère les lexicalisations de surface de chacune des unités lexicales av
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.6\textwidth, trim = {0cm 13mm 0cm 2cm},clip]{ch3/figs/rsyntslexicalisation1.png}
+	\includegraphics[width=1\textwidth, trim = {0cm 8cm 0cm 0.5cm},clip]{ch3/figs/lex_surf_gendr.pdf}
 	\caption{Application des règles de lexicalisation de surface}
 	\label{fig:lexsurf}
 \end{figure}
@@ -338,7 +338,7 @@ La figure~\ref{fig:syntsurf} démontre l'application des règles actancielles et
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=0.7\textwidth, trim = {0cm 8mm 0cm 15mm},clip]{ch3/figs/rsynts_syntactisation.png}
+	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/final_surf_gendr.pdf}
 	\caption{Application des règles actancielles de surface et des déterminants}
 	\label{fig:syntsurf}
 \end{figure}

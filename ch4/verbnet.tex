@@ -116,7 +116,7 @@ Dans VerbNet, les verbes sont regroupés en classes, chacune contenant un ensemb
 
 Les auteurs de VerbNet se sont fortement inspirés de Acquilex Lexical Knowledge Base \citep{CopestakeACQUILEXLKBrepresentation1992} pour l'organisation du lexique. Acquilex ordonnait l'information lexicale en hiérarchie. VerbNet a donc aussi implémenté un aspect hiérarchique à son dictionnaire en créant jusqu'à trois niveaux de profondeur pour organiser les classes verbales. 
 
-Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe \scare{mère}. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe \scare{mère} montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \citep{CLEARVerbNetAnnotationGuidelines2005}.
+Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe mère. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe mère montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \citep{CLEARVerbNetAnnotationGuidelines2005}.
 
 \begin{figure}[htb]
   \caption{Hiérarchie des classes verbales dans VerbNet}
@@ -256,7 +256,7 @@ Le cadre syntaxique \ref{cadresynt} ci-dessous provient de la classe verbale \te
 \end{figure}
 
 \subsubsection{Prédicats sémantiques}
-Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageComprehensive2005} remarque que plusieurs dictionnaires orientés \ac{TAL} manquent d'information sémantique. C'est pourquoi elle a inséré un segment sémantique à VerbNet: \lstinline{<SEMANTICS>}. Cette section est constituée d'une suite de prédicats sémantiques. Chaque prédicat est décrit par une liste d'arguments qui sont, à leur tour, décrits par deux caractéristiques: \emph{type} et \emph{value}. Le cadre sémantique ci-dessous complémente le cadre syntaxique que nous venons d'exposer en \ref{cadresynt}. Il décrit à la fois \form{They lent a bicycle to me} et \form{They lent me a bicycle}.
+Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageComprehensive2005} remarque que plusieurs dictionnaires pour le \ac{TAL} manquent d'information sémantique. C'est pourquoi elle a inséré un segment sémantique à VerbNet: \lstinline{<SEMANTICS>}. Cette section est constituée d'une suite de prédicats sémantiques. Chaque prédicat est décrit par une liste d'arguments qui sont, à leur tour, décrits par deux caractéristiques: \emph{type} et \emph{value}. Le cadre sémantique ci-dessous complémente le cadre syntaxique que nous venons d'exposer en \ref{cadresynt}. Il décrit à la fois \form{They lent a bicycle to me} et \form{They lent me a bicycle}.
 
 \begin{figure}[htb]
   \caption{Section \texttt{<SEMANTICS>} de VerbNet}

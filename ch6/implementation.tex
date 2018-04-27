@@ -138,18 +138,18 @@ NP_attribute_V {
 
 \section{Adaptation de la grammaire}
 
-Les modifications apportées aux dictionnaires entraînent des modifications dans les règles de la grammaire. Nous les présenterons dans la section suivante. En ce qui concerne le module sémantique (\ac{RSem}--\ac{RSyntP}), l'essentiel de la version originale de GenDR a été transposée, mais nous avons dû façonner quelques nouvelles règles pour tenir compte de l'intéraction entre les identifiants des patrons de régime dans le \emph{lexicon} et leur description syntaxique dans le \emph{gpcon}.
+Les modifications apportées aux dictionnaires entraînent des modifications dans les règles de la grammaire. Nous les présenterons dans la section suivante. En ce qui concerne le module sémantique (\ac{RSem}--\ac{RSyntP}), l'essentiel de la version originale de GenDR a été transposée, mais nous avons dû façonner quelques nouvelles règles pour tenir compte de l'interaction entre les identifiants des patrons de régime dans le \emph{lexicon} et leur description syntaxique dans le \emph{gpcon}.
 
 \subsection{Module sémantique}
 
-Dans le chapitre \ref{chapgendr}, nous avons démontré comment fonctionnait l'arborisation et la lexicalisation dans GenDR, nous démontrerons maintenant comme ceux-ci intéragissent dans la nouvelle version. Pour effectuer \textbf{l'arborisation} et la \textbf{lexicalisation} (cf. \ref{sec:arbo},\ref{sec:lexicalisation}), nous reprenons des règles de la version originale et en ajoutons de nouvelles pour tenir compte des changements apportés à l'architecture de GenDR. 
+Dans le chapitre \ref{chapgendr}, nous avons démontré comment fonctionnait l'arborisation et la lexicalisation dans GenDR, nous démontrerons maintenant comme ceux-ci intéragissent dans la nouvelle version. Pour effectuer \textbf{l'arborisation} et la \textbf{lexicalisation} (cf. \ref{sec:arbo}, \ref{sec:lexicalisation}), nous reprenons des règles de la version originale et en ajoutons de nouvelles pour tenir compte des changements apportés à l'architecture de GenDR. 
 
 \begin{enumerate}
   \item \textbf{Création de la racine}.
   L'application de la règle \emph{root\_standard} (que nous avons expliqué à la section \ref{sec:exemple}) n'a pas changé, donc on construit la racine de l'arbre syntaxique à partir du n\oe{}ud dominant de la structure sémantique.
 
   \item \textbf{Lexicalisation de la racine}.
-  Ensuite, toujours comme dans la version originale, on applique une règle de lexicalisation pour trouver dans le dictionnaire sémantique un lexème qui correspondra au sens demandé tout en respectant les contraintes imposées. Toutefois, malgré que cette étape reste identique, la nouvelle version de GenDR sollicitera beaucoup plus souvent une règle de lexicalisation de secours (cf. section \ref{sec:lexicalisation}) pour réaliser la racine puisque les 6\,393 verbes de GenDR ne figurent pas tous dans le \emph{semanticon}. Toutefois, comme ils sont désambiguïsés, il s'agit généralement d'un ratio \emph{1 pour 1} entre un lexème désambiguïsé et son sens correspondant. Bref, la règle de lexicalisation de secours s'applique puisque le sémantème correpondant au \ac{ND} ne figure pas dans le \emph{semanticon}, mais il existe dans le lexicon sous sa forme lexémique. Ainsi, le système supposera que cette entrée dans le \emph{lexicon} exprime le sémantème dans la structure d'input.
+  Ensuite, toujours comme dans la version originale, on applique une règle de lexicalisation pour trouver dans le dictionnaire sémantique un lexème qui correspondra au sens demandé tout en respectant les contraintes imposées. Toutefois, malgré que cette étape reste identique, la nouvelle version de GenDR sollicitera beaucoup plus souvent une règle de lexicalisation de secours (cf. section \ref{sec:lexicalisation}) pour réaliser la racine puisque les 6\,393 verbes de GenDR ne figurent pas tous dans le \emph{semanticon}. En revanche, comme ils sont désambiguïsés, il s'agit généralement d'un ratio \emph{1 pour 1} entre un lexème désambiguïsé et son sens correspondant. Bref, la règle de lexicalisation de secours s'applique puisque le sémantème correpondant au \ac{ND} ne figure pas dans le \emph{semanticon}, mais il existe dans le lexicon sous sa forme lexémique. Ainsi, le système supposera que cette entrée dans le \emph{lexicon} exprime le sémantème dans la structure d'input.
 
   \item \textbf{Sélection du patron de régime}.
   Une fois que le n\oe{}ud de la racine est lexicalisé, la règle \emph{actant\_gp\_selection} est déclenchée, ce qui permet à GenDR de récupérer les informations encodées dans l'entrée lexicale correspondant à la racine. Par exemple, si la racine est lexicalisée comme \lex{order\_1}, alors le système parcourt le dictionnaire pour trouver ce membre verbal: \lstinline|order_1 : "get-13.5.1"|. Ensuite, le mécanisme d'héritage permet au lexème \lex{order\_1} d'hériter des traits \texttt{gp} qui possèdent les informations \texttt{id} et \texttt{dia} de la classe \texttt{get-13.5.1}. Celles-ci sont ainsi récupérées par la règle et apposées sur la racine lexicalisée. Cette règle peut mener à la construction de plusieurs arbres profonds puisque le système génère autant de racine qu'il y a de traits \texttt{gp}, mais seuls les patrons de régime qui respecteront les contraintes de l'input génèreront des arbres profonds complets, les autres resteront incomplets.
@@ -173,7 +173,7 @@ Finalement, ces lexèmes nouvellement lexicalisés déclencheront l'application 
 
 \section{Exemple}
 
-Pour illustrer le fonctionnement de la nouvelle version de GenDR, nous présenterons une phrase exemple provenant du corpus de VerbNet. Dans la présente section, nous verrons comment se réalise la phrase \form{The teacher talked about history to the students}. La figure~\ref{fig:history} représente la structure sémantique que nous avons donnée en input au système. Le n\oe{}ud dominant est \sem{talk\_3} et il lie trois actants sémantiques: \sem{teacher}, \sem{student} et \sem{history}. Chaque n\oe{}ud reçoit les traits grammaticaux de temps, nombre et définitude appropriés.
+Pour illustrer le fonctionnement de la nouvelle version de GenDR, nous présenterons une phrase exemple provenant du corpus de VerbNet. Dans la présente section, nous verrons comment se réalise la phrase \form{The teacher talked about history to the students}. La figure~\ref{fig:history} représente la structure sémantique que nous avons donnée en input au système. Le n\oe{}ud dominant est \sem{talk\_3} et il lie trois actants sémantiques: \sem{teacher}, \sem{student} et \sem{history}. Dans cet exemple, chaque n\oe{}ud reçoit les traits grammaticaux de temps, nombre et définitude appropriés.
 
 \begin{figure}[htb]
   \caption{Structure sémantique de \form{The teacher talked about history to the students}}
@@ -254,7 +254,7 @@ Application de la règle \emph{root\_standard} pour créer la racine et y impose
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 3.3cm 0cm 4.5cm},clip]{ch6/figs/root_implem.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 3.4cm 0cm 4.7cm},clip]{ch6/figs/root_implem.pdf}
 	\caption{Création de la racine à partir du n\oe{}ud dominant}
 	\label{deroulement0}
 \end{figure}
@@ -264,7 +264,7 @@ Ensuite, la règle \emph{actant\_gp\_selection} est déclenchée par l'apparitio
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 3.3cm 0cm 4.5cm},clip]{ch6/figs/lexical_root_implem.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 3.4cm 0cm 4.5cm},clip]{ch6/figs/lexical_root_implem.pdf}
 	\caption{Sélection du patron de régime: \emph{actant\_gp\_selection}}
 	\label{deroulement1}
 \end{figure}
@@ -283,23 +283,23 @@ La règle \emph{actant\_gp\_ijk} est sélectionnée puisque le trait de diathès
 La règle de contrainte récupère les restrictions sur les actants syntaxiques que sélectionne \texttt{talk-3-1.5} grâce au \texttt{id} d'un de ses \texttt{gp} qui renvoient aux propriétés du patron de régime dans le \emph{gpcon}: \lstinline|NP_V_PP_about_topic_PP_to_co_agent { I={rel=subjective dpos=N}, II=...| (voir figure \ref{gpexemple}). Dans ce cas, la règle d'application de contraintes s'applique trois fois puisqu'il y a trois n\oe{}uds vides.
 
 \subsection{Lexicalisation des n\oe{}uds contraints}
-On lexicalise tous les n\oe{}uds puisqu'ils en respectent les contraintes. Le système utilisera une règle de lexicalisation simple dans ce cas puisque chacun de ces sémantèmes existent dans le \emph{semanticon}.
+On lexicalise tous les n\oe{}uds puisqu'ils en respectent les contraintes. Le système utilisera une règle de lexicalisation simple dans ce cas parce que chacun de ces sémantèmes existent dans le \emph{semanticon}.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 3.6cm 0cm 4.5cm},clip]{ch6/figs/actant_gp_lexical.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 3.6cm 0cm 4.6cm},clip]{ch6/figs/actant_gp_lexical.pdf}
 	\caption{Lexicalisation des n\oe{}uds contraints: \emph{lex\_standard}}
 	\label{deroulement3}
 \end{figure}
 
 \subsection{Application de la règle \emph{actant\_gp\_selection}}
-Finalement, la règle \emph{actant\_gp\_selection} est sollicitée pour les trois n\oe{}uds nouvellement lexicalisés \lex{teacher},\lex{student} et \lex{history}, bien que l'arbre profond semble complet à cette étape. Comme toutes les catégories syntaxiques du lexique ont des patrons de régime, le système récupère systématiquement les traits \texttt{id} et \texttt{dia} de chaque lexème dans l'arbre au cas où ceux-ci sélectionneraient des actants à leur tour. Ce qui n'est pas le cas dans cet exemple.
+Finalement, la règle \emph{actant\_gp\_selection} est sollicitée pour les trois n\oe{}uds nouvellement lexicalisés \lex{teacher}, \lex{student} et \lex{history} (bien que l'arbre profond semble complet à cette étape). Comme toutes les catégories syntaxiques du lexique ont des patrons de régime, le système récupère systématiquement les traits \texttt{id} et \texttt{dia} de chaque lexème dans l'arbre au cas où ceux-ci sélectionneraient des actants à leur tour. Ce qui n'est pas le cas dans cet exemple.
 
 En ce qui concerne \textbf{l'arborisation de surface}, nous n'élaborerons pas sur cette partie puisqu'elle est quasi-identique à celle que nous avons vue dans la section \ref{sec:exemple} de GenDR. Les lexicalisations de surface sont effectuées par la même règle que nous avons expliquée, de même que la règle qui introduit les déterminants. Seules les règles actancielles de surface ont quelque peu changé, car elles puisent dorénavant l'information sur la correspondance entre les actants syntaxiques et les relations de surface qu'elles imposent (et le choix des prépositions) dans le \emph{gpcon}, alors que dans la version originale, le tout était encodé à même le \emph{lexicon}.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 0.3cm 0cm 0.3cm},clip]{ch6/figs/final_implem.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 0.4cm 0cm 0.4cm},clip]{ch6/figs/final_implem.pdf}
 	\caption{Applications des règles actancielles et réalisation des lexies fonctionnelles}
 	\label{deroulement4}
 \end{figure}

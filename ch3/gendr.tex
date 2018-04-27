@@ -146,23 +146,23 @@ Toutefois, MATE offre aussi une version graphique pour encoder et visualiser les
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 7cm 0cm 3cm},clip]{ch3/figs/owe_sem.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 8.3cm 0cm 3cm},clip]{ch3/figs/owe_sem.pdf}
 	\caption{Graphe sémantique en mode visuel}
 	\label{fig:graphesem}
 \end{figure}
 
-L'éditeur de graphes de MATE nous permet de construire les structures sémantiques d'input et de visualiser les graphes en output. Pour l'input donné au listing~\ref{fig:debt} , GenDR réalise six structures syntaxiques de surface. Celles-ci peuvent être visualisées dans MATE grâce au module de graphes. La figure~\ref{fig:realsurfex} est un exemple d'output visuel qu'offre GenDR et la figure~\ref{fig:6realsurf} montre à quoi ressembleraient les six représentations possibles si on les linéarisait. Cette variété de représentations est possible grâce au mécanisme de paraphrasage de GenDR.
+L'éditeur de graphes de MATE nous permet de construire les structures sémantiques d'input et de visualiser les graphes en output. Pour l'input donné à la figure~\ref{fig:debt} , GenDR réalise six structures syntaxiques de surface. Celles-ci peuvent être visualisées dans MATE grâce au module de graphes. La figure~\ref{fig:realsurfex} est un exemple d'output visuel qu'offre GenDR et la figure~\ref{fig:6realsurf} montre à quoi ressembleraient les six représentations possibles si on les linéarisait. Cette variété de représentations est possible grâce au mécanisme de paraphrasage de GenDR.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 3cm 3cm 2cm},clip]{ch3/figs/realsurfex.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 3.5cm 3cm 2.2cm},clip]{ch3/figs/realsurfex.pdf}
 	\caption{Réalisation de surface}
 	\label{fig:realsurfex}
 \end{figure} 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.3\textwidth, trim = {6cm 0cm 0cm 0cm},clip]{ch3/figs/6_real_surface.pdf}
+	\includegraphics[width=1.1\textwidth, trim = {6cm 0cm 0cm 0cm},clip]{ch3/figs/6_real_surface.pdf}
 	\caption{Six réalisations syntaxiques de surface \citep{lareau18}}
 	\label{fig:6realsurf}
 \end{figure}
@@ -181,7 +181,7 @@ La \ac{TST} vise la modélisation formelle de la correspondance entre les \emph{
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 4cm 0cm 4cm},clip]{ch3/figs/polguere1.pdf}
+	\includegraphics[width=1\textwidth, trim = {1cm 5.1cm 0cm 4.3cm},clip]{ch3/figs/polguere1.pdf}
 	\caption{Structure d'un modèle Sens-Texte \citep{PolgueretheorieSensTexte1998}}
 	\label{fig:modeletst}
 \end{figure}
@@ -223,7 +223,7 @@ chaque arc est considéré successivement dans l'ordre du parcours, puis est tra
 \hfill
 \cite[p.~273]{PolguereStructurationmisejeu1990}
 
-Les micro-structures syntaxiques correspondent aux branches créées et aux n\oe{}uds  au bout de celles-ci qui se font, à leur tour, imposer des contraintes par le \ac{GP} du n\oe{}ud qui les gouverne (dans ce cas,la racine). C'est ainsi qu'on retourne à la seconde étape pour lexicaliser ces n\oe{}uds. Puis, nous répétons la troisième étape qui est de créer les arcs en partance de ces n\oe{}uds, puisque de nouveaux n\oe{}uds lexicalisés amènent leur patron de régime avec eux. Puis on boucle à travers les étapes 2 et 3 jusqu'à ce que le graphe sémantique soit complètement réalisé en syntaxe profonde.
+Les micro-structures syntaxiques correspondent aux branches créées et aux n\oe{}uds  au bout de celles-ci qui se font, à leur tour, imposer des contraintes par le \ac{GP} du n\oe{}ud qui les gouverne (dans ce cas, la racine). C'est ainsi qu'on retourne à la seconde étape pour lexicaliser ces n\oe{}uds. Puis, nous répétons la troisième étape qui est de créer les arcs en partance de ces n\oe{}uds, puisque de nouveaux n\oe{}uds lexicalisés amènent leur patron de régime avec eux. Puis on boucle à travers les étapes 2 et 3 jusqu'à ce que le graphe sémantique soit complètement réalisé en syntaxe profonde.
 \end{enumerate} 
 
 Une fois que l'arborisation et la lexicalisation sont effectuées, GenDR passe à la prochaine étape: l'arborisation et la lexicalisation de surface qui impliquent les opérations suivantes. Dans un premier temps, les relations syntaxiques profondes seront réalisées en surface par l'étiquette qui leur correspondront (ex: la relation \emph{I} deviendra \emph{sujet}, la relation \emph{II} deviendra \emph{complément d'objet direct}, etc.). Puis, il faudra incorporer les lexies vides (prépositions, déterminants, etc.) qui sont encodées dans les lexies profondes sous formes d'attributs. Cela est effectué grâce aux règles de correspondances profondes (le module syntaxique) et grâce aux informations contenues dans les patrons de régime des entrées concernées.
@@ -248,13 +248,13 @@ Afin d'illustrer le fonctionnement de la lexicalisation dans GenDR, nous reprend
 \textbf{Les lexicalisations simples}
 sont traitées par la règle \emph{lexicalization\_standard} qui prend une unité sémantique donnée dans un graphe d'input et récupère dans le \emph{semanticon} les correspondances lexicales de ce sémantème (cf.~\ref{fig:semanticon}). S'ensuit la sélection de l'unité lexicale: GenDR s'assure que la \ac{DPOS} de la lexie choisie correspond à celle qui est demandée par le n\oe{}ud contraint dans l'arbre syntaxique profond en construction. Comme il existe parfois plus d'une lexicalisation possible pour un sémantème donné, le système créera un arbre profond différent pour toutes les variantes lexicales possibles, ce qui engendre une bonne partie du paraphrasage de GenDR.
 
-\textbf{Le lexicalisation par classe} permet de lexicaliser les nombres, nom propres, dates, etc. car ce sont des unités sémantiques que nous ne voulons pas dans notre dictionnaire en raison de leur quantité quasi-infinie et de la prévisibilité de leur comportement syntaxique. Pour identifier ces sémantèmes, on leur attribue un trait \texttt{class}, qui déclenchera l'application de la règle \emph{lex\_class} et qui fera en sorte que ces sémantèmes hériteront des traits nécessaires associés à leur classe respective. En effet, la valeur de l'attribut \texttt{class} (ex:\texttt{class=proper\_noun}) pointera vers l'une des classes prévues qui sont encodées dans le lexicon et qui regroupent l'information sur la partie du discours et les traits grammaticaux à transmettre. Finalement, comme nous n'avons pas d'entrées spécifiques pour les lexicalisations de ces sémantèmes, GenDR se sert de la règle \emph{lex\_class}, qui copiera l'étiquette sémantique pour en faire la lexicalisation de l'unité de type classe.
+\textbf{Le lexicalisation par classe} permet de lexicaliser les nombres, nom propres, dates, etc. car ce sont des unités sémantiques que nous ne voulons pas dans notre dictionnaire en raison de leur quantité quasi-infinie et de la prévisibilité de leur comportement syntaxique. Pour identifier ces sémantèmes, on leur attribue un trait \texttt{class}, qui déclenchera l'application de la règle \emph{lex\_class} et qui fera en sorte que ces sémantèmes hériteront des traits nécessaires associés à leur classe respective. En effet, la valeur de l'attribut \texttt{class} (ex:\texttt{class=proper\_noun}) pointera vers l'une des classes prévues qui sont encodées dans le \emph{lexicon} et qui regroupent l'information sur la partie du discours et les traits grammaticaux à transmettre. Finalement, comme nous n'avons pas d'entrées spécifiques pour les lexicalisations de ces sémantèmes, GenDR se sert de la règle \emph{lex\_class}, qui copiera l'étiquette sémantique pour en faire la lexicalisation de l'unité de type classe.
 
 \textbf{La lexicalisation de secours} 
 permet à GenDR de lexicaliser une unité sémantique ou lexicale dont il n'a pas les informations. Comme le système possède les 1\,500 lexies les plus fréquentes de l'anglais, il est évident que certaines lexies ou sémantèmes manqueront à l'appel. Pour remédier à la situation, il y a d'abord un mécanisme qui vérifie si l'input existe sous la même forme dans le \emph{lexicon}. Si c'est le cas, alors le système réalisera le sémantème à l'aide de ce lexème. Cette particularité du système a pour conséquence qu'on n'a pas besoin d'inscrire le sémantème dans le \emph{semanticon} s'il n'y a qu'une seule lexicalisation possible de celui-ci (cela permet de sauver du temps). Cependant, si le sémantème ne figure pas dans le \emph{lexicon}, alors le système suppose que l'étiquette de l'unité sémantique est la même que l'unité lexicale, et s'il y a des contraintes sur le n\oe{}ud d'arrivée, alors le système supposera que l'unité lexicale ainsi créée satisfait ces contraintes. Les lexèmes devinés seront mis en évidence dans la structure d'output afin qu'on ait une trace de cette lexicalisation de secours (on pourra alors filtrer ou post-traiter ces phrases).
 
 \textbf{La lexicalisation grammaticale}
-effectue des lexicalisations de surface (module \ac{RSyntP}--\ac{RSyntS}). Elle introduit deux types de mots fonctionnels. D'abord, les lexies qui expriment un sens grammatical appairaissant en attribut sur un noeud donné (voir le listing~\ref{fig:debt}), comme les auxiliares et les déterminants. Ils n'apparraissent pas en tant que noeud en syntaxe profonde, mais plutôt comme des traits grammaticaux sur le verbe ou le nom qu'ils modifient. De plus, ils doivent être introduits comme des n\oe{}uds supplémentaires en syntaxe de surface, puisqu'il n'étaient pas exprimés avant. Ces mots, qui sont peu nombreux, appartiennent à des classes fermées, donc on a une règle spécifique pour les réaliser en syntaxe de surface, en fonction de la langue dans laquelle le système opère.
+effectue des lexicalisations de surface (module \ac{RSyntP}--\ac{RSyntS}). Elle introduit deux types de mots fonctionnels. D'abord, les lexies qui expriment un sens grammatical appairaissant en attribut sur un n\oe{}ud donné (voir le listing~\ref{fig:debt}), comme les auxiliaires et les déterminants. Ils n'apparraissent pas en tant que n\oe{}ud en syntaxe profonde, mais plutôt comme des traits grammaticaux sur le verbe ou le nom qu'ils modifient. De plus, ils doivent être introduits comme des n\oe{}uds supplémentaires en syntaxe de surface, puisqu'il n'étaient pas exprimés avant. Ces mots, qui sont peu nombreux, appartiennent à des classes fermées, donc on a une règle spécifique pour les réaliser en syntaxe de surface, en fonction de la langue dans laquelle le système opère.
 
 Puis, il y a un second type de lexies fonctionnelles, notamment les prépositions et les complémenteurs qui sont imposées par les \ac{GP} d'autres lexies. Ils n'apparaissent pas non plus en syntaxe profonde, c'est pourquoi ils sont introduits en syntaxe de surface comme des n\oe{}uds supplémentaires entre un gouverneur et son dépendant. Pour lexicaliser ce type de lexie, le système récupère l'étiquette lexicale dans le \ac{GP} du gouverneur, puis trouve l'entrée lexicale correspondante de la préposition ou du complémenteur dans le dictionnaire.
 
@@ -274,7 +274,7 @@ Cette section illustre les étapes successives qui ont permis à GenDR de passer
 La règle crée un n\oe{}ud vide qui sera la racine de l'arbre à construire et qui se voit imposer les contraintes suivantes: \texttt{dpos=V} (la racine doit être un verbe) et \texttt{finiteness=FIN} (fini). La figure~\ref{fig:rootstand} illustre la création du n\oe{}ud non-étiqueté.
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 5cm 0cm 2cm},clip]{ch3/figs/root_standard.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 5.3cm 0cm 2.6cm},clip]{ch3/figs/root_standard.pdf}
 	\vspace{-0.5cm}
 	\caption{Application de \emph{root\_standard}}
 	\label{fig:rootstand}
@@ -285,18 +285,18 @@ La racine vide déclenchera l'application d'une règle de lexicalisation, c'est 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 3cm 0cm 4cm},clip]{ch3/figs/lex_standard1.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 3.5cm 0cm 4.4cm},clip]{ch3/figs/lex_standard1.pdf}
 		\vspace{-0.5cm}
 	\caption{Application de \emph{lex\_standard}}
 	\label{fig:lexstand1}
 \end{figure}
 
 \subsubsection{Application de la règle \emph{actant\_gp}}\label{sec:r-actantgp}
-Une fois que la racine est pourvue d'un lexème, l'application de la règle \emph{actant\_gp} est déclenchée. Celle-ci traduit les relations sémantiques prédicat-argument de \sem{owe} en arcs syntaxiques profonds. La correspondance est confirmée par les informations sur la diathèse encodée dans le régime de la lexie \lex{owe}. Comme le prédicat lie trois actants sémantiques, alors la règle s'applique trois fois. Ensuite, les n\oe{}uds au bout des arcs syntaxiques seront contraints en fonction des restrictions prévues par le \ac{GP} de \lex{owe}. Ce mécanisme assure la grammaticalité de la construction de l'arbre. Pour cet exemple, le \ac{GP} de \lex{owe} permet à son deuxième actant syntaxique d'être soit un nom soit un nombre (la figure~\ref{fig:lexicon} montre le régime du verbe).
+Une fois que la racine est pourvue d'un lexème, l'application de la règle \emph{actant\_gp} est déclenchée. Celle-ci traduit les relations sémantiques prédicat-argument de \sem{owe} en arcs syntaxiques profonds. La correspondance est confirmée par les informations sur la diathèse encodées dans le régime de la lexie \lex{owe}. Comme le prédicat lie trois actants sémantiques, alors la règle s'applique trois fois. Ensuite, les n\oe{}uds au bout des arcs syntaxiques seront contraints en fonction des restrictions prévues par le \ac{GP} de \lex{owe}. Ce mécanisme assure la grammaticalité de la construction de l'arbre. Pour cet exemple, le \ac{GP} de \lex{owe} permet à son deuxième actant syntaxique d'être soit un nom soit un nombre (la figure~\ref{fig:lexicon} montre le régime du verbe).
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 4.5cm 0cm 4cm},clip]{ch3/figs/application_actant_gp.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 4.8cm 0cm 4.2cm},clip]{ch3/figs/application_actant_gp.pdf}
 	\caption{Application de \emph{actant\_gp}}
 	\label{fig:actantgp}
 \end{figure}
@@ -307,7 +307,7 @@ L'étape précédente a généré des arcs contraints en partance de la racine. 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 4.5cm 0cm 4cm},clip]{ch3/figs/lexical_2.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 5.3cm 0cm 4.2cm},clip]{ch3/figs/lexical_2.pdf}
 	\caption{Application des règles de lexicalisation}
 	\label{fig:lexstand2}
 \end{figure}
@@ -316,7 +316,7 @@ L'étape précédente a généré des arcs contraints en partance de la racine. 
 
 \subsubsection{Application des règles de lexicalisation de surface}
 
-On récupère les lexicalisations de surface de chacune des unités lexicales avec les règles \emph{lex\_class} (qui s'occupe des lexèmes comme \lex{Paul}) et \emph{lex\_lu}. Il y en a deux, car il faut une règle spécifique pour les lexèmes appertenant à des classes puisque leurs traits de surface ne sont pas encodé dans leurs entrées lexicale, mais dans la classe qui leur est assignée.
+On récupère les lexicalisations de surface de chacune des unités lexicales avec les règles \emph{lex\_class} (qui s'occupe des lexèmes comme \lex{Paul}) et \emph{lex\_lu}. Il y en a deux, car il faut une règle spécifique pour les lexèmes appertenant à des classes puisque leurs traits de surface ne sont pas encodés dans leurs entrées lexicale, mais dans la classe qui leur est assignée.
 
 \begin{figure}[htb]
 	\centering
@@ -326,7 +326,7 @@ On récupère les lexicalisations de surface de chacune des unités lexicales av
 \end{figure}
 
 \subsubsection{Application des règles actancielles de surface}
-Ces règles remplacent les étiquettes des branches de l'arbre profond (I, II, III,...) par des étiquettes de surface (sujet, objet direct, objet indirect,...). Elles sont encodées dans le \ac{GP} du gouverneur de cette manière: \lstinline|gp = { I = { dpos = N \textbf{rel = subjective} } }|. Pour remplacer l'étiquette profonde par l'étiquette de surface de l'actant I, GenDR emploie la règle \emph{actant\_subj} qui récupère dans le \ac{GP} la valeur \texttt{subjective} et fait le remplacement nécessaire. Ensuite, il y a une règle qui s'occupe de la la relation objective directe (\emph{actant\_obj}). Celle-ci fonctionne de la même manière que la règle subjectale sauf qu'elle récupère la valeur de l'actant II et réalisera la valeur \texttt{dir\_objective}. 
+Ces règles remplacent les étiquettes des branches de l'arbre profond (I, II, III,...) par des étiquettes de surface (sujet, objet direct, objet indirect,...). Elles sont encodées dans le \ac{GP} du gouverneur de cette manière: \lstinline|gp = { I = { dpos = N rel = subjective} }|. Pour remplacer l'étiquette profonde par l'étiquette de surface de l'actant I, GenDR emploie la règle \emph{actant\_subj} qui récupère dans le \ac{GP} la valeur \texttt{subjective} et fait le remplacement nécessaire. Ensuite, il y a une règle qui s'occupe de la la relation objective directe. Celle-ci fonctionne de la même manière que la règle subjectale sauf qu'elle récupère la valeur de l'actant II et réalisera la valeur \texttt{dir\_objective}. 
 
 Finalement, les relations indirectes/obliques sont à part car elles nécessitent la réalisation de n\oe{}uds intermédiaires en surface. C'est la règle \emph{actant\_prep} qui se charge de créer un n\oe{}ud intermédiaire en syntaxe de surface permettant d'accueillir le lexème fonctionnel nécessaire à la bonne formation de la phrase. La préposition est directement encodée dans le \ac{GP} du verbe, de cette manière: \lstinline! gp = {III = { dpos = N  rel = indir_objective  prep = to} }!.
 
@@ -338,7 +338,7 @@ La figure~\ref{fig:syntsurf} démontre l'application des règles actancielles et
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/final_surf_gendr.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 0.4cm 0cm 0.4cm},clip]{ch3/figs/final_surf_gendr.pdf}
 	\caption{Application des règles actancielles de surface et des déterminants}
 	\label{fig:syntsurf}
 \end{figure}
@@ -362,7 +362,7 @@ Nous sommes en accord avec cette déclaration et nous ne sommes pas les seuls:  
 
 \section{Patrons de régime}\label{sec:gp}
 
-Ce que plusieurs appellent des \scare{comportements syntaxiques} sont encodés dans des patrons de régime en TST. D'abord, il faut préciser que ce qu'on appelle \ac{GP} se nomme de différentes manières selon le cadre théorique utilisé: cadre valenciel, valence, cadre de sous-catégorisation, cadre syntaxique ou schéma de régime. Selon \cite{MilicevicSchemaregimepont2009}, les \acp{GP} décrivent les cooccurrences syntaxiques d'un lexème avec les actants qu'il régit. Par exemple, la relation entre un verbe et son sujet, ou bien la relation entre un nom et le complément qu'il sélectionne. Autrement dit, les \acp{GP} d'une lexie correspondent à l'ensemble des constructions syntaxiques que la lexie régit. On encode ces constructions syntaxiques dans un dictionnaire, car les \acp{GP} des lexèmes sont généralement imprévisibles. En effet, on ne peut pas prédire le nombre d'actants qu'un prédicat gouverne, ou bien les prépositions qu'il régit. En ce sens, même des verbes sémantiquement proches ne possèderont pas nécessairement les mêmes constructions syntaxiques, ce qui est illustré par \cite{MilicevicSchemaregimepont2009}: \form{on se souvient de $X$}, mais \form{on se rappelle $X$}.
+Ce que plusieurs appellent des \scare{comportements syntaxiques} sont encodés dans des patrons de régime en TST. D'abord, il faut préciser que ce qu'on appelle \ac{GP} se nomme de différentes manières selon le cadre théorique utilisé: cadre valenciel, valence, cadre de sous-catégorisation, cadre syntaxique ou schéma de régime. Selon \cite{MilicevicSchemaregimepont2009}, les \acp{GP} décrivent les cooccurrences syntaxiques d'un lexème avec les actants qu'il régit, par exemple, la relation entre un verbe et son sujet, ou bien la relation entre un nom et le complément qu'il sélectionne. Autrement dit, les \acp{GP} d'une lexie correspondent à l'ensemble des constructions syntaxiques que la lexie régit. On encode ces constructions syntaxiques dans un dictionnaire, car les \acp{GP} des lexèmes sont généralement imprévisibles. En effet, on ne peut pas prédire le nombre d'actants qu'un prédicat gouverne, ou bien les prépositions qu'il régit. En ce sens, même des verbes sémantiquement proches ne possèderont pas nécessairement les mêmes constructions syntaxiques, ce qui est illustré par \cite{MilicevicSchemaregimepont2009}: \form{on se souvient de $X$}, mais \form{on se rappelle $X$}.
 
 \begin{quote}
 Comme le choix lexical détermine le choix des constructions syntaxiques possibles (la lexie sélectionnée \og amène\fg\ avec elle son régime) et vice-versa (le choix d’une structure impose certains choix lexicaux), on peut dire que c’est le schéma de régime qui, au sein d’un [modèle Sens-Texte], fait le pont entre le lexique et la grammaire.
@@ -373,7 +373,7 @@ Comme le choix lexical détermine le choix des constructions syntaxiques possibl
 
 À la section \ref{sec:semsynt}, nous avions parlé de l'interface sémantique-syntaxe et des règles de correspondance sémantiques qui font la transition \ac{RSem}--\ac{RSyntP}. Une partie du rôle du \ac{GP} est d'encoder les informations lexicales nécessaires pour que les règles de correspondances sémantiques génèrent des arbres profonds grammaticaux. 
 
-En effet, les \acp{GP} contiennent l'information pertinente à l'arborisation (et à la lexicalisation) parce qu'ils renferment les données sur la diathèse d'un lexème. La diathèse indique la correspondance entre les actants sémantiques d'une lexie et ses actants syntaxiques profonds. Elle est spécifiée dans les entrées lexicales d'un dictionnaire de cette manière : \lstinline|{1 = I, 2 = II, etc.}|. Dans ce scénario, le premier actant sémantique correspond au premier actant syntaxique et ainsi de suite (il s'agit d'une diathèse triviale), comme dans \form{Paul aime le ski}, où le sémantème \sem{aimer} et le lexème lex{aimer} placent leurs actants dans le même ordre. Le premier actant sémantique est \sem{Paul} et le second \sem{ski}, puis l'ordre entre ces actants est conservé en syntaxe profonde. Toutefois, si on lexicalise \sem{aimer} par le lexème \lex{plaire}, alors la diathèse est différente: \lstinline|{ 2 = I, 1 = II }|. Cela n'affecte en aucun cas le sens de l'énoncé: \sem{Le ski plaît à Paul}=\sem{Paul aime le ski}. Ensuite, au niveau du passage à la syntaxe de surface, le \ac{GP} encode aussi la réalisation des actants syntaxique en relation de surface où on passe d'une étiquette en chiffre romains à une étiquette superficielle: \lstinline|{ I = { rel = subjective } }|, l'actant \texttt{I} correspond au sujet.
+En effet, les \acp{GP} contiennent l'information pertinente à l'arborisation (et à la lexicalisation) parce qu'ils renferment les données sur la diathèse d'un lexème. La diathèse indique la correspondance entre les actants sémantiques d'une lexie et ses actants syntaxiques profonds. Elle est spécifiée dans les entrées lexicales d'un dictionnaire de cette manière : \lstinline|{1 = I, 2 = II, etc.}|. Dans ce scénario, le premier actant sémantique correspond au premier actant syntaxique et ainsi de suite (il s'agit d'une diathèse triviale), comme dans \form{Paul aime le ski}, où le sémantème \sem{aimer} et le lexème \lex{aimer} placent leurs actants dans le même ordre. Le premier actant sémantique est \sem{Paul} et le second \sem{ski}, puis l'ordre entre ces actants est conservé en syntaxe profonde. Toutefois, si on lexicalise \sem{aimer} par le lexème \lex{plaire}, alors la diathèse est différente: \lstinline|{ 2 = I, 1 = II }|. Cela n'affecte en aucun cas le sens de l'énoncé: \sem{Le ski plaît à Paul}=\sem{Paul aime le ski}. Ensuite, au niveau du passage à la syntaxe de surface, le \ac{GP} encode aussi la réalisation des actants syntaxique en relation de surface où on passe d'une étiquette en chiffre romains à une étiquette superficielle: \lstinline|{ I = { rel = subjective } }|, l'actant \texttt{I} correspond au sujet.
 
 De plus, le \ac{GP} encode les conditions dans lesquelles une structure syntaxique est exprimée. Par exemple, c'est dans le \ac{GP} qu'on précise que le troisième actant syntaxique doit être de telle partie du discours et qu'il sélectionne telle préposition. Ces conditions décrivent la combinatoire lexicale et syntaxique d'une lexie donnée. Par exemple, dans le dictionnaire de GenDR, cela est encodé ainsi: \lstinline|{ gp = {III = { dpos = N  rel = indir_objective  prep = to} } }|. Ainsi, grâce à ces restrictions, les règles de correspondances construiront des arbres bien formés.
 

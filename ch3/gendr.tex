@@ -27,7 +27,7 @@ MATE comprend un éditeur de dictionnaires, de graphes et de grammaires. Les dic
 
 GenDR utilise trois dictionnaires pour décrire le vocabulaire qui sera utilisé dans les textes: un qui fait le pont entre les unités sémantiques et les unités lexicales, un qui décrit le comportement syntaxique des unités lexicales, et un qui décrit les fonctions lexicales. Nous excluerons le troisième dictionnaire de la discussion parce que nous ne traitons pas les fonctions lexicales dans ce mémoire.
 
-\textbf{Le dictionnaire sémantique}, qu'on appelle \emph{semanticon}, est utilisé par le système lors du passage de la \ac{RSem} à la \ac{RSyntP}. Cette ressource décrit les lexicalisations possibles pour un sémantème donné. C'est une source importante de paraphrasage puisqu'une unité sémantique peut souvent se réaliser de plus d'une manière. Par exemple, en anglais, le sens \sem{owe} peut se réaliser par les lexèmes \lex{owe} (un verbe) et \lex{debt} (un nom).
+\textbf{Le dictionnaire sémantique}, qu'on appelle \emph{semanticon} (illustré à la figure~\ref{fig:semanticon}), est utilisé par le système lors du passage de la \ac{RSem} à la \ac{RSyntP}. Cette ressource décrit les lexicalisations possibles pour un sémantème donné. C'est une source importante de paraphrasage puisqu'une unité sémantique peut souvent se réaliser de plus d'une manière. Par exemple, en anglais, le sens \sem{owe} peut se réaliser par les lexèmes \lex{owe} (un verbe) et \lex{debt} (un nom).
 
 \begin{figure}
   \caption{Échantillon du \emph{semanticon}}
@@ -108,7 +108,7 @@ Le module \ac{RSyntP}--\ac{RSyntS} s'occupe de l'arborisation et la lexicalisati
 
 Nous présenterons en détail les règles principales de ces deux modules dans les sections \ref{sec:arbo} et \ref{sec:exemple}. 
 
-Pour donner une meilleure idée de l'allure de l'éditeur de règles, la figure~\ref{fig:root} présente une règle du module sémantique-syntaxe profonde. Toutes les règles sont décrites dans ce format. D'abord, en haut, nous avons l'interface dans laquelle la règle opère, suivis du nom de la règle et de l'identification de son groupe. Dans la partie gauche (\emph{Leftside}) on retrouve les n\oe{}uds et arcs du graphes de départ, puis dans la partie droite (\emph{Rightside}) on retrouve le graphe créé en sortie. Finalement, la partie du bas contient les conditions d'application de la règle donnée. Nous verrons en détails l'application concrète de la règle~\ref{fig:root} à la section~\ref{sec:arbo}. Pour une présentation plus détaillée de la création de règles, voir le manuel de GÉCO \citep{LambreyGECOv1User2016}.
+Pour donner une meilleure idée de l'allure de l'éditeur de règles, la figure~\ref{fig:root} présente une règle du module sémantique-syntaxe profonde. Toutes les règles sont décrites dans ce format. D'abord, en haut, nous avons l'interface dans laquelle la règle opère, suivis du nom de la règle et de l'identification de son groupe. Dans la partie gauche (\emph{Leftside}) on retrouve les n\oe{}uds et arcs du graphes de départ, puis dans la partie droite (\emph{Rightside}) on retrouve le graphe créé en sortie. Finalement, la partie du bas contient les conditions d'application de la règle donnée. Nous verrons en détails l'application concrète de la règle illustrée à la figure~\ref{fig:root} dans la section~\ref{sec:arbo}. Pour une présentation plus détaillée de la création de règles, voir le manuel de GÉCO \citep{LambreyGECOv1User2016}.
 
 \begin{figure}[htb]
 	\centering
@@ -281,7 +281,7 @@ La règle crée un n\oe{}ud vide qui sera la racine de l'arbre à construire et 
 \end{figure}
 
 \subsubsection{Application de la règle \emph{lex\_standard}}
-La racine vide déclenchera l'application d'une règle de lexicalisation, c'est pourquoi GenDR fouillera dans le dictionnaire à la recherche des lexèmes représentant le sémantème \sem{owe}: \lstinline! owe { lex=owe lex=debt}!. GenDR peut ainsi lexicaliser la racine en choisissant \lex{debt}, ce qui entraînera l'application d'une fonction lexicale permettant de réaliser un verbe support sur la racine (ce qui satisfait la contrainte \texttt{dpos=V}). Il s'agit d'une lexicalisation complexe, donc nous renvoyons le lecteur à \cite{lambrey15,LambreyImplementationcollocationspour2017,lareau18} pour nous concentrer sur la lexicalisation simple effectuée grâce au lexème \lex{owe}.
+La racine vide déclenchera l'application d'une règle de lexicalisation, c'est pourquoi GenDR fouillera dans le dictionnaire à la recherche des lexèmes représentant le sémantème \sem{owe}: \lstinline! owe { lex=owe lex=debt}!. GenDR peut ainsi lexicaliser la racine en choisissant \lex{debt}, ce qui entraînera l'application d'une fonction lexicale permettant de réaliser un verbe support sur la racine (ce qui satisfait la contrainte \texttt{dpos=V}). Il s'agit d'une lexicalisation complexe, donc nous renvoyons le lecteur à \cite{lambrey15,LambreyImplementationcollocationspour2017,lareau18} pour nous concentrer sur la lexicalisation simple effectuée grâce au lexème \lex{owe}, ce qui est illustré à la figure~\ref{fig:lexstand1}.
 
 \begin{figure}[htb]
 	\centering
@@ -292,7 +292,7 @@ La racine vide déclenchera l'application d'une règle de lexicalisation, c'est 
 \end{figure}
 
 \subsubsection{Application de la règle \emph{actant\_gp}}\label{sec:r-actantgp}
-Une fois que la racine est pourvue d'un lexème, l'application de la règle \emph{actant\_gp} est déclenchée. Celle-ci traduit les relations sémantiques prédicat-argument de \sem{owe} en arcs syntaxiques profonds. La correspondance est confirmée par les informations sur la diathèse encodées dans le régime de la lexie \lex{owe}. Comme le prédicat lie trois actants sémantiques, alors la règle s'applique trois fois. Ensuite, les n\oe{}uds au bout des arcs syntaxiques seront contraints en fonction des restrictions prévues par le \ac{GP} de \lex{owe}. Ce mécanisme assure la grammaticalité de la construction de l'arbre. Pour cet exemple, le \ac{GP} de \lex{owe} permet à son deuxième actant syntaxique d'être soit un nom soit un nombre (la figure~\ref{fig:lexicon} montre le régime du verbe).
+Une fois que la racine est pourvue d'un lexème, l'application de la règle \emph{actant\_gp} est déclenchée. Celle-ci traduit les relations sémantiques prédicat-argument de \sem{owe} en arcs syntaxiques profonds. La correspondance est confirmée par les informations sur la diathèse encodées dans le régime de la lexie \lex{owe}. Comme le prédicat lie trois actants sémantiques, alors la règle s'applique trois fois. Ensuite, les n\oe{}uds au bout des arcs syntaxiques seront contraints en fonction des restrictions prévues par le \ac{GP} de \lex{owe}. Ce mécanisme, illustré à la figure~\ref{fig:actantgp}, assure la grammaticalité de la construction de l'arbre. Pour cet exemple, le \ac{GP} de \lex{owe} permet à son deuxième actant syntaxique d'être soit un nom soit un nombre (la figure~\ref{fig:lexicon} montre le régime du verbe).
 
 \begin{figure}[htb]
 	\centering
@@ -303,7 +303,7 @@ Une fois que la racine est pourvue d'un lexème, l'application de la règle \emp
 
 \subsubsection{Application des règles \emph{lex\_class} et \emph{lex\_standard}}
 
-L'étape précédente a généré des arcs contraints en partance de la racine. Les n\oe{}uds de ces arcs devront donc être lexicalisés afin de poursuivre la construction de l'arbre. GenDR appliquera deux règles de lexicalisation pour réaliser les lexèmes correspondant à \sem{Paul}, \sem{bank} et \sem{\$500}. D'abord, la règle \emph{lex\_class} sera utilisée puisque \sem{Paul} et \sem{\$500} affichent, respectivement, les traits \texttt{class=proper\_noun} et \texttt{class=amount} dans l'input sémantique. Cette règle fait en sorte que GenDR passe directement au \emph{lexicon}, puisque les sens ne sont pas décrits dans le \emph{semanticon}. L'étiquette du n\oe{}ud sémantique est directement copiée en syntaxe puis GenDR s'assure finalement que les traits de \lex{Paul} et \lex{\$500} respectent les contraintes des n\oe{}uds générés par la règle précédente. Ensuite, la règle \emph{lex\_standard} s'applique pour lexicaliser \sem{bank}.
+L'étape précédente a généré des arcs contraints en partance de la racine. Les n\oe{}uds de ces arcs devront donc être lexicalisés afin de poursuivre la construction de l'arbre (voir la figure~\ref{fig:lexstand2}). GenDR appliquera deux règles de lexicalisation pour réaliser les lexèmes correspondant à \sem{Paul}, \sem{bank} et \sem{\$500}. D'abord, la règle \emph{lex\_class} sera utilisée puisque \sem{Paul} et \sem{\$500} affichent, respectivement, les traits \texttt{class=proper\_noun} et \texttt{class=amount} dans l'input sémantique. Cette règle fait en sorte que GenDR passe directement au \emph{lexicon}, puisque les sens ne sont pas décrits dans le \emph{semanticon}. L'étiquette du n\oe{}ud sémantique est directement copiée en syntaxe puis GenDR s'assure finalement que les traits de \lex{Paul} et \lex{\$500} respectent les contraintes des n\oe{}uds générés par la règle précédente. Ensuite, la règle \emph{lex\_standard} s'applique pour lexicaliser \sem{bank}.
 
 \begin{figure}[htb]
 	\centering
@@ -316,7 +316,7 @@ L'étape précédente a généré des arcs contraints en partance de la racine. 
 
 \subsubsection{Application des règles de lexicalisation de surface}
 
-On récupère les lexicalisations de surface de chacune des unités lexicales avec les règles \emph{lex\_class} (qui s'occupe des lexèmes comme \lex{Paul}) et \emph{lex\_lu}. Il y en a deux, car il faut une règle spécifique pour les lexèmes appartenant à des classes puisque leurs traits de surface ne sont pas encodés dans leurs entrées lexicales, mais dans la classe qui leur est assignée.
+On récupère les lexicalisations de surface de chacune des unités lexicales avec les règles \emph{lex\_class} (qui s'occupe des lexèmes comme \lex{Paul}) et \emph{lex\_lu}, ce qui est illustré à la figure~\ref{fig:lexsurf}. Il y en a deux, car il faut une règle spécifique pour les lexèmes appartenant à des classes puisque leurs traits de surface ne sont pas encodés dans leurs entrées lexicales, mais dans la classe qui leur est assignée.
 
 \begin{figure}[htb]
 	\centering

@@ -139,7 +139,7 @@ Cela a entraîné la création des sous-classes qui héritent de tout le contenu
 \end{lstlisting}
 \end{figure}
 
-\texttt{Spray-9.7} est le nom de la classe qui englobe toutes les autres ici. À l'intérieur de celle-ci, on spécifie tous les membres appartenant à cette classe, les rôles thématiques, les cadres syntaxiques et les prédicats sémantiques. Puis \texttt{Spray-9.7-1} représente un sous-ensemble de \texttt{Spray-9.7} dont les comportements syntaxiques lui sont propres .  Puis, \texttt{Spray-9.7-1-1} est une sous-classe d'une sous-classe, et ainsi de suite. Elle héritera des traits de sa classe mère ainsi que de la classe qui domine sa classe mère. Finalement \texttt{Spray-9.7-2} est la classe sœur de \texttt{Spray-9.7-1} donc, elle hérite aussi des traits de \texttt{Spray-9.7} mais ne partage pas les particularités de \texttt{Spray-9.7-1}.
+\texttt{Spray-9.7} (illustré à la figure~\ref{hierarch}) est le nom de la classe qui englobe toutes les autres ici. À l'intérieur de celle-ci, on spécifie tous les membres appartenant à cette classe, les rôles thématiques, les cadres syntaxiques et les prédicats sémantiques. Puis \texttt{Spray-9.7-1} représente un sous-ensemble de \texttt{Spray-9.7} dont les comportements syntaxiques lui sont propres .  Puis, \texttt{Spray-9.7-1-1} est une sous-classe d'une sous-classe, et ainsi de suite. Elle héritera des traits de sa classe mère ainsi que de la classe qui domine sa classe mère. Finalement \texttt{Spray-9.7-2} est la classe sœur de \texttt{Spray-9.7-1} donc, elle hérite aussi des traits de \texttt{Spray-9.7} mais ne partage pas les particularités de \texttt{Spray-9.7-1}.
 
 Tel que démontré dans l'exemple \ref{hierarch}, les classes et sous-classes sont numérotées. Cette numérotation sert à expliciter la hiérarchie à l'intérieur d'une classe de VerbNet, mais elle sert aussi à regrouper des classes verbales en fonction de leur signifié. Cette numérotation est directement héritée du système de \cite{verb-classes.levin.1993} et va de 9 à 109. Le numéro associé à une classe sert à représenter le partage de caractéristiques sémantiques (et syntaxiques) entre les classes qui partagent ce numéro. Par exemple, les classes signifiant \sem{mettre quelque chose} commenceront par le chiffre 9:
 
@@ -185,11 +185,11 @@ Concrètement, cette information est encodée directement dans les entrées lexi
 À la base, les rôles thématiques ont été mis de l'avant par \cite{FillmoreCaseCase1968} et \cite{Jackendoff1972-JACSII-2}. Toutefois, VerbNet a créé sa propre banque de rôles thématiques. Beaucoup sont inspirés de Fillmore et Jackendoff, mais de nouveaux ont été créés. Les auteurs de VerbNet précisent donc que le nombre de rôles thématiques et la qualité des rôles thématiques est assez arbitraire. Il n'y a pas de justification théorique, mais c'est ce qu'ils ont convenu d'utiliser. Schuler voulait des rôles pouvant identifier tous les arguments possibles contenus dans les patrons de régime, donc, des rôles assez génériques pour se prêter à divers cadres. Ces rôles ne sont pas spécifiques à des classes en particulier.
 Les rôles thématiques utilisés dans VerbNet sont: \texttt{actor, agent, asset, attribute, beneficiary, cause, location, destination, source, experiencer, extent, goal, instrument, material, product, patient, predicate, recipient, stimulus, theme, time, topic}.
 
-Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>| de chaque classe verbale. Une section \lstinline|<THEMROLES>| peut revenir dans une sous-classe lorsque celle-ci possède des rôles thématiques plus spécifiques à cette sous-classe de verbes. Ils sont ensuite mappés sur les arguments dans les cadres syntaxiques et sémantiques (qu'on peut voir aux figure~\ref{cadresynt} et \ref{cadresem}).
+Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>| de chaque classe verbale, ce qu'on peut voir à la figure~\ref{rolestheta}. Une section \lstinline|<THEMROLES>| peut revenir dans une sous-classe lorsque celle-ci possède des rôles thématiques plus spécifiques à cette sous-classe de verbes. Ils sont ensuite mappés sur les arguments dans les cadres syntaxiques et sémantiques (qu'on peut voir aux figure~\ref{cadresynt} et \ref{cadresem}).
 
 \begin{figure}[htb]
- \label{}
- \caption{Les rôles thématiques}
+  \caption{Les rôles thématiques}
+	\label{rolestheta}
 \begin{lstlisting}[language=XML] % Majuscule aux captions
     <THEMROLES>
         <THEMROLE type="Agent">
@@ -216,10 +216,11 @@ Pour les besoins de notre travail, nous n'utilisons pas les rôles thématiques 
 \draft{En théorie Sens-Texte, la relation prédicat-argument est faite en étiquettant le noeud sémantique qui lie un prédicat à son argument. Puisqu'un prédicat peut posséder plusieurs arguments, sa relation de dépendance avec ceux-ci doit pouvoir se distinguer. Une numérotation des arcs est donc effectuée, mais tel que \cite[pp.~227--234]{mel2012semantics} le précise, les chiffres sur ces arcs ne sont pas porteurs de sens car ils n'aident qu'à distinguer les différents arguments d'un prédicat. C'est donc ce système que nous utilisons pour remplacer l'information donnée par les rôles thématiques. On la remplace par le concept \emph{d'actants sémantiques}, ce qui provient de la théorie Sens-Texte. Ils ont été mis de côté car \cite{mel2012semantics} jugeait que les rôles thématiques portaient trop de failles.}
 
 \subsubsection{Restrictions sélectionnelles}
-Les restrictions sélectionnelles s'ajoutent aux rôles thématiques. Ces traits imposent des contraintes aux arguments possibles pour un patron de régime donné. Dans l'exemple fourni ici, on remarquera que l'\texttt{Agent} doit être soit un être animé, soit une organisation.
+Les restrictions sélectionnelles s'ajoutent aux rôles thématiques. Ces traits imposent des contraintes aux arguments possibles pour un patron de régime donné. Dans l'exemple fourni à la figure~\ref{fig:restrictionsel}, on remarquera que l'\texttt{Agent} doit être soit un être animé, soit une organisation.
 
 \begin{figure}[htb]
  \caption{Les restrictions sélectionnelles sur les rôles thématiques}
+ \label{fig:restrictionsel}
 \begin{lstlisting}[language=Xml]
     <THEMROLES>
         <THEMROLE type="Agent">

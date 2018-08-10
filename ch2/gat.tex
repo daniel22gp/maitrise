@@ -124,10 +124,10 @@ La figure~\ref{simplenlg} illustre l'input nécessaire permettant de réaliser l
 \subsubsection{JSrealB}
 JSrealB (pour \emph{JavaScript Realiser Bilingual}) \citep{DBLP:conf/enlg/MolinsL15} est conçu pour les programmeurs web, car il génère des expressions et phrases bien formées qui peuvent être formatées en \emph{HTML} pour ensuite être utilisées dans un fureteur. Toutefois, JSrealB peut aussi s'employer seul à des fins purement linguistiques.
 
-Pour générer du texte, ce réalisateur prend en input des structures syntaxiques lexicalisées. Dans ce système, la construction de la phrase découle de l'application de règles syntaxiques et morphologiques déclenchées par les lexèmes. De plus, JSrealB fonctionne aussi avec un dictionnaire et une grammaire. Son dictionnaire définit la catégorie des lexèmes qui le peuplent et leurs traits lexicaux (genre, nombre, irrégularités, etc.), puis sa grammaire contient des règles morpho-syntaxiques qui lui permettent de faire l'accord entre les constituants. Finalement, il existe aussi une version bilingue de JSrealB \citep{MolinsJSrealBBilingualText2015} qui incorpore le français et l'anglais. L'input qu'illustre la figure~\ref{jsreal} permet au réalisateur de générer la phrase: \form{The cat sat on the coach}. Cet exemple est tiré du GitHub de JSrealB.\footnote{\url{https://github.com/rali-udem/JSrealB}}
+Pour générer du texte, ce réalisateur prend en input des structures syntaxiques lexicalisées. Dans ce système, la construction de la phrase découle de l'application de règles syntaxiques et morphologiques déclenchées par les lexèmes. De plus, JSrealB fonctionne aussi avec un dictionnaire et une grammaire. Son dictionnaire définit la catégorie des lexèmes qui le peuplent et leurs traits lexicaux (genre, nombre, irrégularités, etc.), puis sa grammaire contient des règles morpho-syntaxiques qui lui permettent de faire l'accord entre les constituants. Finalement, il existe aussi une version bilingue de JSrealB \citep{MolinsJSrealBBilingualText2015} qui incorpore le français et l'anglais. L'input qu'illustre la figure~\ref{jsreal} permet au réalisateur de générer la phrase: \form{The cat sat on the couch}. Cet exemple est tiré du GitHub de JSrealB.\footnote{\url{https://github.com/rali-udem/JSrealB}}
 
 \begin{figure}[htb]
-\caption{Structure d'input réalisant \form{The cat sat on the coach} dans JSrealB}
+\caption{Structure d'input réalisant \form{The cat sat on the couch} dans JSrealB}
 \label{jsreal}
 \begin{lstlisting}[language=mate]
 JSrealLoader({
@@ -148,11 +148,11 @@ JSrealLoader({
 \subsubsection{RealPro}
 RealPro \citep{LavoieFastPortableRealizer1997} est implémenté en \emph{C++} et c'est le plus profond des réalisateurs de surface préséntés ici. Il prend en input des arbres de dépendances, ce qui le distingue des deux autres systèmes qui utilisent des arbres de constituants \citep{DBLP:conf/enlg/MolinsL15,GattSimpleNLGRealisationEngine2009}. Un arbre de dépendance est un arbre non linéarisé dont les arcs et les n\oe{}uds (des lexèmes) sont étiquetés. On appelle ça un arbre syntaxique car les branches liant les n\oe{}uds entre eux correspondent à des relations syntaxiques. Seuls les mots sémantiquement pleins figurent dans l'input (cela exclut les déterminants, prépositions, etc.).
 
-Cette architecture est basée sur la \ac{TST} \citep{melcuk1988}, une théorie linguistique qui a fait ses preuves en \ac{GAT} \citep{iordanskaja88,LavoieFastPortableRealizer1997,WannerMARQUISGENERATIONUSERTAILORED2010,MilledemoFORGePompeu2017,Vicentegeneracionlenguajenatural2015}.
+Cette architecture est basée sur la \ac{TST} \citep{melcuk1988}, une théorie linguistique qui a fait ses preuves en \ac{GAT} \citep{LavoieFastPortableRealizer1997,WannerMARQUISGENERATIONUSERTAILORED2010,MilledemoFORGePompeu2017,Vicentegeneracionlenguajenatural2015}.
 
 En bref, il s'agit d'une théorie qui divise le langage en quatre niveaux de représentations majeurs: sémantique, syntaxique (profonde et de surface), morphologique (profonde et de surface), phonologique (profonde et de surface) -- ce dernier étant court-circuité pour la génération de texte écrit. Pour plus de détails concernant les arbres de dépendances et la \ac{TST}, voir le chapitre~\ref{chapgendr}.
 
-RealPro \citep{LavoieFastPortableRealizer1997} a deux grammaires qui permettent successivement de passer d'une représentation profonde à une représentation de surface, puis de celle-ci à une linéarisation morphologique de l'input. Pour effectuer toutes les transitions, le système fait aussi appel à un dictionnaire qui encode les propriétés lexicales et morphosyntaxiques des unités. Le graphique \ref{fig:RealPro} illustre l'interaction de ces deux ressources pour réaliser du texte.
+RealPro \citep{LavoieFastPortableRealizer1997} a deux grammaires qui permettent successivement de passer d'une représentation profonde à une représentation de surface, puis de celle-ci à une linéarisation morphologique de l'input. Pour effectuer toutes les transitions, le système fait aussi appel à un dictionnaire qui encode les propriétés lexicales et morphosyntaxiques des unités. La figure \ref{fig:RealPro} illustre l'interaction de ces deux ressources pour réaliser du texte.
 
 \begin{figure}[htb]
 	\centering
@@ -216,7 +216,7 @@ SURGE prend en input des arbres thématiques non linéarisés dont les n\oe{}uds
 
 Dans ce système, la grammaire est aussi décrite en termes de \ac{FD}. Ainsi, pour réaliser du texte, SURGE prend en entrée à la fois les \ac{FD} du sens de la phrase désirée et les \ac{FD} représentant les règles de grammaire du système afin d'unifier les structures. Le résultat est une structure d'entrée enrichie par des spécifications grammaticales (syntaxique et morphologique). Cela permet au réalisateur de passer à l'étape suivante qui est la linéarisation. SURGE applique ainsi les traits morphologiques en fonction des spécifications encodées lors de l'unification. L'output est une phrase anglaise exprimant le sens de la \ac{FD} en fonction des contraintes imposées par la grammaire.
 
-Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage2000}: \form{March had some rainy days}.
+Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage2000} à la figure~\ref{surge}: \form{March had some rainy days}.
 
 \begin{figure}[htb]
  \caption{FD: input pour réaliser \form{March had some rainy days} dans SURGE}

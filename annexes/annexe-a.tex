@@ -2,7 +2,7 @@
 
 \chapter{Corpus d'évaluation}
 
-Inputs et outputs de GenDR à partir des phrases tirées de VerbNet
+\draft{Voici notre échantillon tiré du corpus, faire renvoi sur chapitre évaluation, les structures d’input ont été créées à la main, sauf indication contraire les structures mid-put et outputs sont à la fois les structures attendues et celles générées par le système. Préciser que les carrés rouge sont les structures attendues, mais impossible à générer.Le main est implicite quand la structure est déjà hiérarchique, mais explicite dans l’encodage.}
 
 \iffalse 
 \begin{longtable}{@{}rp{10cm}@{}}
@@ -373,13 +373,24 @@ Inputs et outputs de GenDR à partir des phrases tirées de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(581)\quad\= \emph{I anguished over Aslan’s pain.} \\
+(581)\quad\= \emph{Version générée: I anguished over Aslan’s pain.} \\
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(581)\quad\= \emph{Version attendue: I anguished over Aslan’s pain.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-581.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -418,13 +429,24 @@ Inputs et outputs de GenDR à partir des phrases tirées de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(630)\quad\= \emph{She laughed in embarrassment.} \\
+(630)\quad\= \emph{Version générée: She laughed in embarrassment.} \\
 \> \begin{minipage}{16cm}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-618.sem}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-618.dsynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.2.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-618.ssynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-630.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(630)\quad\= \emph{Version attendue: She laughed in embarrassment.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.2.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -511,11 +533,11 @@ Inputs et outputs de GenDR à partir des phrases tirées de VerbNet
 \begin{tabbing}
 (836)\quad\= \emph{The thief stole the paint for Mary.} \\
 \> \begin{minipage}{16cm}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-836.sem}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-836.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-836.dsynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-836.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-836.ssynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-836.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -548,9 +570,9 @@ Inputs et outputs de GenDR à partir des phrases tirées de VerbNet
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-851.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-851.dsynt}.jpg}}
-\raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-851.ssynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-851.dsynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -610,13 +632,24 @@ Inputs et outputs de GenDR à partir des phrases tirées de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(955)\quad\= \emph{Linda winked her eye.} \\
+(955)\quad\= \emph{Version générée: Linda winked her eye.} \\
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-955.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-955.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-955.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(955)\quad\= \emph{Version attendue: Linda winked her eye.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-955.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-955.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-955.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -633,12 +666,23 @@ Inputs et outputs de GenDR à partir des phrases tirées de VerbNet
 
 
 \begin{tabbing}
-(974)\quad\= \emph{He backed out of going on the trip.} \\
+(974.1)\quad\= \emph{Version générée: He backed out of going on the trip.} \\
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.dsynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.ssynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(974.2)\quad\= \emph{Version attendue: He backed out of going on the trip.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-974.2.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-974.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}

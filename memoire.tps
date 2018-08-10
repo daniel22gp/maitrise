@@ -14,11 +14,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=ch7\evaluation.tex
+Document=ch1\intro.tex
 
 [Frame0_View0,0]
-TopLine=156
-Cursor=10126
+TopLine=27
+Cursor=4342
 
 [Frame1]
 Flags=0
@@ -32,11 +32,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=..\..\..\..\Program Files\MiKTeX 2.9\tex\generic\babel-french\frenchb.ldf
+Document=ch8\conclusion.tex
 
 [Frame1_View0,0]
-TopLine=29
-Cursor=1282
+TopLine=82
+Cursor=10666
 
 [Frame2]
 Flags=0
@@ -50,11 +50,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=ch0\sommaire.tex
+Document=ch7\evaluation.tex
 
 [Frame2_View0,0]
-TopLine=11
-Cursor=1970
+TopLine=166
+Cursor=11059
 
 [Frame3]
 Flags=0
@@ -68,11 +68,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=annexes\annexe-a.tex
+Document=..\..\..\..\Program Files\MiKTeX 2.9\tex\generic\babel-french\frenchb.ldf
 
 [Frame3_View0,0]
-TopLine=0
-Cursor=239
+TopLine=29
+Cursor=1282
 
 [Frame4]
 Flags=0
@@ -86,11 +86,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=preambule.tex
+Document=ch0\sommaire.tex
 
 [Frame4_View0,0]
-TopLine=0
-Cursor=7157
+TopLine=11
+Cursor=1970
 
 [Frame5]
 Flags=0
@@ -104,11 +104,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=ch3\gendr.tex
+Document=annexes\annexe-a.tex
 
 [Frame5_View0,0]
-TopLine=465
-Cursor=31952
+TopLine=364
+Cursor=17023
 
 [Frame6]
 Flags=0
@@ -122,11 +122,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=ch4\verbnet.tex
+Document=preambule.tex
 
 [Frame6_View0,0]
-TopLine=385
-Cursor=32312
+TopLine=0
+Cursor=7157
 
 [Frame7]
 Flags=0
@@ -139,12 +139,12 @@ NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
-Class=BibTeXView
-Document=biblio\references.bib
+Class=LaTeXView
+Document=ch3\gendr.tex
 
 [Frame7_View0,0]
-TopLine=9
-Cursor=0
+TopLine=582
+Cursor=31952
 
 [Frame8]
 Flags=0
@@ -158,11 +158,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=ch2\gat.tex
+Document=ch4\verbnet.tex
 
 [Frame8_View0,0]
-TopLine=224
-Cursor=19498
+TopLine=510
+Cursor=32312
 
 [Frame9]
 Flags=0
@@ -175,12 +175,12 @@ NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
-Class=LaTeXView
-Document=ch6\implementation.tex
+Class=BibTeXView
+Document=biblio\references.bib
 
 [Frame9_View0,0]
-TopLine=233
-Cursor=6131
+TopLine=9
+Cursor=0
 
 [Frame10]
 Flags=0
@@ -194,11 +194,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=memoire.tex
+Document=ch2\gat.tex
 
 [Frame10_View0,0]
-TopLine=44
-Cursor=2573
+TopLine=322
+Cursor=19498
 
 [Frame11]
 Flags=0
@@ -212,11 +212,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=ch5\python.tex
+Document=ch6\implementation.tex
 
 [Frame11_View0,0]
-TopLine=453
-Cursor=22777
+TopLine=264
+Cursor=6131
 
 [Frame12]
 Flags=0
@@ -230,11 +230,11 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=ch8\conclusion.tex
+Document=memoire.tex
 
 [Frame12_View0,0]
-TopLine=79
-Cursor=10666
+TopLine=44
+Cursor=2573
 
 [Frame13]
 Flags=0
@@ -248,15 +248,15 @@ NormalPos.top=26
 NormalPos.right=1362
 NormalPos.bottom=404
 Class=LaTeXView
-Document=ch1\intro.tex
+Document=ch5\python.tex
 
 [Frame13_View0,0]
-TopLine=27
-Cursor=4342
+TopLine=456
+Cursor=22777
 
 [SessionInfo]
 FrameCount=14
-ActiveFrame=0
+ActiveFrame=5
 
 [Bookmarks]
 annexes\annexe-a.tex=592 

@@ -128,17 +128,21 @@ Nous avons mesuré le rappel en calculant le ratio entre le nombre de structures
    & RSyntS\\
  \midrule
  Nombre de structures attendues   & 50\\
- Nombre de structures générées &  46\\
+ Nombre de structures générées &  45\\
  Silences dus à GenDR & 2\\
- Silences dus à VerbNet    & 1\\
+ Silences dus à VerbNet    & 2\\
  Silences dus à une incompatibilité TST/VerbNet & 1\\
  \midrule
-Pourcentage global & 92\% \\
+Pourcentage global & 90\% \\
 Pourcentage GenDR & 100\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\draft{Petite précision sur les gps du nom qui ne fonctionnent pas tjs bien: Pour Linda winked her eye, problème de GenDR, j’en ai hérité. Les erreurs qu’on compte, ce sont les erreurs des GPS de verbe. Le attendu en vert, le généré en jaune dans ce cas-ci. Y’a une erreur, mais c’est pas une erreur de gps des verbe. Les gps des noms. Les erreurs de GPS de noms, pas du tout le focus de mon travail, on les a noté dans l’annexe, mais on ne les a pas compilé dans les erreurs.}
+
+\draft{Il faut changer le paragraphe pour: les silences dûs à VerbNet, vu qu'il y a aussi le believing in qui n'a pas fonctionné. -	Mais c’Est pcq cette phrase est sous convert, mais le verbe believe n’est même pas dans les sous-verbe de convert -	Donc,believe in est impossible à générer
+}
 Le \textbf{silence dû à VerbNet} provient d'un patron de régime non existant pour la classe verbale \texttt{"escape-51.1"} qui correspond à la classe verbale attitrée au lexème \lex{go\_2}. La structure 974, qui représente la phrase \form{He backed out of going on the trip} contient deux verbes: \lex{back out} et \lex{go\_2}, mais VerbNet n'a pas le patron de régime nécessaire au second verbe pour pouvoir réaliser \form{$X$ goes on a trip}. Ainsi, GenDR était dans l'impossibilité de réaliser la structure attendue puisqu'il nous manquait des informations sur la combinatoire de \lex{go\_2}. Il nous rendait des arbres de surface incomplets s'arrêtant à la lexicalisation de \lex{go\_2}, sans actants.
 
 \textbf{Le silence dû à une incompatibilité} entre la \ac{TST} et VerbNet provient de la modélisation sémantique de certains phénomènes langagiers par la \ac{TST}. Une seule structure n'a pas pu être générée: 630--\form{She laughed in embarrassment}. Ainsi, l'incompatibilité est due au fait que nous avons représenté ces phrases en graphes sémantiques à la \cite{mel2012semantics}. 
@@ -176,7 +180,7 @@ Finalement, le dernier type d'erreur rencontré dans l'échantillon provient de 
 
 \section{Synthèse}
 
-L'évaluation du rappel démontre que l'importation de VerbNet dans GenDR a été un succès (92\%) et que la couverture de GenDR est dorénavant beaucoup plus grande qu'elle l'était (6\,393 verbes, 274 classes verbales et 278 patrons de régime).
+L'évaluation du rappel démontre que l'importation de VerbNet dans GenDR a été un succès (90\%) et que la couverture de GenDR est dorénavant beaucoup plus grande qu'elle l'était (6\,393 verbes, 274 classes verbales et 278 patrons de régime).
 
 L'évaluation de la précision nous montre qu'il y a quelques ajustements à faire puisque l'encodage des informations dans VerbNet mène à un taux d'erreur faible, mais non-négligeable (15--20\%). La raison pour laquelle les réalisateurs profonds à base de règles sont encore utiles est leur capacité à produire des phrases grammaticales, toutefois, nous démontrons ici qu'une partie des phrases réalisées par notre système sont incorrectes. Cependant, ces erreurs proviennent de VerbNet, donc notre réalisateur fonctionne bien, il n'a fait qu'appliquer les règles de grammaires et récupérer les informations dans ses dictionnaires. Pour remédier à la situation, nous pourrions corroborer les patrons de régime encodés dans VerbNet avec les patrons de régime de verbes encodés dans d'autres ressources similaires. De cette manière nous pourrions adapter VerbNet pour qu'il n'engendre pas de structures agrammaticales. Bref, nous pensons qu'il est possible d'améliorer la précision de l'implémentation de VerbNet, mais cela demandera du temps et des ressources pour analyser les patrons potentiellement problématiques et retirer ou ajouter les patrons de régime nécessaires dans les classes verbales.
 

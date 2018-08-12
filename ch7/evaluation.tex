@@ -43,7 +43,7 @@ def treeframes(t):
 \end{lstlisting}
 \end{figure}
 
-Le second bloc de code s'occupe de manipuler la liste de phrases exemples récupérées par la fonction \emph{treeframes} pour l'insérer dans un fichier nommé \emph{phrases.txt}. À l'intérieur de celui-ci, on retrouve une phrase par ligne. L'output de ce premier script est illustré par la figure \ref{lst:example3}.
+Le second bloc de code (figure~\ref{lst:example2}) s'occupe de manipuler la liste de phrases exemples récupérées par la fonction \emph{treeframes} pour l'insérer dans un fichier nommé \emph{phrases.txt}. À l'intérieur de celui-ci, on retrouve une phrase par ligne. L'output de ce premier script est illustré par la figure \ref{lst:example3}.
 
 \begin{figure}[htb]
   \caption{Lister les exemples dans un fichier}
@@ -74,7 +74,7 @@ Cattle take in nutrients from their feed.
 
 Pour compléter la préparation de l'évaluation, il nous fallait créer les graphes sémantiques représentant chacune des phrases qui serviront aux tests. Nous avons ainsi fait un script générant les bases de chaque structure sémantique. Ces inputs en préparation sont dépourvus de n\oe{}uds et d'arcs, ils ne contiennent que des éléments non sémantiques qui faciliteront l'encodage des inputs, en plus de la phrase exemple sous forme d'attributs textuels: \texttt{text = <phrase>}\footnote{Cette information n'est pas utilisée par le système mais sert à l'humain qui travaille sur les structures}.
 
-Pour ce faire, le script Python ouvre le fichier \emph{phrases.txt} (qui contient chaque phrase exemple). Ensuite, pour chaque ligne de texte dans le fichier, le script crée une structure sémantique rudimentaire qui comprendra uniquement les balises nécessaires et la phrase à modéliser. Finalement, le script identifiera chaque structure sémantique de 0 à 977.
+Pour ce faire, le script Python ouvre le fichier \emph{phrases.txt} (qui contient chaque phrase exemple). Ensuite, pour chaque ligne de texte dans le fichier, le script crée une structure sémantique rudimentaire qui comprendra uniquement les balises nécessaires et la phrase à modéliser. Finalement, le script (figure~\ref{structurepython}) identifiera chaque structure sémantique de 0 à 977.
 
 \begin{figure}[htb]
   \caption{Création des structures sémantiques vides}
@@ -107,8 +107,6 @@ structure Sem S0{
 \end{lstlisting}
 \end{figure}
 
-\draft{expliquer en quoi c'est utile, demander à françois si c'est trivial ou pas}
-
 \section{Méthodologie d'évaluation}
 
 Avant de procéder à l'évaluation de notre système, nous devions encoder les graphes sémantiques pour qu'ils représentent les phrases que nous tenterons de générer, nous en avons encodé 978. Nous étions maintenant prêts à procéder à l'évaluation. Toutefois, comme nous étions limité dans le temps, nous avons pris 75 structures aléatoirement, dont 25 ont servi lors d'une phase de développement précédant la phase d'évaluation à proprement parler.
@@ -116,11 +114,12 @@ Avant de procéder à l'évaluation de notre système, nous devions encoder les 
 La phase de développement nous a permis de constater que certains noms d'entrées lexicales, appartenant à des parties du discours différentes, apparaissaient en double dans notre dictionnaire. Par exemple, les entrées pour le verbe \lex{work} et le nom \lex{work} avaient le même nom, donc le système n'accédait qu'à la dernière des entrées et ignorait la première. Nous avons conséquemment procédé à un filtrage pour remédier à la situation en donnant un nom différent aux entrées homonymiques. Ensuite, après la phase de développement terminée, nous avons procédé à l'évaluation sur les 50 structures restantes.
                               
 \subsection{Rappel}
-Nous avons mesuré le rappel en calculant le ratio entre le nombre de structures attendues et le nombre effectivement généré. Ainsi, chaque structure manquante à l'appel est considérée comme une erreur et le calcul se fait sur 50 puisque nous avons testé sur 50 phrases provenant du corpus de VerbNet.
+Nous avons mesuré le rappel en calculant le ratio entre le nombre de structures attendues et le nombre effectivement généré. Ainsi, chaque structure manquante à l'appel est considérée comme une erreur et le calcul se fait sur 50 puisque nous avons testé sur 50 phrases provenant du corpus de VerbNet. Les statistiques sont présentées au tableau~\ref{fig:evaluationrappel}.
 \[\text{Rappel} = \frac{\text{nombre de structures attendues générées}}{\text{nombre de structures attendues}}\]
 
 \begin{table}
 \caption{Évaluation du rappel}
+\label{fig:evaluationrappel}
 \begin{tabular}{lrr}
  % \hline
  % \multicolumn{3}{|c|}{Rappel} \\
@@ -150,12 +149,15 @@ Pour la structure 630, l'incompatiblité provient du fait que \form{in embarrass
 
 \textbf{Les silences dus à GenDR} proviennent du fait que GenDR ne gère pas la coordination qui permet de créer un actant syntaxique à partir de deux actants sémantiques. Les phrases que nous n'avons pas pu générer à cause de cela sont 036--\form{Plays and ballets alternate} et 330--\form{This flyer and that flyer differ}. En effet, nous n'avons pas de mécanisme dans GenDR pouvant recréer ce type de structure en surface, donc le fait d'encoder \sem{play} et \sem{ballet} comme deux actants sélectionnés par le verbe menait nécessairement à un échec de réalisation. Par contre, nous avons pu générer \form{Plays alternate with ballets} et \form{This flyer differs from that flyer}, qui sont des paraphrases des phrases attendues. Cela démontre par le fait même la capacité de paraphrasage de GenDR.
 
+\draft{Nous n'avons pas comptabiliser dans nos erreurs les défauts liés à l'impossibilité de générer le phénomène langagier qu'est la manière de faire les complément du nom. C'est un problème de GenDR dont nous avons hérité, mais qui n'était pas ce que nous cherchions à tester. Les erreurs qu’on compte, ce sont les erreurs des GPS de verbe. Il s'agit d'erreurs liées aux GPs des noms, pas du tout le focus de mon travail. on les a noté dans l’annexe, mais on ne les a pas compilé dans les erreurs. Dans l'annexe~\ref{ch:annexe}, nous avons présenté les erreurs de GenDR en termes des GPs des noms}
+
 \subsection{Précision}\label{sec:precision}
 Pour mesurer la précision, nous avons mesuré le ratio entre le nombre de structures grammaticalement correctes générées et le nombre total de structures générées:
 \[\text{Précision} = \frac{\text{nombre de structures correctes}}{\text{nombre de structures générées}}\]
 
 \begin{table}
 \caption{Évaluation de la précision}
+\label{fig:evaluationprecision}
 \begin{tabular}{lrr}
  \toprule
   & DSynt & SSynt\\
@@ -172,7 +174,7 @@ Pour mesurer la précision, nous avons mesuré le ratio entre le nombre de struc
 \end{tabular}
 \end{table}
 
-Pour l'évaluation de la précision, nous avons séparé les réalisations de la \ac{RSyntP} de celles de la \ac{RSyntS} car les résultats différaient concernant les erreurs dues à VerbNet. Cet écart provient du fait qu'il existe certaines \textbf{prépositions régies par le verbe} qui ne sont pas encore réalisées en syntaxe profonde, mais que lorsqu'elles sont réalisées en syntaxe de surface, elles \textbf{mènent à des incohérences}. Cela est une conséquence des \acp{GP} qui permettent à certains de leurs actants de se réaliser par plus d'une préposition. Le système génèrera alors autant d'arbres différents qu'il y a de choix de prépositions pour un actant donné. Mais très souvent, seule l'une d'entre elles produit une phrase grammaticale. Par exemple, en fournissant en input la structure 177, GenDR génère les phrases \form{The doctor cured pat of pneumonia} et \ungr\form{The doctor cured pat out of pneumonia}. La deuxième étant incohérente à cause de la présence de la préposition \lex{out of} qui rend la phrase agrammaticale. Nous constatons que sept erreurs en surface sont dues à ce phénomène.
+Pour l'évaluation de la précision (voir la tableau~\ref{fig:evaluationprecision}), nous avons séparé les réalisations de la \ac{RSyntP} de celles de la \ac{RSyntS} car les résultats différaient concernant les erreurs dues à VerbNet. Cet écart provient du fait qu'il existe certaines \textbf{prépositions régies par le verbe} qui ne sont pas encore réalisées en syntaxe profonde, mais que lorsqu'elles sont réalisées en syntaxe de surface, elles \textbf{mènent à des incohérences}. Cela est une conséquence des \acp{GP} qui permettent à certains de leurs actants de se réaliser par plus d'une préposition. Le système génèrera alors autant d'arbres différents qu'il y a de choix de prépositions pour un actant donné. Mais très souvent, seule l'une d'entre elles produit une phrase grammaticale. Par exemple, en fournissant en input la structure 177, GenDR génère les phrases \form{The doctor cured pat of pneumonia} et \ungr\form{The doctor cured pat out of pneumonia}. La deuxième étant incohérente à cause de la présence de la préposition \lex{out of} qui rend la phrase agrammaticale. Nous constatons que sept erreurs en surface sont dues à ce phénomène.
 
 Les erreurs que nous vous présenterons maintenant concernent les deux niveaux de représentations (\ac{RSem}--\ac{RSyntP} et \ac{RSyntP}--\ac{RSyntS}). D'abord, un type d'erreur courant de VerbNet provient de la \textbf{sélection d'un \ac{GP}} qui respecte les contraintes imposées par la structure sémantique (les actants sémantiques), mais dont \textbf{le produit génère une phrase agrammaticale}. Par exemple, l'input de la structure 968--\form{Barry Cryer erased at the writing} comprenait les actants sémantiques \texttt{1} et \texttt{2}, ce qui a permis au patron de régime \texttt{NP\_V\_PP\_at\_Conative} de s'appliquer, générant la forme \ungr\form{Barry Cryer erased at the writing}. En réalité, le type de phrase que ce \ac{GP} illustre normalement pour la classe verbale \texttt{"wipe\_manner-10.4.1-1"} est \form{Brian wiped at the counter}. De cette façon, la présence du \ac{GP} (\texttt{NP\_V\_PP\_at\_Conative}), dont la diathèse correspond aux actants sémantiques demandés par l'input, a permis au \ac{GP} d'être sélectionné et de réaliser un arbre syntaxique profond agrammatical.
 

@@ -1,6 +1,6 @@
 %!TEX root = ../memoire.tex
 
-\chapter{Corpus d'évaluation}
+\chapter{Corpus d'évaluation}\label{ch:annexe}
 
 \draft{Voici notre échantillon tiré du corpus, faire renvoi sur chapitre évaluation, les structures d’input ont été créées à la main, sauf indication contraire les structures mid-put et outputs sont à la fois les structures attendues et celles générées par le système. Préciser que les carrés rouge sont les structures attendues, mais impossible à générer.Le main est implicite quand la structure est déjà hiérarchique, mais explicite dans l’encodage.}
 
@@ -99,13 +99,24 @@
 \end{tabbing}
 
 \begin{tabbing}
-(36)\quad\= \emph{Plays and ballets alternate.} \\
+(36.1)\quad\= \emph{Version générée: Plays and ballets alternate.} \\
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(36.2)\quad\= \emph{Version attendue: Plays and ballets alternate.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.2.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -133,13 +144,24 @@
 \end{tabbing}
 
 \begin{tabbing}
-(142)\quad\= \emph{Oils’s price increased ten percent.} \\
+(142)\quad\= \emph{Version générée: Oils’s price increased ten percent.} \\
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(142)\quad\= \emph{Version attendue: Oils’s price increased ten percent.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -178,14 +200,26 @@
 
 
 \begin{tabbing}
-(213)\quad\= \emph{The prime minister complained to the former president about U.S. interference} \\
+(213)\quad\= \emph{Version générée: The prime minister complained to the former president about U.S. interference} \\
           \> \emph{in his country’s affairs.} \\
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.dsynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.ssynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(213)\quad\= \emph{Version attendue: The prime minister complained to the former president about U.S. interference} \\
+          \> \emph{in his country’s affairs.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -258,16 +292,38 @@
 \> \draft{Bla bla le noeud X...}
 \end{tabbing}
 
+\begin{tabbing}
+(267)\quad\= \emph{He converted to believing in Buddha.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-267.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-267.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-267.ssynt}.jpg}}
+\end{minipage}
+\\
+\end{tabbing}
 
 
 \begin{tabbing}
-(330)\quad\= \emph{This flyer and that flyer differ.} \\
+(330.1)\quad\= \emph{Version générée: This flyer and that flyer differ.} \\
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-330.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-330.dsynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-330.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-%\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-330.ssynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-330.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(330.2)\quad\= \emph{Version attendue: This flyer and that flyer differ.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-330.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-330.2.ssynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-330.2.dsynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -431,7 +487,7 @@
 \begin{tabbing}
 (630)\quad\= \emph{Version générée: She laughed in embarrassment.} \\
 \> \begin{minipage}{16cm}
-<<<<<<< HEAD
+
 \raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.2.dsynt}.jpg}}
@@ -459,6 +515,17 @@
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(667)\quad\= \emph{Lydia pocketed the change in her left pocket.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -510,13 +577,24 @@
 \end{tabbing}
 
 \begin{tabbing}
-(777)\quad\= \emph{TransCanada is shifting its HQ to Calgary from Toronto.} \\
+(777)\quad\= \emph{Version générée: TransCanada is shifting its HQ to Calgary from Toronto.} \\
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.ssynt}.jpg}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(777)\quad\= \emph{Version attendue: TransCanada is shifting its HQ to Calgary from Toronto.} \\
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.dsynt}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.2.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 

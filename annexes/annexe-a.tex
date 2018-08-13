@@ -2,9 +2,10 @@
 
 \chapter{Corpus d'évaluation}\label{ch:annexe}
 
-Voici l'échantillon utilisé pour l'évaluation de notre implémentation (voir le chapitre~\ref{ch:eval}). Les structures d’input ont été créées à la main et contre-validées par trois annotateurs. Sauf indication contraire, les structures d'output sont à la fois les structures attendues et celles générées par le système. Dans les cas où nous n'avons pas pu réaliser la structure attendue, nous indiquons par un cadre vert la structure attendue et les structures fautives générées sont indiquées par un cadre rouge quand l'erreur est pertinente pour notre étude, et en orange quand il s'agit d'une erreur qui ne relève pas de notre travail (par exemple, le patron de régime des noms, la génération des pronoms, etc.). Finalement, précisons que la relation \texttt{main} qui marque le n\oe{}ud saillant d'un réseau sémantique est occultée dans les figures quand la structure sémantique est déjà hiérarchique (il s'agit alors de la racine).
+Voici l'échantillon utilisé pour l'évaluation de notre implémentation (voir le chapitre~\ref{ch:eval}). Les structures d’input ont été créées à la main et contre-validées par trois annotateurs. Sauf indication contraire, les structures d'output sont à la fois les structures attendues et celles générées par le système. Dans les cas où nous n'avons pas pu réaliser la structure attendue, nous indiquons par un cadre vert la structure attendue et les structures fautives générées sont indiquées par un cadre rouge quand l'erreur est pertinente pour notre étude, et en orange quand il s'agit d'une erreur qui ne relève pas de notre travail (par exemple, le patron de régime des noms, la génération des pronoms, etc.). Finalement, nous précisons que la relation \texttt{main} qui marque le n\oe{}ud saillant d'un réseau sémantique est occultée dans les figures quand la structure sémantique est déjà hiérarchique (il s'agit alors de la racine).
 
-\draft{Le n\oe{}ud X\_1048 représente la trace du PRO qui disparaîtra finalement en syntaxe de surface}
+Parmi cet échantillon, vous verrez parfois un n\oe{}ud \emph{X} suivi d'un chiffre, celui-ci représente la trace du PRO en syntaxe profonde. Cette trace est temporaire et nécessaire pour que la structure profonde soit réalisée puisque le verbe en question nécessite un objet pour être lexicalisé. Il disparaît ensuite en syntaxe de surface. Finalement, vous noterez aussi que les auxiliaires ne sont pas réalisés en syntaxe de surface. Comme ce n'était pas l'objet de notre projet, nous n'avons pas développé une règle de grammaire réalisant les auxiliaires en surface.
+
 \begin{tabbing}
 (17)\quad\= \emph{I loved writing.} \\*
 \> \begin{minipage}{16cm}
@@ -28,24 +29,21 @@ Voici l'échantillon utilisé pour l'évaluation de notre implémentation (voir 
 \end{tabbing}
 
 \begin{tabbing}
-(36.1)\quad\= \emph{Version générée: Plays and ballets alternate.} \\*
+(36)\quad\= \emph{Plays and ballets alternate.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.ssynt}.jpg}}
+\raisebox{-0.5\height}{\colorbox{red}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.ssynt}.jpg}}}
 \end{minipage}
-\end{tabbing}
-
-\begin{tabbing}
-(36.2)\quad\= \emph{Version attendue: Plays and ballets alternate.} \\*
+\\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.2.dsynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-36.2.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.2.ssynt}.jpg}}
+\raisebox{-0.5\height}{\colorbox{Green}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-36.2.ssynt}.jpg}}}
 \end{minipage}
 \end{tabbing}
 
@@ -73,24 +71,21 @@ Voici l'échantillon utilisé pour l'évaluation de notre implémentation (voir 
 \end{tabbing}
 
 \begin{tabbing}
-(142)\quad\= \emph{Version générée: Oils’s price increased ten percent.} \\*
+(142)\quad\= \emph{Oils’s price increased ten percent.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.ssynt}.jpg}}
+\raisebox{-0.5\height}{\colorbox{YellowOrange}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.ssynt}.jpg}}}
 \end{minipage}
-\end{tabbing}
-
-\begin{tabbing}
-(142)\quad\= \emph{Version attendue: Oils’s price increased ten percent.} \\*
+\\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.2.ssynt}.jpg}}
+\raisebox{-0.5\height}{\colorbox{Green}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.2.ssynt}.jpg}}}
 \end{minipage}
 \end{tabbing}
 
@@ -317,7 +312,7 @@ Voici l'échantillon utilisé pour l'évaluation de notre implémentation (voir 
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-503.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-503.ssynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-503.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
@@ -393,7 +388,7 @@ Voici l'échantillon utilisé pour l'évaluation de notre implémentation (voir 
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-618.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-618.ssynt}.jpg}}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-618.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 

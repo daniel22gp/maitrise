@@ -2,13 +2,19 @@
 
 \chapter{Importation de VerbNet dans GenDR}\label{ch:python}
 
-\draft{C'est vrai qu'on a l'impression qu'il y existe bcp trop de dictionnaires dans GenDR, lesquels seront utilisés, ceux créés ici sont parfois des dictionnaires fusionnés qui iront dans GenDR, d'autres non, bref, différencier entre dictionnaires que GenDr va utiliser et dictionnaires juste pour nous qu'on va retravailler avant de recracher. Expliquer ce que feront les dictionnaires de GenDR, on fait juste les mentionner, mais peut-être élaborer un peu plus sur leur apport au système}
+Nous avons écrit un script en Python pour automatiser en grande partie l'importation des données de VerbNet dans GenDR. Nous avons utilisé le module \emph{xml.etree.cElementTree}\footnote{\url{https://docs.python.org/3/library/xml.etree.elementtree.html}, 01-06-17} pour manipuler et extraire les fichiers \emph{XML} qui contiennent l'information de VerbNet. Ensuite, nous avons compilé ces informations dans des fichiers \emph{.dict} de format MATE, mais ils ne seront pas utilisés tels quels dans GenDR. Nous extrayons les données de VerbNet, et nous les mettons dans des dictionnaires, toutefois, avant d'implémenter ces informations dans la nouvelle version de GenDR, nous manipulerons les données pour faire en sorte qu'ils puissent être intégrés dans les dictionnaires de MATE prévus (le semanticon, le lexicon et \emph{nouveauté}: le gpcon (qui contiendra les patrons de régime)) \draft{faire un rappel ou un renvoi sur les dictionnaires de GenDR, afin de clarifier une seconde fois leur but}. Nous avons ainsi créé trois dictionnaires intermédiaires à l'aide des scripts Python: un dictionnaire qui décrit les classes verbales, un dictionnaire qui mappe les unités lexicales sur leur classe VerbNet, et un dictionnaire de patrons de régime. L'information contenue dans les deux premiers dictionnaires sera intégrée au lexicon de GenDR, puis le dictionnaire de patrons de régime est placé dans un fichier à part, ce sera le gpcon et en ce qui concerne le semanticon, il gardera la même architecture.
 
-Nous avons écrit un script en Python pour automatiser en grande partie l'importation des données de VerbNet dans GenDR. Nous avons utilisé le module \emph{xml.etree.cElementTree}\footnote{\url{https://docs.python.org/3/library/xml.etree.elementtree.html}, 01-06-17} pour manipuler et extraire les fichiers \emph{XML} qui contiennent l'information de VerbNet. Ensuite, nous avons compilé ces informations dans des fichiers \emph{.dict} de format MATE pour les utiliser dans GenDR. Nous avons créé trois dictionnaires: un dictionnaire qui décrit les classes verbales, un dictionnaire qui mappe les unités lexicales sur leur classe VerbNet, et un dictionnaire de patrons de régime. Les deux premiers dictionnaires sont fusionnés dans un même fichier GenDR, puis le dictionnaire de patrons de régime est placé dans un fichier à part.
+\draft{à relire, mais en gros, Guy trouvait qu'il y avait beaucoup de types de dictionnaire dans GenDR, et qu'ils n'étaient pas clairement présentés. Mais je pense qu'il était confus à cause des dictionnaires créés grâce aux scripts en plus des dictionnaires de GenDR (semanticon, lexicon, gpcon). Bref, dans ce paragraphe j'essaie de clarifier la chose.}
+
+\draft{Faire un exemple à produire avec VerbNet. Pour voir si notre système fonctionnera bien, notre but est de tester les phrases de VerbNet après avoir importé le contenu. Ainsi on prend une phrase random et on explique rapido comment se déroule pro
+
+Soit ça ou bien, il veut voir de quoi auront la totalité du dictionnaire que nous cherchons à produire, et à quoi ressemble ce qu'on lui feed en entrée ? }
+
+\draft{Montrer l'exemple Cora coiled the rope around the post. Et que grâce à chacun des segments, retracer en quoi ils nous permettent de construire ça comme du monde}
  
 \section{Préparation du nouveau \emph{lexicon} de GenDR}
 
-Le dictionnaire lexical original de GenDR contient des classes abstraites et des entrées lexicales. À ces deux sections, nous proposons d'ajouter les classes verbales de VerbNet et les membres verbaux de ces classes, deux nouvelles sections que nous identifions comme \texttt{VERBNET CLASSES} et \texttt{VERBNET MEMBERS}. Nous décrirons dans les pages suivantes comment les scripts Python que nous avons créés nous ont permis de bâtir ces nouvelles sections du \emph{lexicon}.
+Le dictionnaire lexical original de GenDR contient des classes abstraites et des entrées lexicales \draft{faire un renvoi}. À ces deux sections, nous proposons d'ajouter les classes verbales de VerbNet et les membres verbaux de ces classes, deux nouvelles sections que nous identifions comme \texttt{VERBNET CLASSES} et \texttt{VERBNET MEMBERS}. Nous décrirons dans les pages suivantes comment les scripts Python que nous avons créés nous ont permis de bâtir ces nouvelles sections du \emph{lexicon}.
 
 D'abord, pour mieux comprendre la manière dont nous avons créé la section \texttt{VERBNET CLASSES}, il faut rappeler quelques notions de base du fonctionnement de GenDR. Au chapitre \ref{chapgendr}, nous avons décrit le mécanisme d'héritage qui façonne l'architecture du lexique (p.~\pageref{sec:dictio}). 
 
@@ -73,9 +79,10 @@ ingest_1: "absorb-39.8"
   \caption{Output du script: propriétés de la classe verbale \texttt{absorb-39.8}}
 	\label{fig:output-absorb}
 \begin{lstlisting}[language=mate]
+lexicon {
 "absorb-39.8": verb {
   gp = { id=NP_V_NP                        dia=x } // Cotton absorbs water.
- ...
+  gp = { id=NP_V_NP_PP_from_source         dia=x } // Cattle take in nutrients from their feed.
 }
 \end{lstlisting}
 \end{figure}
@@ -90,7 +97,7 @@ Nous avons divisé la description du premier script en trois blocs pour en facil
 \begin{lstlisting}[language=Python]
 # BLOCK 1 : VERBNET HIERARCHY
 def supers(t, i):
-    ID = t.get('ID') # t = root of the verbal class, it contains the shared syntactic information.
+    ID = t.get('ID') # get the shared syntactic information.
     sc = {ID:i} # simulates the inheritance mechanism.
     subclasses = t.findall('SUBCLASSES/VNSUBCLASS') # gets all the information on the subclasses.
     if len(subclasses) > 0:
@@ -152,11 +159,11 @@ Pour ce faire, la fonction \emph{treeframes} récupère d'abord l'identifiant de
 	\label{fig:archivn-bloc3}
 \begin{lstlisting}[language=Python]		
 # BLOCK 3 : WRITING of the EXTRACTED INFORMATION in a FILE
-with open('lexicon.dict','w') as f: # we are going to write all of this block into lexicon.dict
+with open('lexicon.dict','w') as f: # write the output into lexicon.dict
     f.write('lexicon {\n')
     for file in [f for f in os.listdir('verbnet') if f[-4:] == '.xml']: # open VerbNet XMl files
         root = ET.parse('verbnet/'+file).getroot() # Applies the Python Element Tree module
-        d = dict(treeframes(root)) # makes a dictionary out of the results of treeframes on a file
+        d = dict(treeframes(root)) # create dictionary from results of treeframes
         sc = supers(root, 'verb') # applies supers function to each file
         for c in d.keys():
             f.write('"'+c+'"')
@@ -166,7 +173,7 @@ with open('lexicon.dict','w') as f: # we are going to write all of this block in
                 f.write(': ' +'"'+sc[c]+'"' + ' {') #dominated classes point towards their governor
             [f.write('\n  gp = { id=' + gp[0] + (max(len(gp[0]), 30)-len(gp[0]))
                      *' ' + ' dia=x } // ' + ' '.join(gp[1])) for gp in d[c]]
-            f.write('\n}\n') # all GPs will have attributes: id and dia
+            f.write('\n}\n') # GPs will have attributes: id and dia
     f.write('\n}')
 \end{lstlisting}
 \end{figure}
@@ -279,6 +286,8 @@ with open('members.dict','w') as f: # open a file
 
 \section{Création du dictionnaire de patrons de régime}\label{sec:creategpcon}
 
+\draft{rajouter l'output de ce script}
+
 Lors de la création de la section \texttt{VERBNET CLASSES}, nous avons extrait les classes verbales de VerbNet ainsi que les identifiants des patrons de régime qui y sont encodés. Nous avons ensuite analysé le contenu des patrons de régime prélevés afin de trouver la meilleure manière d'encoder les propriétés lexicales et syntaxiques de chaque patron de régime dans un dictionnaire.
 
 D'abord, nous avons dû nous débarrasser de certaines constructions syntaxiques. Nous avons ainsi filtré les \acp{GP} que nous voulions importer dans un dictionnaire afin de nous départir de ceux qui pourraient poser problème et ceux que nous jugions inutiles.
@@ -291,6 +300,28 @@ Bref, nous avons extrait le plus d'information possible des identifiants des \ac
 
 À l'aide d'un petit script Python, nous avons établi qu'il y avait 274 \ac{GP} uniques. Chacun sera une entrée dans le dictionnaire de patrons de régime, que nous avons écrite manuellement. Cependant, pour accélérer ce processus, nous avons défini dans Python des objets qui représentent des actants syntaxiques non-étiquetés incorporant des traits lexicaux et syntaxiques. Ensuite, nous avons défini une fonction permettant d'assigner une étiquette au contenu d'un actant syntaxique, puis la combinaison du contenu et de l'étiquette nous a permis de créer des patrons de régime assez rapidement. Le tout sera expliqué en détail dans la section qui suit.
 
+Pour cette partie, nous avons construit le dictionnaire de patron de régime à partir des données que nous avons rentré manuellement, ainsi il n'y a pas d'input XML provenant de VerbNet. Toutefois, afin de mieux comprendre la section présente, voici à quoi ressemble l'output prévu par le script (voir figure~\ref{fig:outputgpcon}).
+
+\begin{figure}[htb]
+  \caption{Output prévu par le script gpcon}
+	\label{fig:outputgpcon}
+\begin{lstlisting}[language=Python]
+gpcon {
+NP_agent_V {
+   I={rel=subjective dpos=N}
+}
+NP_agent_V_NP {
+   I={rel=subjective dpos=N}
+   II={rel=dir_objective dpos=N}
+}
+NP_asset_V_NP_PP_from_out_of {
+   I={rel=subjective dpos=N}
+   II={rel=dir_objective dpos=N}
+   III={rel=oblique dpos=N prep=from}
+   III={rel=oblique dpos=N prep="out of"}
+}
+\end{lstlisting}
+\end{figure}
 \subsection{Contenu lexical et syntaxique d'un actant non-étiqueté}
 
 Dans le premier bloc, nous définissons des objets comme \texttt{subj} ou \texttt{dir\_N} qui correspondent à des propriétés syntaxiques qui seraient normalement associées à un actant syntaxique. Par exemple, l'objet \texttt{subj} renvoie aux traits \lstinline|'rel=subjective dpos=N'|. Nous avons ainsi défini toutes les propriétés lexico-syntaxiques possibles des actants que nous avons relevés parmi les identifiants des \acp{GP}. Autrement dit, ces objets correspondent aux éléments constitutifs des \acp{GP}. Ensuite, nous avons créé une fonction pour prendre ces éléments et leur assigner une étiquette selon leur position dans le \ac{GP}. Cela nous évite de décrire les propriétés syntaxiques des actants à chaque patron de régime. Finalement, nous avons décrit tous les patrons de régime en combinant ces éléments: \lstinline|{'NP_agent_V_NP': [subj, dir_N],}|. Le tout est illustré à la figure~\ref{fig:contenulexical}.
@@ -371,4 +402,4 @@ with open('gpcon.dict','w') as f:
 \end{lstlisting}
 \end{figure}
 
-\draft{p.67 "Section difficile à suivre: trop de détails de code Python, surtout on ne présente pas clairement les structures à produire. Il semble que GenDR a plusieurs types de dictionnaires qui ne sont jamais clairement présentés. Devrait donner au début un exemple de sortie attendue-entrée correspondante}
+

@@ -4,80 +4,8 @@
 
 Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet à GenDR (voir la section~\ref{ch:eval}). Les structures d’input ont été créées à la main (sauf indication contraire), les structures d'outputs sont à la fois les structures attendues et celles générées par le système. Cependant comme nous n'avons pas toujours pu réaliser la phrase attendue, nous avons aussi instauré un système de couleur pour identifier les structures que nous voulions générer mais que nous n'avons pas pu. Pour ces cas particuliers, nous encadrons les structures fautives en rouges, et en vert les structures attendues. De plus, nous avons aussi encadré certaines structures en jaune lorsque la structure était fautive, mais pas par rapport aux patrons de régime des verbes (voir la discussion sur les patrons de régime des noms défaillants). Finalement, il est à préciser que le trait \texttt{main} qui indique le n\o{}eud saillant d'un réseau sémantique est parfois implicite quand la structure est déjà hiérarchique, mais explicite dans l’encodage.
 
-\iffalse 
-\begin{longtable}{@{}rp{10cm}@{}}
-\caption{Phrases tirées de VerbNet pour l'évaluation}\\
-\toprule
-\textbf{Num} & \textbf{Phrase} \\
-\midrule
-\endfirsthead
-\multicolumn{2}{c}%
-{\tablename\ \thetable\ -- \textit{Suite}} \\
-\toprule
-\textbf{Num} & \textbf{Phrase} \\
-\midrule
-\endhead
-\bottomrule \multicolumn{2}{r}{\textit{Suite à la page suivante}} \\
-\endfoot
-\bottomrule
-\endlastfoot
-
-17	&	I loved writing \\
-27	&	They allow smoking \\
-36	&	Plays and ballets alternate \\
-77	&	I begged her to do it \\
-111	&	The dragon breathed fire on Mary \\
-142	&	Oils's price increased ten percent \\
-177	&	The doctor cured Pat of pneumonia \\
-198	&	She classified the works as `dangerous' \\
-206	&	Cora coiled the rope around the post \\
-213	&	The prime minister complained to the former president about U.S. interference in his country's affairs \\
-222	&	The Milky Way comprises more than 100 billion planets \\
-227	&	The children hid from Sally \\
-244	&	They considered him professor \\
-250	&	I spent the time on worries \\
-264	&	Some of the members may donate privately \\
-267	&	He converted to believing in Buddha \\
-330	&	This flyer and that flyer differ \\
-384	&	He entered the room \\
-399	&	The bells traded places \\
-426	&	We focused on it \\
-428	&	We brooded about it \\
-452	&	Carmen bought a dress for \$50 \\
-476	&	The teacher gathered the kids \\
-503	&	Smith was inscribing \\
-540	&	We abandoned the area \\
-554	&	Sasha dawdled in the museum \\
-581	&	I anguished over Aslan's pain \\
-583	&	Dina masqueraded as a lawyer \\
-604	&	Herman added a computer to the network \\
-618	&	I neglected to do the job \\
-630	&	She laughed in embarrassment \\
-667	&	Lydia pocketed the change in her left pocket \\
-686	&	Donna grilled me steaks \\
-688	&	The dealer valued the book \\
-746	&	Tom jumped the horse over the fence \\
-750	&	The horse jumped the stream \\
-777	&	TransCanada is shifting its HQ to Calgary from Toronto \\
-789	&	The crew spotted the island \\
-836	&	The thief stole the paint for Mary \\
-843	&	I ended the party with a speech \\
-845	&	Winnie the Pooh subjugated the unfortunate Pixies \\
-851	&	The streets gushed with water \\
-862	&	The sailor drowned \\
-868	&	Bees are swarming in the garden \\
-873	&	Paula swatted the fly with a cloth \\
-894	&	Ellen told Helen a story \\
-900	&	Steve tossed the ball from the corner to the garden \\
-955	&	Linda winked her eye \\
-968	&	Barry Cryer erased the writing \\
-974	&	He backed out of going on the trip \\
-
-\end{longtable}
-\fi
-
 \begin{tabbing}
-(17)\quad\= \emph{I loved writing.} \\
+(17)\quad\= \emph{I loved writing.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-17.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -88,7 +16,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(27)\quad\= \emph{They allow smoking.} \\
+(27)\quad\= \emph{They allow smoking.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-27.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -99,7 +27,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(36.1)\quad\= \emph{Version générée: Plays and ballets alternate.} \\
+(36.1)\quad\= \emph{Version générée: Plays and ballets alternate.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -110,7 +38,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(36.2)\quad\= \emph{Version attendue: Plays and ballets alternate.} \\
+(36.2)\quad\= \emph{Version attendue: Plays and ballets alternate.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-36.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -121,19 +49,19 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(77)\quad\= \emph{I begged her to do it.} \\
+(77)\quad\= \emph{I begged her to do it.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-77.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-77.dsynt}.jpg}}
-\\
+\\*
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-77.ssynt}.jpg}}
 \end{minipage}
 \end{tabbing}
 
 \begin{tabbing}
-(111)\quad\= \emph{The dragon breathed fire on Mary.} \\
+(111)\quad\= \emph{The dragon breathed fire on Mary.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-111.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -144,7 +72,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(142)\quad\= \emph{Version générée: Oils’s price increased ten percent.} \\
+(142)\quad\= \emph{Version générée: Oils’s price increased ten percent.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -155,7 +83,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(142)\quad\= \emph{Version attendue: Oils’s price increased ten percent.} \\
+(142)\quad\= \emph{Version attendue: Oils’s price increased ten percent.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-142.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -166,7 +94,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(177)\quad\= \emph{The doctor cured Pat of pneumonia.} \\
+(177)\quad\= \emph{The doctor cured Pat of pneumonia.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-177.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -177,7 +105,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(198)\quad\= \emph{She classified the works as 'dangerous'.} \\
+(198)\quad\= \emph{She classified the works as 'dangerous'.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-198.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -188,7 +116,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(206)\quad\= \emph{Cora coiled the rope around the post.} \\
+(206)\quad\= \emph{Cora coiled the rope around the post.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-206.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -200,8 +128,8 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(213)\quad\= \emph{Version générée: The prime minister complained to the former president about U.S. interference} \\
-          \> \emph{in his country’s affairs.} \\
+(213)\quad\= \emph{Version générée: The prime minister complained to the former president about U.S. interference} \\*
+          \> \emph{in his country’s affairs.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -212,8 +140,8 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(213)\quad\= \emph{Version attendue: The prime minister complained to the former president about U.S. interference} \\
-          \> \emph{in his country’s affairs.} \\
+(213)\quad\= \emph{Version attendue: The prime minister complained to the former president about U.S. interference} \\*
+          \> \emph{in his country’s affairs.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -225,7 +153,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(222)\quad\= \emph{The Milky Way comprises more than 100 billion planets.} \\
+(222)\quad\= \emph{The Milky Way comprises more than 100 billion planets.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-222.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -236,7 +164,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(227)\quad\= \emph{The children hid from Sally.} \\
+(227)\quad\= \emph{The children hid from Sally.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-227.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -247,7 +175,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(244)\quad\= \emph{They considered him professor.} \\
+(244)\quad\= \emph{They considered him professor.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-244.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -258,7 +186,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(250)\quad\= \emph{I spent the time on worries.} \\
+(250)\quad\= \emph{I spent the time on worries.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-250.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -269,7 +197,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(264)\quad\= \emph{Some of the members may donate privately.} \\
+(264)\quad\= \emph{Some of the members may donate privately.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-264.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -280,7 +208,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(267)\quad\= \emph{He converted to believing in Buddha.} \\
+(267)\quad\= \emph{He converted to believing in Buddha.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-267.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -288,12 +216,12 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-267.ssynt}.jpg}}
 \end{minipage}
-\\
+\\*
 \> \draft{Bla bla le noeud X...}
 \end{tabbing}
 
 \begin{tabbing}
-(267)\quad\= \emph{He converted to believing in Buddha.} \\
+(267)\quad\= \emph{He converted to believing in Buddha.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-267.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -301,12 +229,12 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-267.ssynt}.jpg}}
 \end{minipage}
-\\
+\\*
 \end{tabbing}
 
 
 \begin{tabbing}
-(330.1)\quad\= \emph{Version générée: This flyer and that flyer differ.} \\
+(330.1)\quad\= \emph{Version générée: This flyer and that flyer differ.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-330.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -317,7 +245,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(330.2)\quad\= \emph{Version attendue: This flyer and that flyer differ.} \\
+(330.2)\quad\= \emph{Version attendue: This flyer and that flyer differ.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-330.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -328,7 +256,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(384)\quad\= \emph{He entered the room.} \\
+(384)\quad\= \emph{He entered the room.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-384.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -339,7 +267,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(399)\quad\= \emph{The bells traded places.} \\
+(399)\quad\= \emph{The bells traded places.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-399.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -351,7 +279,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(426)\quad\= \emph{We focused on it.} \\
+(426)\quad\= \emph{We focused on it.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-426.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -362,7 +290,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(428)\quad\= \emph{We brooded about it.} \\
+(428)\quad\= \emph{We brooded about it.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-428.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -373,7 +301,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(452)\quad\= \emph{Carmen bought a dress for 50\$.} \\
+(452)\quad\= \emph{Carmen bought a dress for 50\$.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-452.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -384,7 +312,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(476)\quad\= \emph{The teacher gathered the kids.} \\
+(476)\quad\= \emph{The teacher gathered the kids.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-476.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -395,7 +323,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(503)\quad\= \emph{Smith was inscribing.} \\
+(503)\quad\= \emph{Smith was inscribing.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-503.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -407,7 +335,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(540)\quad\= \emph{We abandoned the area.} \\
+(540)\quad\= \emph{We abandoned the area.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-540.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -418,7 +346,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(554)\quad\= \emph{Sasha dawdled in the museum.} \\
+(554)\quad\= \emph{Sasha dawdled in the museum.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-554.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -429,29 +357,26 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(581)\quad\= \emph{Version générée: I anguished over Aslan’s pain.} \\
+(581)\quad\= \emph{I anguished over Aslan’s pain.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.ssynt}.jpg}}
+\raisebox{-0.5\height}{\colorbox{Green}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-581.2.ssynt}.jpg}}}
 \end{minipage}
-\end{tabbing}
-
-\begin{tabbing}
-(581)\quad\= \emph{Version attendue: I anguished over Aslan’s pain.} \\
+\\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-581.2.ssynt}.jpg}}
+\raisebox{-0.5\height}{\colorbox{YellowOrange}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-581.ssynt}.jpg}}}
 \end{minipage}
 \end{tabbing}
 
 \begin{tabbing}
-(583)\quad\= \emph{Dina masqueraded as a lawyer.} \\
+(583)\quad\= \emph{Dina masqueraded as a lawyer.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-583.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -463,7 +388,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(604)\quad\= \emph{Herman added a computer to the network.} \\
+(604)\quad\= \emph{Herman added a computer to the network.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-604.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -474,7 +399,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(618)\quad\= \emph{I neglected to do the job.} \\
+(618)\quad\= \emph{I neglected to do the job.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-618.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -485,7 +410,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(630)\quad\= \emph{Version générée: She laughed in embarrassment.} \\
+(630)\quad\= \emph{Version générée: She laughed in embarrassment.} \\*
 \> \begin{minipage}{16cm}
 
 \raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.sem}.jpg}}
@@ -497,7 +422,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(630)\quad\= \emph{Version attendue: She laughed in embarrassment.} \\
+(630)\quad\= \emph{Version attendue: She laughed in embarrassment.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-630.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -508,7 +433,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(667)\quad\= \emph{Lydia pocketed the change in her left pocket.} \\
+(667)\quad\= \emph{Lydia pocketed the change in her left pocket.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -519,7 +444,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(667)\quad\= \emph{Lydia pocketed the change in her left pocket.} \\
+(667)\quad\= \emph{Lydia pocketed the change in her left pocket.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -530,7 +455,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(686)\quad\= \emph{Donna grilled me steaks.} \\
+(686)\quad\= \emph{Donna grilled me steaks.} \\*
 
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-686.sem}.jpg}}
@@ -542,7 +467,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(688)\quad\= \emph{The dealer valued the book.} \\
+(688)\quad\= \emph{The dealer valued the book.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-688.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -554,7 +479,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(746)\quad\= \emph{Tom jumped the horse over the fence.} \\
+(746)\quad\= \emph{Tom jumped the horse over the fence.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-746.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -566,7 +491,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(750)\quad\= \emph{The horse jumped the stream.} \\
+(750)\quad\= \emph{The horse jumped the stream.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-750.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -577,7 +502,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(777)\quad\= \emph{Version générée: TransCanada is shifting its HQ to Calgary from Toronto.} \\
+(777)\quad\= \emph{Version générée: TransCanada is shifting its HQ to Calgary from Toronto.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -588,7 +513,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(777)\quad\= \emph{Version attendue: TransCanada is shifting its HQ to Calgary from Toronto.} \\
+(777)\quad\= \emph{Version attendue: TransCanada is shifting its HQ to Calgary from Toronto.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -599,7 +524,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(789)\quad\= \emph{The crew spotted the island.} \\
+(789)\quad\= \emph{The crew spotted the island.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-789.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -610,7 +535,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(836)\quad\= \emph{The thief stole the paint for Mary.} \\
+(836)\quad\= \emph{The thief stole the paint for Mary.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-836.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -622,7 +547,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(843)\quad\= \emph{I ended the party with a speech.} \\
+(843)\quad\= \emph{I ended the party with a speech.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-843.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -633,7 +558,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(845)\quad\= \emph{Winnie the Pooh subjugated the unfortunate Pixies.} \\
+(845)\quad\= \emph{Winnie the Pooh subjugated the unfortunate Pixies.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-845.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -645,7 +570,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(851)\quad\= \emph{The streets gushed with water.} \\
+(851)\quad\= \emph{The streets gushed with water.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-851.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -656,7 +581,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(862)\quad\= \emph{The sailor drowned.} \\
+(862)\quad\= \emph{The sailor drowned.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-862.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -667,7 +592,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(868)\quad\= \emph{Bees are swarming in the garden.} \\
+(868)\quad\= \emph{Bees are swarming in the garden.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-868.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -678,7 +603,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(873)\quad\= \emph{Paula swatted the fly with a cloth.} \\
+(873)\quad\= \emph{Paula swatted the fly with a cloth.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-873.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -689,7 +614,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(894)\quad\= \emph{Ellen told me a story.} \\
+(894)\quad\= \emph{Ellen told me a story.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-894.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -700,7 +625,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(900)\quad\= \emph{Steve tossed the ball from the corner to the garden.} \\
+(900)\quad\= \emph{Steve tossed the ball from the corner to the garden.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-900.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -711,7 +636,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(955)\quad\= \emph{Version générée: Linda winked her eye.} \\
+(955)\quad\= \emph{Version générée: Linda winked her eye.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-955.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -722,7 +647,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(955)\quad\= \emph{Version attendue: Linda winked her eye.} \\
+(955)\quad\= \emph{Version attendue: Linda winked her eye.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-955.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -733,7 +658,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(968)\quad\= \emph{Barry Cryer erased the writing.} \\
+(968)\quad\= \emph{Barry Cryer erased the writing.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-968.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -745,7 +670,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 
 
 \begin{tabbing}
-(974.1)\quad\= \emph{Version générée: He backed out of going on the trip.} \\
+(974.1)\quad\= \emph{Version générée: He backed out of going on the trip.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -756,7 +681,7 @@ Voici l'échantillon grâce auquel nous avons évalué l'intégration de VerbNet
 \end{tabbing}
 
 \begin{tabbing}
-(974.2)\quad\= \emph{Version attendue: He backed out of going on the trip.} \\
+(974.2)\quad\= \emph{Version attendue: He backed out of going on the trip.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}

@@ -6,6 +6,8 @@ Voici l'échantillon utilisé pour l'évaluation de notre implémentation (voir 
 
 Parmi cet échantillon, certaines structures contiennent un n\oe{}ud étiqueté d'un \emph{X} suivi d'un chiffre. Ces n\oe{}uds représentent un sujet implicite en syntaxe profonde. Ces \scare{n\oe{}uds fantômes} facilitent la création de la structure syntaxique profonde mais disparaissent en syntaxe de surface. Finalement, notez que les auxiliaires ne sont pas réalisés en syntaxe de surface. Comme ce n'était pas l'objet de notre projet, nous n'avons pas développé une règle de grammaire réalisant les auxiliaires en surface.
 
+\newpage
+
 \begin{tabbing}
 (17)\quad\= \emph{I loved writing.} \\*
 \> \begin{minipage}{16cm}
@@ -123,28 +125,8 @@ Parmi cet échantillon, certaines structures contiennent un n\oe{}ud étiqueté 
 \end{minipage}
 \end{tabbing}
 
-
-\begin{tabbing}
-(213)\quad\= \emph{The prime minister complained to the former president about U.S. interference} \\*
-          \> \emph{in his country’s affairs.} \\*
-\> \begin{minipage}{16cm}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.sem}.jpg}}
-\raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.dsynt}.jpg}}
-\\*
-\raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\colorbox{YellowOrange}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.ssynt}.jpg}}}
-% \end{minipage}
-% \\
-% \> \begin{minipage}{16cm}
-% \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.sem}.jpg}}
-% \raisebox{-0.5\height}{~$\Rightarrow$~}
-% \raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.dsynt}.jpg}}
-\\*
-\raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\colorbox{Green}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.3.ssynt}.jpg}}}
-\end{minipage}
-\end{tabbing}
+\noindent
+(213)\quad(déplacée à la fin de l'annexe)
 
 \begin{tabbing}
 (222)\quad\= \emph{The Milky Way comprises more than 100 billion planets.} \\*
@@ -432,7 +414,7 @@ Parmi cet échantillon, certaines structures contiennent un n\oe{}ud étiqueté 
 % \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.sem}.jpg}}
 % \raisebox{-0.5\height}{~$\Rightarrow$~}
 % \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.dsynt}.jpg}}
-%\\*
+\\*
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\colorbox{Green}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.2.ssynt}.jpg}}}
 \end{minipage}
@@ -445,6 +427,7 @@ Parmi cet échantillon, certaines structures contiennent un n\oe{}ud étiqueté 
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-686.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-686.dsynt}.jpg}}
+\\*
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-686.ssynt}.jpg}}
 \end{minipage}
@@ -651,7 +634,7 @@ Parmi cet échantillon, certaines structures contiennent un n\oe{}ud étiqueté 
 
 
 \begin{tabbing}
-(974.1)\quad\= \emph{He backed out of going on the trip.} \\*
+(974)\quad\= \emph{He backed out of going on the trip.} \\*
 \> \begin{minipage}{16cm}
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-974.sem}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
@@ -666,5 +649,27 @@ Parmi cet échantillon, certaines structures contiennent un n\oe{}ud étiqueté 
 \raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-974.2.dsynt}.jpg}}
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\colorbox{Green}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-974.2.ssynt}.jpg}}}
+\end{minipage}
+\end{tabbing}
+
+\begin{tabbing}
+(213)\quad\= \emph{The prime minister complained to the former president about U.S. interference} \\*
+          \> \emph{in his country’s affairs.} \\*
+\> \begin{minipage}{16cm}
+\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.sem}.jpg}}
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.dsynt}.jpg}}
+\\*
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\colorbox{YellowOrange}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.ssynt}.jpg}}}
+% \end{minipage}
+% \\
+% \> \begin{minipage}{16cm}
+% \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-213.sem}.jpg}}
+% \raisebox{-0.5\height}{~$\Rightarrow$~}
+% \raisebox{-0.5\height}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.dsynt}.jpg}}
+\\*
+\raisebox{-0.5\height}{~$\Rightarrow$~}
+\raisebox{-0.5\height}{\colorbox{Green}{\includegraphics[scale=0.55]{{annexes/figs/test-eval-213.3.ssynt}.jpg}}}
 \end{minipage}
 \end{tabbing}

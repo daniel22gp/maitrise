@@ -123,8 +123,6 @@ Les auteurs de VerbNet se sont fortement inspirés de Acquilex Lexical Knowledge
 Cela a entraîné la création des sous-classes qui héritent de tout le contenu lexical de leur classe mère. Elles ont été créées pour spécifier qu'un sous-ensemble de verbes issus d'une classe mère montrent des comportements syntaxiques différents du reste de la classe. Ceux-ci comprennent: les constructions syntaxiques, les prédicats sémantiques et les restrictions sélectionnelles sur les rôles thématiques \citep{SchulerVerbnetBroadcoverageComprehensive2005}. Prenons un exemple tiré de VerbNet pour illustrer cette hiérarchie à plusieurs niveaux \citep{CLEARVerbNetAnnotationGuidelines2005}.
 
 \begin{figure}[htb]
-  \caption{Hiérarchie des classes verbales dans VerbNet}
-	\label{hierarch}
 \begin{lstlisting}[language=XML]
 <VNCLASS ID="spray-9.7">
     <SUBCLASSES>
@@ -136,6 +134,8 @@ Cela a entraîné la création des sous-classes qui héritent de tout le contenu
     </SUBCLASSES>
 </VNCLASS>
 \end{lstlisting}
+\caption{Hiérarchie des classes verbales dans VerbNet}
+\label{hierarch}
 \end{figure}
 
 \texttt{Spray-9.7} (illustré à la figure~\ref{hierarch}) est le nom de la classe qui englobe toutes les autres ici. À l'intérieur de celle-ci, on spécifie tous les membres appartenant à cette classe, les rôles thématiques, les cadres syntaxiques et les prédicats sémantiques. Puis \texttt{Spray-9.7-1} représente un sous-ensemble de \texttt{Spray-9.7} dont les comportements syntaxiques lui sont propres .  Puis, \texttt{Spray-9.7-1-1} est une sous-classe d'une sous-classe, et ainsi de suite. Elle héritera des traits de sa classe mère ainsi que de la classe qui domine sa classe mère. Finalement \texttt{Spray-9.7-2} est la classe sœur de \texttt{Spray-9.7-1} donc, elle hérite aussi des traits de \texttt{Spray-9.7} mais ne partage pas les particularités de \texttt{Spray-9.7-1}.
@@ -161,8 +161,6 @@ Traditionnellement, les entrées lexicales dans un dictionnaire représentent un
 Concrètement, cette information est encodée directement dans les entrées lexicales de VerbNet en \emph{XML}. La figure~\ref{membre} montre à quoi ressemble la section \texttt{<MEMBERS>}. On voit que \lex{deal, lend, loan, pass, peddle} et \lex{refund} sont les membres de la classe \texttt{give-13.1}.
 
 \begin{figure}[htb]
-  \caption{Les membres d'une classe verbale}
-	\label{membre}
 \begin{lstlisting}[language=XML]
 <VNCLASS ID="give-13.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="vn_schema-3.xsd">
@@ -176,6 +174,8 @@ Concrètement, cette information est encodée directement dans les entrées lexi
         <MEMBER name="render"/>
     </MEMBERS>
 \end{lstlisting}
+\caption{Les membres d'une classe verbale}
+\label{membre}
 \end{figure}
 
 \subsubsection{Rôles thématiques}
@@ -187,8 +187,6 @@ Les rôles thématiques utilisés dans VerbNet sont: \texttt{actor, agent, asset
 Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>| de chaque classe verbale, ce qu'on peut voir à la figure~\ref{rolestheta}. Une section \lstinline|<THEMROLES>| peut revenir dans une sous-classe lorsque celle-ci possède des rôles thématiques plus spécifiques à cette sous-classe de verbes. Ils sont ensuite mappés sur les arguments dans les cadres syntaxiques et sémantiques (qu'on peut voir aux figure~\ref{cadresynt} et \ref{cadresem}).
 
 \begin{figure}[htb]
-  \caption{Les rôles thématiques}
-	\label{rolestheta}
 \begin{lstlisting}[language=XML]
     <THEMROLES>
         <THEMROLE type="Agent">
@@ -208,6 +206,8 @@ Les rôles thématiques sont listés dans la section \lstinline|<THEMROLES>| de 
         </THEMROLE>
     </THEMROLES>
 \end{lstlisting}
+\caption{Les rôles thématiques}
+\label{rolestheta}
 \end{figure}
 
 Pour les besoins de notre travail, nous n'utilisons pas les rôles thématiques puisqu'ils sont incompatibles avec la théorie Sens-Texte. Toutefois, nous voulions souligner qu'ils avaient une importance sémantique pour les créateurs de VerbNet. \cite{mel2012semantics} souligne que les rôles thématiques contiennent des failles importantes pour identifier les arguments d'un prédicat. C'est pourquoi la théorie Sens-Texte fait appel à une autre méthode: les actants sémantiques. Dans ce cadre théorique, la relation prédicat-argument est représentée en étiquettant le n\oe{}ud sémantique qui lie un prédicat à son argument. Puisqu'un prédicat peut gouverner plusieurs arguments, chaque relation de dépendance se doit d'être distinguable. Une numérotation des arcs est donc effectuée pour remplir ce besoin, mais tel que \cite[pp.~227--234]{mel2012semantics} le précise, les chiffres sur ces arcs ne sont pas porteurs de sens car ils n'aident qu'à distinguer les différents arguments d'un prédicat. 
@@ -216,8 +216,6 @@ Pour les besoins de notre travail, nous n'utilisons pas les rôles thématiques 
 Les restrictions sélectionnelles s'ajoutent aux rôles thématiques. Ces traits imposent des contraintes aux arguments possibles pour un patron de régime donné. Dans l'exemple fourni à la figure~\ref{fig:restrictionsel}, on remarquera que l'\texttt{Agent} doit être soit un être animé, soit une organisation.
 
 \begin{figure}[htb]
- \caption{Les restrictions sélectionnelles sur les rôles thématiques}
- \label{fig:restrictionsel}
 \begin{lstlisting}[language=Xml]
     <THEMROLES>
         <THEMROLE type="Agent">
@@ -227,6 +225,8 @@ Les restrictions sélectionnelles s'ajoutent aux rôles thématiques. Ces traits
             </SELRESTRS>
         </THEMROLE>
 \end{lstlisting}
+\caption{Les restrictions sélectionnelles sur les rôles thématiques}
+\label{fig:restrictionsel}
 \end{figure}
 
 \subsubsection{Cadres syntaxiques}
@@ -238,8 +238,6 @@ Nous avons choisi VerbNet car nous voulions un dictionnaire qui énumère exhaus
 Le cadre syntaxique \ref{cadresynt} ci-dessous provient de la classe verbale \texttt{give-13.1}. Ce cadre permet la réalisation de surface \form{They lent a bicycle to me}. \lex{they} est le \lstinline{<NP value=``Agent''>}, \lex{lend} est le \lstinline{<VERB/>}, \lex{bicycle} est le \lstinline{<NP value=``Theme''>} et \lex{me} est le \lstinline{<NP value=``Recipient''>}.
 
 \begin{figure}[htb]
-  \caption{Cadres syntaxiques}
-	\label{cadresynt}
 \begin{lstlisting}[language=Xml]
 
             <SYNTAX>
@@ -258,14 +256,14 @@ Le cadre syntaxique \ref{cadresynt} ci-dessous provient de la classe verbale \te
                 </NP>
             </SYNTAX>
 \end{lstlisting}
+\caption{Cadres syntaxiques}
+\label{cadresynt}
 \end{figure}
 
 \subsubsection{Prédicats sémantiques}
 Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageComprehensive2005} remarque que plusieurs dictionnaires pour le \ac{TAL} manquent d'information sémantique. C'est pourquoi elle a inséré un segment sémantique à VerbNet: \lstinline{<SEMANTICS>} (illustré à la figure~\ref{cadresem}). Cette section est constituée d'une suite de prédicats sémantiques. Chaque prédicat est décrit par une liste d'arguments qui sont, à leur tour, décrits par deux caractéristiques: \emph{type} et \emph{value}. Le cadre sémantique ci-dessous complémente le cadre syntaxique que nous venons d'exposer à la figure \ref{cadresynt}. Il décrit à la fois \form{They lent a bicycle to me} et \form{They lent me a bicycle}.
 
 \begin{figure}[htb]
-  \caption{Section \texttt{<SEMANTICS>} de VerbNet}
-	\label{cadresem}
 \begin{lstlisting}[language=Xml]
 <SEMANTICS>
                 <PRED value="has_possession">
@@ -296,6 +294,8 @@ Dans la revue de littérature de sa thèse, \cite{SchulerVerbnetBroadcoverageCom
                 </PRED>
             </SEMANTICS>
 \end{lstlisting}
+\caption{Section \texttt{<SEMANTICS>} de VerbNet}
+\label{cadresem}
 \end{figure}
 
 Cela conclut notre présentation des composantes de VerbNet. Pour plus d'informations, voir la thèse de \cite{SchulerVerbnetBroadcoverageComprehensive2005} et le guide d'annotation\footnote{\url{https://verbs.colorado.edu/verb-index/VerbNet_Guidelines.pdf}, 15-02-18}.

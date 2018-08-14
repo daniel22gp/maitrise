@@ -25,8 +25,8 @@ verb {
   spos = verb
 }
 \end{lstlisting}
-  \caption{Traits de la classe abstraite \texttt{VERB}}
-	\label{fig:classeverb}
+\caption{Traits de la classe abstraite \texttt{VERB}}
+\label{fig:classeverb}
 \end{figure}
 
 Ensuite, nous avons extrait les verbes compris dans toutes les classes verbales de VerbNet et nous les avons aussi soumis à ce mécanisme (figure~\ref{fig:membreclasse}). Ainsi, chaque membre pointe vers une classe verbale dont il héritera les traits. Par exemple, les lexèmes \lex{absorb}, \lex{ingest} et \lex{take in} héritent tous les trois des traits spécifiés dans la classe verbale \texttt{absorb-39.8}. Cela nous permet de traiter 6\,393 acceptions sans avoir à décrire leur comportement syntaxique complet, simplement en pointant vers la bonne classe, telle qu'indiquée dans VerbNet. L'ajout de nouveaux verbes consisterait essentiellement à trouver à quelle classe ils appartiennent.
@@ -37,8 +37,8 @@ absorb: "absorb-39.8"
 take_in: "absorb-39.8"
 ingest_1: "absorb-39.8"
 \end{lstlisting}
-  \caption{Membres verbaux pointant vers leur classe}
-	\label{fig:membreclasse}
+\caption{Membres verbaux pointant vers leur classe}
+\label{fig:membreclasse}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -67,8 +67,8 @@ ingest_1: "absorb-39.8"
 		<FRAME>
          ...
 \end{lstlisting}
- \caption{Input du script: cadres syntaxiques imbriqués dans les fichiers VerbNet}
- \label{fig:input-absorb}
+\caption{Input du script: cadres syntaxiques imbriqués dans les fichiers VerbNet}
+\label{fig:input-absorb}
 \end{figure}
 
 \begin{figure}[htb]
@@ -79,8 +79,8 @@ lexicon {
   gp = { id=NP_V_NP_PP_from_source         dia=x } // Cattle take in nutrients from their feed.
 }
 \end{lstlisting}
-  \caption{Output du script: propriétés de la classe verbale \texttt{absorb-39.8}}
-	\label{fig:output-absorb}
+\caption{Output du script: propriétés de la classe verbale \texttt{absorb-39.8}}
+\label{fig:output-absorb}
 \end{figure}
 
 Nous avons divisé la description du premier script en trois blocs pour en faciliter la compréhension et nous illustrons à l'aide des figures~\ref{fig:input-absorb} et \ref{fig:output-absorb} le type de données que le script prend en entrée et ce qu'il produit en sortie.
@@ -99,8 +99,8 @@ def supers(t, i):
             sc = {**sc, **supers(sub, ID)} # it'll point towards the class it's being dominated by.
     return sc
 \end{lstlisting}
-  \caption{Importation de l'architecture des classes verbales}
-	\label{fig:archivn-bloc1}
+\caption{Importation de l'architecture des classes verbales}
+\label{fig:archivn-bloc1}
 \end{figure}
 
 L'objectif de la fonction \emph{supers} (présentée à la figure~\ref{fig:archivn-bloc1}) est de recréer l'architecture de VerbNet pour pouvoir l'intégrer à GenDR. Cette fonction récursive récupère l'identifiant d'une classe, puis de toutes les sous-classes imbriquées sous elle. Ensuite, \textbf{la fonction} crée un dictionnaire\footnote{Un \scare{dictionnaire} en Python est un type de structure de données, des paires de clé et de valeur non-ordonnées. Il ne faut pas les confondre avec les dictionnaires de langue.} Python dont la clé correspond à l'identifiant d'une classe fille et la valeur est l'identifiant de sa classe mère. Cette configuration correspond à celle qui est nécessaire à GenDR pour l'application du mécanisme qui nous permettra de transmettre les attributs d'une classe mère à une classe fille. Par exemple, cette fonction produit \lstinline|"begin-55.1-1": "begin-55.1"|, ce qui indique que \texttt{begin-55.1-1} hérite des traits de la classe \texttt{begin-55.1}.
@@ -140,8 +140,8 @@ def treeframes(t):
     subframes = sum(subframes, []) # flatten list of lists
     return [(ID, z)] + subframes # returns list of (sub)class, GP-identification and example
 \end{lstlisting}
-  \caption{Création du dictionnaire de classes verbales}
-	\label{fig:archivn-bloc2}
+\caption{Création du dictionnaire de classes verbales}
+\label{fig:archivn-bloc2}
 \end{figure}
 
 L'objectif de la fonction \emph{treeframes} (figure~\ref{fig:archivn-bloc2}) est de récupérer, pour chaque classe VerbNet, l'identifiant de la classe verbale, les identifiants des patrons de régime compris sous celle-ci et une phrase exemple. Ainsi, cette fonction retourne un couple dont le deuxième élément est un couple: \texttt{(ID classe verbale, (ID \ac{GP}, exemple))}, ce qui se traduit concrètement par cela:\lstinline|('spray-9.7', ('NP_V_NP_destination', 'Jessica sprayed the wall'))|. Dans cet exemple, l'étiquette \lstinline|NP_V_NP_destination| correspond à la fois à la description d'un patron de régime et à son identifiant.
@@ -170,8 +170,8 @@ with open('lexicon.dict','w') as f: # write the output into lexicon.dict
             f.write('\n}\n') # GPs will have attributes: id and dia
     f.write('\n}')
 \end{lstlisting}
-  \caption{Écriture des données dans le fichier \emph{lexicon.dict}}
-	\label{fig:archivn-bloc3}
+\caption{Écriture des données dans le fichier \emph{lexicon.dict}}
+\label{fig:archivn-bloc3}
 \end{figure}
 
 L'objectif de ce dernier bloc de code (voir la figure~\ref{fig:archivn-bloc3}) est de créer un fichier qui contiendra le résultat des deux fonctions sur l'ensemble des données de VerbNet. Pour procéder, nous ouvrons un fichier appellé \emph{lexicon.dict} dans lequel nous écrirons les informations de VerbNet concernant les cadres syntaxiques et les classes verbales de VerbNet manipulés grâces aux fonctions \emph{treeframes} et \emph{supers}. Le produit de ce bloc correspondra à la section \texttt{VERBNET CLASSES} du nouveau \emph{lexicon} de GenDR.
@@ -193,8 +193,8 @@ Maintenant que nous avons complété la section \texttt{VERBNET CLASSES} de notr
         <MEMBER name="take_in">
     </MEMBERS>
 \end{lstlisting}
-  \caption{Input du script: verbes correspondant aux membres d'une classe verbale}
-	\label{fig:member-absorb}
+\caption{Input du script: verbes correspondant aux membres d'une classe verbale}
+\label{fig:member-absorb}
 \end{figure}
 
 \begin{figure}[htb]
@@ -205,8 +205,8 @@ abridge : "other_cos-45.4"
 absolve : "free-80-1"
 absorb : "absorb-39.8"
 \end{lstlisting}
-  \caption{Output du script: lexèmes pointant vers une classe verbale}
-	\label{fig:member-output-absorb}
+\caption{Output du script: lexèmes pointant vers une classe verbale}
+\label{fig:member-output-absorb}
 \end{figure}
 
 \subsubsection{Récupérer les verbes}
@@ -351,8 +351,6 @@ against_N = 'rel=oblique dpos=N prep=against'
 L'objectif de la combinaison des fonctions \emph{roman} et \emph{gp} est d'assigner les relations syntaxiques profondes aux actants selon leur position dans un \ac{GP} (voir la figure~\ref{fig:assignationrel}). Par exemple, dans \lstinline|NP_agent_V_NP: [subj, dir_N]|, puisque \texttt{dir\_N} est à la deuxième position, les propriétés qu'il renferme seront celles de l'actant syntaxique \texttt{II}. Cela permet de générer le patron de régime \lstinline|NP_agent_V_NP { I={rel=subjective dpos=N}| \lstinline|II={rel=dir_objective dpos=N} }|, qui est le format attendu dans GenDR. De plus, on dédouble le même actant syntaxique pour un \ac{GP} dont l'un des actants syntaxiques se réalise à l'aide de deux prépositions différentes. Cela est illustré par le \ac{GP} \lstinline|NP_asset_V_NP_PP_from_out_of| qu'on a décrit à l'aide des objets \lstinline|[subj, dir_N, [from_N, out_of_N]]|. Cela nous donne \lstinline| III={rel=oblique dpos=N| \lstinline|prep=from}| et \lstinline|III={rel=oblique dpos=N prep="out of"}| pour le troisième actant syntaxique.
 
 \begin{figure}[htb]
-  \caption{Assignation des relations syntaxiques profondes aux actants et construction des patrons de régime}
-	\label{fig:assignationrel}
 \begin{lstlisting}[language=Python]
 # BLOCK 2.1 ASSIGN SYNTACTIC LABEL to ACTANT
 def roman(n):
@@ -377,6 +375,8 @@ descriptions = {
 'NP_asset_V_NP_PP_from_out_of': [subj, dir_N, [from_N, out_of_N]],
 ...
 \end{lstlisting}
+\caption{Assignation des relations syntaxiques profondes aux actants et construction des patrons de régime}
+\label{fig:assignationrel}
 \end{figure}
 
 \subsection{Création du \emph{gpcon}}
@@ -384,8 +384,6 @@ descriptions = {
 Finalement, il ne nous reste qu'à créer le fichier \emph{gpcon.dict} (figure~\ref{fig:creationgpcon}) qui renfermera tous les \ac{GP}. Donc, nous appliquons la fonction \emph{gp} à chaque description (\lstinline|ex: 'NP_agent_V_NP'|) pour que le contenu des objets (\lstinline|[subj, dir_N]|) se fassent assigner une étiquette syntaxique (\lstinline|I ='rel=subjective dpos=N'|, \lstinline|II = dir_N = 'rel=dir_objective dpos=N'|). Un exemple du contenu final de ce dictionnaire est illustré à la figure~\ref{fig:4entries-gpcon}.
 
 \begin{figure}[htb]
-  \caption{Création du dictionnaire de patrons de régime}
-	\label{fig:creationgpcon}
 \begin{lstlisting}[language=Python]
 # BLOCK 3 GPCON CREATION
 with open('gpcon.dict','w') as f: 
@@ -394,6 +392,8 @@ with open('gpcon.dict','w') as f:
         f.write(gp(d, descriptions[d])) # write them with the correct syntactic label
     f.write('}')
 \end{lstlisting}
+\caption{Création du dictionnaire de patrons de régime}
+\label{fig:creationgpcon}
 \end{figure}
 
 

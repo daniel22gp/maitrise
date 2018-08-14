@@ -294,7 +294,7 @@ On lexicalise tous les n\oe{}uds puisqu'ils en respectent les contraintes. Le sy
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 3.6cm 0cm 4.6cm},clip]{ch6/figs/actant_gp_lexical.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 3.6cm 0cm 4.3cm},clip]{ch6/figs/actant_gp_lexical.pdf}
 	\caption{Lexicalisation des n\oe{}uds contraints: \emph{lex\_standard}}
 	\label{deroulement3}
 \end{figure}
@@ -302,7 +302,7 @@ On lexicalise tous les n\oe{}uds puisqu'ils en respectent les contraintes. Le sy
 \subsection{Application de la règle \emph{actant\_gp\_selection}}
 Finalement, la règle \emph{actant\_gp\_selection} est sollicitée pour les trois n\oe{}uds nouvellement lexicalisés \lex{teacher}, \lex{student} et \lex{history} (bien que l'arbre profond semble complet à cette étape). Comme toutes les catégories syntaxiques du lexique ont des patrons de régime, le système récupère systématiquement les traits \texttt{id} et \texttt{dia} de chaque lexème dans l'arbre au cas où ceux-ci sélectionneraient des actants à leur tour. Ce qui n'est pas le cas dans cet exemple (voir la figure~\ref{deroulement4}).
 
-En ce qui concerne \textbf{l'arborisation de surface}, nous n'élaborerons pas sur cette partie puisqu'elle est quasi-identique à celle que nous avons vue dans la section \ref{sec:exemple} de GenDR. Les lexicalisations de surface sont effectuées par la même règle que nous avons expliquée, de même que la règle qui introduit les déterminants. Seules les règles actancielles de surface ont quelque peu changé, car elles puisent dorénavant l'information sur la correspondance entre les actants syntaxiques et les relations de surface qu'elles imposent (et le choix des prépositions) dans le \emph{gpcon}, alors que dans la version originale, le tout était encodé à même le \emph{lexicon}.
+En ce qui concerne \textbf{l'arborisation de surface}, nous n'élaborerons pas sur cette partie puisqu'elle est quasi identique à celle que nous avons vue dans la section \ref{sec:exemple}. Les lexicalisations de surface sont effectuées par la même règle que nous avons expliquée, de même que la règle qui introduit les déterminants. Seules les règles actancielles de surface ont quelque peu changé, car elles puisent dorénavant l'information sur la correspondance entre les actants syntaxiques et les relations de surface qu'elles imposent (et le choix des prépositions) dans le \emph{gpcon}, alors que dans la version originale, le tout était encodé à même le \emph{lexicon}.
 
 \begin{figure}[htb]
 	\centering

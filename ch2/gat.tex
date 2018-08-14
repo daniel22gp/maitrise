@@ -26,7 +26,7 @@ Selon \cite{ReiterBuildingNaturalLanguage2000}, un système de \ac{GAT} se déco
 
 \begin{figure}[htb] % utilise toujours [htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch2/figs/pipeline.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 5cm 0cm 0cm},clip]{ch2/figs/pipeline.pdf}
 	\caption{Pipeline classique, tiré de \citep{ReiterBuildingNaturalLanguage2000}}
 	\label{fig:Pipeline}
 \end{figure}
@@ -127,8 +127,7 @@ JSrealB (pour \emph{JavaScript Realiser Bilingual}) \citep{DBLP:conf/enlg/Molins
 Pour générer du texte, ce réalisateur prend en input des structures syntaxiques lexicalisées. Dans ce système, la construction de la phrase découle de l'application de règles syntaxiques et morphologiques déclenchées par les lexèmes. De plus, JSrealB fonctionne aussi avec un dictionnaire et une grammaire. Son dictionnaire définit la catégorie des lexèmes qui le peuplent et leurs traits lexicaux (genre, nombre, irrégularités, etc.), puis sa grammaire contient des règles morpho-syntaxiques qui lui permettent de faire l'accord entre les constituants. Finalement, il existe aussi une version bilingue de JSrealB \citep{MolinsJSrealBBilingualText2015} qui incorpore le français et l'anglais. L'input qu'illustre la figure~\ref{jsreal} permet au réalisateur de générer la phrase: \form{The cat sat on the couch}. Cet exemple est tiré du GitHub de JSrealB.\footnote{\url{https://github.com/rali-udem/JSrealB}}
 
 \begin{figure}[htb]
-\caption{Structure d'input réalisant \form{The cat sat on the couch} dans JSrealB}
-\label{jsreal}
+
 \begin{lstlisting}[language=mate]
 JSrealLoader({
         language: "en",
@@ -143,6 +142,8 @@ JSrealLoader({
                 VP(V("sit"), PP(P("on"), NP(D("the"), N("couch")))).t("ps")
             )
 \end{lstlisting}
+\caption{Structure d'input réalisant \form{The cat sat on the couch} dans JSrealB}
+\label{jsreal}
 \end{figure}
 		
 \subsubsection{RealPro}
@@ -190,8 +191,6 @@ La grammaire de ce système est implémentée à la manière d'un réseau orient
 Les informations comprises dans les inputs de ce système sont d'ordre sémantique et syntaxique. Ainsi, l'input de KPML est un \ac{SPL}, ce qui est une matrice d'attributs et de valeurs. La figure~\ref{kpml} illustre un \ac{SPL} et elle est issue de \cite{ReiterBuildingNaturalLanguage2000}.
 
 \begin{figure}[htb]
-\caption{SPL: input pour réaliser \form{March had some rainy days} dans KPML}
-\label{kpml}
 \begin{lstlisting}[language=mate]
 (S1 \ generalized-possession
   :tense past 
@@ -205,6 +204,8 @@ Les informations comprises dans les inputs de ce système sont d'ordre sémantiq
 						 :property ascription
 						 (A1 \ quality :lex rainy)))
 \end{lstlisting}
+\caption{SPL: input pour réaliser \form{March had some rainy days} dans KPML}
+\label{kpml}
 \end{figure}
 
 \subsubsection{SURGE}
@@ -248,7 +249,7 @@ Nous expliquerons brièvement ici les mécanismes qui permettent la transition d
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch2/figs/module.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 2cm 0cm 0cm},clip]{ch2/figs/module.pdf}
 	\caption{Combinaison des règles et dictionnaires pour effectuer les transductions de graphes \citep{LambreyImplementationcollocationspour2017}}
 	\label{fig:reglesdict}
 \end{figure}

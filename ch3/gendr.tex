@@ -30,12 +30,12 @@ GenDR utilise trois dictionnaires pour décrire le vocabulaire qui sera utilisé
 \textbf{Le dictionnaire sémantique}, qu'on appelle \emph{semanticon} (illustré à la figure~\ref{fig:semanticon}), est utilisé par le système lors du passage de la \ac{RSem} à la \ac{RSyntP}. Cette ressource décrit les lexicalisations possibles pour un sémantème donné. C'est une source importante de paraphrasage puisqu'une unité sémantique peut souvent se réaliser de plus d'une manière. Par exemple, en anglais, le sens \sem{owe} peut se réaliser par les lexèmes \lex{owe} (un verbe) et \lex{debt} (un nom).
 
 \begin{figure}
-  \caption{Échantillon du \emph{semanticon}}
-	\label{fig:semanticon}
 \begin{lstlisting}[language=mate]
 owe { lex = owe
       lex = debt }
 \end{lstlisting}
+  \caption{Échantillon du \emph{semanticon}}
+	\label{fig:semanticon}
 \end{figure}
 
 \textbf{Le dictionnaire lexical}, appelé \emph{lexicon}, contient de l'information détaillée à propos des lexies d'une langue donnée. Les entrées contiennent: la \ac{DPOS}, la \ac{SPOS}, la diathèse et les \acp{GP}. Ces deux derniers concepts seront clarifiés à la fin du chapitre, section~\ref{sec:gp}, mais en résumé, la diathèse d'une lexie assure la correspondance entre ses actants sémantiques et ses actants syntaxiques, puis un \ac{GP} correspond à la description d'une construction syntaxique sélectionnée par un lexème.
@@ -45,8 +45,6 @@ Dans le \emph{lexicon}, ces propriétés (\ac{DPOS}, \ac{SPOS}, \ac{GP} et diath
 On peut aussi bloquer l'héritage de traits pour une entrée lexicale donnée. Par exemple, la figure~\ref{fig:lexicon} illustre que la lexie \lex{owe} permet deux \ac{DPOS} différentes pour le deuxième actant syntaxique qu'elle contrôle: \lstinline!gp={II={dpos=Num}}! et \lstinline!gp={II={dpos=N}}!. Elle permet ainsi la sélection d'un actant de type nominal ou numéral, ce qui ne fait pas partie du régime de la classe abstraite \texttt{verb\_dit}.
 
 \begin{figure}
-  \caption{Échantillon du \emph{lexicon}}
-	\label{fig:lexicon}
 \begin{lstlisting}[language=mate]
 predicate {
   gp = { 1 = I
@@ -91,6 +89,8 @@ owe : verb_dit {
   gp = { II = { dpos=N } }
 }
 \end{lstlisting}
+  \caption{Échantillon du \emph{lexicon}}
+	\label{fig:lexicon}
 \end{figure}
 
 Finalement, les dictionnaires anglais et français de GenDR contiennent les 1\,500 lexèmes les plus courants de chaque langue. Pour leur part, les dictionnaires lituanien \citep{dubinskaite17} et persan contiennent respectivement $\sim$180 et $\sim$60 lexèmes, assez pour tester le système.
@@ -128,8 +128,6 @@ Maitenant que nous avons fait un survol des dictionnaires et de la grammaire, il
 L'input du réalisateur GenDR est un graphe sémantique \citep{mel2012semantics} où les prédicats sont liés à leurs arguments par des relations numérotées qui indiquent la position logique de l'argument. La figure~\ref{fig:debt} montre comment on construit un graphe sémantique dans MATE.
 
 \begin{figure}
-  \caption{Graphe sémantique en mode textuel}
-	\label{fig:debt}
 \begin{lstlisting}[language=mate]
 structure Sem debt {
   S {
@@ -140,6 +138,8 @@ structure Sem debt {
     3-> bank {number=SG definiteness=DEF}}
     main-> owe } }
 \end{lstlisting}
+  \caption{Graphe sémantique en mode textuel}
+	\label{fig:debt}
 \end{figure}
 
 Toutefois, MATE offre aussi une version graphique pour encoder et visualiser les graphes (voir la figure~\ref{fig:graphesem}).
@@ -162,7 +162,7 @@ L'éditeur de graphes de MATE nous permet de construire les structures sémantiq
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1.1\textwidth, trim = {6cm 0cm 0cm 0cm},clip]{ch3/figs/6_real_surface.pdf}
+	\includegraphics[width=1.1\textwidth, trim = {6cm 0.5cm 0cm 0cm},clip]{ch3/figs/6_real_surface.pdf}
 	\caption{Six réalisations syntaxiques de surface \citep{lareau18}}
 	\label{fig:6realsurf}
 \end{figure}
@@ -190,7 +190,7 @@ Pour se rendre au \emph{Texte} final, le \emph{Sens} traverse de nombreux niveau
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch3/figs/polguere2.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 1cm 0cm 0cm},clip]{ch3/figs/polguere2.pdf}
 	\caption{Processus d'un modèle Sens-Texte \citep{PolgueretheorieSensTexte1998}}
 	\label{fig:processustst}
 \end{figure}

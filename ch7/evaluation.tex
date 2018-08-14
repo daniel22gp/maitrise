@@ -25,8 +25,6 @@ Nous avons mesuré le rappel en calculant le ratio entre le nombre de structures
 \[\text{Rappel} = \frac{\text{nombre de structures attendues générées}}{\text{nombre de structures attendues}}\]
 
 \begin{table}
-\caption{Évaluation du rappel}
-\label{fig:evaluationrappel}
 \begin{tabular}{lrr}
  % \hline
  % \multicolumn{3}{|c|}{Rappel} \\
@@ -43,6 +41,8 @@ Pourcentage global & 90\% \\
 Pourcentage GenDR & 100\% \\
 \bottomrule
 \end{tabular}
+\caption{Évaluation du rappel}
+\label{fig:evaluationrappel}
 \end{table}
 
 Les \textbf{silences dûs à VerbNet} proviennent de deux problèmes distincts. D'abord, c'est à cause d'un patron de régime non existant pour la classe verbale \texttt{"escape-51.1"} qui correspond à la classe verbale attitrée au lexème \lex{go\_2}. La structure 974, qui représente la phrase \form{He backed out of going on the trip} contient deux verbes: \lex{back out} et \lex{go\_2}, mais VerbNet n'a pas le patron de régime nécessaire au second verbe pour pouvoir réaliser \form{$X$ goes on a trip}. Ainsi, GenDR était dans l'impossibilité de réaliser la structure attendue puisqu'il nous manquait des informations sur la combinatoire de \lex{go\_2}. Il nous rendait des arbres de surface incomplets s'arrêtant à la lexicalisation de \lex{go\_2}, sans actants. Puis, le deuxième problème hérité de VerbNet concerne la structure 267 représentant la phrase \form{He converted to believing in Buddha}. L'erreur vient du fait qu'il n'existe aucun patron de régime dans VerbNet pour les unités lexicales \lex{believe\_1}, \lex{believe\_2} ou \lex{believe\_3} qui puisse réaliser la forme \form{$X$ believes in $Y$}, ce qui fait que la phrase ne peut pas être générée.
@@ -59,8 +59,6 @@ Pour mesurer la précision, nous avons mesuré le ratio entre le nombre de struc
 \[\text{Précision} = \frac{\text{nombre de structures correctes}}{\text{nombre de structures générées}}\]
 
 \begin{table}
-\caption{Évaluation de la précision}
-\label{fig:evaluationprecision}
 \begin{tabular}{lrr}
  \toprule
   & DSynt & SSynt\\
@@ -75,6 +73,8 @@ Pour mesurer la précision, nous avons mesuré le ratio entre le nombre de struc
  Pourcentage GenDR & 100\%  & 100\% \\
  \bottomrule
 \end{tabular}
+\caption{Évaluation de la précision}
+\label{fig:evaluationprecision}
 \end{table}
 
 Pour l'évaluation de la précision (voir la tableau~\ref{fig:evaluationprecision}), nous avons séparé les réalisations de la \ac{RSyntP} de celles de la \ac{RSyntS} car les résultats différaient concernant les erreurs dues à VerbNet. Cet écart provient du fait qu'il existe certaines \textbf{prépositions régies par le verbe} qui ne sont pas encore réalisées en syntaxe profonde, mais que lorsqu'elles sont réalisées en syntaxe de surface, elles \textbf{mènent à des incohérences}. Cela est une conséquence des \acp{GP} qui permettent à certains de leurs actants de se réaliser par plus d'une préposition. Le système génèrera alors autant d'arbres différents qu'il y a de choix de prépositions pour un actant donné. Mais très souvent, seule l'une d'entre elles produit une phrase grammaticale. Par exemple, en fournissant en input la structure 177, GenDR génère les phrases \form{The doctor cured pat of pneumonia} et \ungr\form{The doctor cured pat out of pneumonia}. La deuxième étant incohérente à cause de la présence de la préposition \lex{out of} qui rend la phrase agrammaticale. Nous constatons que sept erreurs en surface sont dues à ce phénomène.

@@ -19,26 +19,26 @@ Ce mécanisme permet à une entrée d'hériter des traits (patrons de régime, d
 Nous reprendrons ce mécanisme pour deux objectifs. D'abord, pour imiter l'architecture de VerbNet qui consiste à établir une hiérarchie entre les classes mères et leurs classes filles. Comme nous l'avons vu à la section \ref{sec:vnarchitecture}, les classes verbales sont hiérarchisées et les traits des classes dominantes sont transmis aux classes qu'elles gouvernent. Nous voulions donc transposer cette architecture à la section \texttt{VERBNET CLASSES}. Le but était de transmettre les \acp{GP} des classes mères aux classes filles grâce au mécanisme d'héritage. Puis, nous reprenons ce mécanisme pour transmettre les traits de partie du discours de la classe abstraite \texttt{VERB} afin d'éviter de répéter cette information pour chacune des classes verbales. Pour ce faire, on reprend le même concept qui lie les classes filles à leurs classes mères, mais cette fois-ci, on lie chaque classe mère à la classe abstraite \texttt{VERB} (illustré à la figure~\ref{fig:classeverb}). Ainsi, comme elle contient les traits de partie du discours \texttt{dpos} et \texttt{spos}, ils seront transmis à tous les lexèmes verbaux du dictionnaire.
 
 \begin{figure}[htb]
-  \caption{Traits de la classe abstraite \texttt{VERB}}
-	\label{fig:classeverb}
 \begin{lstlisting}[language=mate]
 verb {
   dpos = V
   spos = verb
 }
 \end{lstlisting}
+  \caption{Traits de la classe abstraite \texttt{VERB}}
+	\label{fig:classeverb}
 \end{figure}
 
 Ensuite, nous avons extrait les verbes compris dans toutes les classes verbales de VerbNet et nous les avons aussi soumis à ce mécanisme (figure~\ref{fig:membreclasse}). Ainsi, chaque membre pointe vers une classe verbale dont il héritera les traits. Par exemple, les lexèmes \lex{absorb}, \lex{ingest} et \lex{take in} héritent tous les trois des traits spécifiés dans la classe verbale \texttt{absorb-39.8}. Cela nous permet de traiter 6\,393 acceptions sans avoir à décrire leur comportement syntaxique complet, simplement en pointant vers la bonne classe, telle qu'indiquée dans VerbNet. L'ajout de nouveaux verbes consisterait essentiellement à trouver à quelle classe ils appartiennent.
 
 \begin{figure}[htb]
-  \caption{Membres verbaux pointant vers leur classe}
-	\label{fig:membreclasse}
 \begin{lstlisting}[language=mate]
 absorb: "absorb-39.8"
 take_in: "absorb-39.8"
 ingest_1: "absorb-39.8"
 \end{lstlisting}
+  \caption{Membres verbaux pointant vers leur classe}
+	\label{fig:membreclasse}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,8 +48,6 @@ ingest_1: "absorb-39.8"
 \subsection{Extraction de l'architecture de VerbNet}
 
 \begin{figure}[htb]
- \caption{Input du script: cadres syntaxiques imbriqués dans les fichiers VerbNet}
- \label{fig:input-absorb}
 \begin{lstlisting}[language=XML]
 <FRAMES>
         <FRAME>
@@ -69,11 +67,11 @@ ingest_1: "absorb-39.8"
 		<FRAME>
          ...
 \end{lstlisting}
+ \caption{Input du script: cadres syntaxiques imbriqués dans les fichiers VerbNet}
+ \label{fig:input-absorb}
 \end{figure}
 
 \begin{figure}[htb]
-  \caption{Output du script: propriétés de la classe verbale \texttt{absorb-39.8}}
-	\label{fig:output-absorb}
 \begin{lstlisting}[language=mate]
 lexicon {
 "absorb-39.8": verb {
@@ -81,6 +79,8 @@ lexicon {
   gp = { id=NP_V_NP_PP_from_source         dia=x } // Cattle take in nutrients from their feed.
 }
 \end{lstlisting}
+  \caption{Output du script: propriétés de la classe verbale \texttt{absorb-39.8}}
+	\label{fig:output-absorb}
 \end{figure}
 
 Nous avons divisé la description du premier script en trois blocs pour en faciliter la compréhension et nous illustrons à l'aide des figures~\ref{fig:input-absorb} et \ref{fig:output-absorb} le type de données que le script prend en entrée et ce qu'il produit en sortie.
@@ -88,8 +88,6 @@ Nous avons divisé la description du premier script en trois blocs pour en facil
 \subsubsection{Bloc 1: Hiérarchie des classes verbales}
 
 \begin{figure}[htb]
-  \caption{Importation de l'architecture des classes verbales}
-	\label{fig:archivn-bloc1}
 \begin{lstlisting}[language=Python]
 # BLOCK 1 : VERBNET HIERARCHY
 def supers(t, i):
@@ -101,6 +99,8 @@ def supers(t, i):
             sc = {**sc, **supers(sub, ID)} # it'll point towards the class it's being dominated by.
     return sc
 \end{lstlisting}
+  \caption{Importation de l'architecture des classes verbales}
+	\label{fig:archivn-bloc1}
 \end{figure}
 
 L'objectif de la fonction \emph{supers} (présentée à la figure~\ref{fig:archivn-bloc1}) est de recréer l'architecture de VerbNet pour pouvoir l'intégrer à GenDR. Cette fonction récursive récupère l'identifiant d'une classe, puis de toutes les sous-classes imbriquées sous elle. Ensuite, \textbf{la fonction} crée un dictionnaire\footnote{Un \scare{dictionnaire} en Python est un type de structure de données, des paires de clé et de valeur non-ordonnées. Il ne faut pas les confondre avec les dictionnaires de langue.} Python dont la clé correspond à l'identifiant d'une classe fille et la valeur est l'identifiant de sa classe mère. Cette configuration correspond à celle qui est nécessaire à GenDR pour l'application du mécanisme qui nous permettra de transmettre les attributs d'une classe mère à une classe fille. Par exemple, cette fonction produit \lstinline|"begin-55.1-1": "begin-55.1"|, ce qui indique que \texttt{begin-55.1-1} hérite des traits de la classe \texttt{begin-55.1}.
@@ -108,8 +108,6 @@ L'objectif de la fonction \emph{supers} (présentée à la figure~\ref{fig:archi
 \subsubsection{Bloc 2: Création du dictionnaire de classes verbales}
 
 \begin{figure}[htb]
-  \caption{Création du dictionnaire de classes verbales}
-	\label{fig:archivn-bloc2}
 \begin{lstlisting}[language=Python]
 # BLOCK 2 : EXTRACTION of GPS identification and EXAMPLES
 def treeframes(t):
@@ -142,6 +140,8 @@ def treeframes(t):
     subframes = sum(subframes, []) # flatten list of lists
     return [(ID, z)] + subframes # returns list of (sub)class, GP-identification and example
 \end{lstlisting}
+  \caption{Création du dictionnaire de classes verbales}
+	\label{fig:archivn-bloc2}
 \end{figure}
 
 L'objectif de la fonction \emph{treeframes} (figure~\ref{fig:archivn-bloc2}) est de récupérer, pour chaque classe VerbNet, l'identifiant de la classe verbale, les identifiants des patrons de régime compris sous celle-ci et une phrase exemple. Ainsi, cette fonction retourne un couple dont le deuxième élément est un couple: \texttt{(ID classe verbale, (ID \ac{GP}, exemple))}, ce qui se traduit concrètement par cela:\lstinline|('spray-9.7', ('NP_V_NP_destination', 'Jessica sprayed the wall'))|. Dans cet exemple, l'étiquette \lstinline|NP_V_NP_destination| correspond à la fois à la description d'un patron de régime et à son identifiant.
@@ -151,8 +151,6 @@ Pour ce faire, la fonction \emph{treeframes} récupère d'abord l'identifiant de
 \subsubsection{Bloc 3: Écriture des données dans le fichier \emph{lexicon.dict}}
 
 \begin{figure}[htb]
-  \caption{Écriture des données dans le fichier \emph{lexicon.dict}}
-	\label{fig:archivn-bloc3}
 \begin{lstlisting}[language=Python]		
 # BLOCK 3 : WRITING of the EXTRACTED INFORMATION in a FILE
 with open('lexicon.dict','w') as f: # write the output into lexicon.dict
@@ -172,6 +170,8 @@ with open('lexicon.dict','w') as f: # write the output into lexicon.dict
             f.write('\n}\n') # GPs will have attributes: id and dia
     f.write('\n}')
 \end{lstlisting}
+  \caption{Écriture des données dans le fichier \emph{lexicon.dict}}
+	\label{fig:archivn-bloc3}
 \end{figure}
 
 L'objectif de ce dernier bloc de code (voir la figure~\ref{fig:archivn-bloc3}) est de créer un fichier qui contiendra le résultat des deux fonctions sur l'ensemble des données de VerbNet. Pour procéder, nous ouvrons un fichier appellé \emph{lexicon.dict} dans lequel nous écrirons les informations de VerbNet concernant les cadres syntaxiques et les classes verbales de VerbNet manipulés grâces aux fonctions \emph{treeframes} et \emph{supers}. Le produit de ce bloc correspondra à la section \texttt{VERBNET CLASSES} du nouveau \emph{lexicon} de GenDR.
@@ -185,8 +185,6 @@ L'objectif de ce dernier bloc de code (voir la figure~\ref{fig:archivn-bloc3}) e
 Maintenant que nous avons complété la section \texttt{VERBNET CLASSES} de notre dictionnaire, il ne nous reste qu'à peupler le dictionnaire avec les verbes que VerbNet a décrits. De cette manière notre \emph{lexicon} pourra effectivement couvrir une partie importante du lexique anglais grâce au travail de \cite{SchulerVerbnetBroadcoverageComprehensive2005}, qui a associé plus de 6\,000 verbes à leur classe verbale. Lors de l'importation de ces verbes, nous procèderons aussi à leur désambiguïsation. Bien que Schuler ait distingué les différentes acceptions d'un même vocable en leur assignant des classes verbales différentes, la forme des verbes n'est pas désambiguïsée. Pour que GenDR reconnaisse chaque entrée verbale, elles doivent porter des étiquettes différentes.
 
 \begin{figure}[htb]
-  \caption{Input du script: verbes correspondant aux membres d'une classe verbale}
-	\label{fig:member-absorb}
 \begin{lstlisting}[language=XML]
 <VNCLASS ID="absorb-39.8" >
     <MEMBERS>
@@ -195,11 +193,11 @@ Maintenant que nous avons complété la section \texttt{VERBNET CLASSES} de notr
         <MEMBER name="take_in">
     </MEMBERS>
 \end{lstlisting}
+  \caption{Input du script: verbes correspondant aux membres d'une classe verbale}
+	\label{fig:member-absorb}
 \end{figure}
 
 \begin{figure}[htb]
-  \caption{Output du script: lexèmes pointant vers une classe verbale}
-	\label{fig:member-output-absorb}
 \begin{lstlisting}[language=mate]
 abound : "swarm-47.5.1-2-1"
 abrade : "other_cos-45.4"
@@ -207,14 +205,14 @@ abridge : "other_cos-45.4"
 absolve : "free-80-1"
 absorb : "absorb-39.8"
 \end{lstlisting}
+  \caption{Output du script: lexèmes pointant vers une classe verbale}
+	\label{fig:member-output-absorb}
 \end{figure}
 
 \subsubsection{Récupérer les verbes}
 L'objectif de la fonction \emph{treemember} (illustré à la figure~\ref{fig:scriptmember-bloc1}) est de récupérer les membres assignés à chaque classe et sous-classe verbale de VerbNet. Cette fonction récupère d'abord l'identifiant de la classe verbale, puis les membres qui lui sont associés. Finalement, la fonction retourne des paires de classes verbales et de membres. Par exemple, le script récupèrera deux fois le vocable \lex{order}, une fois comme \lstinline|{order : "get-13.5.1"}|, puis comme \lstinline|{order : "order-60-1"}|. À cette étape, nous venons de récupérer la désambiguïsation de VerbNet, mais elle ne s'insère pas dans notre dictionnaire puisque nous devons donner des noms différents à ces entrées. Les entrées et sorties de ce script sont présentés aux figures \ref{fig:member-absorb} et \ref{fig:member-output-absorb}.
 
 \begin{figure}[htb]
-  \caption{Récupération des verbes de VerbNet}
-	\label{fig:scriptmember-bloc1}
 \begin{lstlisting}[language=Python]
 #GET MEMBERS FROM VERBNET CLASSES
 def treemember(t):
@@ -227,6 +225,8 @@ def treemember(t):
             submembers = submembers + treemember(sub) # get ID of the subclass and members
     return [(ID, members )] + submembers
 \end{lstlisting}
+  \caption{Récupération des verbes de VerbNet}
+	\label{fig:scriptmember-bloc1}
 \end{figure}
 
 \subsubsection{Désambiguïser les noms des entrées}
@@ -234,8 +234,6 @@ def treemember(t):
 L'objectif de ce bloc (figure~\ref{fig:scriptmember-bloc2}) est de désambiguïser les noms des entrées des différentes acceptions d'un même vocable. Pour cela, nous avons extrait toutes les entrées homonymiques, puis nous les avons distinguées en leur assignant un numéro (ex.: \texttt{grill\_1}, \texttt{grill\_2}, \texttt{grill\_3}). Finalement, nous avons identifié les vocables monosémiques et nous les avons mis à part dans une liste. Nous avons ensuite fusionné les acceptions désambiguïsées et celles qui ne le nécessitaient pas dans une même liste.
 
 \begin{figure}[htb]
-  \caption{Désambiguïsation des noms des entrées}
-	\label{fig:scriptmember-bloc2}
 \begin{lstlisting}[language=Python]
 # DISAMBIGUATE MEMBERS
 files = [f for f in os.listdir('verbnet') if f[-4:] == '.xml']
@@ -255,6 +253,8 @@ unique_member = {m:ID for ID in members.keys()
 
 unified_dict = {**unique_member, **lexemes} # fuse both dict. to get all members disambiguated
 \end{lstlisting}
+  \caption{Désambiguïsation des noms des entrées}
+	\label{fig:scriptmember-bloc2}
 \end{figure}
 
 \subsubsection{Écriture des verbes dans un fichier \emph{.dict}}
@@ -262,8 +262,6 @@ unified_dict = {**unique_member, **lexemes} # fuse both dict. to get all members
 L'objectif de ce bloc (figure~\ref{fig:scriptmember-bloc3}) est de créer le dictionnaire \emph{members.dict}, qui sera ensuite intégré au \emph{lexicon.dict} en tant que section \texttt{VERBNET MEMBERS}. Pour ce faire, nous classons alphabétiquement les verbes, puis nous assignons à chaque acception sa classe verbale (ex.: \lstinline|order_1 : "get-13.5.1"|) grâce à la fonction \emph{treemember}. Finalement, nous insérons le tout dans le fichier \emph{members.dict}
 
 \begin{figure}[htb]
-  \caption{Écriture des verbes dans le fichier \emph{members.dict}}
-	\label{fig:scriptmember-bloc3}
 \begin{lstlisting}[language=Python]
 # WRITE MEMBERS IN A FILE
 with open('members.dict','w') as f: # open a file
@@ -275,6 +273,8 @@ with open('members.dict','w') as f: # open a file
         f.write('\n')
     f.write('\n}\n')
 \end{lstlisting}
+  \caption{Écriture des verbes dans le fichier \emph{members.dict}}
+	\label{fig:scriptmember-bloc3}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --------- G P C O N    ---------
@@ -297,8 +297,6 @@ Bref, nous avons extrait le plus d'information possible des identifiants des \ac
 Pour cette partie, nous avons construit le dictionnaire de patrons de régime à partir de données que nous avons entrées manuellement. Ainsi, il n'y a pas d'input XML provenant de VerbNet. Toutefois, afin de mieux comprendre la section présente, voici à quoi ressemble l'output prévu pour le script (voir figure~\ref{fig:outputgpcon}).
 
 \begin{figure}[htb]
-  \caption{Output prévu par le script gpcon}
-	\label{fig:outputgpcon}
 \begin{lstlisting}[language=Python]
 gpcon {
 NP_agent_V {
@@ -315,14 +313,14 @@ NP_asset_V_NP_PP_from_out_of {
    III={rel=oblique dpos=N prep="out of"}
 }
 \end{lstlisting}
+  \caption{Output prévu par le script gpcon}
+	\label{fig:outputgpcon}
 \end{figure}
 \subsection{Contenu lexical et syntaxique d'un actant non-étiqueté}
 
 Dans le premier bloc, nous définissons des objets comme \texttt{subj} ou \texttt{dir\_N} qui correspondent à des propriétés syntaxiques qui seraient normalement associées à un actant syntaxique. Par exemple, l'objet \texttt{subj} renvoie aux traits \lstinline|'rel=subjective dpos=N'|. Nous avons ainsi défini toutes les propriétés lexico-syntaxiques possibles des actants que nous avons relevés parmi les identifiants des \acp{GP}. Autrement dit, ces objets correspondent aux éléments constitutifs des \acp{GP}. Ensuite, nous avons créé une fonction pour prendre ces éléments et leur assigner une étiquette selon leur position dans le \ac{GP}. Cela nous évite de décrire les propriétés syntaxiques des actants à chaque patron de régime. Finalement, nous avons décrit tous les patrons de régime en combinant ces éléments: \lstinline|{'NP_agent_V_NP': [subj, dir_N],}|. Le tout est illustré à la figure~\ref{fig:contenulexical}.
 
 \begin{figure}[htb]
-  \caption{Contenu lexical et syntaxique d'un actant non-étiqueté}
-	\label{fig:contenulexical}
 \begin{lstlisting}[language=Python]
 # BLOCK 1 SYNTACTIC ACTANTS PROPERTIES
 #subjective
@@ -344,6 +342,8 @@ for_obl_N = 'rel=oblique dpos=N prep=for'
 against_N = 'rel=oblique dpos=N prep=against'
 ...
 \end{lstlisting}
+  \caption{Contenu lexical et syntaxique d'un actant non-étiqueté}
+	\label{fig:contenulexical}
 \end{figure}
 
 \subsection{Assignation des relations syntaxiques profondes aux actants}

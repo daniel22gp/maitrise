@@ -96,8 +96,6 @@ SimpleNLG a également été adapté à d'autres langues, dont l'espagnol \citep
 La figure~\ref{simplenlg} illustre l'input nécessaire permettant de réaliser la phrase \form{Refactoring is needed}. Elle provient du GitHub de SimpleNLG.\footnote{\url{https://github.com/simplenlg/simplenlg/blob/master/docs/XMLRepresentationOfTextSpecifications.pdf}}
 
 \begin{figure}[htb]
- \caption{Structure d'input permettant de réaliser \form{Refactoring is needed} dans SimpleNLG}
- \label{simplenlg}
 \begin{lstlisting}[language=Xml]
 <Document>
   <child xsi:type="SPhraseSpec">
@@ -119,6 +117,8 @@ La figure~\ref{simplenlg} illustre l'input nécessaire permettant de réaliser l
   </child>
 </Document>
 \end{lstlisting}
+ \caption{Structure d'input permettant de réaliser \form{Refactoring is needed} dans SimpleNLG}
+ \label{simplenlg}
 \end{figure}
 
 \subsubsection{JSrealB}
@@ -148,15 +148,13 @@ JSrealLoader({
 \subsubsection{RealPro}
 RealPro \citep{LavoieFastPortableRealizer1997} est implémenté en \emph{C++} et c'est le plus profond des réalisateurs de surface préséntés ici. Il prend en input des arbres de dépendances, ce qui le distingue des deux autres systèmes qui utilisent des arbres de constituants \citep{DBLP:conf/enlg/MolinsL15,GattSimpleNLGRealisationEngine2009}. Un arbre de dépendance est un arbre non linéarisé dont les arcs et les n\oe{}uds (des lexèmes) sont étiquetés. On appelle ça un arbre syntaxique car les branches liant les n\oe{}uds entre eux correspondent à des relations syntaxiques. Seuls les mots sémantiquement pleins figurent dans l'input (cela exclut les déterminants, prépositions, etc.).
 
-Cette architecture est basée sur la \ac{TST} \citep{melcuk1988}, une théorie linguistique qui a fait ses preuves en \ac{GAT} \citep{iordanskaja88,LavoieFastPortableRealizer1997,WannerMARQUISGENERATIONUSERTAILORED2010,MilledemoFORGePompeu2017,Vicentegeneracionlenguajenatural2015}.
-
-En bref, il s'agit d'une théorie qui divise le langage en quatre niveaux de représentations majeurs: sémantique, syntaxique (profonde et de surface), morphologique (profonde et de surface), phonologique (profonde et de surface) -- ce dernier étant court-circuité pour la génération de texte écrit. Pour plus de détails concernant les arbres de dépendances et la \ac{TST}, voir le chapitre~\ref{chapgendr}.
+Cette architecture est basée sur la \ac{TST} \citep{melcuk1988}, une théorie linguistique qui a fait ses preuves en \ac{GAT} \citep{iordanskaja88,LavoieFastPortableRealizer1997,WannerMARQUISGENERATIONUSERTAILORED2010,MilledemoFORGePompeu2017,Vicentegeneracionlenguajenatural2015}. En bref, il s'agit d'une théorie qui divise le langage en quatre niveaux de représentations majeurs: sémantique, syntaxique (profonde et de surface), morphologique (profonde et de surface), phonologique (profonde et de surface) -- ce dernier étant court-circuité pour la génération de texte écrit. Pour plus de détails concernant les arbres de dépendances et la \ac{TST}, voir le chapitre~\ref{chapgendr}.
 
 RealPro \citep{LavoieFastPortableRealizer1997} a deux grammaires qui permettent successivement de passer d'une représentation profonde à une représentation de surface, puis de celle-ci à une linéarisation morphologique de l'input. Pour effectuer toutes les transitions, le système fait aussi appel à un dictionnaire qui encode les propriétés lexicales et morphosyntaxiques des unités. La figure \ref{fig:RealPro} illustre l'interaction de ces deux ressources pour réaliser du texte.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=1\textwidth, trim = {0cm 0cm 0cm 0cm},clip]{ch2/figs/realpro.pdf}
+	\includegraphics[width=1\textwidth, trim = {0cm 4cm 0cm 0cm},clip]{ch2/figs/realpro.pdf}
 	\caption{Modules dictionnairiques et grammaticaux de RealPro}
 	\label{fig:RealPro}
 \end{figure}
@@ -164,14 +162,14 @@ RealPro \citep{LavoieFastPortableRealizer1997} a deux grammaires qui permettent 
 La figure~\ref{lst:realpro} illustre un arbre de dépendance (l'input) représentant la phrase \form{March had some rain days}; elle provient de \cite{ReiterBuildingNaturalLanguage2000}.
 
 \begin{figure}[htb]
-\caption{Input de la phrase \form{March had some rain days} dans RealPro}
-\label{lst:realpro}
 \begin{lstlisting}[language=mate]
 HAVE1 [tense:past]
 (I March [class:proper-noun]
 II day [class:common-noun numberpl]
 (ATTR rainy [class:adjective]))
 \end{lstlisting}
+\caption{Input de la phrase \form{March had some rain days} dans RealPro}
+\label{lst:realpro}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,8 +217,6 @@ Dans ce système, la grammaire est aussi décrite en termes de \ac{FD}. Ainsi, p
 Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage2000} à la figure~\ref{surge}: \form{March had some rainy days}.
 
 \begin{figure}[htb]
- \caption{FD: input pour réaliser \form{March had some rainy days} dans SURGE}
- \label{surge}
 \begin{lstlisting}[language=mate]
 ((cat clause)
  (proc ((type possessive)))
@@ -230,6 +226,8 @@ Nous reprenons encore un exemple tiré de \cite{ReiterBuildingNaturalLanguage200
 											(describer ((lex rainy)))
 											(selective yes) (number plural)))))
 \end{lstlisting}
+ \caption{FD: input pour réaliser \form{March had some rainy days} dans SURGE}
+ \label{surge}
 \end{figure}
 
 \subsubsection{MARQUIS}\label{sectionmarquis}

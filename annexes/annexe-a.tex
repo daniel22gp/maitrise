@@ -4,7 +4,7 @@
 
 Voici l'échantillon utilisé pour l'évaluation de notre implémentation (voir le chapitre~\ref{ch:eval}). Les structures d’input ont été créées à la main et contre-validées par trois annotateurs. Sauf indication contraire, les structures d'output sont à la fois les structures attendues et celles générées par le système. Dans les cas où nous n'avons pas pu réaliser la structure attendue, nous indiquons par un cadre vert la structure attendue et les structures fautives générées sont indiquées par un cadre rouge quand l'erreur est pertinente pour notre étude, et en orange quand il s'agit d'une erreur qui ne relève pas de notre travail (par exemple, le patron de régime des noms, la génération des pronoms, etc.). Finalement, nous précisons que la relation \texttt{main} qui marque le n\oe{}ud saillant d'un réseau sémantique est occultée dans les figures quand la structure sémantique est déjà hiérarchique (il s'agit alors de la racine).
 
-Parmi cet échantillon, vous verrez parfois un n\oe{}ud \emph{X} suivi d'un chiffre, celui-ci représente la trace du PRO en syntaxe profonde. Cette trace est temporaire et nécessaire pour que la structure profonde soit réalisée puisque le verbe en question nécessite un objet pour être lexicalisé. Il disparaît ensuite en syntaxe de surface. Finalement, vous noterez aussi que les auxiliaires ne sont pas réalisés en syntaxe de surface. Comme ce n'était pas l'objet de notre projet, nous n'avons pas développé une règle de grammaire réalisant les auxiliaires en surface.
+Parmi cet échantillon, certaines structures contiennent un n\oe{}ud étiqueté d'un \emph{X} suivi d'un chiffre. Ces n\oe{}uds représentent un sujet implicite en syntaxe profonde. Ces \scare{n\oe{}uds fantômes} facilitent la création de la structure syntaxique profonde mais disparaissent en syntaxe de surface. Finalement, notez que les auxiliaires ne sont pas réalisés en syntaxe de surface. Comme ce n'était pas l'objet de notre projet, nous n'avons pas développé une règle de grammaire réalisant les auxiliaires en surface.
 
 \begin{tabbing}
 (17)\quad\= \emph{I loved writing.} \\*
@@ -424,9 +424,9 @@ Parmi cet échantillon, vous verrez parfois un n\oe{}ud \emph{X} suivi d'un chif
 \\*
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\colorbox{YellowOrange}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.ssynt}.jpg}}}
-\end{minipage}
-\\*
-\> \begin{minipage}{16cm}
+% \end{minipage}
+% \\*
+% \> \begin{minipage}{16cm}
 % \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.sem}.jpg}}
 % \raisebox{-0.5\height}{~$\Rightarrow$~}
 % \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-667.dsynt}.jpg}}
@@ -491,12 +491,12 @@ Parmi cet échantillon, vous verrez parfois un n\oe{}ud \emph{X} suivi d'un chif
 \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.dsynt}.jpg}}\\*
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\colorbox{YellowOrange}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.ssynt}.jpg}}}
-\end{minipage}
+% \end{minipage}
 \\*
-\> \begin{minipage}{16cm}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.sem}.jpg}}
-\raisebox{-0.5\height}{~$\Rightarrow$~}
-\raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.dsynt}.jpg}}\\*
+% \> \begin{minipage}{16cm}
+% \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.sem}.jpg}}
+% \raisebox{-0.5\height}{~$\Rightarrow$~}
+% \raisebox{-0.5\height}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.dsynt}.jpg}}\\*
 \raisebox{-0.5\height}{~$\Rightarrow$~}
 \raisebox{-0.5\height}{\colorbox{Green}{\includegraphics[scale=0.45]{{annexes/figs/test-eval-777.2.ssynt}.jpg}}}
 \end{minipage}
